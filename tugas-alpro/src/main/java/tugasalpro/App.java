@@ -19,9 +19,7 @@ public final class App {
      */
     public static void main(String[] args) throws IOException, URISyntaxException {
         
-        UserManager userManager = new UserManager();
-        userManager.Save(new User("user1", "password", new UserInfo("name1", "123xxx", "08333333")));
-        userManager.Save(new User("user2", "password", new UserInfo("name2", "24xxxx", "08333322")));
-       
+        RegistrasiPengguna registrasiPengguna = new RegistrasiPengguna();
+        registrasiPengguna.Registrasi();
     }
 }
