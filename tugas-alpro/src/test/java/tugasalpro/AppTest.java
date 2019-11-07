@@ -1,4 +1,4 @@
-package tugas-alpro;
+package tugasalpro;
 
 import org.junit.Test;
 

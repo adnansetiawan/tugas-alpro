@@ -1,6 +1,7 @@
 package tugasalpro;
 
-import main.java.tugasalpro.LoginManager;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * Hello world!
@@ -11,13 +12,15 @@ public final class App {
 
     /**
      * Says hello to the world.
+     * 
      * @param args The arguments of the program.
+     * @throws URISyntaxException
+     * @throws IOException
      */
-    public static void main(String[] args) {
-        LoginManager loginManager = new LoginManager();
-        loginManager.Login("username", "password");
-        System.out.println(loginManager.HasLogin());
-        loginManager.Logout();
-        System.out.println(loginManager.HasLogin());
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        
+        UserManager userManager = new UserManager();
+        userManager.Save(new User("username", "password", new UserInfo("name", "13212314", "08333333")));
+        
     }
 }

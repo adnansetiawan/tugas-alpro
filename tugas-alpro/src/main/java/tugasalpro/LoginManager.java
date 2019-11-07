@@ -1,4 +1,4 @@
-package main.java.tugasalpro;
+package tugasalpro;
 public class LoginManager
 {
     private boolean isLogin;
@@ -10,7 +10,8 @@ public class LoginManager
     {
        this.isLogin = true;
     }
-    public void Logout() {
+    public void Logout()
+    {
         this.isLogin = false;
     }
     
