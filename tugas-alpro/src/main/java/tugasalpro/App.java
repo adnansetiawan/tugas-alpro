@@ -1,5 +1,7 @@
 package tugasalpro;
 
+import main.java.tugasalpro.LoginManager;
+
 /**
  * Hello world!
  */
@@ -12,7 +14,10 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        User user = new User("username", "password");
-        System.out.println("Hello World!");
+        LoginManager loginManager = new LoginManager();
+        loginManager.Login("username", "password");
+        System.out.println(loginManager.HasLogin());
+        loginManager.Logout();
+        System.out.println(loginManager.HasLogin());
     }
 }
