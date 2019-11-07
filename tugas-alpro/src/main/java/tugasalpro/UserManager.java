@@ -8,7 +8,7 @@ public class UserManager {
     public void Save(User user) throws IOException, URISyntaxException
     {
        DbManager dbManager = new DbManager();
-       dbManager.write(DbManager.FileName.Users, "test data");
+       dbManager.write(DbManager.FileName.Users, user);
     }
    
     
