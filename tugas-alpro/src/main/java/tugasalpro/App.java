@@ -2,6 +2,7 @@ package tugasalpro;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Hello world!
@@ -17,9 +18,11 @@ public final class App {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         
-        RegistrasiPengguna registrasiPengguna = new RegistrasiPengguna();
-        registrasiPengguna.Registrasi();
+        //RegistrasiPengguna registrasiPengguna = new RegistrasiPengguna();
+        //registrasiPengguna.Registrasi();
+        UserManager userManager = new UserManager();
+        List<User> users = userManager.GetAll();
     }
 }

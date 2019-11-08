@@ -6,25 +6,27 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import com.google.gson.reflect.TypeToken;
 
 
 public class Repository<T> {
     private String fileName;
-    public Repository(String fileName)
+    private Class<T[]> className;
+    public Repository(String fileName, Class<T[]> className)
     {
         this.fileName = fileName;
+        this.className = className;
     }
     private File getFileFromResources(String fileName) {
 
@@ -38,7 +40,7 @@ public class Repository<T> {
         }
 
     }
-    public void save(T data) throws IOException, URISyntaxException 
+    public void save(T data)
     {
         File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -50,20 +52,29 @@ public class Repository<T> {
         }
         existingData.add(data);
         String jsonContent = gson.toJson(existingData, type);
-        FileWriter fr = new FileWriter(file, false);
-        fr.write(jsonContent);
-        fr.close();
+        try {
+            FileWriter fr = new FileWriter(file, false);
+            fr.write(jsonContent);
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       
         
     }
-    public List<T> getAll() throws IOException, URISyntaxException 
+    public List<T> getAll() 
     {
         File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        byte[] byteData = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+        byte[] byteData=null;
+        try {
+            byteData = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String jsonStr = new String(byteData);
-        Type type = new TypeToken<List<T>>() {}.getType();  
-        List<T> jsonContent =  gson.fromJson(jsonStr, type);
-        return jsonContent;
+        T[] result = gson.fromJson(jsonStr, this.className);
+        return Arrays.asList(result);
         
     }
 }

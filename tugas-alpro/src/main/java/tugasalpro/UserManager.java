@@ -3,22 +3,22 @@ package tugasalpro;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
+
 
 public class UserManager {
 
     private Repository<User> repository;
     public UserManager()
     {
-        repository = new Repository<User>("Users");
+        repository = new Repository<User>("Users", User[].class);
     }
     
-    public void Save(User user) throws IOException, URISyntaxException
+    public void Save(User user)
     {
          repository.save(user);  
     
     }
-    public List<User> GetAll() throws IOException, URISyntaxException
+    public List<User> GetAll()
     {
         return repository.getAll();
     }
