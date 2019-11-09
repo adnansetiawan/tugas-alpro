@@ -116,7 +116,8 @@ public class ProfilePenggunaPage
        String password = InputPassword(true);
        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
        userManager.Add(new User(userName, password, userInfo));
-       
+       LoginPage loginPage =new LoginPage();
+       loginPage.showLogin();
        
     }
     public void ShowProfile()
