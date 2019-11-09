@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -40,7 +41,7 @@ public class Repository<T> {
         }
 
     }
-    public void save(T data)
+    public void add(T data)
     {
         File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -51,6 +52,24 @@ public class Repository<T> {
             existingData = new ArrayList<T>();
         }
         existingData.add(data);
+        String jsonContent = gson.toJson(existingData, type);
+        try {
+            FileWriter fr = new FileWriter(file, false);
+            fr.write(jsonContent);
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       
+        
+    }
+    public void update(List<T> data)
+    {
+        File file = getFileFromResources(this.fileName.toString()+".json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Type type = new TypeToken<List<T>>() {}.getType();  
+        List<T> existingData = getAll();
+        existingData = data; 
         String jsonContent = gson.toJson(existingData, type);
         try {
             FileWriter fr = new FileWriter(file, false);
@@ -74,7 +93,7 @@ public class Repository<T> {
         }
         String jsonStr = new String(byteData);
         T[] result = gson.fromJson(jsonStr, this.className);
-        return Arrays.asList(result);
+        return new LinkedList<T>(Arrays.asList(result));
         
     }
 }

@@ -20,6 +20,7 @@ public class LoginManager
            this.isLogin = false;
        }else
        {
+
            if(!user.getPassword().equals(password))
            {
                 System.out.println("username or password is wrong");
