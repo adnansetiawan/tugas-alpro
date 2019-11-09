@@ -8,8 +8,6 @@ public class Kereta {
     private Gerbong[] arrGBisnis;
     private Gerbong[] arrGPremium;
 
-
-
     public Kereta() {
     }
 
@@ -113,9 +111,4 @@ public class Kereta {
         this.arrGPremium = arrGPremium;
         return this;
     }
-
-
-    
-
-
 }
