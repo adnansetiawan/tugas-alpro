@@ -22,7 +22,7 @@ public final class App {
         
         //RegistrasiPengguna registrasiPengguna = new RegistrasiPengguna();
         //registrasiPengguna.Registrasi();
-        UserManager userManager = new UserManager();
-        List<User> users = userManager.GetAll();
+        LoginPage loginPage = new LoginPage();
+        loginPage.ShowLogin();
     }
 }

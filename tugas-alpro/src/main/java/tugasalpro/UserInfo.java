@@ -4,6 +4,7 @@ class UserInfo
     private String nama;
     private String ktp;
     private String handphone;
+    
     public UserInfo(String nama, String ktp, String handphone)
     {
         this.nama = nama;
