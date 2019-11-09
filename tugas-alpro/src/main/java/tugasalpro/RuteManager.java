@@ -8,12 +8,12 @@ public class RuteManager {
      private Repository<Rute> repository;
     public RuteManager()
     {
-        repository = new Repository<Rute>("Rute");
+        repository = new Repository<Rute>("Rute", Rute[].class);
     }
     
     public void Save(Rute rute) throws IOException, URISyntaxException
     {
-         repository.save(rute);  
+         repository.add(rute);  
     
     }
     public List<Rute> GetAll() throws IOException, URISyntaxException

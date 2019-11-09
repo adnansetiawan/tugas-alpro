@@ -8,12 +8,12 @@ public class KotaManager {
      private Repository<Kota> repository;
     public KotaManager()
     {
-        repository = new Repository<Kota>("Kota");
+        repository = new Repository<Kota>("Kota", Kota[].class);
     }
     
     public void Save(Kota kota) throws IOException, URISyntaxException
     {
-         repository.save(kota);  
+         repository.add(kota);  
     
     }
     public List<Kota> GetAll() throws IOException, URISyntaxException

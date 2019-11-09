@@ -1,7 +1,6 @@
 
 package tugasalpro;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -93,6 +92,8 @@ public class Repository<T> {
         }
         String jsonStr = new String(byteData);
         T[] result = gson.fromJson(jsonStr, this.className);
+        if(result == null)
+            return new LinkedList<T>();
         return new LinkedList<T>(Arrays.asList(result));
         
     }
