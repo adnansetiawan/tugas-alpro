@@ -1,13 +1,14 @@
 package tugasalpro;
 
+import java.util.List;
 import java.util.Scanner;
 import java.lang.String;
 
-public class StasiunPage{
+public class StasiunMenu{
     private StasiunManager stasiunManager;
     Scanner scanner;
       
-    public StasiunPage(){
+    public StasiunMenu(){
         stasiunManager = new StasiunManager();
         scanner = new Scanner(System.in);
     }
@@ -28,7 +29,7 @@ public class StasiunPage{
         int pilihan = scanner.nextInt();
         switch(pilihan){
             case 1:
-                ShowTambahDataStasiun();
+                showTambahDataStasiun();
                 break;
             case 2:
                 //Lihat Data Stasiun
@@ -51,7 +52,7 @@ public class StasiunPage{
         System.out.print("Tambah Data Stasiun : ");
         String masukan = scanner.nextLine();
         System.out.println("----------------------------------------");
-        String input[] = foo.split(" ",2);
+        /*String input[] = foo.split(" ",2);
         if (input[1]!=null){
             Stasiun stasiun = new Stasiun(input[0],input[1]);
             System.out.println("Stasiun Berhasil Ditambahkan");
@@ -59,7 +60,7 @@ public class StasiunPage{
             System.out.println("Stasiun Gagal Ditambahkan");
         }
         System.out.println("----------------------------------------");
-        showStasiunMenu();
+        showStasiunMenu();*/
     }
     
     public void showDataStasiun(){
@@ -67,7 +68,7 @@ public class StasiunPage{
         System.out.println("----------------------------------------");
         List<Stasiun> listStasiun = stasiunManager.getAll();
         for(int i=0;i<stasiunManager.getAll().size();i++){
-            System.out.println("%-5d%-25d%-50d",i+1,listStasiun[i].getKodeStasiun(),listStasiun[i].getNamaStasiun());
+            //System.out.println("%-5d%-25d%-50d",i+1,listStasiun[i].getKodeStasiun(),listStasiun[i].getNamaStasiun());
         }
         System.out.println("\n----------------------------------------");
     }
@@ -83,7 +84,7 @@ public class StasiunPage{
         showDataStasiun();
         System.out.print("Edit Stasiun : ");
         String masukan = scanner.nextLine();
-        String input[] = foo.split("_",2);
+        /*String input[] = foo.split("_",2);
         if (input[0].equals("EDIT")){
             Stasiun stasiun = stasiunManager.getByKodeStasiun(input[1]);
             if(stasiun!=null){
@@ -92,7 +93,7 @@ public class StasiunPage{
                 System.out.print("Nama Stasiun : ");
                 String nK = scanner.nextLine();
                 Stasiun stn = new Stasiun(kK,nK);
-                stasiunManager.edit(input[1],stn);
+                //stasiunManager.edit(input[1],stn);
                 System.out.println("Stasiun Berhasil Diedit");
             }else{
                 System.out.println("Kode Stasiun Tidak Ditemukan, Stasiun Gagal Diedit");
@@ -100,14 +101,14 @@ public class StasiunPage{
         }else{
             System.out.println("Format Salah, Stasiun Gagal Diedit");
         }
-        showStasiunMenu();
+        showStasiunMenu();*/
     }
 
     public void showDeleteDataStasiun(){
         showDataStasiun();
         System.out.print("Delete Stasiun : ");
         String masukan = scanner.nextLine();
-        String input[] = foo.split("_",2);
+        /*String input[] = foo.split("_",2);
         if (input[0].equals("DELETE")){
             Stasiun stasiun = stasiunManager.getByKodeStasiun(input[1]);
             if(stasiun!=null){
@@ -118,7 +119,7 @@ public class StasiunPage{
             }
         }else{
             System.out.println("Format Salah, Stasiun Gagal Dihapus");
-        }
+        }*/
 
     }
 }

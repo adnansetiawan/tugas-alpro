@@ -6,7 +6,7 @@ public class Kursi {
     public Kursi() {
     }
 
-    public Kursi(String kodeKursi, int isAvailable) {
+    public Kursi(String kodeKursi, Boolean isAvailable) {
         this.kodeKursi = kodeKursi;
         this.isAvailable = isAvailable;
     }
@@ -32,7 +32,7 @@ public class Kursi {
         return this;
     }
 
-    public Kursi isAvailable(int isAvailable) {
+    public Kursi isAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
         return this;
     }

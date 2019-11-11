@@ -7,7 +7,7 @@ public class StasiunManager{
     private Repository<Stasiun> repository;
 
     public StasiunManager(){
-        repository=new Repository<Stasiun>("listStasiun".Stasiun[].class)
+        repository=new Repository<Stasiun>("listStasiun",Stasiun[].class);
     }
 
     public void add(Stasiun stasiun){
@@ -20,7 +20,7 @@ public class StasiunManager{
 
     public Stasiun getByKodeStasiun(String kodeStasiun){
         List<Stasiun> listStasiun = repository.getAll();
-        Optional<Stasiun> selectedStasiun = listStasiun.stream().filter(x->x.getKodeStasiun().equals(kodeStasiun).findFirst());
+        Optional<Stasiun> selectedStasiun = listStasiun.stream().filter(x->x.getKodeStasiun().equals(kodeStasiun)).findFirst();
         if (selectedStasiun.isPresent()){
             return selectedStasiun.get();
         }else{
@@ -28,7 +28,7 @@ public class StasiunManager{
         }
     }
 
-    public void edit(String kodeStasiunLama, Stasiun stnBaru){
+    /*public void edit(String kodeStasiunLama, Stasiun stnBaru){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         do{
@@ -47,9 +47,9 @@ public class StasiunManager{
         catch(Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public void delete(String kodeStasiun){
+    /*public void delete(String kodeStasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         do{
@@ -67,5 +67,5 @@ public class StasiunManager{
         catch(Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 }
