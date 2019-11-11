@@ -3,15 +3,16 @@ package tugasalpro;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 public class RuteManager {
-     private Repository<Rute> repository;
+    private Repository<Rute> repository;
     public RuteManager()
     {
         repository = new Repository<Rute>("Rute", Rute[].class);
     }
     
-    public void Save(Rute rute) throws IOException, URISyntaxException
+    public void add(Rute rute) throws IOException, URISyntaxException
     {
          repository.add(rute);  
     
@@ -21,21 +22,91 @@ public class RuteManager {
         return repository.getAll();
     }
 
+    public Rute GetByKodeRute(String kodeRute)
+    {
+        List<Rute> listRute = repository.getAll();
+        Optional<Rute> selectedRute = 
+            listRute.stream().filter(x->x.getKodeRute().equals(kodeRute)).findFirst();
+        if(selectedRute.isPresent())
+            return selectedRute.get();
+        return null;
 
-    public void add() {
+    }
+    public Rute GetByNamaKotaAsal(String namaKota)
+    {
+        List<Rute> listRute = repository.getAll();
+        Optional<Rute> selectedRute = 
+            listRute.stream().filter(x->x.getKotaAsal().getNamaKota().equals(namaKota)).findFirst();
+        if(selectedRute.isPresent())
+            return selectedRute.get();
+        return null;
 
     }
 
-    public void view() {
+    public Rute GetByNamaKotaTujuan(String namaKota)
+    {
+        List<Rute> listRute = repository.getAll();
+        Optional<Rute> selectedRute = 
+            listRute.stream().filter(x->x.getKotaTujuan().getNamaKota().equals(namaKota)).findFirst();
+        if(selectedRute.isPresent())
+            return selectedRute.get();
+        return null;
 
     }
 
-    public void edit() {
-
+    public void edit(Rute rute)
+    {
+        List<Rute> listRute = repository.getAll();
+        int indexFound = -1;
+        for(int i = 0; i< listRute.size(); i++)
+        {
+            Rute kta = listRute.get(i);
+            
+            if(kta.getKodeRute().equals(rute.getKodeRute()))
+            {
+                indexFound = i;
+                break;
+            }
+        }
+            if (indexFound != -1) {
+            try {
+                listRute.remove(indexFound);
+                listRute.add(rute);
+                repository.update(listRute);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+      
     }
 
-    public void del() {
-
+    public void delete(Rute rute)
+    {
+        List<Rute> listRute = repository.getAll();
+        int indexFound = -1;
+        for(int i = 0; i< listRute.size(); i++)
+        {
+            Rute kta = listRute.get(i);
+            
+            if(kta.getKodeRute().equals(rute.getKodeRute()))
+            {
+                indexFound = i;
+                break;
+            }
+        }
+            if (indexFound != -1) {
+            try {
+                listRute.remove(indexFound);
+                repository.update(listRute);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+      
     }
 
 }

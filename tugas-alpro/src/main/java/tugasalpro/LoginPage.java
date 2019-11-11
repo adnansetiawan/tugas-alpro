@@ -1,18 +1,18 @@
 package tugasalpro;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
-public class LoginPage
-{
+public class LoginPage {
     private LoginManager loginManager;
     private MenuManager menuManager;
     Scanner scanner;
-      
-    public LoginPage()
-    {
+
+    public LoginPage() {
         loginManager = new LoginManager();
         menuManager = new MenuManager();
-       
+
     }
 
     private void login()
