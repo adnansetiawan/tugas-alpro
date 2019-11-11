@@ -1,47 +1,71 @@
 package tugasalpro;
-import java.util.ArrayList;
+
+import java.util.List;
+import java.util.Optional;
 
 public class StasiunManager{
-    private Stasiun[] arrStasiun;
+    private Repository<Stasiun> repository;
 
     public StasiunManager(){
-        ArrayList<Stasiun> arrStasiun = new ArrayList<Stasiun>();
+        repository=new Repository<Stasiun>("listStasiun".Stasiun[].class)
     }
 
-    public Stasiun[] getArrStasiun(){
-        return arrStasiun;
+    public void add(Stasiun stasiun){
+        repository.add(stasiun);
     }
 
-    public void add(Stasiun s){
-        arrStasiun.add(s);
+    public List<Stasiun> getAll(){
+        return repository.getAll();
     }
 
-    public void view(){
-        int i;
-        for (i=0;i<arrStasiun.size();i++){
-            arrStasiun[i].printStasiun();
+    public Stasiun getByKodeStasiun(String kodeStasiun){
+        List<Stasiun> listStasiun = repository.getAll();
+        Optional<Stasiun> selectedStasiun = listStasiun.stream().filter(x->x.getKodeStasiun().equals(kodeStasiun).findFirst());
+        if (selectedStasiun.isPresent()){
+            return selectedStasiun.get();
+        }else{
+            return null;
         }
     }
 
-    public int searchIdx(String kS){
-        int i=0;
-        boolean found=false;
-        while (!found){
-            if (arrStasiun[i].getKodeStasiun().==kS){
-                found=true;
+    public void edit(Stasiun stasiun){
+        List<Stasiun> listStasiun = repository.getAll();
+        int indexFound=-1;
+        do{
+            Stasiun stn = listStasiun.get(i);
+            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
+                indexFound=i;
             }else{
                 i++;
             }
+        }while(indexFound==-1);
+        try{
+            listStasiun.remove(indexFound);
+            listStasiun.add(stasiun);
+            repository.update(listStasiun);
         }
-        return i;
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public void edit(int idx, String kS, String nS){
-        arrStasiun[idx].setKodeStasiun(kS);
-        arrStasiun[idx].setNamaStasiun(nS);
-    }
-
-    public void del(){
-        arrStasiun.remove(arrStasiun.size()-1);
+    public void delete(Stasiun stasiun){
+        List<Stasiun> listStasiun = repository.getAll();
+        int indexFound=-1;
+        do{
+            Stasiun stn = listStasiun.get(i);
+            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
+                indexFound=i;
+            }else{
+                i++;
+            }
+        }while(indexFound==-1);
+        try{
+            listStasiun.remove(indexFound);
+            repository.update(listStasiun);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

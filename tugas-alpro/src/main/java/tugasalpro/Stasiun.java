@@ -27,8 +27,4 @@ public class Stasiun {
     public String getNamaStasiun(){
         return namaStasiun;
     }
-
-    public void printStasiun(){
-        System.out.println(kodeStasiun+" "+namaStasiun);
-    }
 }
