@@ -28,12 +28,12 @@ public class StasiunManager{
         }
     }
 
-    public void edit(Stasiun stasiun){
+    public void edit(String kodeStasiunLama, Stasiun stnBaru){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         do{
             Stasiun stn = listStasiun.get(i);
-            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
+            if(stn.getKodeStasiun().equals(kodeStasiunLama)){
                 indexFound=i;
             }else{
                 i++;
@@ -41,7 +41,7 @@ public class StasiunManager{
         }while(indexFound==-1);
         try{
             listStasiun.remove(indexFound);
-            listStasiun.add(stasiun);
+            listStasiun.add(stnBaru);
             repository.update(listStasiun);
         }
         catch(Exception e){
@@ -49,12 +49,12 @@ public class StasiunManager{
         }
     }
 
-    public void delete(Stasiun stasiun){
+    public void delete(String kodeStasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         do{
             Stasiun stn = listStasiun.get(i);
-            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
+            if(stn.getKodeStasiun().equals(kodeStasiun){
                 indexFound=i;
             }else{
                 i++;
