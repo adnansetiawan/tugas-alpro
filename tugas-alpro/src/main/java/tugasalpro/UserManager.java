@@ -12,9 +12,9 @@ public class UserManager {
         repository = new Repository<User>("Users", User[].class);
     }
     
-    public void Save(User user)
+    public void Add(User user)
     {
-         repository.save(user);  
+         repository.add(user);  
     
     }
     public List<User> GetAll()
@@ -40,6 +40,37 @@ public class UserManager {
             return selectedUser.get();
         return null;
 
+    }
+    public void Update(User user)
+    {
+        List<User> users = repository.getAll();
+        int indexFound = -1;
+        for(int i = 0; i< users.size(); i++)
+        {
+            User usr = users.get(i);
+            if(usr.isAdmin())
+                continue;
+            if(usr.getUserInfo().geKtp().equals(user.getUserInfo().geKtp()))
+            {
+                indexFound = i;
+                break;
+            }
+        }
+            if(indexFound == -1)
+            return;
+            try
+            {
+                users.remove(indexFound);
+                users.add(user);
+                repository.update(users);
+                ApplicationSession.setLoggedUser(user);
+           }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        
+      
     }
   
    

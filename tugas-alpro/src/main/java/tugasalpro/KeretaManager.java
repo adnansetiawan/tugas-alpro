@@ -1,7 +1,5 @@
 package tugasalpro;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,21 +7,22 @@ public class KeretaManager {
     private Repository<Kereta> repository;
     public KeretaManager()
     {
-        repository = new Repository<Kereta>("Keretas", Kereta[].class);
+       repository = new Repository<Kereta>("Kereta", Kereta[].class);
+
     }
     
-    public void Save(Kereta kereta) throws IOException, URISyntaxException
+    public void Save(Kereta kereta)
     {
-         repository.save(kereta);  
+         repository.add(kereta);  
     
     }
-    public List<Kereta> GetAll() throws IOException, URISyntaxException
+    public List<Kereta> GetAll()
     {
         return repository.getAll();
     }
 
 
-    public Kereta getByKodeKereta(String kodeKereta) throws IOException, URISyntaxException
+    public Kereta getByKodeKereta(String kodeKereta)
     {
         List<Kereta> keretas = repository.getAll();
         Optional<Kereta> selectedKereta = keretas.stream().filter(x->x.getKodeKereta().equals(kodeKereta)).findFirst();
