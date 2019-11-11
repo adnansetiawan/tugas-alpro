@@ -1,21 +1,31 @@
 package tugasalpro;
 public class Rute {
+    private String kodeRute;
     private Kota kotaAsal;
     private Kota kotaTujuan;
     private int hargaBisnis;
     private int hargaPremium;
-    private Kereta[] keretaRute;
+    private Repository<KeretaRute> keretaRute;
 
 
     public Rute() {
     }
 
-    public Rute(Kota kotaAsal, Kota kotaTujuan, int hargaBisnis, int hargaPremium, Kereta[] keretaRute) {
+    public Rute(String kodeRute, Kota kotaAsal, Kota kotaTujuan, int hargaBisnis, int hargaPremium, Repository<KeretaRute> keretaRute) {
+        this.kodeRute = kodeRute;
         this.kotaAsal = kotaAsal;
         this.kotaTujuan = kotaTujuan;
         this.hargaBisnis = hargaBisnis;
         this.hargaPremium = hargaPremium;
         this.keretaRute = keretaRute;
+    }
+
+    public String getKodeRute() {
+        return this.kodeRute;
+    }
+
+    public void setKodeRute(String kodeRute) {
+        this.kodeRute = kodeRute;
     }
 
     public Kota getKotaAsal() {
@@ -50,12 +60,17 @@ public class Rute {
         this.hargaPremium = hargaPremium;
     }
 
-    public Kereta[] getKeretaRute() {
+    public Repository<KeretaRute> getKeretaRute() {
         return this.keretaRute;
     }
 
-    public void setKeretaRute(Kereta[] keretaRute) {
+    public void setKeretaRute(Repository<KeretaRute> keretaRute) {
         this.keretaRute = keretaRute;
+    }
+
+    public Rute kodeRute(String kodeRute) {
+        this.kodeRute = kodeRute;
+        return this;
     }
 
     public Rute kotaAsal(Kota kotaAsal) {
@@ -78,11 +93,9 @@ public class Rute {
         return this;
     }
 
-    public Rute keretaRute(Kereta[] keretaRute) {
+    public Rute keretaRute(Repository<KeretaRute> keretaRute) {
         this.keretaRute = keretaRute;
         return this;
     }
-
-  
 
 }
