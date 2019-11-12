@@ -34,11 +34,18 @@ public class ProfilePenggunaPage
     {
         String nomorKtp;
         boolean ktpIsValid = false;
+        scanner = new Scanner(System.in);
+      
         do
         {
             System.out.print("Nomor KTP :");
             nomorKtp = scanner.nextLine();
             ktpIsValid = CheckKtp(nomorKtp);
+            if(!ktpIsValid)
+            {
+                System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
+           
+            }
         }while(!ktpIsValid);
         return nomorKtp;
     }
@@ -46,12 +53,17 @@ public class ProfilePenggunaPage
     {
         String nama;
         boolean namaLengkapIsValid = false;
-      
+        scanner = new Scanner(System.in);
         do
         {
             System.out.print("Nama Lengkap :");
             nama = scanner.nextLine();
             namaLengkapIsValid = CheckName(nama);
+            if(!namaLengkapIsValid)
+            {
+                System.out.println("nama hanya boleh mengandung huruf dan spasi");
+           
+            }
         }while(!namaLengkapIsValid);
         return nama;
     }
@@ -65,7 +77,11 @@ public class ProfilePenggunaPage
             System.out.print("Nomor Handphone :");
             nomorHp = scanner.nextLine();
             nomorHandphoneIsValid = CheckHandphone(nomorHp);
-            
+            if(!nomorHandphoneIsValid)
+            {
+                System.out.println("format handphone salah, hanya boleh angka, min : 11 dan max: 12 digit");
+           
+            }
         }while(!nomorHandphoneIsValid);
         return nomorHp;
     }
@@ -79,7 +95,11 @@ public class ProfilePenggunaPage
             System.out.print("Email :");
             userName = scanner.nextLine();
             emailIsValid = CheckUsername(userName);
-            
+            if(!emailIsValid)
+            {
+                System.out.println("format email salah, silahkan coba lagi");
+           
+            }
         }while(!emailIsValid);
         return userName;
     }
@@ -109,7 +129,7 @@ public class ProfilePenggunaPage
     public void Registrasi()
     {
         System.out.println("#REGISTER SISTEM#");
-    String nomorKtp =  InputKtp();
+       String nomorKtp =  InputKtp();
        String nama = InputNama();
        String nomorHp = InputHandphone();
        String userName = InputEmail();
@@ -117,12 +137,11 @@ public class ProfilePenggunaPage
        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
        userManager.Add(new User(userName, password, userInfo));
        LoginPage loginPage =new LoginPage();
-       loginPage.showLogin();
+       loginPage.showWelcome();
        
     }
-    public void ShowProfile()
+    public void ShowProfile(User user)
     {
-        User user = ApplicationSession.getLoggedUser();
         System.out.println("-- Data Pengguna --");
         System.out.println("No KTP :" +user.getUserInfo().geKtp());
         System.out.println("Nama Lengkap :" +user.getUserInfo().geName());
@@ -134,17 +153,54 @@ public class ProfilePenggunaPage
     public void ShowUpdatePenggunaPage()
     {
         User user = ApplicationSession.getLoggedUser();
-        ShowProfile();
-        System.out.println("#KELOLA PROFILE BY PENUMPANG#");
+           
+        if(user.isAdmin())
+        {
+            System.out.println("#KELOLA PROFILE BY ADMIN#");
+      
+        }else
+        {
+             System.out.println("#KELOLA PROFILE BY PENUMPANG#");
+        }
+        System.out.println(""); 
         System.out.println("-- Ubah Data Pengguna --");
+        String noKtp = null;
+        if(user.isAdmin())
+        {
+            boolean isUserByKtpFound=false;
+            User userByKtp= null; 
+            do
+            {
+                noKtp = InputKtp();
+                userByKtp = userManager.GetByKtp(noKtp);
+                isUserByKtpFound = userByKtp != null;
+                if(userByKtp == null)
+                {
+                    System.out.println("Tidak Ada Nomor KTP dalam sistem, silahkan coba lagi");
+                }
+             }while(!isUserByKtpFound);
+             System.out.println(""); 
+             ShowProfile(userByKtp);
+
+        }else
+        {
+            noKtp = user.getUserInfo().geKtp();
+            System.out.println(""); 
+            ShowProfile(user);
+        }
+        System.out.println("#UBAH DATA PENGGUNA#");
+        System.out.println(""); 
         String nama = InputNama();
         String nomorHp = InputHandphone();
         String userName = InputEmail();
         String password = InputPassword(false);
-        UserInfo userInfo = new UserInfo(nama, user.getUserInfo().geKtp(), nomorHp);
-        userManager.Update(new User(userName, password, userInfo));
+        UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
+        User newUser = new User(userName, password, userInfo);
+        userManager.Update(newUser);
+        System.out.println(""); 
         System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
-        ShowProfile();
+        System.out.println(""); 
+        ShowProfile(newUser);
        
     }
 }

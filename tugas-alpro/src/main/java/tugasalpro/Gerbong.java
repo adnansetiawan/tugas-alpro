@@ -3,7 +3,6 @@ public class Gerbong {
     private Kursi[] arrKursi;
     private String kategori;
    
-
     public Gerbong() {
     }
 
@@ -37,8 +36,4 @@ public class Gerbong {
         this.kategori = kategori;
         return this;
     }
-
-    
-    
-
 }

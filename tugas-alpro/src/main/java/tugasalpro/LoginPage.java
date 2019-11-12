@@ -1,22 +1,27 @@
 package tugasalpro;
 
+
 import java.util.Scanner;
 
-public class LoginPage
-{
+public class LoginPage {
     private LoginManager loginManager;
     private MenuManager menuManager;
     Scanner scanner;
-      
-    public LoginPage()
-    {
+
+    public LoginPage() {
         loginManager = new LoginManager();
         menuManager = new MenuManager();
-       
-    }
 
-    private void login()
+    }
+    public void Logout()
     {
+        loginManager.Logout();
+        System.out.println("logout success");
+        showWelcome();
+    }
+    private void showLogin()
+    {
+        System.out.println("#LOGIN#");
         String username;
         String password;
         do
@@ -41,9 +46,10 @@ public class LoginPage
             }
         }
     }
-    public void showLogin()
+    
+    public void showWelcome()
     {
-        System.out.println("#LOGIN SISTEM#");
+        System.out.println("#SELAMAT DATANG#");
         int pilihan=-1;
         scanner= new Scanner(System.in);
         ///Using default user: admin, password admin for login as admin
@@ -57,7 +63,7 @@ public class LoginPage
         switch(pilihan)
         {
             case 1:
-                login();
+                showLogin();
                 break;
             case 2:
                 ProfilePenggunaPage registrasiPenggunaPage = new ProfilePenggunaPage();

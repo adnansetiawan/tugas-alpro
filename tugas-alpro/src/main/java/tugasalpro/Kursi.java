@@ -1,13 +1,12 @@
 package tugasalpro;
 public class Kursi {
     private String kodeKursi;
-    private int isAvailable;
-
+    private Boolean isAvailable;
 
     public Kursi() {
     }
 
-    public Kursi(String kodeKursi, int isAvailable) {
+    public Kursi(String kodeKursi, Boolean isAvailable) {
         this.kodeKursi = kodeKursi;
         this.isAvailable = isAvailable;
     }
@@ -20,11 +19,11 @@ public class Kursi {
         this.kodeKursi = kodeKursi;
     }
 
-    public int getIsAvailable() {
+    public Boolean getIsAvailable() {
         return this.isAvailable;
     }
 
-    public void setIsAvailable(int isAvailable) {
+    public void setIsAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
 
@@ -33,7 +32,7 @@ public class Kursi {
         return this;
     }
 
-    public Kursi isAvailable(int isAvailable) {
+    public Kursi isAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
         return this;
     }

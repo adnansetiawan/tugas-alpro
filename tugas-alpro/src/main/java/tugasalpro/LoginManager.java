@@ -44,6 +44,7 @@ public class LoginManager
     {
         ApplicationSession.setLoggedUser(null);
         this.isLogin = false;
+        
     }
     
 }

@@ -15,6 +15,6 @@ public final class App {
     public static void main(String[] args) {
         
         LoginPage loginPage = new LoginPage();
-        loginPage.showLogin();
+        loginPage.showWelcome();
     }
 }
