@@ -19,8 +19,7 @@ public class StasiunPage{
         showMenu();
     }
 
-    public void showMenu()
-    {
+    public void showMenu(){
         int pilihan = 0;
         do{
             System.out.println("\n1.  Tambah Data Stasiun");
@@ -51,22 +50,17 @@ public class StasiunPage{
         }while(pilihan!=99);
     }
 
-    public void menuTambah() 
-    {
+    public void menuTambah(){
         System.out.println("#TAMBAH DATA STASIUN#");
         Stasiun stasiun = new Stasiun();
         System.out.print("Tambah Data Stasiun : ");
         stasiun.setKodeStasiun(scanner.next());
-        stasiun.setNamaStasiun(scanner.next());
+        stasiun.setNamaStasiun(scanner.nextLine());
         stasiunManager.add(stasiun);
         System.out.println("----------------------------------------");
         System.out.println("Stasiun Berhasil Ditambahkan");
         System.out.println("----------------------------------------");
-<<<<<<< HEAD
         showMenu();
-=======
-        showMenuTampil();
->>>>>>> 72454c351bfd297603cb62ea4168dab0dcdac0ca
     }
     
     public void menuTampil(){
@@ -118,8 +112,7 @@ public class StasiunPage{
         stasiunManager.add(stasiun);
     }
 
-    public void menuHapus() 
-    {
+    public void menuHapus(){
         System.out.println("#DELETE DATA STASIUN#");
         menuTampil();
         String kodeStasiun=null;
