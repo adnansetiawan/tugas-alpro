@@ -1,7 +1,6 @@
 package tugasalpro;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.util.Scanner;
 
 public class LoginPage {
@@ -14,7 +13,12 @@ public class LoginPage {
         menuManager = new MenuManager();
 
     }
-
+    public void Logout()
+    {
+        loginManager.Logout();
+        System.out.println("logout success");
+        showWelcome();
+    }
     private void showLogin()
     {
         System.out.println("#LOGIN#");

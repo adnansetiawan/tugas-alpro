@@ -162,6 +162,7 @@ public class ProfilePenggunaPage
         {
              System.out.println("#KELOLA PROFILE BY PENUMPANG#");
         }
+        System.out.println(""); 
         System.out.println("-- Ubah Data Pengguna --");
         String noKtp = null;
         if(user.isAdmin())
@@ -178,14 +179,17 @@ public class ProfilePenggunaPage
                     System.out.println("Tidak Ada Nomor KTP dalam sistem, silahkan coba lagi");
                 }
              }while(!isUserByKtpFound);
+             System.out.println(""); 
              ShowProfile(userByKtp);
 
         }else
         {
             noKtp = user.getUserInfo().geKtp();
+            System.out.println(""); 
             ShowProfile(user);
         }
         System.out.println("#UBAH DATA PENGGUNA#");
+        System.out.println(""); 
         String nama = InputNama();
         String nomorHp = InputHandphone();
         String userName = InputEmail();
@@ -193,7 +197,9 @@ public class ProfilePenggunaPage
         UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
         User newUser = new User(userName, password, userInfo);
         userManager.Update(newUser);
+        System.out.println(""); 
         System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
+        System.out.println(""); 
         ShowProfile(newUser);
        
     }
