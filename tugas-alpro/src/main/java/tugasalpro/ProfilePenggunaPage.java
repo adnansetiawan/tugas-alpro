@@ -41,6 +41,11 @@ public class ProfilePenggunaPage
             System.out.print("Nomor KTP :");
             nomorKtp = scanner.nextLine();
             ktpIsValid = CheckKtp(nomorKtp);
+            if(!ktpIsValid)
+            {
+                System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
+           
+            }
         }while(!ktpIsValid);
         return nomorKtp;
     }
@@ -54,6 +59,11 @@ public class ProfilePenggunaPage
             System.out.print("Nama Lengkap :");
             nama = scanner.nextLine();
             namaLengkapIsValid = CheckName(nama);
+            if(!namaLengkapIsValid)
+            {
+                System.out.println("nama hanya boleh mengandung huruf dan spasi");
+           
+            }
         }while(!namaLengkapIsValid);
         return nama;
     }
@@ -67,7 +77,11 @@ public class ProfilePenggunaPage
             System.out.print("Nomor Handphone :");
             nomorHp = scanner.nextLine();
             nomorHandphoneIsValid = CheckHandphone(nomorHp);
-            
+            if(!nomorHandphoneIsValid)
+            {
+                System.out.println("format handphone salah, hanya boleh angka, min : 11 dan max: 12 digit");
+           
+            }
         }while(!nomorHandphoneIsValid);
         return nomorHp;
     }
@@ -81,7 +95,11 @@ public class ProfilePenggunaPage
             System.out.print("Email :");
             userName = scanner.nextLine();
             emailIsValid = CheckUsername(userName);
-            
+            if(!emailIsValid)
+            {
+                System.out.println("format email salah, silahkan coba lagi");
+           
+            }
         }while(!emailIsValid);
         return userName;
     }
@@ -111,7 +129,7 @@ public class ProfilePenggunaPage
     public void Registrasi()
     {
         System.out.println("#REGISTER SISTEM#");
-    String nomorKtp =  InputKtp();
+       String nomorKtp =  InputKtp();
        String nama = InputNama();
        String nomorHp = InputHandphone();
        String userName = InputEmail();
