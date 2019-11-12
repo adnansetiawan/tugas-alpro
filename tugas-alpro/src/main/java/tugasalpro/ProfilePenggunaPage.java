@@ -34,6 +34,8 @@ public class ProfilePenggunaPage
     {
         String nomorKtp;
         boolean ktpIsValid = false;
+        scanner = new Scanner(System.in);
+      
         do
         {
             System.out.print("Nomor KTP :");
@@ -46,7 +48,7 @@ public class ProfilePenggunaPage
     {
         String nama;
         boolean namaLengkapIsValid = false;
-      
+        scanner = new Scanner(System.in);
         do
         {
             System.out.print("Nama Lengkap :");
@@ -117,7 +119,7 @@ public class ProfilePenggunaPage
        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
        userManager.Add(new User(userName, password, userInfo));
        LoginPage loginPage =new LoginPage();
-       loginPage.showLogin();
+       loginPage.showWelcome();
        
     }
     public void ShowProfile()

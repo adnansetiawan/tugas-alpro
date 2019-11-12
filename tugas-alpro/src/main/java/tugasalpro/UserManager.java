@@ -56,19 +56,20 @@ public class UserManager {
                 break;
             }
         }
-            if(indexFound == -1)
-            return;
-            try
-            {
-                users.remove(indexFound);
-                users.add(user);
-                repository.update(users);
-                ApplicationSession.setLoggedUser(user);
-           }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+        if(indexFound == -1)
+        return;
+        try
+        {
+            users.remove(indexFound);
+            users.add(user);
+            repository.update(users);
+            ApplicationSession.setLoggedUser(user);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+           
+        }
         
       
     }
