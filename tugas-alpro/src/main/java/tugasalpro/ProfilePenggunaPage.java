@@ -122,9 +122,8 @@ public class ProfilePenggunaPage
        loginPage.showWelcome();
        
     }
-    public void ShowProfile()
+    public void ShowProfile(User user)
     {
-        User user = ApplicationSession.getLoggedUser();
         System.out.println("-- Data Pengguna --");
         System.out.println("No KTP :" +user.getUserInfo().geKtp());
         System.out.println("Nama Lengkap :" +user.getUserInfo().geName());
@@ -136,7 +135,7 @@ public class ProfilePenggunaPage
     public void ShowUpdatePenggunaPage()
     {
         User user = ApplicationSession.getLoggedUser();
-        ShowProfile();
+           
         if(user.isAdmin())
         {
             System.out.println("#KELOLA PROFILE BY ADMIN#");
@@ -149,19 +148,35 @@ public class ProfilePenggunaPage
         String noKtp = null;
         if(user.isAdmin())
         {
-            noKtp = InputKtp();
+            boolean isUserByKtpFound=false;
+            User userByKtp= null; 
+            do
+            {
+                noKtp = InputKtp();
+                userByKtp = userManager.GetByKtp(noKtp);
+                isUserByKtpFound = userByKtp != null;
+                if(userByKtp == null)
+                {
+                    System.out.println("Tidak Ada Nomor KTP dalam sistem, silahkan coba lagi");
+                }
+             }while(!isUserByKtpFound);
+             ShowProfile(userByKtp);
+
         }else
         {
             noKtp = user.getUserInfo().geKtp();
+            ShowProfile(user);
         }
+        System.out.println("#UBAH DATA PENGGUNA#");
         String nama = InputNama();
         String nomorHp = InputHandphone();
         String userName = InputEmail();
         String password = InputPassword(false);
         UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
-        userManager.Update(new User(userName, password, userInfo));
+        User newUser = new User(userName, password, userInfo);
+        userManager.Update(newUser);
         System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
-        ShowProfile();
+        ShowProfile(newUser);
        
     }
 }
