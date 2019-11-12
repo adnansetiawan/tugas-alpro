@@ -41,7 +41,7 @@ public class StasiunManager{
         if(indexFound!=-1){
             try{
                 listStasiun.remove(indexFound);
-                listStasiun.add(stnBaru);
+                listStasiun.add(stasiun);
                 repository.update(listStasiun);
             }
             catch(Exception e){
@@ -50,12 +50,12 @@ public class StasiunManager{
         }
     }
 
-    public void delete(String stasiun){
+    public void delete(Stasiun stasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         for(int i=0;i<listStasiun.size();i++){
             Stasiun stn = listStasiun.get(i);
-            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun()){
+            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
                 indexFound=i;
                 break;
             }
