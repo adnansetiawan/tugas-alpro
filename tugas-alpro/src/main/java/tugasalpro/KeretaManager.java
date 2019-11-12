@@ -33,7 +33,7 @@ public class KeretaManager {
         return null;
     }
 
-    public void add(Kereta kereta) throws IOException, URISyntaxException
+    public void add(Kereta kereta)
     {
         repository.add(kereta); 
     }
