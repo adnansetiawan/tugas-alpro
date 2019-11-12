@@ -56,8 +56,9 @@ public class MenuManager {
             switch (pilihan) {
                 case 0:
                 
-                LoginPage loginPage = new LoginPage();
-                loginPage.Logout();
+                    LoginPage loginPage = new LoginPage();
+                    loginPage.Logout();
+                    break;
                 case 1:
                     ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
                     profilePenggunaPage.ShowUpdatePenggunaPage();
