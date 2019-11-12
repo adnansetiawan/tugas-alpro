@@ -137,13 +137,28 @@ public class ProfilePenggunaPage
     {
         User user = ApplicationSession.getLoggedUser();
         ShowProfile();
-        System.out.println("#KELOLA PROFILE BY PENUMPANG#");
+        if(user.isAdmin())
+        {
+            System.out.println("#KELOLA PROFILE BY ADMIN#");
+      
+        }else
+        {
+             System.out.println("#KELOLA PROFILE BY PENUMPANG#");
+        }
         System.out.println("-- Ubah Data Pengguna --");
+        String noKtp = null;
+        if(user.isAdmin())
+        {
+            noKtp = InputKtp();
+        }else
+        {
+            noKtp = user.getUserInfo().geKtp();
+        }
         String nama = InputNama();
         String nomorHp = InputHandphone();
         String userName = InputEmail();
         String password = InputPassword(false);
-        UserInfo userInfo = new UserInfo(nama, user.getUserInfo().geKtp(), nomorHp);
+        UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
         userManager.Update(new User(userName, password, userInfo));
         System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
         ShowProfile();

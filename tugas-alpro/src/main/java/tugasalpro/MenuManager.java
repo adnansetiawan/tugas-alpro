@@ -26,6 +26,10 @@ public class MenuManager {
             pilihan = scanner.nextInt();
         } while (pilihan < 0 || pilihan > 3);
         switch (pilihan) {
+            case 0:
+            LoginManager loginManager = new LoginManager();
+            loginManager.Logout();
+            break;
         case 2:
             ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
             profilePenggunaPage.ShowUpdatePenggunaPage();
@@ -50,8 +54,12 @@ public class MenuManager {
             pilihan = scanner.nextInt();
 
             switch (pilihan) {
+                case 0:
+                LoginManager loginManager = new LoginManager();
+                loginManager.Logout();
                 case 1:
-                    
+                    ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+                    profilePenggunaPage.ShowUpdatePenggunaPage();
                     break;
                 case 2:
                     KotaPage kotaPage = new KotaPage();

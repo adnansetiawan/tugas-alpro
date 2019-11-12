@@ -44,6 +44,8 @@ public class LoginManager
     {
         ApplicationSession.setLoggedUser(null);
         this.isLogin = false;
+        LoginPage loginPage = new LoginPage();
+        loginPage.showWelcome();
     }
     
 }
