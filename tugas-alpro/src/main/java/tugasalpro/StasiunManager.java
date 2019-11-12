@@ -28,44 +28,46 @@ public class StasiunManager{
         }
     }
 
-    /*public void edit(String kodeStasiunLama, Stasiun stnBaru){
+    public void edit(Stasiun stasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
-        do{
+        for(int i=0;i<listStasiun.size();i++){
             Stasiun stn = listStasiun.get(i);
-            if(stn.getKodeStasiun().equals(kodeStasiunLama)){
+            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
                 indexFound=i;
-            }else{
-                i++;
+                break;
             }
-        }while(indexFound==-1);
-        try{
-            listStasiun.remove(indexFound);
-            listStasiun.add(stnBaru);
-            repository.update(listStasiun);
         }
-        catch(Exception e){
-            e.printStackTrace();
+        if(indexFound!=-1){
+            try{
+                listStasiun.remove(indexFound);
+                listStasiun.add(stnBaru);
+                repository.update(listStasiun);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
-    }*/
+    }
 
-    /*public void delete(String kodeStasiun){
+    public void delete(String stasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
-        do{
+        for(int i=0;i<listStasiun.size();i++){
             Stasiun stn = listStasiun.get(i);
-            if(stn.getKodeStasiun().equals(kodeStasiun){
+            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun()){
                 indexFound=i;
-            }else{
-                i++;
+                break;
             }
-        }while(indexFound==-1);
-        try{
-            listStasiun.remove(indexFound);
-            repository.update(listStasiun);
         }
-        catch(Exception e){
-            e.printStackTrace();
+        if(indexFound!=-1){
+            try{
+                listStasiun.remove(indexFound);
+                repository.update(listStasiun);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
-    }*/
+    }
 }
