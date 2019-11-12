@@ -15,12 +15,12 @@ public class StasiunPage{
     }
 
     public void showStasiunPage(){
-        User user = ApplicationSession.getLoggedUser();
         System.out.println("#KELOLA DATA STASIUN#");
         showMenu();
     }
 
-    public void showMenu() throws IOException, URISyntaxException{
+    public void showMenu()
+    {
         int pilihan = 0;
         do{
             System.out.println("\n1.  Tambah Data Stasiun");
@@ -51,7 +51,8 @@ public class StasiunPage{
         }while(pilihan!=99);
     }
 
-    public void menuTambah() throws IOException, URISyntaxException{
+    public void menuTambah() 
+    {
         System.out.println("#TAMBAH DATA STASIUN#");
         Stasiun stasiun = new Stasiun();
         System.out.print("Tambah Data Stasiun : ");
@@ -61,7 +62,11 @@ public class StasiunPage{
         System.out.println("----------------------------------------");
         System.out.println("Stasiun Berhasil Ditambahkan");
         System.out.println("----------------------------------------");
+<<<<<<< HEAD
         showMenu();
+=======
+        showMenuTampil();
+>>>>>>> 72454c351bfd297603cb62ea4168dab0dcdac0ca
     }
     
     public void menuTampil(){
@@ -89,10 +94,15 @@ public class StasiunPage{
         String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
+        String kodeStasiun = null;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
+<<<<<<< HEAD
             if(kodeStasiun=="99"){
+=======
+            if(kodeStasiun =="99"){
+>>>>>>> 72454c351bfd297603cb62ea4168dab0dcdac0ca
                 flagIterate=false;
             }else{
                 kodeStasiun=kodeStasiun.substring(5);
@@ -112,12 +122,14 @@ public class StasiunPage{
         stasiunManager.add(stasiun);
     }
 
-    public void menuHapus() throws IOException, URISyntaxException{
+    public void menuHapus() 
+    {
         System.out.println("#DELETE DATA STASIUN#");
         menuTampil();
         String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
+        String kodeStasiun = null;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
