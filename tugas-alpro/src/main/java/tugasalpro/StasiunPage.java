@@ -98,11 +98,7 @@ public class StasiunPage{
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
-<<<<<<< HEAD
-            if(kodeStasiun=="99"){
-=======
             if(kodeStasiun =="99"){
->>>>>>> 72454c351bfd297603cb62ea4168dab0dcdac0ca
                 flagIterate=false;
             }else{
                 kodeStasiun=kodeStasiun.substring(5);
