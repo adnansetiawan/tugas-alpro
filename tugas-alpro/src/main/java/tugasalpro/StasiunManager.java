@@ -28,47 +28,39 @@ public class StasiunManager{
         }
     }
 
-<<<<<<< HEAD
     public void edit(Stasiun stasiun){
-=======
-    /*public void edit(String kodeStasiunLama, Stasiun stnBaru){
->>>>>>> 05e2872ed6319e55ec2c012d0052477c9147078a
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         for(int i=0;i<listStasiun.size();i++){
-            Stasiun stn = listStasiun.get(i);
+            Stasiun stn=listStasiun.get(i);
             if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
                 indexFound=i;
                 break;
             }
         }
-        if(indexFound!=-1){
+        if (indexFound!=-1){
             try{
                 listStasiun.remove(indexFound);
-                listStasiun.add(stnBaru);
+                listStasiun.add(stasiun);
                 repository.update(listStasiun);
             }
             catch(Exception e){
                 e.printStackTrace();
             }
         }
-    }*/
+    }
 
-<<<<<<< HEAD
     public void delete(String stasiun){
-=======
-    /*public void delete(String kodeStasiun){
->>>>>>> 05e2872ed6319e55ec2c012d0052477c9147078a
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         for(int i=0;i<listStasiun.size();i++){
-            Stasiun stn = listStasiun.get(i);
-            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun()){
+            Stasiun stn=listStasiun.get(i);
+            if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
                 indexFound=i;
                 break;
             }
         }
-        if(indexFound!=-1){
+        if (indexFound!=-1){
             try{
                 listStasiun.remove(indexFound);
                 repository.update(listStasiun);
@@ -77,5 +69,5 @@ public class StasiunManager{
                 e.printStackTrace();
             }
         }
-    }*/
+    }
 }

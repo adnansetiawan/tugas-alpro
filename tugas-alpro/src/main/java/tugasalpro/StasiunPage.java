@@ -38,10 +38,10 @@ public class StasiunPage{
                     showMenuTampil();
                     break;
                 case 3:
-                    menuUbah()
+                    menuUbah();
                     break;
                 case 4:
-                    menuHapus()
+                    menuHapus();
                     break;
                 case 99:
                     MenuManager menu = new MenuManager();
@@ -61,7 +61,7 @@ public class StasiunPage{
         System.out.println("----------------------------------------");
         System.out.println("Stasiun Berhasil Ditambahkan");
         System.out.println("----------------------------------------");
-        showStasiunMenu();
+        showMenu();
     }
     
     public void menuTampil(){
@@ -86,13 +86,13 @@ public class StasiunPage{
     public void menuUbah(){
         System.out.println("#EDIT DATA STASIUN#");
         menuTampil();
-        String kodeKota=null;
+        String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
-            if(kodeStasiun="99"{
+            if(kodeStasiun=="99"){
                 flagIterate=false;
             }else{
                 kodeStasiun=kodeStasiun.substring(5);
@@ -115,16 +115,16 @@ public class StasiunPage{
     public void menuHapus() throws IOException, URISyntaxException{
         System.out.println("#DELETE DATA STASIUN#");
         menuTampil();
-        String kodeKota=null;
+        String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
-            if(kodeStasiun="99"{
+            if(kodeStasiun=="99"){
                 flagIterate=false;
             }else{
-                kodeStasiun=kodeStasiun.substring(5);
+                kodeStasiun=kodeStasiun.substring(7);
                 System.out.println(kodeStasiun);
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
                 if(stasiun!=null){
