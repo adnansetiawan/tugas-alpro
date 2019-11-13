@@ -24,7 +24,7 @@ public class WaktuManager {
             List<Waktu> existingWaktu = repository.getAll();
             if (existingWaktu.size()>0)
             {
-                System.out.println("Data waktu sudah digenerate");
+                System.out.println("Data waktu sudah digenerate.");
             }
             else
             {
@@ -67,7 +67,7 @@ public class WaktuManager {
                     textWaktu.setWaktu(textJam); 
                     repository.add(textWaktu);
                 }
-                System.out.println("Data waktu berhasil digenerate");
+                System.out.println("Data waktu berhasil digenerate.");
             } 
         }
     }
