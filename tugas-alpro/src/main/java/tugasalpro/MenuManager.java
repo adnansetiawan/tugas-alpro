@@ -40,16 +40,25 @@ public class MenuManager {
 
     public void ShowMenuAdmin()
     {
-        System.out.println("#MENU ADMIN#");
-        System.out.println("Welcome, Admin");
-        System.out.println("1. Kelola Akun");
-        System.out.println("2. Kelola Data Kota");
-        System.out.println("3. Generate Waktu");
-        System.out.println("4. Kelola Rute");
-        System.out.println("0. Logout");
+        
         int pilihan = -1;
         do
         {
+            System.out.println("#MENU ADMIN#");
+            System.out.println("Welcome, Admin");
+            System.out.println("1. Kelola Akun");
+            System.out.println("2. Kelola Data Kota");
+            System.out.println("3. Generate Waktu");
+            System.out.println("4. Kelola Rute");
+            System.out.println("5. Kelola Stasiun");
+            System.out.println("6. Kelola Jalur Stasiun Pada Rute");
+            System.out.println("7. Kelola Waktu Pada Rute");
+            System.out.println("8. Kelola Kereta Pada Rute");
+            System.out.println("9. Generate Jadwal Kereta Api");
+            System.out.println("10. Lihat Pemasukan");
+            System.out.println("11. Lihat Jadwal Kereta Api");
+            System.out.println("12. Kelola Kereta");
+            System.out.println("0. Logout");
             System.out.print("Pilihan :");
             pilihan = scanner.nextInt();
 
@@ -74,8 +83,7 @@ public class MenuManager {
                     }
                     break;
                 case 3:
-                    new WaktuManager();
-                    ShowMenuAdmin();
+                    
                     break;
                 case 4:
                     RutePage rutePage = new RutePage();
@@ -86,12 +94,39 @@ public class MenuManager {
                         e.printStackTrace();
                     }
                     break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                    KeretaRutePage keretaRutePage = new KeretaRutePage();
+                    try {
+                        keretaRutePage.showMenu();
+                    } catch (IOException | URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    break;
+                 case 12:
+                    KeretaPage keretaPage = new KeretaPage();
+                    try {
+                        keretaPage.showMenu();
+                    } catch (IOException | URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    break;
             
                 default:
                     break;
             }
 
-        }while(pilihan < 0 || pilihan > 4);
+        }while(pilihan != 0);
       
     }
 
