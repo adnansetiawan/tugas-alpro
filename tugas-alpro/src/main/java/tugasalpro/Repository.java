@@ -28,7 +28,7 @@ public class Repository<T> {
         this.fileName = fileName;
         this.className = className;
     }
-    private File getFileFromResources(String fileName) {
+    public File getFileFromResources(String fileName) {
 
         ClassLoader classLoader = getClass().getClassLoader();
 
