@@ -1,12 +1,10 @@
 package tugasalpro;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
 public class StasiunPage{
-    private StasiunManager stasiunManager;
+    private final StasiunManager stasiunManager;
     Scanner scanner;
       
     public StasiunPage(){
@@ -20,7 +18,7 @@ public class StasiunPage{
     }
 
     public void showMenu(){
-        int pilihan = 0;
+        int pilihan;
         do{
             System.out.println("\n1.  Tambah Data Stasiun");
             System.out.println("2.  Lihat Data Stasiun");
@@ -85,15 +83,13 @@ public class StasiunPage{
     public void menuUbah(){
         System.out.println("#EDIT DATA STASIUN#");
         menuTampil();
+        String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
-        String kodeStasiun = null;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
-            if(kodeStasiun =="99"){
-                flagIterate=false;
-            }else{
+            if(!kodeStasiun.equals("99")){
                 kodeStasiun=kodeStasiun.substring(5);
                 System.out.println(kodeStasiun);
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
@@ -101,6 +97,8 @@ public class StasiunPage{
                     stasiunManager.delete(stasiun);
                     flagIterate=false;
                 }
+            }else{
+                flagIterate=false;
             }
         }while(flagIterate);
         stasiun = new Stasiun();
@@ -120,9 +118,7 @@ public class StasiunPage{
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
-            if(kodeStasiun=="99"){
-                flagIterate=false;
-            }else{
+            if(!kodeStasiun.equals("99")){
                 kodeStasiun=kodeStasiun.substring(7);
                 System.out.println(kodeStasiun);
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
@@ -130,6 +126,8 @@ public class StasiunPage{
                     stasiunManager.delete(stasiun);
                     flagIterate=false;
                 }
+            }else{
+                flagIterate=false;
             }
         }while(flagIterate);
     }
