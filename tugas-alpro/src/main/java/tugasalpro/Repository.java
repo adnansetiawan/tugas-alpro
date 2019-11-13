@@ -34,13 +34,13 @@ public class Repository<T> {
 
         URL resource = classLoader.getResource(fileName);
         if (resource == null) {
-            throw new IllegalArgumentException("file is not found!");
+            throw new IllegalArgumentException("file is not found!, please add the file first");
         } else {
             return new File(resource.getFile());
         }
 
     }
-    public void add(T data)
+    public boolean add(T data)
     {
         File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -56,13 +56,17 @@ public class Repository<T> {
             FileWriter fr = new FileWriter(file, false);
             fr.write(jsonContent);
             fr.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("failed to update");
+            return false;
+          
         }
        
         
     }
-    public void update(List<T> data)
+    public boolean update(List<T> data)
     {
         File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -74,8 +78,11 @@ public class Repository<T> {
             FileWriter fr = new FileWriter(file, false);
             fr.write(jsonContent);
             fr.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("failed to update");
+            return false;
         }
        
         
