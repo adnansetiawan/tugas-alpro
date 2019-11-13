@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.print.DocPrintJob;
+
 public class KeretaPage{
     private KeretaManager keretaManager;
     private Gerbong gerbong;
@@ -39,20 +41,38 @@ public class KeretaPage{
 
         } while (pilihan != 99);   
     }
-
-    void menuTambah() throws IOException, URISyntaxException {
+    
+    void menuTambah() {
         Kereta kereta = new Kereta();
-        String kodeKereta, namaKereta;
-        int jmlGerbong, jmlGBisnis, jmlGPremium;
+        String kodeKereta = null;
+        String namaKereta=null;
+        int jmlGerbong=0;
+        int jmlGBisnis=0;
+        int jmlGPremium=0;
+        boolean inputNotValid=false;
+        do
+        {
+            System.out.print("Tambah Kereta Api: ");
+            String dataKereta = scanner.nextLine();
+            String[] dataKeretas = dataKereta.split("'");
+            try
+            {
+                kodeKereta = dataKeretas[0].trim();
+                namaKereta = dataKeretas[1];
+                String[] others = dataKeretas[2].split(" ");
+                jmlGerbong = Integer.parseInt(others[1].substring(1, others[1].toCharArray().length));
+                jmlGBisnis = Integer.parseInt(others[2].substring(1, others[2].toCharArray().length));
+                jmlGPremium = Integer.parseInt(others[3].substring(1, others[3].toCharArray().length));
+                inputNotValid = true;
+            }catch(Exception ex)
+            {
+                System.out.println("format input not valid");
+                inputNotValid = false;
+            }
+        }while(!inputNotValid);
+      if(jmlGerbong == (jmlGBisnis + jmlGPremium))
+      {
 
-        System.out.print("Tambah Kereta Api: ");
-        kodeKereta = scanner.next();
-        namaKereta = scanner.next();
-        jmlGerbong = scanner.nextInt();
-        jmlGBisnis = scanner.nextInt();
-        jmlGPremium = scanner.nextInt();
-
-        if(jmlGerbong==(jmlGBisnis+jmlGPremium)){
             kereta.setKodeKereta(kodeKereta);
             kereta.setNamaKereta(namaKereta);
             kereta.jmlGerbong(jmlGerbong);
