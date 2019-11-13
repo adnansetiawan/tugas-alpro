@@ -74,7 +74,8 @@ public class MenuManager {
                     }
                     break;
                 case 3:
-                    
+                    new WaktuManager();
+                    ShowMenuAdmin();
                     break;
                 case 4:
                     RutePage rutePage = new RutePage();
