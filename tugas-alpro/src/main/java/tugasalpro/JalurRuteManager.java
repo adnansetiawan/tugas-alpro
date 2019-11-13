@@ -12,17 +12,18 @@ public class JalurRuteManager{
         repository=new Repository<JalurRute>("listJalurRute",JalurRute[].class);
     }
 
-    public void add(JalurRute jalurRute) throws IOException, URISyntaxException {
+    public void add(JalurRute jalurRute){
         repository.add(jalurRute);
     }
 
-    public List<JalurRute> getAll() throws IOException, URISyntaxException{
+    public List<JalurRute> getAll(){
         return repository.getAll();
     }
 
-    public JalurRute getByKodeJalurRute(String kodeJalurRute) throws IOException, URISyntaxException{
+    public JalurRute getByKodeJalurRute(String kodeJalurRute)
+    {
         List<JalurRute> listJalurRute=repository.getAll();
-        Optional<JalurRute> selectedJalurRute = listJalurRute.stream().filter(x->x.getKodeJalurRute().equals(kodeJalurRute).findFirst());
+        Optional<JalurRute> selectedJalurRute = listJalurRute.stream().filter(x->x.getKodeJalur().equals(kodeJalurRute)).findFirst();
         if(selectedJalurRute.isPresent()){
             return selectedJalurRute.get();
         }else{
@@ -35,7 +36,7 @@ public class JalurRuteManager{
         int indexFound=-1;
         for(int i=0;i<listJalurRute.size();i++){
             JalurRute jr=listJalurRute.get(i);
-            if(jr.getKodeJalurRute().equals(jalurRute.getKodeJalurRute()){
+            if(jr.getKodeJalur().equals(jalurRute.getKodeJalur())){
                 indexFound=i;
                 break;
             }

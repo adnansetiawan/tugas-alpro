@@ -50,19 +50,13 @@ public class StasiunManager{
         }
     }
 
-<<<<<<< HEAD
-    public void delete(String stasiun){
-        List<Stasiun> listStasiun = repository.getAll();
-        int indexFound=-1;
-        for(int i=0;i<listStasiun.size();i++){
-            Stasiun stn=listStasiun.get(i);
-=======
+
     public void delete(Stasiun stasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         for(int i=0;i<listStasiun.size();i++){
             Stasiun stn = listStasiun.get(i);
->>>>>>> 72454c351bfd297603cb62ea4168dab0dcdac0ca
+
             if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
                 indexFound=i;
                 break;

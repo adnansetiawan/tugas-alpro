@@ -1,7 +1,5 @@
 package tugasalpro;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 

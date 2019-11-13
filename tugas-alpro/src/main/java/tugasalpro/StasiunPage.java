@@ -85,7 +85,6 @@ public class StasiunPage{
     public void menuUbah(){
         System.out.println("#EDIT DATA STASIUN#");
         menuTampil();
-        String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         String kodeStasiun = null;
@@ -118,7 +117,6 @@ public class StasiunPage{
         String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
-        String kodeStasiun = null;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
