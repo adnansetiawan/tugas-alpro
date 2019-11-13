@@ -19,8 +19,7 @@ public class StasiunPage{
         showMenu();
     }
 
-    public void showMenu()
-    {
+    public void showMenu(){
         int pilihan = 0;
         do{
             System.out.println("\n1.  Tambah Data Stasiun");
@@ -51,18 +50,17 @@ public class StasiunPage{
         }while(pilihan!=99);
     }
 
-    public void menuTambah() 
-    {
+    public void menuTambah(){
         System.out.println("#TAMBAH DATA STASIUN#");
         Stasiun stasiun = new Stasiun();
         System.out.print("Tambah Data Stasiun : ");
         stasiun.setKodeStasiun(scanner.next());
-        stasiun.setNamaStasiun(scanner.next());
+        stasiun.setNamaStasiun(scanner.nextLine());
         stasiunManager.add(stasiun);
         System.out.println("----------------------------------------");
         System.out.println("Stasiun Berhasil Ditambahkan");
         System.out.println("----------------------------------------");
-        showMenuTampil();
+        showMenu();
     }
     
     public void menuTampil(){
@@ -87,7 +85,7 @@ public class StasiunPage{
     public void menuUbah(){
         System.out.println("#EDIT DATA STASIUN#");
         menuTampil();
-        String kodeKota=null;
+        String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         String kodeStasiun = null;
@@ -114,11 +112,10 @@ public class StasiunPage{
         stasiunManager.add(stasiun);
     }
 
-    public void menuHapus() 
-    {
+    public void menuHapus(){
         System.out.println("#DELETE DATA STASIUN#");
         menuTampil();
-        String kodeKota=null;
+        String kodeStasiun=null;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         String kodeStasiun = null;
@@ -128,7 +125,7 @@ public class StasiunPage{
             if(kodeStasiun=="99"){
                 flagIterate=false;
             }else{
-                kodeStasiun=kodeStasiun.substring(5);
+                kodeStasiun=kodeStasiun.substring(7);
                 System.out.println(kodeStasiun);
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
                 if(stasiun!=null){
