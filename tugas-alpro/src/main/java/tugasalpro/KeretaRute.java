@@ -1,14 +1,19 @@
 package tugasalpro;
+
+
+import java.util.ArrayList;
+
 public class KeretaRute {
     private String kodeKeretaRute;
     private String kodeRute;
-    private Repository<Kereta> keretaTersedia;
+    private ArrayList<Kereta> keretaTersedia;
 
 
     public KeretaRute() {
+        this.keretaTersedia = new ArrayList<Kereta>();
     }
 
-    public KeretaRute(String kodeKeretaRute, String kodeRute, Repository<Kereta> keretaTersedia) {
+    public KeretaRute(String kodeKeretaRute, String kodeRute, ArrayList<Kereta> keretaTersedia) {
         this.kodeKeretaRute = kodeKeretaRute;
         this.kodeRute = kodeRute;
         this.keretaTersedia = keretaTersedia;
@@ -30,11 +35,11 @@ public class KeretaRute {
         this.kodeRute = kodeRute;
     }
 
-    public Repository<Kereta> getKeretaTersedia() {
+    public ArrayList<Kereta> getKeretaTersedia() {
         return this.keretaTersedia;
     }
 
-    public void setKeretaTersedia(Repository<Kereta> keretaTersedia) {
+    public void setKeretaTersedia(ArrayList<Kereta> keretaTersedia) {
         this.keretaTersedia = keretaTersedia;
     }
 
@@ -48,7 +53,7 @@ public class KeretaRute {
         return this;
     }
 
-    public KeretaRute keretaTersedia(Repository<Kereta> keretaTersedia) {
+    public KeretaRute keretaTersedia(ArrayList<Kereta> keretaTersedia) {
         this.keretaTersedia = keretaTersedia;
         return this;
     }
