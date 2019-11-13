@@ -1,15 +1,13 @@
 package tugasalpro;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
 public class JalurRuteManager{
-    private Repository<JalurRute> repository;
+    private final Repository<JalurRute> repository;
 
     public JalurRuteManager(){
-        repository=new Repository<JalurRute>("listJalurRute",JalurRute[].class);
+        repository=new Repository<>("JalurRute",JalurRute[].class);
     }
 
     public void add(JalurRute jalurRute){
@@ -20,8 +18,7 @@ public class JalurRuteManager{
         return repository.getAll();
     }
 
-    public JalurRute getByKodeJalurRute(String kodeJalurRute)
-    {
+    public JalurRute getByKodeJalur(String kodeJalurRute){
         List<JalurRute> listJalurRute=repository.getAll();
         Optional<JalurRute> selectedJalurRute = listJalurRute.stream().filter(x->x.getKodeJalur().equals(kodeJalurRute)).findFirst();
         if(selectedJalurRute.isPresent()){

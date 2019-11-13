@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class StasiunManager{
-    private Repository<Stasiun> repository;
+    private final Repository<Stasiun> repository;
 
     public StasiunManager(){
-        repository=new Repository<Stasiun>("listStasiun",Stasiun[].class);
+        repository=new Repository<>("Stasiun",Stasiun[].class);
     }
 
     public void add(Stasiun stasiun){
@@ -50,13 +50,11 @@ public class StasiunManager{
         }
     }
 
-
     public void delete(Stasiun stasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int indexFound=-1;
         for(int i=0;i<listStasiun.size();i++){
-            Stasiun stn = listStasiun.get(i);
-
+            Stasiun stn=listStasiun.get(i);
             if(stn.getKodeStasiun().equals(stasiun.getKodeStasiun())){
                 indexFound=i;
                 break;
