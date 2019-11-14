@@ -1,15 +1,17 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.util.List;
 import java.util.Scanner;
 
-import tugasalpro.views.UserMenuPage;
+import tugasalpro.*;
+import tugasalpro.models.*;
+import tugasalpro.managers.*;
 
-public class StasiunPage{
+public class StasiunMenuPage{
     private final StasiunManager stasiunManager;
     Scanner scanner;
       
-    public StasiunPage(){
+    public StasiunMenuPage(){
         stasiunManager = new StasiunManager();
         scanner = new Scanner(System.in);
     }
