@@ -12,12 +12,12 @@ public class KotaManager {
         repository = new Repository<Kota>("Kota", Kota[].class);
     }
     
-    public void add(Kota kota) throws IOException, URISyntaxException
+    public void add(Kota kota)
     {
          repository.add(kota);  
     
     }
-    public List<Kota> GetAll() throws IOException, URISyntaxException
+    public List<Kota> GetAll()
     {
         return repository.getAll();
     }

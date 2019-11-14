@@ -1,9 +1,8 @@
-package tugasalpro;
+package tugasalpro.models;
 public class User
 {
     private String username;
     private String password;
-    private boolean isAdmin;
     private UserInfo userInfo;
     public User(String username, String password, UserInfo userInfo)
     {

@@ -1,5 +1,5 @@
-package tugasalpro;
-class UserInfo
+package tugasalpro.models;
+public class UserInfo
 {
     private String nama;
     private String ktp;

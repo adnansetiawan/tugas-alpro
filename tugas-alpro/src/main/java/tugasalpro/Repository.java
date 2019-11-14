@@ -104,4 +104,26 @@ public class Repository<T> {
         return new LinkedList<T>(Arrays.asList(result));
         
     }
+    public boolean delete(T data,int index) 
+    {
+        if(index < 0)
+            return false;
+        List<T> lists =getAll();
+        if(lists.size()== 0)
+            return false;
+        lists.remove(index);
+        update(lists);
+        return true;
+    }
+    public boolean edit(T data,int index) 
+    {
+        if(index < 0)
+            return false;
+        List<T> lists =getAll();
+        if(lists.size()== 0)
+            return false;
+        lists.set(index, data);    
+        update(lists);
+        return true;
+    }
 }

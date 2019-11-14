@@ -1,4 +1,8 @@
-package tugasalpro;
+package tugasalpro.managers;
+
+import tugasalpro.*;
+import tugasalpro.models.*;
+
 public class LoginManager
 {
     private boolean isLogin;

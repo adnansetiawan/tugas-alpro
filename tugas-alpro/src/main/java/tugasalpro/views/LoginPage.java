@@ -1,16 +1,18 @@
-package tugasalpro;
-
+package tugasalpro.views;
 
 import java.util.Scanner;
 
+import tugasalpro.*;
+import tugasalpro.managers.*;
+
 public class LoginPage {
     private LoginManager loginManager;
-    private MenuManager menuManager;
+    private UserMenuPage userMenuPage;
     Scanner scanner;
 
     public LoginPage() {
         loginManager = new LoginManager();
-        menuManager = new MenuManager();
+        userMenuPage = new UserMenuPage();
 
     }
     public void Logout()
@@ -38,11 +40,11 @@ public class LoginPage {
         {
             if(ApplicationSession.getLoggedUser().isAdmin())
             {
-                menuManager.ShowMenuAdmin();
+                userMenuPage.ShowMenuAdmin();
         
             }else
             {
-                menuManager.ShowMenuPengguna();
+                userMenuPage.ShowMenuPengguna();
             }
         }
     }

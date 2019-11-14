@@ -1,8 +1,13 @@
-package tugasalpro;
+package tugasalpro.managers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import com.google.gson.internal.Streams;
+
+import tugasalpro.models.*;
+import tugasalpro.*;
 
 public class UserManager {
 
@@ -33,37 +38,53 @@ public class UserManager {
     }
     public User GetByKtp(String ktp)
     {
+        int indexFound = getIndexByKtp(ktp);
+        if(indexFound == -1)
+            return null;
+        return repository.getAll().get(indexFound);
+
+    }
+    private int getIndexByKtp(String ktp)
+    {
         List<User> users = repository.getAll();
-        Optional<User> selectedUser = 
-            users.stream().filter(x->x.getUserInfo().geKtp().equals(ktp)).findFirst();
-        if(selectedUser.isPresent())
-            return selectedUser.get();
-        return null;
+        int index = -1;
+        for(int i=0; i<users.size(); i++)
+        {
+            
+            if(users.get(i).getUserInfo().geKtp().equals(ktp))
+            {
+                index = i;
+                break;
+            }
+            
+        }
+        return index;
 
     }
     public void Update(User user)
     {
-        List<User> users = repository.getAll();
-        int indexFound = -1;
-        for(int i = 0; i< users.size(); i++)
-        {
-            User usr = users.get(i);
-            if(usr.isAdmin())
-                continue;
-            if(usr.getUserInfo().geKtp().equals(user.getUserInfo().geKtp()))
-            {
-                indexFound = i;
-                break;
-            }
-        }
-        if(indexFound == -1)
-        return;
+        
         try
         {
-            users.remove(indexFound);
-            users.add(user);
-            repository.update(users);
-            ApplicationSession.setLoggedUser(user);
+            int indexFound = getIndexByKtp(user.getUserInfo().geKtp());
+            repository.edit(user, indexFound);
+           
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+           
+        }
+        
+      
+    }
+    public void Delete(User user)
+    {
+        
+        try
+        {
+            int indexFound = getIndexByKtp(user.getUserInfo().geKtp());
+            repository.delete(user, indexFound);
         }
         catch(Exception e)
         {
