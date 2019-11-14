@@ -1,15 +1,17 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.util.List;
 import java.util.Scanner;
 
-import tugasalpro.views.UserMenuPage;
+import tugasalpro.*;
+import tugasalpro.models.*;
+import tugasalpro.managers.*;
 
-public class JalurRutePage {
+public class JalurRuteMenuPage{
     private final JalurRuteManager jalurRuteManager;
     Scanner scanner;
     
-    public JalurRutePage(){
+    public JalurRuteMenuPage(){
         jalurRuteManager=new JalurRuteManager();
         scanner=new Scanner(System.in);
     }
@@ -91,7 +93,8 @@ public class JalurRutePage {
         System.out.println("-------------------------------------------------------");
         System.out.println("No \t Kode Jalur \t Kode Rute \t Jalur yang Dilewati \t Durasi");
         List<JalurRute> listJalurRute = jalurRuteManager.getAll();
-        int i = 0,j;
+        int i = 0;
+        int j;
         for (JalurRute jalurRute : listJalurRute) {
             i++;
             System.out.print(i+" \t "+jalurRute.getKodeJalur()+" \t "+jalurRute.getRuteJalur().getKodeRute()+" \t ");
