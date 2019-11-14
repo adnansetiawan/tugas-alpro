@@ -1,9 +1,5 @@
 package tugasalpro;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.regex.Pattern;
+import tugasalpro.views.LoginPage;
 
 /**
  * Hello world!
@@ -17,6 +13,6 @@ public final class App {
         
         LoginPage loginPage = new LoginPage();
         loginPage.showWelcome();
-      
+        
     }
 }

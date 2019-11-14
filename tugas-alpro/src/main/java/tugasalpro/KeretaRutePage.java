@@ -1,7 +1,5 @@
 package tugasalpro;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +21,7 @@ public class KeretaRutePage {
 
     }
 
-    void showMenu() throws IOException, URISyntaxException {
+    public void showMenu()  {
 
         int pilihan = 0;
         do {
@@ -45,7 +43,7 @@ public class KeretaRutePage {
         } while (pilihan != 99);
     }
 
-    void menuTambah() throws IOException, URISyntaxException {
+    void menuTambah() {
         KeretaRute keretaRute = new KeretaRute();
         Kereta kereta = null;
         String kodeRute = null;
@@ -99,7 +97,7 @@ public class KeretaRutePage {
         */
     }
 
-    void menuTampil() throws IOException, URISyntaxException {
+    public void menuTampil()  {
         System.out.println("-------------------------------------------------------");
         System.out.println("No \t Kode Kereta Rute \t Kode Rute \t Kereta Tersedia Pada Rute");
         List<KeretaRute>listKeretaRute = keretaRuteManager.GetAll();
@@ -122,7 +120,7 @@ public class KeretaRutePage {
 
     }
 
-    void menuHapus() throws IOException, URISyntaxException {
+    public void menuHapus() {
         menuTampil();
         String kodeKeretaRute = null;
         KeretaRute delKeretaRute = null;

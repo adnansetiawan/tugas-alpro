@@ -18,7 +18,7 @@ public class RutePage {
 
     }
 
-    void showMenu() throws IOException, URISyntaxException {
+    public void showMenu(){
 
         int pilihan = 0;
         do {
@@ -43,7 +43,7 @@ public class RutePage {
         } while (pilihan != 99);
     }
 
-    void menuTambah() throws IOException, URISyntaxException {
+   public void menuTambah() {
         Rute rute = new Rute();
         String kotaAsal,kotaTujuan;
         int hrgBisnis,hrgPremium;
@@ -62,7 +62,7 @@ public class RutePage {
         
     }
 
-    void menuTampil() throws IOException, URISyntaxException {
+  public  void menuTampil() {
         System.out.println("-------------------------------------------------------");
         System.out.println("No \t Keberangkatan \t Tujuan \t Kode_Rute \t Bisnis \t Premium");
         List<Rute> listRute = ruteManager.GetAll();
@@ -79,7 +79,7 @@ public class RutePage {
 
     }
 
-    void menuUbah() throws IOException, URISyntaxException {
+   public void menuUbah() {
         menuTampil();
         String kodeRute = null;
         Rute rute = null;
@@ -120,7 +120,7 @@ public class RutePage {
         ruteManager.add(rute);
     }
 
-    void menuHapus() throws IOException, URISyntaxException {
+   public void menuHapus()  {
         menuTampil();
         String kodeRute = null;
         Rute delRute = null;

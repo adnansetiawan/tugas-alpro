@@ -3,6 +3,8 @@ package tugasalpro;
 import java.util.List;
 import java.util.Scanner;
 
+import tugasalpro.views.UserMenuPage;
+
 public class JalurRutePage {
     private final JalurRuteManager jalurRuteManager;
     Scanner scanner;
@@ -37,7 +39,7 @@ public class JalurRutePage {
                     menuHapus();
                     break;
                 case 99:
-                    MenuManager menu = new MenuManager();
+                    UserMenuPage menu = new UserMenuPage();
                     menu.ShowMenuAdmin();
                     break;
             }

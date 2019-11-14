@@ -1,5 +1,8 @@
 package tugasalpro;
-public  class ApplicationSession
+
+import tugasalpro.models.User;
+
+public class ApplicationSession
 {
     private static User loggedUser;
     public static void setLoggedUser(User user)

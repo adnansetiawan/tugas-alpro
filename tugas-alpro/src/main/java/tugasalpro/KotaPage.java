@@ -16,7 +16,7 @@ public class KotaPage {
 
     }
 
-    void showMenu() throws IOException, URISyntaxException {
+    public void showMenu() {
 
         int pilihan = 0;
         do {
@@ -41,7 +41,7 @@ public class KotaPage {
         } while (pilihan != 99);
     }
 
-    void menuTambah() throws IOException, URISyntaxException {
+    private void menuTambah() {
         Kota kota = new Kota();
         System.out.print("Tambah Kota : ");
         kota.setKodeKota(scanner.next());
@@ -50,7 +50,7 @@ public class KotaPage {
         
     }
 
-    void menuTampil() throws IOException, URISyntaxException {
+   private void menuTampil()  {
         System.out.println("-------------------------------------------------------");
         System.out.println("No \t Kode Kota \t Nama Kota");
         List<Kota> listKota = kotaManager.GetAll();
@@ -63,7 +63,7 @@ public class KotaPage {
 
     }
 
-    void menuUbah() throws IOException, URISyntaxException {
+   private void menuUbah() {
         menuTampil();
         String kodeKota = null;
         Kota kota = null;
@@ -92,7 +92,7 @@ public class KotaPage {
         kotaManager.add(kota);
     }
 
-    void menuHapus() throws IOException, URISyntaxException {
+   private void menuHapus() {
         menuTampil();
         String kodeKota = null;
         Kota delKota = null;

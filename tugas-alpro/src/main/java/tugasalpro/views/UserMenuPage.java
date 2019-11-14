@@ -1,13 +1,16 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
-public class MenuManager {
+import tugasalpro.*;
+import tugasalpro.models.*;
+
+public class UserMenuPage {
     private Scanner scanner;
 
-    public MenuManager() {
+    public UserMenuPage() {
         scanner = new Scanner(System.in);
 
     }
@@ -74,25 +77,14 @@ public class MenuManager {
                     break;
                 case 2:
                     KotaPage kotaPage = new KotaPage();
-                    try {
-                        kotaPage.showMenu();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
-                        e.printStackTrace();
-                    }
+                    kotaPage.showMenu();
                     break;
                 case 3:
                     
                     break;
                 case 4:
                     RutePage rutePage = new RutePage();
-                    try {
-                        rutePage.showMenu();
-                    } catch (IOException | URISyntaxException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    rutePage.showMenu();
                     break;
                 case 5:
                     
@@ -105,21 +97,11 @@ public class MenuManager {
                     break;
                 case 8:
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
-                    try {
-                        keretaRutePage.showMenu();
-                    } catch (IOException | URISyntaxException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    keretaRutePage.showMenu();
                     break;
                  case 12:
                     KeretaPage keretaPage = new KeretaPage();
-                    try {
-                        keretaPage.showMenu();
-                    } catch (IOException | URISyntaxException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    keretaPage.showMenu();
                     break;
             
                 default:

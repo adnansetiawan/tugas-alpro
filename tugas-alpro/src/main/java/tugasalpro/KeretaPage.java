@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.print.DocPrintJob;
+
 
 public class KeretaPage{
     private KeretaManager keretaManager;
@@ -18,7 +18,7 @@ public class KeretaPage{
         scanner = new Scanner(System.in);
     }
 
-    void showMenu() throws IOException, URISyntaxException{
+    public void showMenu() {
         int pilihan = 0;
         do {
             System.out.println("Menu Kereta Api");
@@ -42,7 +42,7 @@ public class KeretaPage{
         } while (pilihan != 99);   
     }
     
-    void menuTambah() {
+    public void menuTambah() {
         Kereta kereta = new Kereta();
         String kodeKereta = null;
         String namaKereta=null;
@@ -88,7 +88,7 @@ public class KeretaPage{
         }
     } 
 
-    void menuTampil() throws IOException, URISyntaxException {
+   public void menuTampil(){
         System.out.println("-------------------------------------------------------");
         System.out.println("No \t Kode Kereta \t Nama Kereta \t Gerbong \t Business \t Premium");
         List<Kereta> listKereta = keretaManager.GetAll();
@@ -101,7 +101,7 @@ public class KeretaPage{
         System.out.println("-------------------------------------------------------");
     }
 
-    void menuUbah() throws IOException, URISyntaxException {
+   public void menuUbah()  {
         menuTampil();
         String kodeKereta = null;
         Kereta kereta = null;
@@ -152,7 +152,7 @@ public class KeretaPage{
         }
     }    
 
-    void menuHapus() throws IOException, URISyntaxException {
+    void menuHapus() {
         menuTampil();
         String kodeKereta = null;
         Kereta delKereta = null;

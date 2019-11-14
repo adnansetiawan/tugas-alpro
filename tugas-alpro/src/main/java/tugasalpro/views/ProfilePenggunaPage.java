@@ -1,7 +1,10 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.util.Scanner;
 
+import tugasalpro.managers.*;
+import tugasalpro.models.*;
+import tugasalpro.*;
 public class ProfilePenggunaPage
 {
     private UserManager userManager;
@@ -197,6 +200,10 @@ public class ProfilePenggunaPage
         UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
         User newUser = new User(userName, password, userInfo);
         userManager.Update(newUser);
+        if(!user.isAdmin())
+        {
+            ApplicationSession.setLoggedUser(user);
+        }
         System.out.println(""); 
         System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
         System.out.println(""); 

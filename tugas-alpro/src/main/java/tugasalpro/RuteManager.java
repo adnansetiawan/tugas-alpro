@@ -12,12 +12,12 @@ public class RuteManager {
         repository = new Repository<Rute>("Rute", Rute[].class);
     }
     
-    public void add(Rute rute) throws IOException, URISyntaxException
+    public void add(Rute rute) 
     {
          repository.add(rute);  
     
     }
-    public List<Rute> GetAll() throws IOException, URISyntaxException
+    public List<Rute> GetAll()
     {
         return repository.getAll();
     }

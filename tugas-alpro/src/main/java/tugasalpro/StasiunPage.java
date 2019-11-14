@@ -3,6 +3,8 @@ package tugasalpro;
 import java.util.List;
 import java.util.Scanner;
 
+import tugasalpro.views.UserMenuPage;
+
 public class StasiunPage{
     private final StasiunManager stasiunManager;
     Scanner scanner;
@@ -41,7 +43,7 @@ public class StasiunPage{
                     menuHapus();
                     break;
                 case 99:
-                    MenuManager menu = new MenuManager();
+                    UserMenuPage menu = new UserMenuPage();
                     menu.ShowMenuAdmin();
                     break;
             }
