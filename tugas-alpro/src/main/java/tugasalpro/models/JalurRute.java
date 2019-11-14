@@ -1,6 +1,8 @@
-package tugasalpro;
+package tugasalpro.models;
 
 import java.util.ArrayList;
+
+import tugasalpro.*;
 
 public class JalurRute{
     private String kodeJalur;
