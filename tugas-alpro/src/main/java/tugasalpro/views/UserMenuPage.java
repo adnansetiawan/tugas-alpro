@@ -2,7 +2,13 @@ package tugasalpro.views;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.*;
 
 import tugasalpro.*;
 import tugasalpro.models.*;
@@ -40,12 +46,54 @@ public class UserMenuPage {
         }
 
     }
+    private void addEmptySpace(Panel panel, int number)
+    {
+        for(int i=0;i<number;i++)
+        {
+            panel.addComponent(new EmptySpace());
 
+        }
+    }
     public void ShowMenuAdmin()
     {
         
         int pilihan = -1;
-        do
+        // Create panel to hold components
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(PageComponent.getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+
+        Panel panel = new Panel();
+
+        panel.setLayoutManager(new GridLayout(1));
+        addEmptySpace(panel, 1);
+        panel.addComponent(new Label("1. Kelola Account"));
+        panel.addComponent(new Label("2. Kelola Data Kota"));
+        panel.addComponent(new Label("3. Generate Waktu"));
+        panel.addComponent(new Label("4. Kelola Rute"));
+       
+        addEmptySpace(panel, 1);
+
+        Panel panel2 = new Panel();
+        panel2.setLayoutManager(new GridLayout(3));
+
+        panel2.addComponent(new Label("Pilih    :"));
+        panel2.addComponent(AnimatedLabel.createClassicSpinningLine());
+
+        final TextBox pilihanText = new TextBox().setValidationPattern(Pattern.compile("[0-9]*"));
+        pilihanText.addTo(panel2);
+        addEmptySpace(panel2, 5);
+
+        new Button("OK").addTo(panel2);
+        panel.addComponent(panel2);
+
+        // Create window to hold the panel
+        BasicWindow window = new BasicWindow("WELCOME ADMIN");
+        // Create gui and start gui
+        window.setComponent(panel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+        /*do
         {
             System.out.println("#MENU ADMIN#");
             System.out.println("Welcome, Admin");
@@ -108,7 +156,7 @@ public class UserMenuPage {
                     break;
             }
 
-        }while(pilihan != 0);
+        }while(pilihan != 0);*/
       
     }
 
