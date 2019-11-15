@@ -1,81 +1,86 @@
 package tugasalpro.views;
 
 import java.util.Arrays;
-import java.util.Scanner;
+
 import java.util.regex.Pattern;
 
-import javax.swing.text.PasswordView;
 
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.gui2.TextBox.Style;
-import com.googlecode.lanterna.gui2.Window.Hint;
-import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
-import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
-import com.googlecode.lanterna.screen.*;
-import com.googlecode.lanterna.terminal.*;
 
-import tugasalpro.*;
+import com.googlecode.lanterna.gui2.Window.Hint;
+
+
 import tugasalpro.managers.*;
+import tugasalpro.views.buttonevents.OnLoginClicked;
+import tugasalpro.views.buttonevents.OnLogoutClicked;
 
 public class LoginPage {
     private LoginManager loginManager;
     private UserMenuPage userMenuPage;
-    private Scanner scanner;
-    private Terminal terminal;
-    private Screen screen;
-
+    
     public LoginPage() {
         loginManager = new LoginManager();
-        userMenuPage = new UserMenuPage();
-        try {
-            /*terminal = new DefaultTerminalFactory().createTerminalEmulator();
-            terminal.setBackgroundColor(TextColor.ANSI.WHITE);
-
-            // terminal.setTi
-            screen = new TerminalScreen(terminal);
-
-            screen.startScreen();*/
-            terminal = PageComponent.getTerminal();
-            screen = PageComponent.getScreen();
-        } catch (Exception ex) {
-
-        }
+        userMenuPage = new UserMenuPage(this);
+       
 
     }
 
-    public void Logout() {
+    public void logout() {
         loginManager.Logout();
-        System.out.println("logout success");
         showWelcome();
     }
 
     public void showLogin() {
         Panel panel = new Panel();
-        WindowBasedTextGUI gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(),
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(PageComponent.getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
         BasicWindow window = new BasicWindow("LOGIN");
-        
-        panel.setLayoutManager(new GridLayout(2));
-        addEmptySpace(panel, 2);
+        panel.setLayoutManager(new GridLayout(3));
+        addEmptySpace(panel, 3);
 
         panel.addComponent(new Label("Username  :"));
-        final TextBox usernamTextBox = new TextBox();
-        usernamTextBox.addTo(panel);
-        addEmptySpace(panel, 2);
+        final TextBox usernameTextBox = new TextBox();
+        usernameTextBox.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.BEGINNING,
+            GridLayout.Alignment.BEGINNING,
+            true,
+            false,
+            2,
+            1));
+        usernameTextBox.setPreferredSize(new TerminalSize(28,1));
+        usernameTextBox.addTo(panel);
+        
+        addEmptySpace(panel, 3);
 
         panel.addComponent(new Label("Password  :"));
         final TextBox passwordTextBox = new TextBox();
+        passwordTextBox.setPreferredSize(new TerminalSize(28,1));
+        passwordTextBox.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.BEGINNING,
+            GridLayout.Alignment.BEGINNING,
+            true,
+            false,
+            2,
+            1));
         passwordTextBox.setMask('*');
         passwordTextBox.addTo(panel);
-        addEmptySpace(panel, 2);
-
-        BtnOkLogin oLogin = new BtnOkLogin(userMenuPage, loginManager,gui, usernamTextBox, passwordTextBox);
-        Button btnLogout = new Button("Logout", new BtnOkLogout(loginManager, this));
-        Button btnLogin = new Button("Login", oLogin);
-        btnLogout.addTo(panel);
-        btnLogin.addTo(panel);
+        addEmptySpace(panel, 3);
+        addEmptySpace(panel, 1);
+        Panel btnPanel = new Panel();
+        btnPanel.setLayoutManager(new GridLayout(2));
        
+        Button btnLogout = new Button("Logout", new OnLogoutClicked(this));
+        btnLogout.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.BEGINNING,
+            GridLayout.Alignment.BEGINNING));
+        Button btnLogin = new Button("Login", new OnLoginClicked(userMenuPage, loginManager, gui, usernameTextBox, passwordTextBox));
+        btnLogin.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.END,
+            GridLayout.Alignment.BEGINNING));
+        btnLogin.addTo(btnPanel);
+        btnLogout.addTo(btnPanel);
+        btnPanel.addTo(panel);
        
         panel.addComponent(new EmptySpace());
         // Create gui and start gui
@@ -84,28 +89,7 @@ public class LoginPage {
         gui.addWindowAndWait(window);
     }
 
-    /*public void showLogin() {
-        System.out.println("#LOGIN#");
-        String username;
-        String password;
-        do {
-            scanner = new Scanner(System.in);
-            System.out.print("username :");
-            username = scanner.nextLine();
-            System.out.print("password :");
-            password = scanner.nextLine();
-            loginManager.Login(username, password);
-
-        } while (!loginManager.HasLogin());
-        if (loginManager.HasLogin()) {
-            if (ApplicationSession.getLoggedUser().isAdmin()) {
-                userMenuPage.ShowMenuAdmin();
-
-            } else {
-                userMenuPage.ShowMenuPengguna();
-            }
-        }
-    }*/
+    
     private void addEmptySpace(Panel panel, int number)
     {
         for(int i=0;i<number;i++)
@@ -117,7 +101,7 @@ public class LoginPage {
     public void showWelcome() {
 
         // Create panel to hold components
-        MultiWindowTextGUI gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(),
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(PageComponent.getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
 
         Panel panel = new Panel();
@@ -150,16 +134,6 @@ public class LoginPage {
        
         gui.addWindowAndWait(window);
 
-        /*
-         * System.out.println("#SELAMAT DATANG#"); int pilihan=-1; scanner= new
-         * Scanner(System.in); ///Using default user: admin, password admin for login as
-         * admin do { System.out.println("1. Login");
-         * System.out.println("2. Registrasi"); System.out.print("Pilihan :"); pilihan =
-         * scanner.nextInt(); }while(pilihan < 0 || pilihan > 2) ; switch(pilihan) {
-         * case 1: showLogin(); break; case 2: ProfilePenggunaPage
-         * registrasiPenggunaPage = new ProfilePenggunaPage();
-         * registrasiPenggunaPage.Registrasi(); break; }
-         */
     }
 
 }
@@ -195,53 +169,4 @@ class BtnOkWelcome implements Runnable {
     }
 }
 
-class BtnOkLogin implements Runnable {
-    private TextBox usernameTextBox;
-    private TextBox passwordTextBox;
-    private LoginManager loginManager;
-    private WindowBasedTextGUI window;
-    private UserMenuPage userMenuPage;
-    public BtnOkLogin(UserMenuPage userMenuPage, LoginManager loginManager, WindowBasedTextGUI window, TextBox usernameTextBox, TextBox passwordTextBox) {
-        this.usernameTextBox = usernameTextBox;
-        this.passwordTextBox = passwordTextBox;
-        this.window = window;
-        this.loginManager = loginManager;
-        this.userMenuPage = userMenuPage;
-    }
 
-    @Override
-    public void run() {
-        loginManager.Login(this.usernameTextBox.getText(), this.passwordTextBox.getText());
-        if (loginManager.HasLogin()) {
-            if (ApplicationSession.getLoggedUser().isAdmin()) {
-                userMenuPage.ShowMenuAdmin();
-
-            } else {
-                userMenuPage.ShowMenuPengguna();
-            }
-        } else {
-            MessageDialog.showMessageDialog(this.window, "Error", "username atau password yang anda masukan salah", MessageDialogButton.OK);
-            usernameTextBox.setText("");
-            passwordTextBox.setText("");
-            usernameTextBox.takeFocus();
-       }
-    }
-   
-    
-}
-class BtnOkLogout implements Runnable {
-    private LoginManager loginManager;
-    private LoginPage loginPage;
-    public BtnOkLogout(LoginManager loginManager, LoginPage loginPage) {
-        this.loginManager = loginManager;
-        this.loginPage = loginPage;
-    }
-
-    @Override
-    public void run() {
-        loginManager.Logout();
-        loginPage.showWelcome();
-    }
-   
-    
-}

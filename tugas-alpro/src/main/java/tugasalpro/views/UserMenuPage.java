@@ -1,7 +1,6 @@
 package tugasalpro.views;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -13,17 +12,58 @@ import com.googlecode.lanterna.*;
 import tugasalpro.*;
 import tugasalpro.models.*;
 
+
 public class UserMenuPage {
     private Scanner scanner;
+    private LoginPage loginPage;
+    public UserMenuPage(LoginPage loginPage) {
+        scanner = new Scanner(System.in);
+        this.loginPage = loginPage;
 
+    }
     public UserMenuPage() {
         scanner = new Scanner(System.in);
+        this.loginPage = new LoginPage();
 
     }
 
     public void ShowMenuPengguna() {
         User user = ApplicationSession.getLoggedUser();
-        System.out.println("#MENU PEGGUNA#");
+         // Create panel to hold components
+         MultiWindowTextGUI gui = new MultiWindowTextGUI(PageComponent.getScreen(), new DefaultWindowManager(),
+         new EmptySpace(TextColor.ANSI.BLUE));
+ 
+         Panel panel = new Panel();
+ 
+         panel.setLayoutManager(new GridLayout(1));
+         addEmptySpace(panel, 1);
+         panel.addComponent(new Label("1. Booking Tiket"));
+         panel.addComponent(new Label("2. Kelola Profile"));
+         panel.addComponent(new Label("3. History Pembelian"));
+         panel.addComponent(new Label("0. Logout"));
+        
+         addEmptySpace(panel, 1);
+ 
+         Panel panel2 = new Panel();
+         panel2.setLayoutManager(new GridLayout(3));
+ 
+         panel2.addComponent(new Label("Pilih    :"));
+         panel2.addComponent(AnimatedLabel.createClassicSpinningLine());
+ 
+         final TextBox pilihanText = new TextBox().setValidationPattern(Pattern.compile("[0-9]*"));
+         pilihanText.addTo(panel2);
+         addEmptySpace(panel2, 5);
+         new Button("OK", new OnOkMenuPenggunaClicked(loginPage, pilihanText)).addTo(panel2);
+         panel.addComponent(panel2);
+ 
+         // Create window to hold the panel
+         BasicWindow window = new BasicWindow("WELCOME : " + user.getUserInfo().geName());
+         // Create gui and start gui
+         window.setComponent(panel);
+         window.setHints(Arrays.asList(Hint.CENTERED));
+        
+         gui.addWindowAndWait(window);
+        /*System.out.println("#MENU PEGGUNA#");
         System.out.println("Welcome," + user.getUsername());
         System.out.println("1. Booking Tiket");
         System.out.println("2. Kelola Profile");
@@ -37,13 +77,13 @@ public class UserMenuPage {
         switch (pilihan) {
             case 0:
             LoginPage loginPage = new LoginPage();
-            loginPage.Logout();
+            loginPage.logout();
             break;
         case 2:
             ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
             profilePenggunaPage.ShowUpdatePenggunaPage();
             break;
-        }
+        }*/
 
     }
     private void addEmptySpace(Panel panel, int number)
@@ -57,19 +97,41 @@ public class UserMenuPage {
     public void ShowMenuAdmin()
     {
         
-        int pilihan = -1;
         // Create panel to hold components
         MultiWindowTextGUI gui = new MultiWindowTextGUI(PageComponent.getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
 
         Panel panel = new Panel();
 
-        panel.setLayoutManager(new GridLayout(1));
-        addEmptySpace(panel, 1);
-        panel.addComponent(new Label("1. Kelola Account"));
-        panel.addComponent(new Label("2. Kelola Data Kota"));
-        panel.addComponent(new Label("3. Generate Waktu"));
-        panel.addComponent(new Label("4. Kelola Rute"));
+        panel.setLayoutManager(new GridLayout(2));
+        
+        addEmptySpace(panel, 2);
+        Panel panelLeft = new Panel();
+        panelLeft.addComponent(new Label("1. Kelola Account"));
+        panelLeft.addComponent(new Label("2. Kelola Data Kota"));
+        panelLeft.addComponent(new Label("3. Generate Waktu"));
+        panelLeft.addComponent(new Label("4. Kelola Rute"));
+        panelLeft.addComponent(new Label("5. Kelola Stasiun"));
+        panelLeft.addComponent(new Label("6. Kelola Jalur Stasiun Pada Rute"));
+        Panel panelRight = new Panel();
+        panelRight.addComponent(new Label("7. Kelola Waktu Pada Rute"));
+        panelRight.addComponent(new Label("8. Kelola Kereta Pada Rute"));
+        panelRight.addComponent(new Label("9. Generate Jadwal Kereta Api"));
+        panelRight.addComponent(new Label("10. Lihat Pemasukan"));
+        panelRight.addComponent(new Label("11. Lihat Jadwal Kereta Api"));
+        panelRight.addComponent(new Label("12. Kelola Kereta"));
+        panelLeft.addTo(panel);
+        panelRight.addTo(panel);
+        addEmptySpace(panel, 2);
+        Label lblLogout = new Label("0. Logout");
+        lblLogout.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.BEGINNING,
+            GridLayout.Alignment.BEGINNING,
+            true,
+            false,
+            2,
+            1));
+        panel.addComponent(lblLogout);
        
         addEmptySpace(panel, 1);
 
@@ -82,8 +144,7 @@ public class UserMenuPage {
         final TextBox pilihanText = new TextBox().setValidationPattern(Pattern.compile("[0-9]*"));
         pilihanText.addTo(panel2);
         addEmptySpace(panel2, 5);
-
-        new Button("OK").addTo(panel2);
+        new Button("OK", new OnOkMenuAdminClicked(loginPage, pilihanText)).addTo(panel2);
         panel.addComponent(panel2);
 
         // Create window to hold the panel
@@ -93,7 +154,9 @@ public class UserMenuPage {
         window.setHints(Arrays.asList(Hint.CENTERED));
        
         gui.addWindowAndWait(window);
-        /*do
+        /*int pilihan = -1;
+        
+        do
         {
             System.out.println("#MENU ADMIN#");
             System.out.println("Welcome, Admin");
@@ -160,4 +223,50 @@ public class UserMenuPage {
       
     }
 
+}
+class OnOkMenuAdminClicked implements Runnable
+{
+    private TextBox pilihanText;
+    private LoginPage loginPage;
+    public OnOkMenuAdminClicked(LoginPage loginPage, TextBox pilihanText)
+    {
+        this.pilihanText= pilihanText;
+        this.loginPage = loginPage;
+    }
+
+    @Override
+    public void run() {
+      int pilihan =  Integer.parseInt(pilihanText.getText());
+        switch(pilihan)
+        {
+            case 0:
+                loginPage.logout();
+                break;
+            
+
+        }
+    }
+}
+class OnOkMenuPenggunaClicked implements Runnable
+{
+    private TextBox pilihanText;
+    private LoginPage loginPage;
+    public OnOkMenuPenggunaClicked(LoginPage loginPage, TextBox pilihanText)
+    {
+        this.pilihanText= pilihanText;
+        this.loginPage = loginPage;
+    }
+
+    @Override
+    public void run() {
+      int pilihan =  Integer.parseInt(pilihanText.getText());
+        switch(pilihan)
+        {
+            case 0:
+                loginPage.logout();
+                break;
+            
+
+        }
+    }
 }
