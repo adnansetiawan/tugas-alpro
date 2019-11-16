@@ -201,6 +201,10 @@ class OnOkMenuPenggunaClicked implements Runnable
                 LoginPage loginPage = new LoginPage();
                 loginPage.logout();
                 break;
+            case 1:
+                BookingPage bookingPage = new BookingPage();
+                bookingPage.showInputJadwal();
+                break;
             case 2:
                 ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
                 profilePenggunaPage.showProfilePenggunaByUser(null);
