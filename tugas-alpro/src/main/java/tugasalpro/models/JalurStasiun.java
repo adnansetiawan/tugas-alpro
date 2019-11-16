@@ -15,7 +15,7 @@ public class JalurStasiun{
         durasi=d;
     }
 
-    public void setStasiunAwal(Stasiun sA){
+    public void setStasiunAsal(Stasiun sA){
         stasiunAsal=sA;
     }
 
@@ -27,7 +27,7 @@ public class JalurStasiun{
         durasi=d;
     }
 
-    public Stasiun getStasiunAwal(){
+    public Stasiun getStasiunAsal(){
         return stasiunAsal;
     }
 
