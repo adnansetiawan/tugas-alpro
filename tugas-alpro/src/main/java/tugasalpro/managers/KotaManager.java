@@ -1,9 +1,8 @@
-package tugasalpro;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+package tugasalpro.managers;
 import java.util.List;
 import java.util.Optional;
+import tugasalpro.*;
+import tugasalpro.models.*;
 
 public class KotaManager {
     private Repository<Kota> repository;

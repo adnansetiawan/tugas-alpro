@@ -1,9 +1,12 @@
-package tugasalpro;
+package tugasalpro.managers;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import tugasalpro.models.Kereta;
+import tugasalpro.Repository;
 
 public class KeretaManager {
     private Repository<Kereta> repository;

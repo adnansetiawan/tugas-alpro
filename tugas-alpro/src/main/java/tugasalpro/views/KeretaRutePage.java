@@ -1,8 +1,15 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import tugasalpro.managers.KeretaManager;
+import tugasalpro.managers.KeretaRuteManager;
+import tugasalpro.managers.KotaManager;
+import tugasalpro.managers.RuteManager;
+import tugasalpro.models.Kereta;
+import tugasalpro.models.KeretaRute;
 
 public class KeretaRutePage {
     private KotaManager kotaManager;
