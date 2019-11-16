@@ -68,16 +68,16 @@ public class LoginPage extends BasePage {
         Panel btnPanel = new Panel();
         btnPanel.setLayoutManager(new GridLayout(2));
        
-        Button btnLogout = new Button("Logout", new OnLogoutClicked());
+        Button btnLogout = new Button("Kembali", new OnLogoutClicked());
         btnLogout.setLayoutData(GridLayout.createLayoutData(
-            GridLayout.Alignment.BEGINNING,
+            GridLayout.Alignment.END,
             GridLayout.Alignment.BEGINNING));
         Button btnLogin = new Button("Login", new OnLoginClicked(gui, usernameTextBox, passwordTextBox));
         btnLogin.setLayoutData(GridLayout.createLayoutData(
             GridLayout.Alignment.END,
             GridLayout.Alignment.BEGINNING));
-        btnLogin.addTo(btnPanel);
         btnLogout.addTo(btnPanel);
+        btnLogin.addTo(btnPanel);
         btnPanel.addTo(panel);
        
         panel.addComponent(new EmptySpace());

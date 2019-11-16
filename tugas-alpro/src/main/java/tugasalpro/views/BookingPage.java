@@ -14,6 +14,7 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.table.Table;
 
+import tugasalpro.Kursi;
 import tugasalpro.Repository;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.models.*;
@@ -86,6 +87,13 @@ public class BookingPage extends BasePage
                 
             }
         });
+        btnOk.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.END,
+            GridLayout.Alignment.BEGINNING,
+            true,
+            false,
+            2,
+            1));
         btnOk.addTo(mainPanel);
         window.setHints(Arrays.asList(Hint.CENTERED));
         window.setComponent(mainPanel);
@@ -96,10 +104,7 @@ public class BookingPage extends BasePage
         WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
         BasicWindow window = new BasicWindow("BOOKING TIKET - ISI DATA PENUMPANG");
-
         Panel mainPanel = new Panel();
-        mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
-
         mainPanel.setLayoutManager(new GridLayout(2));
         addEmptySpace(mainPanel, 2);
         for(int i=1; i<= jumlahPenumpang;i++)
@@ -128,7 +133,21 @@ public class BookingPage extends BasePage
                 
             }
         });
+        btnOk.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.END,
+            GridLayout.Alignment.BEGINNING));
         btnOk.addTo(mainPanel);
+        Button btnKembali = new Button("Kembali", new Runnable(){
+        
+            @Override
+            public void run() {
+               showInputJadwal();
+            }
+        });
+        btnKembali.setLayoutData(GridLayout.createLayoutData(
+            GridLayout.Alignment.END,
+            GridLayout.Alignment.BEGINNING));
+        btnKembali.addTo(mainPanel);
         window.setHints(Arrays.asList(Hint.CENTERED));
         window.setComponent(mainPanel);
 	    gui.addWindowAndWait(window);
@@ -144,13 +163,17 @@ public class BookingPage extends BasePage
     LinearLayout linearLayout = new LinearLayout(Direction.VERTICAL);
     linearLayout.setSpacing(0); 
     mainPanel.setLayoutManager(linearLayout);
-   
+    addEmptySpace(mainPanel, 1);
+       
     int pi = 1;
     Panel penumpangPanel = new Panel(new GridLayout(2));
     mainPanel.addComponent(penumpangPanel.withBorder(Borders.singleLine("Penumpang")));
+    penumpangPanel.addComponent(new Label("HIJAU UNTUK KURSI YANG AVAILABLE"));  
+    addEmptySpace(penumpangPanel, 1);
+       
     for(Penumpang p : booking.getAllPenumpang())
     {
-        penumpangPanel.addComponent(new Label("Kursi Penumpang "+pi+" :"));  
+        penumpangPanel.addComponent(new Label("Kursi "+pi+" :"));  
         final TextBox kursiTextBox = new TextBox();
         kursiTextBox.setPreferredSize(new TerminalSize(15,1));
         kursiTextBox.addTo(penumpangPanel);
@@ -179,42 +202,53 @@ public class BookingPage extends BasePage
             
         }
     });
+    
     addEmptySpace(penumpangPanel, 1);
+    btnOk.setLayoutData(GridLayout.createLayoutData(
+        GridLayout.Alignment.END,
+        GridLayout.Alignment.BEGINNING));
     penumpangPanel.addComponent(btnOk);
 
 
     Panel panelKursi = new Panel();
-    mainPanel.addComponent(panelKursi);   
     generateKursiDisplay(panelKursi, "BISNIS", "B", 1, 1);
     generateKursiDisplay(panelKursi, "PREMIUM", "P", 2, 2);
-    
+    mainPanel.addComponent(panelKursi);   
+   /*ScrollBar scrollBar =new ScrollBar(Direction.VERTICAL)
+   .setPosition(new TerminalPosition(1,1));
+   scrollBar.addTo(mainPanel);*/
     
     window.setHints(Arrays.asList(Hint.CENTERED));
     window.setComponent(mainPanel);
-	gui.addWindowAndWait(window);
+    gui.addWindowAndWait(window);
        
     }
-    private void generateKursiDisplay(Panel mainPanel, String namaGerbong, String gerbongPrefix,
+    private List<Kursi> generateKursiDisplay(Panel mainPanel, String namaGerbong, String gerbongPrefix,
      int jmlGerbong, int row)
     {
+        List<Kursi> kursis= new ArrayList<>();
         int jmlKursi = 10 * row;
         for(int b=1;b<=jmlGerbong;b++)
         {
-             GridLayout gridLayout = new GridLayout(10);
-            gridLayout.setHorizontalSpacing(0);
-            gridLayout.setVerticalSpacing(0);
-            Panel bisnisPanel = new Panel(gridLayout);
-            mainPanel.addComponent(bisnisPanel.withBorder(Borders.singleLine(namaGerbong+(b+1))));
+            Panel bisnisPanel = new Panel(
+            new GridLayout(10)
+            .setHorizontalSpacing(0).setVerticalSpacing(0).setTopMarginSize(0).setLeftMarginSize(0)
+            .setRightMarginSize(0)
+            .setBottomMarginSize(0).setBottomMarginSize(0));
+            mainPanel.addComponent(bisnisPanel.withBorder(Borders.singleLine(namaGerbong+" "+b)));
             for(int i=0; i<jmlKursi; i++)
             {
-                    Panel itemPanel = new Panel();
                     String padded = String.format("%02d" , i+1);
                     TextColor color = i > 5 ? TextColor.ANSI.RED : TextColor.ANSI.GREEN;
-                    Label lbKursi = new Label(gerbongPrefix+b+"-"+padded);
-                    itemPanel.addComponent(lbKursi.setBackgroundColor(color));
-                    bisnisPanel.addComponent(itemPanel.withBorder(Borders.singleLine()));
+                    String text = gerbongPrefix+b+"-"+padded;
+                    Label lbKursi = new Label(text);
+                    Kursi kursi = new Kursi(text, color.equals(TextColor.ANSI.GREEN));
+                    kursis.add(kursi);
+                    bisnisPanel.addComponent(lbKursi.setBackgroundColor(color)
+                    .withBorder(Borders.singleLine()));
             }
         }
+        return kursis;
         
     }
 }
