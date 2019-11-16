@@ -1,4 +1,4 @@
-package tugasalpro;
+package tugasalpro.models;
 public class Stasiun {
     private String kodeStasiun;
     private String namaStasiun;

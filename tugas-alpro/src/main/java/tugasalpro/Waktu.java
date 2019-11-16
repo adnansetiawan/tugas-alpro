@@ -27,7 +27,8 @@ public class Waktu {
         return this.waktu;
     }
     
-    public void setWaktu(String waktu) {
-        this.waktu = waktu;
+    public void setWaktu(String textWaktu)
+    {
+        this.waktu = textWaktu;
     }
 }

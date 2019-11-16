@@ -1,4 +1,4 @@
-package tugasalpro;
+package tugasalpro.models;
 
 public class JalurStasiun{
     private Stasiun stasiunAsal;
