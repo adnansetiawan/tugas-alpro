@@ -7,6 +7,8 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
@@ -14,190 +16,94 @@ import tugasalpro.views.buttonevents.OnKembaliToMenuUtamaClicked;
 import tugasalpro.*;
 public class ProfilePenggunaPage extends BasePage
 {
-    private UserManager userManager;
-    private Scanner scanner;
       
     public ProfilePenggunaPage() {
-        userManager = new UserManager();
-        scanner = new Scanner(System.in);
-    }
-    private boolean checkUsername(String userName) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return userName.matches(regex);
-    }
-
-    
-
-    private boolean checkHandphone(String handphone) {
-        String regex = "^[0-9]{11,12}$";
-        return handphone.matches(regex);
-    }
-
-    private boolean checkName(String name) {
-        String regex = "^[\\p{L} .'-]+$";
-        return name.matches(regex);
-    }
-
-    private String InputKtp()
-    {
-        String nomorKtp;
-        boolean ktpIsValid = false;
-        scanner = new Scanner(System.in);
-      
-        do
-        {
-            System.out.print("Nomor KTP :");
-            nomorKtp = scanner.nextLine();
-            ktpIsValid = true;
-            if(!ktpIsValid)
-            {
-                System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
-           
-            }
-        }while(!ktpIsValid);
-        return nomorKtp;
-    }
-    private String InputNama()
-    {
-        String nama;
-        boolean namaLengkapIsValid = false;
-        scanner = new Scanner(System.in);
-        do
-        {
-            System.out.print("Nama Lengkap :");
-            nama = scanner.nextLine();
-            namaLengkapIsValid = checkName(nama);
-            if(!namaLengkapIsValid)
-            {
-                System.out.println("nama hanya boleh mengandung huruf dan spasi");
-           
-            }
-        }while(!namaLengkapIsValid);
-        return nama;
-    }
-    private String InputHandphone()
-    {
-        String nomorHp;
-        boolean nomorHandphoneIsValid = false;
-        scanner= new Scanner(System.in);
-        do
-        {
-            System.out.print("Nomor Handphone :");
-            nomorHp = scanner.nextLine();
-            nomorHandphoneIsValid = checkHandphone(nomorHp);
-            if(!nomorHandphoneIsValid)
-            {
-                System.out.println("format handphone salah, hanya boleh angka, min : 11 dan max: 12 digit");
-           
-            }
-        }while(!nomorHandphoneIsValid);
-        return nomorHp;
-    }
-    private String InputEmail()
-    {
-        String userName;
-        boolean emailIsValid = false;
-        scanner= new Scanner(System.in);
-        do
-        {
-            System.out.print("Email :");
-            userName = scanner.nextLine();
-            emailIsValid = checkUsername(userName);
-            if(!emailIsValid)
-            {
-                System.out.println("format email salah, silahkan coba lagi");
-           
-            }
-        }while(!emailIsValid);
-        return userName;
-    }
-    private String InputPassword(boolean retype)
-    {
-        String password;
-        boolean passwordIsValid = false;
-        scanner= new Scanner(System.in);
-        do
-        {
-            System.out.print("Password :");
-           
-            password = scanner.nextLine();
-            if(retype)
-            {
-                System.out.print("Re-Password :");
-                String rePassword = scanner.nextLine();
-                passwordIsValid = password.equals(rePassword);
-            }else
-            {
-                passwordIsValid = true;
-            }
-            
-        }while(!passwordIsValid);
-        return password;
-    }
+     }
+   
+   
+   
     public void Registrasi()
     {
-        System.out.println("#REGISTER SISTEM#");
-       String nomorKtp =  InputKtp();
-       String nama = InputNama();
-       String nomorHp = InputHandphone();
-       String userName = InputEmail();
-       String password = InputPassword(true);
-       UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
-       userManager.add(new User(userName, password, userInfo));
-       LoginPage loginPage =new LoginPage();
-       loginPage.showWelcome();
+        showForm(true, null);
        
     }
-    public void editDataPengguna(User user)
+    private void showForm(boolean isRegistration, User user)
     {
-       
-        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        String defaultKtp = user == null? "" : user.getUserInfo().getKtp();
+        String defaultName = user == null?"" : user.getUserInfo().getName();
+        String defaultPhone = user == null?"" : user.getUserInfo().getHandphone();
+        String defaultEmail = user == null?"" : user.getUsername();
+        String defaultPassword = user == null?"" : user.getPassword();
+      
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
  
-        Panel panel = new Panel();
- 
+         Panel panel = new Panel();
          panel.setLayoutManager(new GridLayout(2));
          addEmptySpace(panel, 2);
          panel.addComponent(new Label("No. Ktp      :"));
-         final TextBox ktpTextBox = new TextBox(user.getUserInfo().getKtp());
+         final TextBox ktpTextBox = new TextBox(defaultKtp);
+         ktpTextBox.setReadOnly(!isRegistration);
          ktpTextBox.setPreferredSize(new TerminalSize(28,1));
          ktpTextBox.addTo(panel);
          addEmptySpace(panel, 2);
          panel.addComponent(new Label("Nama Lengkap :"));
-         final TextBox namaLengkapTextBox = new TextBox(user.getUserInfo().getName());
+         final TextBox namaLengkapTextBox = new TextBox(defaultName);
          namaLengkapTextBox.setPreferredSize(new TerminalSize(28,1));
          namaLengkapTextBox.addTo(panel);
          addEmptySpace(panel, 2);
          panel.addComponent(new Label("No. Handphone:"));
-         final TextBox handphoneTextBox = new TextBox(user.getUserInfo().getHandphone());
+         final TextBox handphoneTextBox = new TextBox(defaultPhone);
          handphoneTextBox.setPreferredSize(new TerminalSize(28,1));
          handphoneTextBox.addTo(panel);
          addEmptySpace(panel, 2);
          panel.addComponent(new Label("Email        :"));
-         final TextBox emailTextBox = new TextBox(user.getUsername());
+         final TextBox emailTextBox = new TextBox(defaultEmail);
          emailTextBox.setPreferredSize(new TerminalSize(28,1));
          emailTextBox.addTo(panel);
          addEmptySpace(panel, 2);
          panel.addComponent(new Label("Password     :"));
-         final TextBox passwordTextBox = new TextBox(user.getPassword());
+         final TextBox passwordTextBox = new TextBox(defaultPassword);
          passwordTextBox.setMask('*');
          passwordTextBox.setPreferredSize(new TerminalSize(28,1));
          passwordTextBox.addTo(panel);
 
+         final TextBox repasswordTextBox = new TextBox(defaultPassword);
+         if(isRegistration)
+         {
+            addEmptySpace(panel, 2);
+            panel.addComponent(new Label("Re-Password     :"));
+            repasswordTextBox.setMask('*');
+            repasswordTextBox.setPreferredSize(new TerminalSize(28,1));
+            repasswordTextBox.addTo(panel);
+         }   
          addEmptySpace(panel, 2);
          addEmptySpace(panel, 2);
          Button btnBack =  new Button("Kembali",new OnKembaliToDataPenggunaClicked(user));
          btnBack.addTo(panel);
-         Button btnOk =  new Button("Update", new OnPrepareProfileUpdateClicked(user));
+         Button btnOk =  new Button("Update", new OnUpdateDataPenggunaClicked(isRegistration, gui,
+         ktpTextBox, namaLengkapTextBox, handphoneTextBox, emailTextBox, passwordTextBox, repasswordTextBox));
          btnOk.addTo(panel);
-         
-         BasicWindow window = new BasicWindow("UPDATE DATA");
+         String title = "";
+         if(isRegistration)
+         {
+            title = "REGISTER";
+         }else
+         {
+            title = "UPDATE DATA";
+         }
+         BasicWindow window = new BasicWindow(title);
          // Create gui and start gui
          window.setComponent(panel);
          window.setHints(Arrays.asList(Hint.CENTERED));
         
          gui.addWindowAndWait(window);
 
+    }
+    public void editDataPengguna(User user)
+    {
+       showForm(false, user);
+        
     }
     public void enterNoKTP()
     {
@@ -290,51 +196,6 @@ public class ProfilePenggunaPage extends BasePage
         
          gui.addWindowAndWait(window);
 
-
-        /*System.out.println(""); 
-        System.out.println("-- Ubah Data Pengguna --");
-        String noKtp = null;
-        if(user.isAdmin())
-        {
-            boolean isUserByKtpFound=false;
-            User userByKtp= null; 
-            do
-            {
-                noKtp = InputKtp();
-                userByKtp = userManager.getByKtp(noKtp);
-                isUserByKtpFound = userByKtp != null;
-                if(userByKtp == null)
-                {
-                    System.out.println("Tidak Ada Nomor KTP dalam sistem, silahkan coba lagi");
-                }
-             }while(!isUserByKtpFound);
-             System.out.println(""); 
-             ShowProfile(userByKtp);
-
-        }else
-        {
-            noKtp = user.getUserInfo().getKtp();
-            System.out.println(""); 
-            ShowProfile(user);
-        }
-        System.out.println("#UBAH DATA PENGGUNA#");
-        System.out.println(""); 
-        String nama = InputNama();
-        String nomorHp = InputHandphone();
-        String userName = InputEmail();
-        String password = InputPassword(false);
-        UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
-        User newUser = new User(userName, password, userInfo);
-        userManager.update(newUser);
-        if(!user.isAdmin())
-        {
-            ApplicationSession.setLoggedUser(user);
-        }
-        System.out.println(""); 
-        System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
-        System.out.println(""); 
-        ShowProfile(newUser);*/
-       
     }
 }
 class OnPrepareProfileUpdateClicked implements Runnable {
@@ -363,6 +224,111 @@ class OnKembaliToDataPenggunaClicked implements Runnable {
        ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
        profilePenggunaPage.showProfilePenggunaByUser(userData);
     }
+}
+class OnUpdateDataPenggunaClicked implements Runnable {
+    
+    private TextBox ktpTextBox;
+    private TextBox emailTextBox;
+    private TextBox passwordTextBox;
+    private TextBox repasswordTextBox;
+    private TextBox namaTextBox;
+    private TextBox handphoneTextBox;
+    private WindowBasedTextGUI window;
+    private boolean isNew;
+    public OnUpdateDataPenggunaClicked(boolean isNew, WindowBasedTextGUI window, TextBox ktpTextBox,
+    TextBox namaTextBox, TextBox handphoneTextBox,TextBox emailTextBox, TextBox passwordTextBox, TextBox repasswordTextBox) {
+        this.window = window;
+        this.ktpTextBox = ktpTextBox;
+        this.emailTextBox = emailTextBox;
+        this.passwordTextBox = passwordTextBox;
+        this.namaTextBox = namaTextBox;
+        this.handphoneTextBox= handphoneTextBox;
+        this.isNew = isNew;
+        this.repasswordTextBox = repasswordTextBox;
+    }
+
+    @Override
+    public void run() {
+      if(!checkKtp(ktpTextBox.getText()))
+      {
+         MessageDialog.showMessageDialog(this.window, "Error", "Ktp hanya boleng mengandung angka dan 16 digit", MessageDialogButton.OK);
+         return;
+      }
+      if(!checkName(namaTextBox.getText()))
+      {
+        MessageDialog.showMessageDialog(this.window, "Error", "nama tidak boleh kosong and hanya mengandung huruf dan spasi", MessageDialogButton.OK);
+        return;
+      }
+      if(!checkHandphone(handphoneTextBox.getText()))
+      {
+        MessageDialog.showMessageDialog(this.window, "Error", "handphone hanya boleh angka dan 12 digit", MessageDialogButton.OK);
+        return;
+      }
+      if(!checkUsername(emailTextBox.getText()))
+      {
+        MessageDialog.showMessageDialog(this.window, "Error", "format email salah", MessageDialogButton.OK);
+        return;
+      }
+      if(!checkUsername(emailTextBox.getText()))
+      {
+        MessageDialog.showMessageDialog(this.window, "Error", "format email salah", MessageDialogButton.OK);
+        return;
+      }
+      if(isNew)
+      {
+        if(!checkPassword(passwordTextBox.getText(), repasswordTextBox.getText()))
+        {
+            MessageDialog.showMessageDialog(this.window, "Error", "password tidak sesuai", MessageDialogButton.OK);
+            return;
+        }
+      }
+      User user = new User(emailTextBox.getText(), passwordTextBox.getText(), 
+      new UserInfo(namaTextBox.getText(),ktpTextBox.getText(),  handphoneTextBox.getText()));
+      if(!user.isAdmin())
+      {
+          ApplicationSession.setLoggedUser(user);
+      }
+      UserManager userManager = new UserManager();
+      if(isNew)
+      {
+            userManager.add(user);
+            MessageDialog.showMessageDialog(this.window, "Success", "registrasi berhasil", MessageDialogButton.OK);
+     
+      }else
+      {
+            userManager.update(user);
+            MessageDialog.showMessageDialog(this.window, "Success", "update data berhasil", MessageDialogButton.OK);
+     
+      }
+      ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+      profilePenggunaPage.showProfilePenggunaByUser(user);
+       
+      
+    }
+    private boolean checkUsername(String userName) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return userName.matches(regex);
+    }
+
+    
+
+    private boolean checkHandphone(String handphone) {
+        String regex = "^[0-9]{11,12}$";
+        return handphone.matches(regex);
+    }
+
+    private boolean checkName(String name) {
+        String regex = "^[\\p{L} .'-]+$";
+        return name.matches(regex);
+    }
+    private boolean checkKtp(String ktp) {
+        String regex = "^[0-9]{16}$";
+        return ktp.matches(regex);
+    }
+    private boolean checkPassword(String password, String repassword) {
+       return password.equals(repassword);
+    }
+
 }
 class OnKembaliToCariClicked implements Runnable {
     public OnKembaliToCariClicked() {
