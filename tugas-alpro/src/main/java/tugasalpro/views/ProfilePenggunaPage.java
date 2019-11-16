@@ -249,20 +249,24 @@ class OnUpdateDataPenggunaClicked implements Runnable {
 
     @Override
     public void run() {
-      if(!checkKtp(ktpTextBox.getText()))
-      {
-         MessageDialog.showMessageDialog(this.window, "Error", "Ktp hanya boleng mengandung angka dan 16 digit", MessageDialogButton.OK);
-         return;
-      }else
-      {
-        UserManager userManager = new UserManager();
-        User user = userManager.getByKtp(ktpTextBox.getText());
-        if(user != null)
+        if(isNew)
         {
-            MessageDialog.showMessageDialog(this.window, "Error", "user dengan no.ktp: " + ktpTextBox.getText() + " sudah ada", MessageDialogButton.OK);
-            return;
+            if(!checkKtp(ktpTextBox.getText()))
+            {
+                MessageDialog.showMessageDialog(this.window, "Error", "Ktp hanya boleng mengandung angka dan 16 digit", MessageDialogButton.OK);
+                return;
+            }else
+            {
+                UserManager userManager = new UserManager();
+                User user = userManager.getByKtp(ktpTextBox.getText());
+                if(user != null)
+                {
+                    MessageDialog.showMessageDialog(this.window, "Error", "user dengan no.ktp: " + ktpTextBox.getText() + " sudah ada", MessageDialogButton.OK);
+                    return;
+                }
+            }
         }
-      }
+        
       if(!checkName(namaTextBox.getText()))
       {
         MessageDialog.showMessageDialog(this.window, "Error", "nama tidak boleh kosong and hanya mengandung huruf dan spasi", MessageDialogButton.OK);
