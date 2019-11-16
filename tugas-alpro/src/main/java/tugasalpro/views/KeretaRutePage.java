@@ -6,21 +6,18 @@ import java.util.Scanner;
 
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.managers.KeretaRuteManager;
-import tugasalpro.managers.KotaManager;
 import tugasalpro.managers.RuteManager;
 import tugasalpro.models.Kereta;
 import tugasalpro.models.KeretaRute;
+import tugasalpro.models.Rute;
 
 public class KeretaRutePage {
-    private KotaManager kotaManager;
     private RuteManager ruteManager;
     private KeretaManager keretaManager;
     private KeretaRuteManager keretaRuteManager;
     Scanner scanner;
 
     public KeretaRutePage() {
-
-        kotaManager = new KotaManager();
         ruteManager = new RuteManager();
         keretaManager = new KeretaManager();
         keretaRuteManager = new KeretaRuteManager();
@@ -54,6 +51,7 @@ public class KeretaRutePage {
         KeretaRute keretaRute = new KeretaRute();
         Kereta kereta = null;
         String kodeRute = null;
+        Rute rutePilihan = null;
         String kodeKereta = null;
         int i = 1;
         boolean flagIterate = true;
@@ -62,8 +60,9 @@ public class KeretaRutePage {
         System.out.println("#KELOLA KERETA API BERDASARKAN RUTE#");
         System.out.print("Kode Rute : ");
         kodeRute = scanner.next();
-        if (ruteManager.GetByKodeRute(kodeRute)!=null) {
-            keretaRute.setKodeRute(kodeRute);
+        rutePilihan = ruteManager.GetByKodeRute(kodeRute);
+        if (rutePilihan!=null) {
+            keretaRute.setRuteKereta(rutePilihan);
             do {
                 System.out.print("Kereta "+i+" : ");
                 kodeKereta = scanner.next();
@@ -113,7 +112,7 @@ public class KeretaRutePage {
             ArrayList<Kereta> kereta = keretaRute.getKeretaTersedia();
             i++;
             System.out.println(i+" \t "+keretaRute.getKodeKeretaRute()+" \t\t\t "
-                +keretaRute.getKodeRute()+" \t "
+                +keretaRute.getRuteKereta().getKodeRute()+" \t "
                 +kereta.get(0).getKodeKereta());
             int j = 0;
             for (Kereta listKereta : kereta) {

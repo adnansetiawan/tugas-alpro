@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class KeretaRute {
     private String kodeKeretaRute;
-    private String kodeRute;
+    private Rute ruteKereta;
     private ArrayList<Kereta> keretaTersedia;
 
 
@@ -13,9 +13,9 @@ public class KeretaRute {
         this.keretaTersedia = new ArrayList<Kereta>();
     }
 
-    public KeretaRute(String kodeKeretaRute, String kodeRute, ArrayList<Kereta> keretaTersedia) {
+    public KeretaRute(String kodeKeretaRute, Rute ruteKereta, ArrayList<Kereta> keretaTersedia) {
         this.kodeKeretaRute = kodeKeretaRute;
-        this.kodeRute = kodeRute;
+        this.ruteKereta = ruteKereta;
         this.keretaTersedia = keretaTersedia;
     }
 
@@ -27,12 +27,12 @@ public class KeretaRute {
         this.kodeKeretaRute = kodeKeretaRute;
     }
 
-    public String getKodeRute() {
-        return this.kodeRute;
+    public Rute getRuteKereta() {
+        return this.ruteKereta;
     }
 
-    public void setKodeRute(String kodeRute) {
-        this.kodeRute = kodeRute;
+    public void setRuteKereta(Rute ruteKereta) {
+        this.ruteKereta = ruteKereta;
     }
 
     public ArrayList<Kereta> getKeretaTersedia() {
@@ -45,11 +45,6 @@ public class KeretaRute {
 
     public KeretaRute kodeKeretaRute(String kodeKeretaRute) {
         this.kodeKeretaRute = kodeKeretaRute;
-        return this;
-    }
-
-    public KeretaRute kodeRute(String kodeRute) {
-        this.kodeRute = kodeRute;
         return this;
     }
 
