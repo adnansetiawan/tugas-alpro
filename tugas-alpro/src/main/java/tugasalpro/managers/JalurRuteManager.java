@@ -34,7 +34,7 @@ public class JalurRuteManager{
         }
     }
 
-    private int getIndexByKodeJalur(String kodeJalur){
+    public int getIndexByKodeJalur(String kodeJalur){
         List<JalurRute> listJalurRute = repository.getAll();
         int index = -1;
         for(int i=0; i<listJalurRute.size(); i++){

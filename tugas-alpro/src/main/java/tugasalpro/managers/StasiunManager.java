@@ -34,11 +34,33 @@ public class StasiunManager{
         }
     }
 
-    private int getIndexByKodeStasiun(String kodeStasiun){
+    public Stasiun getByNamaStasiun(String namaStasiun){
+        List<Stasiun> listStasiun = repository.getAll();
+        Optional<Stasiun> selectedStasiun = listStasiun.stream().filter(x->x.getNamaStasiun().equals(namaStasiun)).findFirst();
+        if (selectedStasiun.isPresent()){
+            return selectedStasiun.get();
+        }else{
+            return null;
+        }
+    }
+
+    public int getIndexByKodeStasiun(String kodeStasiun){
         List<Stasiun> listStasiun = repository.getAll();
         int index = -1;
         for(int i=0; i<listStasiun.size(); i++){
             if(listStasiun.get(i).getKodeStasiun().equals(kodeStasiun)){
+                index = i;
+                break;
+            }            
+        }
+        return index;
+    }
+
+    public int getIndexByNamaStasiun(String namaStasiun){
+        List<Stasiun> listStasiun = repository.getAll();
+        int index = -1;
+        for(int i=0; i<listStasiun.size(); i++){
+            if(listStasiun.get(i).getNamaStasiun().equals(namaStasiun)){
                 index = i;
                 break;
             }            

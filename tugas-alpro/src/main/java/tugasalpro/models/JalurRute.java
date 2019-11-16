@@ -61,11 +61,4 @@ public class JalurRute{
         arrJalurStasiun.add(JS);
         durasi+=JS.getDurasi();
     }
-    
-    public void printJalurStasiun(){
-        for(int i=0;i<arrJalurStasiun.size();i++){
-            System.out.print(arrJalurStasiun.get(i)+" ");
-        }
-        System.out.println();
-    }
 }

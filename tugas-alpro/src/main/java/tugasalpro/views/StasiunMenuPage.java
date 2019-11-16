@@ -16,12 +16,8 @@ public class StasiunMenuPage{
         scanner = new Scanner(System.in);
     }
 
-    public void showStasiunPage(){
-        System.out.println("#KELOLA DATA STASIUN#");
-        showMenu();
-    }
-
     public void showMenu(){
+        System.out.println("\n#KELOLA DATA STASIUN#");
         int pilihan;
         do{
             System.out.println("\n1.  Tambah Data Stasiun");
@@ -53,7 +49,7 @@ public class StasiunMenuPage{
     }
 
     public void menuTambah(){
-        System.out.println("#TAMBAH DATA STASIUN#");
+        System.out.println("\n#TAMBAH DATA STASIUN#");
         Stasiun stasiun = new Stasiun();
         System.out.print("Tambah Data Stasiun : ");
         stasiun.setKodeStasiun(scanner.next());
@@ -79,27 +75,37 @@ public class StasiunMenuPage{
     }
 
     public void showMenuTampil(){
-        System.out.println("#LIHAT DATA STASIUN#");
+        System.out.println("\n#LIHAT DATA STASIUN#");
         menuTampil();
         showMenu();
     }
 
     public void menuUbah(){
-        System.out.println("#EDIT DATA STASIUN#");
+        System.out.println("\n#EDIT DATA STASIUN#");
         menuTampil();
         String kodeStasiun=null;
+        String perintah;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         do{
             System.out.print("Edit Stasiun : ");
             kodeStasiun=scanner.next();
             if(!kodeStasiun.equals("99")){
-                kodeStasiun=kodeStasiun.substring(5);
-                System.out.println(kodeStasiun);
-                stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
-                if(stasiun!=null){
-                    stasiunManager.delete(stasiun);
-                    flagIterate=false;
+                perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),5));
+                while(!perintah.equals("EDIT_")){
+                    System.out.print("Format Salah\nEdit Stasiun : ");
+                    kodeStasiun=scanner.next();
+                    perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),5));
+                }
+                if(perintah.equals("EDIT_")){
+                    kodeStasiun=kodeStasiun.substring(5);
+                    stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
+                    if(stasiun!=null){
+                        stasiunManager.delete(stasiun);
+                        flagIterate=false;
+                    }else{
+                        System.out.println("Stasiun Tidak Tersedia");
+                    }
                 }
             }else{
                 flagIterate=false;
@@ -114,21 +120,31 @@ public class StasiunMenuPage{
     }
 
     public void menuHapus(){
-        System.out.println("#DELETE DATA STASIUN#");
+        System.out.println("\n#DELETE DATA STASIUN#");
         menuTampil();
         String kodeStasiun=null;
+        String perintah;
         Stasiun stasiun=null;
         boolean flagIterate=true;
         do{
-            System.out.print("Edit Stasiun : ");
+            System.out.print("Delete Stasiun : ");
             kodeStasiun=scanner.next();
             if(!kodeStasiun.equals("99")){
-                kodeStasiun=kodeStasiun.substring(7);
-                System.out.println(kodeStasiun);
-                stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
-                if(stasiun!=null){
-                    stasiunManager.delete(stasiun);
-                    flagIterate=false;
+                perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),7));
+                while(!perintah.equals("DELETE_")){
+                    System.out.print("Format Salah\nDelete Stasiun : ");
+                    kodeStasiun=scanner.next();
+                    perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),7));
+                }
+                if(perintah.equals("DELETE_")){
+                    kodeStasiun=kodeStasiun.substring(7);
+                    stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
+                    if(stasiun!=null){
+                        stasiunManager.delete(stasiun);
+                        flagIterate=false;
+                    }else{
+                        System.out.println("Stasiun Tidak Tersedia");
+                    }
                 }
             }else{
                 flagIterate=false;
