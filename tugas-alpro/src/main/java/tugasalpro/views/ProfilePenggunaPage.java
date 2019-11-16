@@ -253,6 +253,15 @@ class OnUpdateDataPenggunaClicked implements Runnable {
       {
          MessageDialog.showMessageDialog(this.window, "Error", "Ktp hanya boleng mengandung angka dan 16 digit", MessageDialogButton.OK);
          return;
+      }else
+      {
+        UserManager userManager = new UserManager();
+        User user = userManager.getByKtp(ktpTextBox.getText());
+        if(user != null)
+        {
+            MessageDialog.showMessageDialog(this.window, "Error", "user dengan no.ktp: " + ktpTextBox.getText() + " sudah ada", MessageDialogButton.OK);
+            return;
+        }
       }
       if(!checkName(namaTextBox.getText()))
       {
@@ -278,6 +287,7 @@ class OnUpdateDataPenggunaClicked implements Runnable {
       {
         if(!checkPassword(passwordTextBox.getText(), repasswordTextBox.getText()))
         {
+            
             MessageDialog.showMessageDialog(this.window, "Error", "password tidak sesuai", MessageDialogButton.OK);
             return;
         }
