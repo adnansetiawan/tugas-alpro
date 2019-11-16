@@ -23,7 +23,7 @@ public class LoginManager
             this.isLogin = true;
             return;
         }
-       User user = userManager.GetByUsername(username);
+       User user = userManager.getByUsername(username);
        if(user == null)
        {
            this.isLogin = false;

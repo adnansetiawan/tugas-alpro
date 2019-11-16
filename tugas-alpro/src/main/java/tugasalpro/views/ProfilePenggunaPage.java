@@ -1,11 +1,18 @@
 package tugasalpro.views;
 
+import java.util.Arrays;
 import java.util.Scanner;
+
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Window.Hint;
 
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
+import tugasalpro.views.buttonevents.OnKembaliToMenuUtamaClicked;
 import tugasalpro.*;
-public class ProfilePenggunaPage
+public class ProfilePenggunaPage extends BasePage
 {
     private UserManager userManager;
     private Scanner scanner;
@@ -14,25 +21,23 @@ public class ProfilePenggunaPage
         userManager = new UserManager();
         scanner = new Scanner(System.in);
     }
-    private boolean CheckUsername(String userName) {
+    private boolean checkUsername(String userName) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return userName.matches(regex);
     }
 
-    private boolean CheckKtp(String ktp) {
-        String regex = "^[0-9]{16}$";
-        return ktp.matches(regex);
-    }
+    
 
-    private boolean CheckHandphone(String handphone) {
+    private boolean checkHandphone(String handphone) {
         String regex = "^[0-9]{11,12}$";
         return handphone.matches(regex);
     }
 
-    private boolean CheckName(String name) {
+    private boolean checkName(String name) {
         String regex = "^[\\p{L} .'-]+$";
         return name.matches(regex);
     }
+
     private String InputKtp()
     {
         String nomorKtp;
@@ -43,7 +48,7 @@ public class ProfilePenggunaPage
         {
             System.out.print("Nomor KTP :");
             nomorKtp = scanner.nextLine();
-            ktpIsValid = CheckKtp(nomorKtp);
+            ktpIsValid = true;
             if(!ktpIsValid)
             {
                 System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
@@ -61,7 +66,7 @@ public class ProfilePenggunaPage
         {
             System.out.print("Nama Lengkap :");
             nama = scanner.nextLine();
-            namaLengkapIsValid = CheckName(nama);
+            namaLengkapIsValid = checkName(nama);
             if(!namaLengkapIsValid)
             {
                 System.out.println("nama hanya boleh mengandung huruf dan spasi");
@@ -79,7 +84,7 @@ public class ProfilePenggunaPage
         {
             System.out.print("Nomor Handphone :");
             nomorHp = scanner.nextLine();
-            nomorHandphoneIsValid = CheckHandphone(nomorHp);
+            nomorHandphoneIsValid = checkHandphone(nomorHp);
             if(!nomorHandphoneIsValid)
             {
                 System.out.println("format handphone salah, hanya boleh angka, min : 11 dan max: 12 digit");
@@ -97,7 +102,7 @@ public class ProfilePenggunaPage
         {
             System.out.print("Email :");
             userName = scanner.nextLine();
-            emailIsValid = CheckUsername(userName);
+            emailIsValid = checkUsername(userName);
             if(!emailIsValid)
             {
                 System.out.println("format email salah, silahkan coba lagi");
@@ -138,34 +143,155 @@ public class ProfilePenggunaPage
        String userName = InputEmail();
        String password = InputPassword(true);
        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
-       userManager.Add(new User(userName, password, userInfo));
+       userManager.add(new User(userName, password, userInfo));
        LoginPage loginPage =new LoginPage();
        loginPage.showWelcome();
        
     }
-    public void ShowProfile(User user)
+    public void editDataPengguna(User user)
     {
-        System.out.println("-- Data Pengguna --");
-        System.out.println("No KTP :" +user.getUserInfo().geKtp());
-        System.out.println("Nama Lengkap :" +user.getUserInfo().geName());
-        System.out.println("Nomor Handphone :" +user.getUserInfo().geHandphone());
-        System.out.println("Email :" +user.getUsername());
-        System.out.println("Password :" +user.getPassword());
-      
+       
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+ 
+        Panel panel = new Panel();
+ 
+         panel.setLayoutManager(new GridLayout(2));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("No. Ktp      :"));
+         final TextBox ktpTextBox = new TextBox(user.getUserInfo().getKtp());
+         ktpTextBox.setPreferredSize(new TerminalSize(28,1));
+         ktpTextBox.addTo(panel);
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("Nama Lengkap :"));
+         final TextBox namaLengkapTextBox = new TextBox(user.getUserInfo().getName());
+         namaLengkapTextBox.setPreferredSize(new TerminalSize(28,1));
+         namaLengkapTextBox.addTo(panel);
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("No. Handphone:"));
+         final TextBox handphoneTextBox = new TextBox(user.getUserInfo().getHandphone());
+         handphoneTextBox.setPreferredSize(new TerminalSize(28,1));
+         handphoneTextBox.addTo(panel);
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("Email        :"));
+         final TextBox emailTextBox = new TextBox(user.getUsername());
+         emailTextBox.setPreferredSize(new TerminalSize(28,1));
+         emailTextBox.addTo(panel);
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("Password     :"));
+         final TextBox passwordTextBox = new TextBox(user.getPassword());
+         passwordTextBox.setMask('*');
+         passwordTextBox.setPreferredSize(new TerminalSize(28,1));
+         passwordTextBox.addTo(panel);
+
+         addEmptySpace(panel, 2);
+         addEmptySpace(panel, 2);
+         Button btnBack =  new Button("Kembali",new OnKembaliToDataPenggunaClicked(user));
+         btnBack.addTo(panel);
+         Button btnOk =  new Button("Update", new OnPrepareProfileUpdateClicked(user));
+         btnOk.addTo(panel);
+         
+         BasicWindow window = new BasicWindow("UPDATE DATA");
+         // Create gui and start gui
+         window.setComponent(panel);
+         window.setHints(Arrays.asList(Hint.CENTERED));
+        
+         gui.addWindowAndWait(window);
+
     }
-    public void ShowUpdatePenggunaPage()
+    public void enterNoKTP()
     {
-        User user = ApplicationSession.getLoggedUser();
-           
-        if(user.isAdmin())
+        
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+ 
+        Panel panel = new Panel();
+ 
+         panel.setLayoutManager(new GridLayout(2));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("No. Ktp      :"));
+         final TextBox ktpTextBox = new TextBox();
+         ktpTextBox.setPreferredSize(new TerminalSize(28,1));
+         ktpTextBox.addTo(panel);
+         addEmptySpace(panel, 2);
+         Button btnCari =  new Button("Cari", new OnCariByKtpClicked(ktpTextBox));
+         btnCari.addTo(panel);
+         Button btnBack =  new Button("Kembali",new OnKembaliToMenuUtamaClicked(true));
+         btnBack.addTo(panel);
+        
+         BasicWindow window = new BasicWindow("CARI PENGGUNA");
+         // Create gui and start gui
+         window.setComponent(panel);
+         window.setHints(Arrays.asList(Hint.CENTERED));
+        
+         gui.addWindowAndWait(window);
+
+
+    }
+    public void showProfilePenggunaByUser(User user)
+    {
+        
+        User loggedUser = ApplicationSession.getLoggedUser();
+        if(!loggedUser.isAdmin())
         {
-            System.out.println("#KELOLA PROFILE BY ADMIN#");
-      
-        }else
-        {
-             System.out.println("#KELOLA PROFILE BY PENUMPANG#");
+            user = loggedUser;
         }
-        System.out.println(""); 
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+ 
+        Panel panel = new Panel();
+ 
+         panel.setLayoutManager(new GridLayout(2));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("No. Ktp      :"));
+         panel.addComponent(new Label(user.getUserInfo().getKtp()));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("Nama Lengkap :"));
+         panel.addComponent(new Label(user.getUserInfo().getName()));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("No. Handphone:"));
+         panel.addComponent(new Label(user.getUserInfo().getHandphone()));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("Email        :"));
+         panel.addComponent(new Label(user.getUsername()));
+         addEmptySpace(panel, 2);
+         panel.addComponent(new Label("Password     :"));
+         String passwordMask = user.getPassword().replaceAll("(?s).", "*");
+         panel.addComponent(new Label(passwordMask));
+         
+
+         addEmptySpace(panel, 2);
+         addEmptySpace(panel, 2);
+         if(loggedUser.isAdmin())
+         {
+            Button btnBack =  new Button("Kembali",new OnKembaliToCariClicked());
+            btnBack.addTo(panel);
+         }else
+         {
+            Button btnBack =  new Button("Kembali",new OnKembaliToMenuUtamaClicked(false));
+            btnBack.addTo(panel);
+         }
+         Button btnOk =  new Button("Update", new OnPrepareProfileUpdateClicked(user));
+         btnOk.addTo(panel);
+        
+         String titleLabel = "";
+         if(loggedUser.isAdmin())
+         {
+            titleLabel = "KELOLA PROFILE BY ADMIN";
+       
+         }else
+         {
+            titleLabel = "KELOLA PROFILE BY PENUMPANG";
+         }
+         BasicWindow window = new BasicWindow(titleLabel);
+         // Create gui and start gui
+         window.setComponent(panel);
+         window.setHints(Arrays.asList(Hint.CENTERED));
+        
+         gui.addWindowAndWait(window);
+
+
+        /*System.out.println(""); 
         System.out.println("-- Ubah Data Pengguna --");
         String noKtp = null;
         if(user.isAdmin())
@@ -175,7 +301,7 @@ public class ProfilePenggunaPage
             do
             {
                 noKtp = InputKtp();
-                userByKtp = userManager.GetByKtp(noKtp);
+                userByKtp = userManager.getByKtp(noKtp);
                 isUserByKtpFound = userByKtp != null;
                 if(userByKtp == null)
                 {
@@ -187,7 +313,7 @@ public class ProfilePenggunaPage
 
         }else
         {
-            noKtp = user.getUserInfo().geKtp();
+            noKtp = user.getUserInfo().getKtp();
             System.out.println(""); 
             ShowProfile(user);
         }
@@ -199,7 +325,7 @@ public class ProfilePenggunaPage
         String password = InputPassword(false);
         UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
         User newUser = new User(userName, password, userInfo);
-        userManager.Update(newUser);
+        userManager.update(newUser);
         if(!user.isAdmin())
         {
             ApplicationSession.setLoggedUser(user);
@@ -207,7 +333,73 @@ public class ProfilePenggunaPage
         System.out.println(""); 
         System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
         System.out.println(""); 
-        ShowProfile(newUser);
+        ShowProfile(newUser);*/
        
+    }
+}
+class OnPrepareProfileUpdateClicked implements Runnable {
+    
+    private User userData;
+    public OnPrepareProfileUpdateClicked(User userData) {
+        this.userData = userData;
+    }
+
+    @Override
+    public void run() {
+       ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+       profilePenggunaPage.editDataPengguna(this.userData);
+    }
+}
+class OnKembaliToDataPenggunaClicked implements Runnable {
+    
+    private User userData;
+   
+    public OnKembaliToDataPenggunaClicked(User userData) {
+        this.userData= userData;
+    }
+
+    @Override
+    public void run() {
+       ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+       profilePenggunaPage.showProfilePenggunaByUser(userData);
+    }
+}
+class OnKembaliToCariClicked implements Runnable {
+    public OnKembaliToCariClicked() {
+    }
+
+    @Override
+    public void run() {
+            ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+            profilePenggunaPage.enterNoKTP();
+        
+    }
+}
+class OnCariByKtpClicked implements Runnable {
+    
+    private TextBox ktpTextBox;
+    private UserManager userManager;
+    public OnCariByKtpClicked(TextBox ktpTextBox) {
+        this.ktpTextBox = ktpTextBox;
+        this.userManager = new UserManager();
+    }
+
+    @Override
+    public void run() {
+        boolean ktpIsValid = checkKtp(this.ktpTextBox.getText());
+        if(!ktpIsValid)
+        {
+            System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
+       
+        }else
+        {
+            ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+            User user = userManager.getByKtp(this.ktpTextBox.getText());
+            profilePenggunaPage.showProfilePenggunaByUser(user);
+        }
+    }
+    private boolean checkKtp(String ktp) {
+        String regex = "^[0-9]{16}$";
+        return ktp.matches(regex);
     }
 }

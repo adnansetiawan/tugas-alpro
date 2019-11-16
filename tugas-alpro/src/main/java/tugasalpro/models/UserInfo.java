@@ -11,15 +11,15 @@ public class UserInfo
         this.ktp = ktp;
         this.handphone = handphone;
     }
-    public String geName()
+    public String getName()
     {
         return this.nama;
     }
-    public String geKtp()
+    public String getKtp()
     {
         return this.ktp;
     }
-    public String geHandphone()
+    public String getHandphone()
     {
         return this.handphone;
     }

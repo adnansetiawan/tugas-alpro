@@ -12,19 +12,18 @@ public class OnLoginClicked implements Runnable {
     private TextBox passwordTextBox;
     private LoginManager loginManager;
     private WindowBasedTextGUI window;
-    private UserMenuPage userMenuPage;
-    public OnLoginClicked(UserMenuPage userMenuPage, LoginManager loginManager, WindowBasedTextGUI window, TextBox usernameTextBox, TextBox passwordTextBox) {
+    public OnLoginClicked(WindowBasedTextGUI window, TextBox usernameTextBox, TextBox passwordTextBox) {
         this.usernameTextBox = usernameTextBox;
         this.passwordTextBox = passwordTextBox;
         this.window = window;
-        this.loginManager = loginManager;
-        this.userMenuPage = userMenuPage;
+        this.loginManager = new LoginManager();
     }
 
     @Override
     public void run() {
         loginManager.Login(this.usernameTextBox.getText(), this.passwordTextBox.getText());
         if (loginManager.HasLogin()) {
+            UserMenuPage userMenuPage = new UserMenuPage();
             if (ApplicationSession.getLoggedUser().isAdmin()) {
                 userMenuPage.ShowMenuAdmin();
 
