@@ -1,4 +1,7 @@
-package tugasalpro;
+package tugasalpro.models;
+
+import tugasalpro.Gerbong;
+
 public class Kereta {
     private String kodeKereta;
     private String namaKereta;

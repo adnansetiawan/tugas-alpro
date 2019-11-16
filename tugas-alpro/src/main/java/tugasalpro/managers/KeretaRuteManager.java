@@ -1,7 +1,10 @@
-package tugasalpro;
+package tugasalpro.managers;
 
 import java.util.List;
 import java.util.Optional;
+
+import tugasalpro.models.KeretaRute;
+import tugasalpro.Repository;
 
 public class KeretaRuteManager {
     private Repository<KeretaRute> repository;

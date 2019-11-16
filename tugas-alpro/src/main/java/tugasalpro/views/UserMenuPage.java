@@ -87,10 +87,12 @@ public class UserMenuPage {
                     rutePage.showMenu();
                     break;
                 case 5:
-                    
+                    StasiunMenuPage stasiunMenuPage = new StasiunMenuPage();
+                    stasiunMenuPage.showMenu();
                     break;
                 case 6:
-                    
+                    JalurRuteMenuPage jalurRuteMenuPage = new JalurRuteMenuPage();
+                    jalurRuteMenuPage.showMenu();
                     break;
                 case 7:
                     new WaktuRutePage().showMenu();

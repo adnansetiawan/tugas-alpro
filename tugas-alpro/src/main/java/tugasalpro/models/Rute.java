@@ -1,4 +1,7 @@
-package tugasalpro;
+package tugasalpro.models;
+
+import tugasalpro.*;
+
 public class Rute {
     private String kodeRute;
     private Kota kotaAsal;

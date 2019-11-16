@@ -1,9 +1,12 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
+
+import tugasalpro.managers.*;
+import tugasalpro.models.*;
 
 public class KotaPage {
     private KotaManager kotaManager;

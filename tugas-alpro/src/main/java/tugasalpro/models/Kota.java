@@ -1,4 +1,6 @@
-package tugasalpro;
+package tugasalpro.models;
+
+
 public class Kota {
     private String kodeKota;
     private String namaKota;
