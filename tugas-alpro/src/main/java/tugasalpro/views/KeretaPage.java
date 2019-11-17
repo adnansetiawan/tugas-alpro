@@ -1,9 +1,13 @@
-package tugasalpro;
+package tugasalpro.views;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
+
+import tugasalpro.Gerbong;
+import tugasalpro.managers.KeretaManager;
+import tugasalpro.models.Kereta;
 
 
 

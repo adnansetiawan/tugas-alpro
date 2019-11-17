@@ -1,5 +1,6 @@
 package tugasalpro.views;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,19 +10,17 @@ import tugasalpro.managers.*;
 
 public class JalurRuteMenuPage{
     private final JalurRuteManager jalurRuteManager;
+    private final StasiunManager stasiunManager;
     Scanner scanner;
     
     public JalurRuteMenuPage(){
         jalurRuteManager=new JalurRuteManager();
+        stasiunManager=new StasiunManager();
         scanner=new Scanner(System.in);
     }
 
-    public void showJalurRutePage(){
-        System.out.println("#KELOLA STASIUN BERDASARKAN RUTE#");
-        showMenu();
-    }
-
     public void showMenu(){
+        System.out.println("\n#KELOLA STASIUN BERDASARKAN RUTE#");
         int pilihan;
         do{
             System.out.println("\n1.  Tambah Jalur Stasiun pada Rute");
@@ -49,16 +48,17 @@ public class JalurRuteMenuPage{
     }
 
     public void menuTambah(){
-        System.out.println("#TAMBAH JALUR STASIUN PADA RUTE#");
+        System.out.println("\n#TAMBAH JALUR STASIUN PADA RUTE#");
         JalurRute jalurRute = new JalurRute();
         List<JalurRute> listJalurRute = jalurRuteManager.getAll();
-        int id = listJalurRute.size()+1;
         String kodeJalur;
-        if (id < 10){
-            kodeJalur = "JL0"+id;
-        }else{
-            kodeJalur = "JL"+id;
-        }
+        do{
+            System.out.print("Kode Jalur : ");
+            kodeJalur=scanner.next();
+            if(jalurRuteManager.getIndexByKodeJalur(kodeJalur)!=-1){
+                System.out.println("Kode Jalur Tidak Tersedia");
+            }
+        }while(jalurRuteManager.getIndexByKodeJalur(kodeJalur)!=-1);
         jalurRute.setKodeJalur(kodeJalur);
         System.out.print("Kode Rute : ");
         Rute rute = new Rute();
@@ -66,21 +66,33 @@ public class JalurRuteMenuPage{
         jalurRute.setRuteJalur(rute);
         System.out.println("Stasiun Awal Sampai Stasiun Akhir\n----------------------------------------");
         JalurStasiun jalurStasiun = new JalurStasiun();
-        Stasiun stasiunAwal = new Stasiun();
-        Stasiun stasiunTujuan = new Stasiun();
-        String masukan;
+        String namaStasiunAsal, namaStasiunTujuan;
+        int i = 1, durasiJalurStasiun;
         do{
-            System.out.print("Jalur %d : ");
-            masukan = scanner.next();
-            if (!masukan.equals("99")){
-                stasiunAwal.setNamaStasiun(masukan);
-                jalurStasiun.setStasiunAwal(stasiunAwal);
-                stasiunTujuan.setNamaStasiun(scanner.next());
-                jalurStasiun.setStasiunTujuan(stasiunTujuan);
-                jalurStasiun.setDurasi(scanner.nextInt());
+            System.out.print("Jalur "+i+" : ");
+            namaStasiunAsal = scanner.next();
+            if (!namaStasiunAsal.equals("99")){
+                namaStasiunTujuan=scanner.next();
+                durasiJalurStasiun=scanner.nextInt();
+                while(stasiunManager.getIndexByNamaStasiun(namaStasiunAsal)==-1||stasiunManager.getIndexByNamaStasiun(namaStasiunTujuan)==-1){
+                    if(stasiunManager.getIndexByNamaStasiun(namaStasiunAsal)==-1){
+                        System.out.println("Stasiun Asal Tidak Tersedia");
+                    }
+                    if(stasiunManager.getIndexByNamaStasiun(namaStasiunTujuan)==-1){
+                        System.out.println("Stasiun Tujuan Tidak Tersedia");
+                    }
+                    System.out.print("Jalur "+i+" : ");
+                    namaStasiunAsal=scanner.next();
+                    namaStasiunTujuan=scanner.next();
+                    durasiJalurStasiun=scanner.nextInt();
+                }
+                jalurStasiun.setStasiunAsal(stasiunManager.getByNamaStasiun(namaStasiunAsal));
+                jalurStasiun.setStasiunTujuan(stasiunManager.getByNamaStasiun(namaStasiunTujuan));
+                jalurStasiun.setDurasi(durasiJalurStasiun);
+                jalurRute.addJalurStasiun(jalurStasiun);
+                i++;
             }
-            jalurRute.addJalurStasiun(jalurStasiun);
-        }while (!masukan.equals("99"));
+        }while (!namaStasiunAsal.equals("99"));
         jalurRuteManager.add(jalurRute);
         System.out.println("----------------------------------------");
         System.out.println("Jalur Stasiun yang dilewati berdasarkan Rute Berhasil Ditambahkan");
@@ -89,16 +101,24 @@ public class JalurRuteMenuPage{
     }
 
     public void menuTampil(){
-        System.out.println("#LIHAT STASIUN BERDASARKAN RUTE#");
+        System.out.println("\n#LIHAT JALUR STASIUN BERDASARKAN RUTE#");
         System.out.println("-------------------------------------------------------");
         System.out.println("No \t Kode Jalur \t Kode Rute \t Jalur yang Dilewati \t Durasi");
         List<JalurRute> listJalurRute = jalurRuteManager.getAll();
         int i = 0;
-        int j;
         for (JalurRute jalurRute : listJalurRute) {
+            ArrayList<JalurStasiun> jalurStasiun = jalurRute.getArrJalurStasiun();
             i++;
-            System.out.print(i+" \t "+jalurRute.getKodeJalur()+" \t "+jalurRute.getRuteJalur().getKodeRute()+" \t ");
-            jalurRute.printJalurStasiun();
+            /*
+            System.out.println(i+" \t "+jalurRute.getKodeJalur()+" \t \t "+jalurRute.getRuteJalur().getKodeRute()+" \t "+jalurStasiun.get(0).getStasiunAsal().getKodeStasiun()+"-"+jalurStasiun.get(0).getStasiunTujuan().getKodeStasiun()+" \t "+jalurRute.getDurasi());
+            int j = 0;
+            for (JalurStasiun listJalurStasiun : jalurStasiun) {
+                if (j!=0) {
+                    System.out.println("\t \t \t\t \t\t "+listJalurStasiun.getStasiunAsal().getKodeStasiun()+listJalurStasiun.getStasiunTujuan().getKodeStasiun());
+                }
+                j++;
+            }
+            */
         }
         System.out.println("-------------------------------------------------------");
         showMenu();
@@ -108,6 +128,8 @@ public class JalurRuteMenuPage{
         String kodeJalur = null;
         JalurRute delJalur = null;
         boolean flagIterate = true;
+        System.out.println("\n#HAPUS JALUR STASIUN BERDASARKAN RUTE#");
+        System.out.println("-------------------------------------------------------");
         do {
             System.out.print("Hapus Jalur : ");
             kodeJalur = scanner.next();

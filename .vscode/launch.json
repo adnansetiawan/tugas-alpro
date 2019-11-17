@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - WaktuRuteManager",
+            "request": "launch",
+            "mainClass": "tugasalpro.managers.WaktuRuteManager",
+            "projectName": "com.tugasalpro.k3"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -14,7 +21,7 @@
             "type": "java",
             "name": "Debug (Launch)-App",
             "request": "launch",
-            "mainClass": "tugas.App"
+            "mainClass": "tugasalpro.App"
         }
     ]
 }

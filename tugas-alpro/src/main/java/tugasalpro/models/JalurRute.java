@@ -1,9 +1,7 @@
 package tugasalpro.models;
 
 import java.util.ArrayList;
-
 import tugasalpro.*;
-
 public class JalurRute{
     private String kodeJalur;
     private Rute ruteJalur;
@@ -60,12 +58,5 @@ public class JalurRute{
     public void addJalurStasiun(JalurStasiun JS){
         arrJalurStasiun.add(JS);
         durasi+=JS.getDurasi();
-    }
-    
-    public void printJalurStasiun(){
-        for(int i=0;i<arrJalurStasiun.size();i++){
-            System.out.print(arrJalurStasiun.get(i)+" ");
-        }
-        System.out.println();
     }
 }
