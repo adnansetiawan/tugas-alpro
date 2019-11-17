@@ -160,7 +160,7 @@ class OnOkMenuAdminClicked implements Runnable
                 break;
             case 4:
                 RutePage rutePage = new RutePage();
-                rutePage.showMenu();
+                rutePage.menuTampil();
                 break;
             case 5:
                 

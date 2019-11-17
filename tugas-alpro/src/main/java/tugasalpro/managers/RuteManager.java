@@ -38,6 +38,22 @@ public class RuteManager {
         }
 
     }
+    public Rute GetById(String id) {
+        List<Rute> listRute = repository.getAll();
+        if (listRute.size()>0)
+        {
+            Optional<Rute> selectedRute = 
+            listRute.stream().filter(x->x.getId().equals(id)).findFirst();
+            if(selectedRute.isPresent())
+                return selectedRute.get();
+            return null;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
     public Rute GetByNamaKotaAsal(String namaKota)
     {
         List<Rute> listRute = repository.getAll();

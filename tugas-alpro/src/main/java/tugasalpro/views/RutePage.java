@@ -1,14 +1,23 @@
 package tugasalpro.views;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+import java.util.regex.Pattern;
+
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.gui2.dialogs.*;
+import com.googlecode.lanterna.gui2.table.*;
+
 import tugasalpro.managers.*;
 import tugasalpro.models.Rute;
 
 
-public class RutePage {
+public class RutePage extends BasePage {
     private RuteManager ruteManager;
     private KotaManager kotaManager;
     Scanner scanner;
@@ -20,127 +29,232 @@ public class RutePage {
         scanner = new Scanner(System.in);
 
     }
-
-    public void showMenu(){
-
-        int pilihan = 0;
-        do {
-            System.out.println("Menu Rute");
-            System.out.println("1. Tambah Rute");
-            System.out.println("2. Ubah Rute");
-            System.out.println("3. Tampilkan Rute");
-            System.out.println("4. Hapus Rute");
-            System.out.println("99. Keluar");
-            System.out.print("Pilihan : ");
-            pilihan = scanner.nextInt();
-            if (pilihan == 1) {
-                menuTambah();
-            } else if (pilihan == 2) {
-                menuUbah();
-            } else if (pilihan == 3) {
-                menuTampil();
-            } else if (pilihan == 4) {
-                menuHapus();
+    private void generateListRute(WindowBasedTextGUI gui, Panel mainPanel)
+   {
+        mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+        addEmptySpace(mainPanel, 1);
+        Table<String> table = new Table<String>("No", "KEBERANGKATAN", "TUJUAN", "KODE RUTE", "TARIF BISNIS", "TARIF PREMIUM");
+        table.addTo(mainPanel);
+        table.setSelectAction(new Runnable() {
+            @Override
+            public void run() {
+                List<String> data = table.getTableModel().getRow(table.getSelectedRow());
+                Rute rute = ruteManager.GetByKodeRute(data.get(3));
+                     String result =   new TextInputDialogBuilder()
+                    .setTitle("Pilih")
+                    .setDescription("EDIT/DELETE")
+                    .setValidationPattern(Pattern.compile("(EDIT|DELETE){1}"), "input tidak valid")
+                    .build()
+                    .showDialog(gui);
+                    switch(result)
+                    {
+                        case "EDIT":
+                            menuUbah(rute);
+                            break;
+                        case "DELETE":
+                            ruteManager.delete(rute);
+                            MessageDialog.showMessageDialog(gui, "Success", "data rute berhasil dihapus", MessageDialogButton.OK);
+                            menuTampil();
+                            break;
+                    }
+                
+             
             }
+        });
+        List<Rute> listRute = ruteManager.GetAll();
+        if(listRute.size() > 0)
+        {
+            int no = 0;
+            for (Rute rute : listRute) {
+                no++;
+                table.getTableModel().addRow(String.valueOf(no), 
+                rute.getKotaAsal().getNamaKota(), rute.getKotaTujuan().getNamaKota(), rute.getKodeRute(), 
+                String.valueOf(rute.getHargaBisnis()), String.valueOf(rute.getHargaPremium()));
+            }
+            
+        }   
+   }
+    public void menuTampil()
+    {
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
 
-        } while (pilihan != 99);
+        Panel mainPanel = new Panel();
+        Panel listPanel = new Panel();
+        mainPanel.addComponent(listPanel.withBorder(Borders.singleLine()));
+        generateListRute(gui,listPanel);
+        addEmptySpace(mainPanel, 1);
+        Panel panel = new Panel(new GridLayout(2));
+       
+        Button btnTambah = new Button("Tambah", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                menuTambah();
+          		
+			}
+            
+        });
+        Button btnKembali = new Button("Kembali", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuAdmin();
+          		
+			}
+            
+        });
+        btnTambah.addTo(panel);
+        btnKembali.addTo(panel);
+        mainPanel.addComponent(panel);
+        BasicWindow window = new BasicWindow("LIST RUTE");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+
+       
     }
 
    public void menuTambah() {
-        Rute rute = new Rute();
-        String kotaAsal,kotaTujuan;
-        int hrgBisnis,hrgPremium;
-        System.out.print("Tambah Rute : ");
-        kotaAsal = scanner.next();
-        kotaTujuan = scanner.next();
-        hrgBisnis = scanner.nextInt();
-        hrgPremium = scanner.nextInt();
-        rute.setKotaAsal(kotaManager.GetByNamaKota(kotaAsal));
-        rute.setKotaTujuan(kotaManager.GetByNamaKota(kotaTujuan));
-        rute.setHargaBisnis(hrgBisnis);
-        rute.setHargaPremium(hrgPremium);
-        rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
-        rute.setKeretaRute(null);
-        ruteManager.add(rute);
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+
+        Panel mainPanel = new Panel();
+
+        mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+        addEmptySpace(mainPanel, 1);
+        mainPanel.addComponent(new Label("[KOTA ASAL] [KOTA TUJUAN] [HARGA BISNIS [HARGA PREMIUM] :"));
+        final TextBox tbRute = new TextBox();
+        tbRute.setPreferredSize(new TerminalSize(50, 1));
+        mainPanel.addComponent(tbRute);
+        addEmptySpace(mainPanel, 1);
+        Panel panelButton = new Panel(new GridLayout(2));
+       
+        Button btnOK = new Button("OK", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                String[] ruteText = tbRute.getText().split(" ");
+                if(ruteText.length != 4)
+                {
+                    MessageDialog.showMessageDialog(gui, "Error", "not valid input", MessageDialogButton.OK);
+                    
+                }else
+                {
+                    try
+                    {
+                        Rute rute = new Rute();
+                        rute.setId(UUID.randomUUID().toString());
+                        rute.setKotaAsal(kotaManager.GetByNamaKota(ruteText[0]));
+                        rute.setKotaTujuan(kotaManager.GetByNamaKota(ruteText[1]));
+                        rute.setHargaBisnis(Double.parseDouble(ruteText[2]));
+                        rute.setHargaPremium(Double.parseDouble(ruteText[3]));
+                        rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
+                        rute.setKeretaRute(null);
+                        ruteManager.add(rute); 
+                        MessageDialog.showMessageDialog(gui, "Success", "rute berhasil ditambahkan", MessageDialogButton.OK);
+                        menuTampil();
+                    }catch(Exception ex)
+                    {
+                        MessageDialog.showMessageDialog(gui, "Error", "data rute gagal ditambahkan", MessageDialogButton.OK);
+                       
+                    }
+                }
+				
+			}
+            
+        });
+        btnOK.addTo(panelButton);
+        Button btnKembali = new Button("TAMPILKAN RUTE", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+               menuTampil();
+				
+			}
+            
+        });
+        btnKembali.addTo(panelButton);
+        mainPanel.addComponent(panelButton);
+        BasicWindow window = new BasicWindow("TAMBAH RUTE");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+        
         
     }
 
-  public  void menuTampil() {
-        System.out.println("-------------------------------------------------------");
-        System.out.println("No \t Keberangkatan \t Tujuan \t Kode_Rute \t Bisnis \t Premium");
-        List<Rute> listRute = ruteManager.GetAll();
-        int i = 0;
-        for (Rute rute : listRute) {
-            i++;
-            System.out.println(i+" \t "+rute.getKotaAsal().getNamaKota()+" \t\t "
-                +rute.getKotaTujuan().getNamaKota()+" \t "
-                +rute.getKodeRute()+" \t "
-                +rute.getHargaBisnis()+" \t "
-                +rute.getHargaPremium());
-        }
-        System.out.println("-------------------------------------------------------");
+ 
 
-    }
+   public void menuUbah(Rute rute) {
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
 
-   public void menuUbah() {
-        menuTampil();
-        String kodeRute = null;
-        Rute rute = null;
-        boolean flagIterate = true;
-
-        String kotaAsal,kotaTujuan;
-        int hrgBisnis,hrgPremium;
-        do {
-            System.out.print("Edit Rute : ");
-            kodeRute = scanner.next();
-            if (kodeRute=="99") {
-                flagIterate = false;
-            } else {
-                kodeRute = kodeRute.substring(5);
-                rute = ruteManager.GetByKodeRute(kodeRute);
-                if (rute!=null) {
-                    ruteManager.delete(rute);
-                    flagIterate = false;
+        Panel mainPanel = new Panel(new GridLayout(2));
+        mainPanel.addComponent(new Label("Kota Asal:"));
+        final TextBox tbKotaAsal = new TextBox(rute.getKotaAsal().getNamaKota());
+        mainPanel.addComponent(tbKotaAsal);
+        addEmptySpace(mainPanel, 2);
+        mainPanel.addComponent(new Label("Kota Tujuan:"));
+        final TextBox tbKotaTujuan = new TextBox(rute.getKotaTujuan().getNamaKota());
+        mainPanel.addComponent(tbKotaTujuan);
+        addEmptySpace(mainPanel, 2);
+        mainPanel.addComponent(new Label("Harga Bisnis:"));
+        final TextBox tbHargaBisnis = new TextBox(String.valueOf(rute.getHargaBisnis()));
+        mainPanel.addComponent(tbHargaBisnis);
+        addEmptySpace(mainPanel, 2);
+        mainPanel.addComponent(new Label("Harga Premium:"));
+        final TextBox tbHargaPremium = new TextBox(String.valueOf(rute.getHargaPremium()));
+        mainPanel.addComponent(tbHargaPremium);
+        addEmptySpace(mainPanel, 2);
+      
+        Button btnOK = new Button("OK", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                try
+                {
+                    Rute updatedRute = new Rute();
+                    updatedRute.setId(rute.getId());
+                    updatedRute.setKotaAsal(kotaManager.GetByNamaKota(tbKotaAsal.getText()));
+                    updatedRute.setKotaTujuan(kotaManager.GetByNamaKota(tbKotaTujuan.getText()));
+                    updatedRute.setHargaBisnis(Double.parseDouble(tbHargaBisnis.getText()));
+                    updatedRute.setHargaPremium(Double.parseDouble(tbHargaPremium.getText()));
+                    updatedRute.setKodeRute(updatedRute.getKotaAsal().getKodeKota()+"-"+updatedRute.getKotaTujuan().getKodeKota());
+                    updatedRute.setKeretaRute(null);
+                    ruteManager.edit(updatedRute);
+                  
+                    MessageDialog.showMessageDialog(gui, "Success", "data rute berhasil diupdate", MessageDialogButton.OK);
+                    menuTampil();
                 }
-            }
-        } while (flagIterate);
-
-        rute = new Rute();
-        System.out.print("Kota Asal : ");
-        kotaAsal = scanner.next();
-        System.out.print("Kota Tujuan : ");
-        kotaTujuan = scanner.next();
-        System.out.print("Harga Bisnis : ");
-        hrgBisnis = scanner.nextInt();
-        System.out.print("Harga Premium: ");
-        hrgPremium = scanner.nextInt();
-        rute.setKotaAsal(kotaManager.GetByNamaKota(kotaAsal));
-        rute.setKotaTujuan(kotaManager.GetByNamaKota(kotaTujuan));
-        rute.setHargaBisnis(hrgBisnis);
-        rute.setHargaPremium(hrgPremium);
-        rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
-        rute.setKeretaRute(null);
-        ruteManager.add(rute);
-    }
-
-   public void menuHapus()  {
-        menuTampil();
-        String kodeRute = null;
-        Rute delRute = null;
-        boolean flagIterate = true;
-        do {
-            System.out.print("Hapus Rute : ");
-            kodeRute = scanner.next();
-            if (kodeRute=="99") {
-                flagIterate = false;
-            } else {
-                kodeRute = kodeRute.substring(7);
-                delRute = ruteManager.GetByKodeRute(kodeRute);
-                if (delRute!=null) {
-                    ruteManager.delete(delRute);
-                    flagIterate = false;
+                catch(Exception ex)
+                {
+                    MessageDialog.showMessageDialog(gui, "Error", "data rute gagal diupdate", MessageDialogButton.OK);
+                    
                 }
-            }
-        } while (flagIterate);
+				
+			}
+            
+        });
+        btnOK.addTo(mainPanel);
+        BasicWindow window = new BasicWindow("EDIT RUTE");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+    
     }
+
+   
 }

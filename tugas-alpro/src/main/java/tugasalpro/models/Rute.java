@@ -3,26 +3,34 @@ package tugasalpro.models;
 import tugasalpro.*;
 
 public class Rute {
+    private String id;
     private String kodeRute;
     private Kota kotaAsal;
     private Kota kotaTujuan;
-    private int hargaBisnis;
-    private int hargaPremium;
+    private double hargaBisnis;
+    private double hargaPremium;
     private Repository<KeretaRute> keretaRute;
 
 
     public Rute() {
     }
 
-    public Rute(String kodeRute, Kota kotaAsal, Kota kotaTujuan, int hargaBisnis, int hargaPremium, Repository<KeretaRute> keretaRute) {
+    public Rute(String id, String kodeRute, Kota kotaAsal, Kota kotaTujuan, double hargaBisnis, double hargaPremium, Repository<KeretaRute> keretaRute) {
         this.kodeRute = kodeRute;
         this.kotaAsal = kotaAsal;
         this.kotaTujuan = kotaTujuan;
         this.hargaBisnis = hargaBisnis;
         this.hargaPremium = hargaPremium;
         this.keretaRute = keretaRute;
+        this.id = id;
+    }
+    public String getId() {
+        return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getKodeRute() {
         return this.kodeRute;
     }
@@ -47,19 +55,19 @@ public class Rute {
         this.kotaTujuan = kotaTujuan;
     }
 
-    public int getHargaBisnis() {
+    public double getHargaBisnis() {
         return this.hargaBisnis;
     }
 
-    public void setHargaBisnis(int hargaBisnis) {
+    public void setHargaBisnis(double hargaBisnis) {
         this.hargaBisnis = hargaBisnis;
     }
 
-    public int getHargaPremium() {
+    public double getHargaPremium() {
         return this.hargaPremium;
     }
 
-    public void setHargaPremium(int hargaPremium) {
+    public void setHargaPremium(double hargaPremium) {
         this.hargaPremium = hargaPremium;
     }
 

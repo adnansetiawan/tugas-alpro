@@ -1,0 +1,34 @@
+[
+  {
+    "id": "668b23a0-48ef-4d07-adad-af6373f2c22d",
+    "kodeRute": "JKT-BDG",
+    "kotaAsal": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "hargaBisnis": 120000.0,
+    "hargaPremium": 200000.0
+  },
+  {
+    "id": "a42e1ee6-4c21-4154-9530-c28bbc620f6a",
+    "kodeRute": "BDG-SMG",
+    "kotaAsal": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "kotaTujuan": {
+      "id": "5f652cef-4cf5-43cc-970e-c82d997dce38",
+      "kodeKota": "SMG",
+      "namaKota": "Semarang"
+    },
+    "hargaBisnis": 180000.0,
+    "hargaPremium": 350000.0
+  }
+]
