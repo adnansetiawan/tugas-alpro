@@ -51,9 +51,17 @@ public class StasiunMenuPage{
     public void menuTambah(){
         System.out.println("\n#TAMBAH DATA STASIUN#");
         Stasiun stasiun = new Stasiun();
-        System.out.print("Tambah Data Stasiun : ");
-        stasiun.setKodeStasiun(scanner.next());
-        stasiun.setNamaStasiun(scanner.nextLine());
+        String kodeStasiun;
+        do{
+            System.out.print("Tambah Data Stasiun : ");
+            kodeStasiun = scanner.next();
+            if(stasiunManager.getIndexByKodeStasiun(kodeStasiun)!=-1){
+                System.out.println("Kode Stasiun Tidak Tersedia");
+            }
+        }while(stasiunManager.getIndexByKodeStasiun(kodeStasiun)!=-1);
+        stasiun.setKodeStasiun(kodeStasiun);
+        String namaStasiun = scanner.nextLine();
+        stasiun.setNamaStasiun(namaStasiun);
         stasiunManager.add(stasiun);
         System.out.println("----------------------------------------");
         System.out.println("Stasiun Berhasil Ditambahkan");
