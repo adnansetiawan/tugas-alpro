@@ -72,7 +72,7 @@ public class ProfilePenggunaPage extends BasePage
          if(isRegistration)
          {
             addEmptySpace(panel, 2);
-            panel.addComponent(new Label("Re-Password     :"));
+            panel.addComponent(new Label("Re-Password   :"));
             repasswordTextBox.setMask('*');
             repasswordTextBox.setPreferredSize(new TerminalSize(28,1));
             repasswordTextBox.addTo(panel);
@@ -108,7 +108,7 @@ public class ProfilePenggunaPage extends BasePage
     public void enterNoKTP()
     {
         
-        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
  
         Panel panel = new Panel();
@@ -120,11 +120,12 @@ public class ProfilePenggunaPage extends BasePage
          ktpTextBox.setPreferredSize(new TerminalSize(28,1));
          ktpTextBox.addTo(panel);
          addEmptySpace(panel, 2);
-         Button btnCari =  new Button("Cari", new OnCariByKtpClicked(ktpTextBox));
+         Button btnCari =  new Button("Cari", new OnCariByKtpClicked(gui, ktpTextBox));
          btnCari.addTo(panel);
          Button btnBack =  new Button("Kembali",new OnKembaliToMenuUtamaClicked(true));
          btnBack.addTo(panel);
         
+
          BasicWindow window = new BasicWindow("CARI PENGGUNA");
          // Create gui and start gui
          window.setComponent(panel);
@@ -359,27 +360,26 @@ class OnCariByKtpClicked implements Runnable {
     
     private TextBox ktpTextBox;
     private UserManager userManager;
-    public OnCariByKtpClicked(TextBox ktpTextBox) {
+    private WindowBasedTextGUI window;
+    public OnCariByKtpClicked(WindowBasedTextGUI window, TextBox ktpTextBox) {
         this.ktpTextBox = ktpTextBox;
         this.userManager = new UserManager();
     }
 
     @Override
     public void run() {
-        boolean ktpIsValid = checkKtp(this.ktpTextBox.getText());
-        if(!ktpIsValid)
+        ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+        User user = userManager.getByKtp(this.ktpTextBox.getText());
+        if(user != null)
         {
-            System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
-       
+            profilePenggunaPage.showProfilePenggunaByUser(user);
         }else
         {
-            ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
-            User user = userManager.getByKtp(this.ktpTextBox.getText());
-            profilePenggunaPage.showProfilePenggunaByUser(user);
+            MessageDialog.showMessageDialog(this.window, "Error", "no ktp tidak vl", MessageDialogButton.OK);
+    
         }
+         
+        
     }
-    private boolean checkKtp(String ktp) {
-        String regex = "^[0-9]{16}$";
-        return ktp.matches(regex);
-    }
+    
 }

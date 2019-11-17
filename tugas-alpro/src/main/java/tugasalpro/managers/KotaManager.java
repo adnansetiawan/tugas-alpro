@@ -44,7 +44,7 @@ public class KotaManager {
         return null;
 
     }
-    public void edit(Kota kota)
+    private int findById(String id)
     {
         List<Kota> listKota = repository.getAll();
         int indexFound = -1;
@@ -52,19 +52,23 @@ public class KotaManager {
         {
             Kota kta = listKota.get(i);
             
-            if(kta.getKodeKota().equals(kota.getKodeKota()))
+            if(kta.getId().equals(id))
             {
                 indexFound = i;
                 break;
             }
         }
-            if (indexFound != -1) {
-            try {
-                listKota.remove(indexFound);
-                listKota.add(kota);
-                repository.update(listKota);
-            }
-            catch(Exception e){
+        return indexFound;
+    }
+    public void edit(Kota kota)
+    {
+        int indexFound = findById(kota.getId());   
+        if (indexFound != -1) {
+        try {
+            
+                repository.edit(kota, indexFound);
+        }
+        catch(Exception e){
                 e.printStackTrace();
             }
         }
@@ -74,22 +78,11 @@ public class KotaManager {
 
     public void delete(Kota kota)
     {
-        List<Kota> listKota = repository.getAll();
-        int indexFound = -1;
-        for(int i = 0; i< listKota.size(); i++)
-        {
-            Kota kta = listKota.get(i);
-            if(kta.getKodeKota().equals(kota.getKodeKota()))
-            {
-                indexFound = i;
-                break;
-            }
-        }
+        int indexFound = findById(kota.getId());
         
         if (indexFound != -1) {
             try {
-                listKota.remove(indexFound);
-                repository.update(listKota);
+                repository.delete(kota, indexFound);
             }
             catch(Exception e){
                 e.printStackTrace();

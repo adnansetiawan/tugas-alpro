@@ -32,8 +32,6 @@ public class OnLoginClicked implements Runnable {
             }
         } else {
             MessageDialog.showMessageDialog(this.window, "Error", "username atau password yang anda masukan salah", MessageDialogButton.OK);
-            usernameTextBox.setText("");
-            passwordTextBox.setText("");
             usernameTextBox.takeFocus();
        }
     }
