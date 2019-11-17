@@ -91,6 +91,7 @@ public class KotaPage extends BasePage {
         mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         addEmptySpace(mainPanel, 1);
         Table<String> table = new Table<String>("No", "KODE KOTA", "NAMA KOTA");
+        table.addTo(mainPanel);
         table.setSelectAction(new Runnable() {
             @Override
             public void run() {
@@ -119,14 +120,15 @@ public class KotaPage extends BasePage {
             }
         });
         List<Kota> listKota = kotaManager.GetAll();
-        if(listKota.size() == 0)
-            return;
-        int no = 0;
-        for (Kota kota : listKota) {
-            no++;
-            table.getTableModel().addRow(String.valueOf(no), kota.getKodeKota(), kota.getNamaKota());
-        }
-        table.addTo(mainPanel);
+        if(listKota.size() > 0)
+        {
+            int no = 0;
+            for (Kota kota : listKota) {
+                no++;
+                table.getTableModel().addRow(String.valueOf(no), kota.getKodeKota(), kota.getNamaKota());
+            }
+            
+        }   
    }
    public void menuTampil()  {
 

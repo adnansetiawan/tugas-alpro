@@ -14,9 +14,7 @@ public class PageComponent
             terminal = new DefaultTerminalFactory().createTerminalEmulator();
             terminal.setBackgroundColor(TextColor.ANSI.WHITE);
 
-            // terminal.setTi
             screen = new TerminalScreen(terminal);
-
             screen.startScreen();
         } catch (Exception ex) {
 

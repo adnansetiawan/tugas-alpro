@@ -155,7 +155,8 @@ class OnOkMenuAdminClicked implements Runnable
                 kotaPage.menuTampil();
                 break;
             case 3:
-                
+                WaktuPage waktuPage = new WaktuPage();
+                waktuPage.showWaktu();
                 break;
             case 4:
                 RutePage rutePage = new RutePage();
