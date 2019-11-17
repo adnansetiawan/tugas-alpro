@@ -23,6 +23,11 @@ import com.google.gson.reflect.TypeToken;
 public class Repository<T> {
     private String fileName;
     private Class<T[]> className;
+
+    public Repository()
+    {
+    }
+
     public Repository(String fileName, Class<T[]> className)
     {
         this.fileName = fileName;

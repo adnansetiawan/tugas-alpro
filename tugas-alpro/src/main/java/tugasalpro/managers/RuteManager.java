@@ -7,19 +7,18 @@ import tugasalpro.Repository;
 import tugasalpro.models.Rute;
 
 public class RuteManager {
-    private Repository<Rute> repository;
-    public RuteManager()
-    {
+    private static Repository<Rute> repository;
+
+    public RuteManager() {
         repository = new Repository<Rute>("Rute", Rute[].class);
     }
-    
-    public void add(Rute rute) 
-    {
-         repository.add(rute);  
-    
+
+    public void add(Rute rute) {
+        repository.add(rute);
+
     }
-    public List<Rute> GetAll()
-    {
+
+    public List<Rute> GetAll() {
         return repository.getAll();
     }
 
@@ -44,11 +43,18 @@ public class RuteManager {
     public Rute GetByKodeRute(String kodeRute)
     {
         List<Rute> listRute = repository.getAll();
-        Optional<Rute> selectedRute = 
+        if (listRute.size()>0)
+        {
+            Optional<Rute> selectedRute = 
             listRute.stream().filter(x->x.getKodeRute().equals(kodeRute)).findFirst();
-        if(selectedRute.isPresent())
-            return selectedRute.get();
-        return null;
+            if(selectedRute.isPresent())
+                return selectedRute.get();
+            return null;
+        }
+        else
+        {
+            return null;
+        }
 
     }
     public Rute GetByNamaKotaAsal(String namaKota)
