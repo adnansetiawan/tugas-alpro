@@ -10,6 +10,7 @@ import tugasalpro.managers.*;
 
 public class JalurRuteMenuPage{
     private final JalurRuteManager jalurRuteManager;
+    private final RuteManager ruteManager;
     private final StasiunManager stasiunManager;
     Scanner scanner;
     
@@ -50,7 +51,6 @@ public class JalurRuteMenuPage{
     public void menuTambah(){
         System.out.println("\n#TAMBAH JALUR STASIUN PADA RUTE#");
         JalurRute jalurRute = new JalurRute();
-        List<JalurRute> listJalurRute = jalurRuteManager.getAll();
         String kodeJalur;
         do{
             System.out.print("Kode Jalur : ");
@@ -60,10 +60,15 @@ public class JalurRuteMenuPage{
             }
         }while(jalurRuteManager.getIndexByKodeJalur(kodeJalur)!=-1);
         jalurRute.setKodeJalur(kodeJalur);
-        System.out.print("Kode Rute : ");
-        Rute rute = new Rute();
-        rute.setKodeRute(scanner.next());
-        jalurRute.setRuteJalur(rute);
+        String kodeRute=null;
+        /*do{
+            System.out.print("Kode Rute : ");
+            kodeRute=scanner.next();
+            if(ruteManager.GetIndexByKodeRute(kodeRute)==-1){
+                System.out.println("Kode Rute Tidak Tersedia");
+            }
+        }while(ruteManager.GetIndexByKodeRute(kodeRute)==-1);*/
+        jalurRute.setRuteJalur(ruteManager.GetByKodeRute(kodeRute));
         System.out.println("Stasiun Awal Sampai Stasiun Akhir\n----------------------------------------");
         JalurStasiun jalurStasiun = new JalurStasiun();
         String namaStasiunAsal, namaStasiunTujuan;
@@ -106,10 +111,9 @@ public class JalurRuteMenuPage{
         System.out.println("No \t Kode Jalur \t Kode Rute \t Jalur yang Dilewati \t Durasi");
         List<JalurRute> listJalurRute = jalurRuteManager.getAll();
         int i = 0;
-        for (JalurRute jalurRute : listJalurRute) {
+        /*for (JalurRute jalurRute : listJalurRute) {
             ArrayList<JalurStasiun> jalurStasiun = jalurRute.getArrJalurStasiun();
             i++;
-            /*
             System.out.println(i+" \t "+jalurRute.getKodeJalur()+" \t \t "+jalurRute.getRuteJalur().getKodeRute()+" \t "+jalurStasiun.get(0).getStasiunAsal().getKodeStasiun()+"-"+jalurStasiun.get(0).getStasiunTujuan().getKodeStasiun()+" \t "+jalurRute.getDurasi());
             int j = 0;
             for (JalurStasiun listJalurStasiun : jalurStasiun) {
@@ -118,8 +122,7 @@ public class JalurRuteMenuPage{
                 }
                 j++;
             }
-            */
-        }
+        }*/
         System.out.println("-------------------------------------------------------");
         showMenu();
     }
