@@ -1,8 +1,8 @@
 package tugasalpro.models;
 public class Stasiun {
+    private String id;
     private String kodeStasiun;
     private String namaStasiun;
-    private String id;
     public Stasiun(){
 
     }

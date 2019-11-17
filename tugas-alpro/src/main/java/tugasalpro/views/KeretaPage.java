@@ -1,179 +1,259 @@
 package tugasalpro.views;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+import java.util.regex.Pattern;
+
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
+import com.googlecode.lanterna.gui2.table.Table;
 
 import tugasalpro.Gerbong;
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.models.Kereta;
+import tugasalpro.models.Stasiun;
 
 
 
-public class KeretaPage{
+public class KeretaPage extends BasePage {
     private KeretaManager keretaManager;
-    private Gerbong gerbong;
-    Scanner scanner;
-
+   
     public KeretaPage(){
         keretaManager = new KeretaManager();
-        gerbong = new Gerbong();
-        scanner = new Scanner(System.in);
     }
 
-    public void showMenu() {
-        int pilihan = 0;
-        do {
-            System.out.println("Menu Kereta Api");
-            System.out.println("1. Tambah Kereta Api");
-            System.out.println("2. Ubah Kereta Api");
-            System.out.println("3. Tampilkan Kereta Api");
-            System.out.println("4. Hapus Kereta Api");
-            System.out.println("99. Keluar");
-            System.out.print("Pilihan : ");
-            pilihan = scanner.nextInt();
-            if (pilihan == 1) {
-                menuTambah();
-            } else if (pilihan == 2) {
-                menuUbah();
-            } else if (pilihan == 3) {
-                menuTampil();
-            } else if (pilihan == 4) {
-                menuHapus();
-            }
+    private void menuTambah() {
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
 
-        } while (pilihan != 99);   
-    }
-    
-    public void menuTambah() {
-        Kereta kereta = new Kereta();
-        String kodeKereta = null;
-        String namaKereta=null;
-        int jmlGerbong=0;
-        int jmlGBisnis=0;
-        int jmlGPremium=0;
-        boolean inputNotValid=false;
-        do
+        Panel mainPanel = new Panel();
+
+        mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+        addEmptySpace(mainPanel, 1);
+        mainPanel.addComponent(new Label("[KODE] '[NAMA]' [JML GERBONG] [JML G.BISNIS] [JML G.PREMIUM] :"));
+        final TextBox tbKereta = new TextBox();
+        tbKereta.setPreferredSize(new TerminalSize(75, 1));
+        mainPanel.addComponent(tbKereta);
+        addEmptySpace(mainPanel, 1);
+        Panel panelButton = new Panel(new GridLayout(2));
+       
+        Button btnOK = new Button("OK", new Runnable()
         {
-            System.out.print("Tambah Kereta Api: ");
-            String dataKereta = scanner.nextLine();
-            String[] dataKeretas = dataKereta.split("'");
-            try
-            {
-                kodeKereta = dataKeretas[0].trim();
-                namaKereta = dataKeretas[1];
-                String[] others = dataKeretas[2].split(" ");
-                jmlGerbong = Integer.parseInt(others[1].substring(1, others[1].toCharArray().length));
-                jmlGBisnis = Integer.parseInt(others[2].substring(1, others[2].toCharArray().length));
-                jmlGPremium = Integer.parseInt(others[3].substring(1, others[3].toCharArray().length));
-                inputNotValid = true;
-            }catch(Exception ex)
-            {
-                System.out.println("format input not valid");
-                inputNotValid = false;
-            }
-        }while(!inputNotValid);
-      if(jmlGerbong == (jmlGBisnis + jmlGPremium))
-      {
-
-            kereta.setKodeKereta(kodeKereta);
-            kereta.setNamaKereta(namaKereta);
-            kereta.jmlGerbong(jmlGerbong);
-            kereta.jmlGBisnis(jmlGBisnis);
-            kereta.jmlGPremium(jmlGPremium);
-
-            keretaManager.add(kereta);
-            System.out.println("Kereta Api Berhasil Ditambahkan");
+        
+			@Override
+			public void run() {
+                String[] dataKeretas = tbKereta.getText().split("'");
+                
+                try
+                {
+                    Kereta kereta = new Kereta();
+                    kereta.setId(UUID.randomUUID().toString());
+                    kereta.setKodeKereta(dataKeretas[0].trim());
+                    kereta.setNamaKereta(dataKeretas[1]);
+                    String[] others = dataKeretas[2].split(" ");
+                    kereta.setJmlGerbong(Integer.parseInt(others[1].substring(1, others[1].toCharArray().length)));
+                    kereta.setJmlGBisnis(Integer.parseInt(others[2].substring(1, others[2].toCharArray().length)));
+                    kereta.setJmlGPremium(Integer.parseInt(others[3].substring(1, others[3].toCharArray().length)));
+                    if(kereta.getJmlGerbong() != kereta.getJmlGBisnis() + kereta.getJmlGPremium())
+                    {
+                        MessageDialog.showMessageDialog(gui, "Error", "jumlah gerbong tidak valid", MessageDialogButton.OK);
+                        return; 
+                    }
+                    keretaManager.add(kereta);
+                    MessageDialog.showMessageDialog(gui, "Success", "stasiun berhasil ditambahkan", MessageDialogButton.OK);
+                    menuTampil();
+                }catch(Exception ex)
+                {
+                    MessageDialog.showMessageDialog(gui, "Error", "data stasiun gagal ditambahkan", MessageDialogButton.OK);
+                    
+                }
+                }
+			
+            
+        });
+        btnOK.addTo(panelButton);
+        Button btnKembali = new Button("TAMPILKAN KERETA", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+               menuTampil();
+				
+			}
+            
+        });
+        btnKembali.addTo(panelButton);
+        mainPanel.addComponent(panelButton);
+        BasicWindow window = new BasicWindow("TAMBAH KERETA");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+        gui.addWindowAndWait(window);
+        
+        
+    }
+   
+    private void generateListKereta(WindowBasedTextGUI gui, Panel mainPanel)
+    {
+         mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+         addEmptySpace(mainPanel, 1);
+         Table<String> table = new Table<String>("No", "KODE KERETA", "NAMA KERETA", "JML GERBONG", "JML BISNIS", "JML PREMIUM");
+         table.addTo(mainPanel);
+         table.setSelectAction(new Runnable() {
+             @Override
+             public void run() {
+                 List<String> data = table.getTableModel().getRow(table.getSelectedRow());
+                 Kereta kereta = keretaManager.getByKodeKereta(data.get(1));
+                      String result =   new TextInputDialogBuilder()
+                     .setTitle("Pilih")
+                     .setDescription("EDIT/DELETE")
+                     .setValidationPattern(Pattern.compile("(EDIT|DELETE){1}"), "input tidak valid")
+                     .build()
+                     .showDialog(gui);
+                     switch(result)
+                     {
+                         case "EDIT":
+                             menuUbah(kereta);
+                             break;
+                         case "DELETE":
+                             keretaManager.delete(kereta);
+                             MessageDialog.showMessageDialog(gui, "Success", "data kereta berhasil dihapus", MessageDialogButton.OK);
+                             menuTampil();
+                             break;
+                     }
+                 
+              
+             }
+         });
+         List<Kereta> listKereta = keretaManager.GetAll();
+         if(listKereta.size() > 0)
+         {
+             int no = 0;
+             for (Kereta kereta : listKereta) {
+                 no++;
+                 table.getTableModel().addRow(String.valueOf(no), kereta.getKodeKereta(), kereta.getNamaKereta(),
+                 String.valueOf(kereta.getJmlGerbong()), String.valueOf(kereta.getJmlGBisnis()), String.valueOf(kereta.getJmlGPremium()));
+             }
+             
+         }   
         }
-        else{
-            System.out.println("Kereta Api Gagal Ditambahkan");
-            menuTambah();
-        }
-    } 
+    
+
 
    public void menuTampil(){
-        System.out.println("-------------------------------------------------------");
-        System.out.println("No \t Kode Kereta \t Nama Kereta \t Gerbong \t Business \t Premium");
-        List<Kereta> listKereta = keretaManager.GetAll();
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
 
-        int i = 0;
-        for(Kereta kereta : listKereta){
-            i++;
-            System.out.println(i+" \t "+kereta.getKodeKereta()+" \t "+kereta.getNamaKereta()+"\t\t"+kereta.getJmlGerbong()+"\t"+kereta.getJmlGBisnis()+"\t"+kereta.getJmlGPremium());
-        }
-        System.out.println("-------------------------------------------------------");
+
+        Panel mainPanel = new Panel();
+        Panel listPanel = new Panel();
+        mainPanel.addComponent(listPanel.withBorder(Borders.singleLine()));
+        generateListKereta(gui,listPanel);
+        addEmptySpace(mainPanel, 1);
+        Panel panel = new Panel(new GridLayout(2));
+    
+        Button btnTambah = new Button("Tambah", new Runnable()
+        {
+        
+            @Override
+            public void run() {
+                menuTambah();
+                
+            }
+            
+        });
+        Button btnKembali = new Button("Kembali", new Runnable()
+        {
+        
+            @Override
+            public void run() {
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuAdmin();
+                
+            }
+            
+        });
+        btnTambah.addTo(panel);
+        btnKembali.addTo(panel);
+        mainPanel.addComponent(panel);
+        BasicWindow window = new BasicWindow("LIST KERETA");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+    
+        gui.addWindowAndWait(window);
     }
 
-   public void menuUbah()  {
-        menuTampil();
-        String kodeKereta = null;
-        Kereta kereta = null;
-        boolean flagIterate = true;
+   public void menuUbah(Kereta kereta)  {
+    MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+    new EmptySpace(TextColor.ANSI.BLUE));
 
-        String namaKereta;
-        int jmlGerbong, jmlGBisnis, jmlGPremium;
-        do {
-            System.out.print("Edit Rute : ");
-            kodeKereta = scanner.next();
-            if (kodeKereta == "99") {
-                flagIterate = false;
-            } else {
-                kodeKereta = kodeKereta.substring(5);
-                kereta = keretaManager.getByKodeKereta(kodeKereta);
-                if (kereta != null) {
-                    keretaManager.delete(kereta);
-                    flagIterate = false;
-                }
+    Panel mainPanel = new Panel(new GridLayout(2));
+    mainPanel.addComponent(new Label("Kode Kereta:"));
+    final TextBox tbKode = new TextBox(kereta.getKodeKereta());
+    mainPanel.addComponent(tbKode);
+    addEmptySpace(mainPanel, 2);
+    mainPanel.addComponent(new Label("Nama Stasiun:"));
+    final TextBox tbNama = new TextBox(kereta.getNamaKereta());
+    mainPanel.addComponent(tbNama);
+    addEmptySpace(mainPanel, 2);
+    mainPanel.addComponent(new Label("Jml Gerbong:"));
+    final TextBox tbJmlGerbong = new TextBox(String.valueOf(kereta.getJmlGerbong()));
+    mainPanel.addComponent(tbJmlGerbong);
+    addEmptySpace(mainPanel, 2);
+    mainPanel.addComponent(new Label("Jml Gerbong Bisnis:"));
+    final TextBox tbJmlGerbongBisnis = new TextBox(String.valueOf(kereta.getJmlGBisnis()));
+    mainPanel.addComponent(tbJmlGerbongBisnis);
+    addEmptySpace(mainPanel, 2);
+    mainPanel.addComponent(new Label("Jml Gerbong Premium:"));
+    final TextBox tbJmlGerbongPremium = new TextBox(String.valueOf(kereta.getJmlGPremium()));
+    mainPanel.addComponent(tbJmlGerbongPremium);
+    addEmptySpace(mainPanel, 2);
+   
+    Button btnOK = new Button("OK", new Runnable()
+    {
+    
+        @Override
+        public void run() {
+            try
+            {
+                Kereta updatedKereta = new Kereta(kereta.getId(), tbKode.getText(), tbNama.getText(), 
+                Integer.parseInt(tbJmlGerbong.getText()),  Integer.parseInt(tbJmlGerbongBisnis.getText()),  
+                Integer.parseInt(tbJmlGerbongPremium.getText()));
+                if(kereta.getJmlGerbong() != kereta.getJmlGBisnis() + kereta.getJmlGPremium())
+                    {
+                        MessageDialog.showMessageDialog(gui, "Error", "jumlah gerbong tidak valid", MessageDialogButton.OK);
+                        return; 
+                    }
+                keretaManager.edit(updatedKereta);
+                MessageDialog.showMessageDialog(gui, "Success", "data kereta berhasil diupdate", MessageDialogButton.OK);
+                menuTampil();
             }
-        } while (flagIterate);
-
-        kereta = new Kereta();
-        System.out.print("Kode Kereta : ");
-        kodeKereta = scanner.next();
-        System.out.print("Nama Kereta : ");
-        namaKereta = scanner.next();
-        System.out.print("Gerbong : ");
-        jmlGerbong = scanner.nextInt();
-        System.out.print("Bussiness : ");
-        jmlGBisnis = scanner.nextInt();
-        System.out.print("Premium: ");
-        jmlGPremium = scanner.nextInt();
-
-        if(jmlGerbong==(jmlGBisnis+jmlGPremium)){
-            kereta.setKodeKereta(kodeKereta);
-            kereta.setNamaKereta(namaKereta);
-            kereta.jmlGerbong(jmlGerbong);
-            kereta.jmlGBisnis(jmlGBisnis);
-            kereta.jmlGPremium(jmlGPremium);
-
-            keretaManager.add(kereta);
-            System.out.println("Kereta Api Berhasil Ditambahkan");
+            catch(Exception ex)
+            {
+                MessageDialog.showMessageDialog(gui, "Error", "data kereta gagal diupdate", MessageDialogButton.OK);
+                
+            }
+            
         }
-        else{
-            System.out.println("Kereta Api Gagal Ditambahkan");
-            menuTambah();
-        }
+        
+    });
+    btnOK.addTo(mainPanel);
+    BasicWindow window = new BasicWindow("EDIT STASIUN");
+    // Create gui and start gui
+    window.setComponent(mainPanel);
+    window.setHints(Arrays.asList(Hint.CENTERED));
+   
+    gui.addWindowAndWait(window);
+    
     }    
 
-    void menuHapus() {
-        menuTampil();
-        String kodeKereta = null;
-        Kereta delKereta = null;
-        boolean flagIterate = true;
-        do {
-            System.out.print("Hapus Kereta : ");
-            kodeKereta = scanner.next();
-            if (kodeKereta == "99") {
-                flagIterate = false;
-            } else {
-                kodeKereta = kodeKereta.substring(7);
-                delKereta = keretaManager.getByKodeKereta(kodeKereta);
-                if (delKereta!=null) {
-                    keretaManager.delete(delKereta);
-                    flagIterate = false;
-                }
-            }
-        } while (flagIterate);
-    }
+    
 }

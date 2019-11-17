@@ -11,8 +11,9 @@ import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.*;
 import com.googlecode.lanterna.gui2.table.Table;
 
-import tugasalpro.Waktu;
-import tugasalpro.WaktuManager;
+import tugasalpro.managers.WaktuManager;
+import tugasalpro.models.Waktu;
+
 
 public class WaktuPage extends BasePage
 {

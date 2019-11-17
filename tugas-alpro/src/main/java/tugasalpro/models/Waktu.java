@@ -1,8 +1,5 @@
-package tugasalpro;
-/**
- *
- * @author Iswahyudi
- */
+package tugasalpro.models;
+
 public class Waktu {
     private String kodeWaktu;
     private String waktu;

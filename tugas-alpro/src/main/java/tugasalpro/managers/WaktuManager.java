@@ -1,7 +1,10 @@
-package tugasalpro;
+package tugasalpro.managers;
 
 import java.util.List;
 import java.util.Optional;
+
+import tugasalpro.Repository;
+import tugasalpro.models.Waktu;
 
 
 public class WaktuManager {

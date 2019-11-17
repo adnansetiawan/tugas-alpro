@@ -178,7 +178,7 @@ class OnOkMenuAdminClicked implements Runnable
                 break;
             case 12:
                 KeretaPage keretaPage = new KeretaPage();
-                keretaPage.showMenu();
+                keretaPage.menuTampil();
                 break;
         
             default:

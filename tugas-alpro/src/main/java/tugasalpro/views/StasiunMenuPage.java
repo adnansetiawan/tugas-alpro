@@ -21,11 +21,10 @@ import tugasalpro.managers.*;
 
 public class StasiunMenuPage extends BasePage { 
     private final StasiunManager stasiunManager;
-    Scanner scanner;
-      
+    
     public StasiunMenuPage(){
         stasiunManager = new StasiunManager();
-        scanner = new Scanner(System.in);
+       
     }
     private void generateListStasiun(WindowBasedTextGUI gui, Panel mainPanel)
     {
@@ -77,6 +76,7 @@ public class StasiunMenuPage extends BasePage {
         WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
 
+
         Panel mainPanel = new Panel();
         Panel listPanel = new Panel();
         mainPanel.addComponent(listPanel.withBorder(Borders.singleLine()));
@@ -114,8 +114,8 @@ public class StasiunMenuPage extends BasePage {
         window.setHints(Arrays.asList(Hint.CENTERED));
        
         gui.addWindowAndWait(window);
-
     }
+    
     private void menuTambah() {
         MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
