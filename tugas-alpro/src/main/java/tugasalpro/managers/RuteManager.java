@@ -54,6 +54,17 @@ public class RuteManager {
         }
 
     }
+    public int getIndexById(String id){
+        List<Rute> listRute = repository.getAll();
+        int index = -1;
+        for(int i=0; i<listRute.size(); i++){
+            if(listRute.get(i).getId().equals(id)){
+                index = i;
+                break;
+            }            
+        }
+        return index;
+    }
     public Rute GetByNamaKotaAsal(String namaKota)
     {
         List<Rute> listRute = repository.getAll();
@@ -78,28 +89,11 @@ public class RuteManager {
 
     public void edit(Rute rute)
     {
-        List<Rute> listRute = repository.getAll();
-        int indexFound = -1;
-        for(int i = 0; i< listRute.size(); i++)
+        int indexFound = getIndexById(rute.getId());
+        if(indexFound != -1)
         {
-            Rute kta = listRute.get(i);
-            
-            if(kta.getKodeRute().equals(rute.getKodeRute()))
-            {
-                indexFound = i;
-                break;
-            }
-        }
-            if (indexFound != -1) {
-            try {
-                listRute.remove(indexFound);
-                listRute.add(rute);
-                repository.update(listRute);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+            repository.edit(rute, indexFound);
+        }  
         
       
     }

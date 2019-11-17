@@ -163,7 +163,8 @@ class OnOkMenuAdminClicked implements Runnable
                 rutePage.menuTampil();
                 break;
             case 5:
-                
+                StasiunMenuPage stasiunPage = new StasiunMenuPage();
+                stasiunPage.menuTampil();
                 break;
             case 6:
                 

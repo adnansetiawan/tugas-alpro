@@ -1,13 +1,25 @@
 package tugasalpro.views;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
-import tugasalpro.*;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Window.Hint;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
+import com.googlecode.lanterna.gui2.table.*;
+
+
 import tugasalpro.models.*;
 import tugasalpro.managers.*;
 
-public class StasiunMenuPage{
+public class StasiunMenuPage extends BasePage { 
     private final StasiunManager stasiunManager;
     Scanner scanner;
       
@@ -15,140 +27,207 @@ public class StasiunMenuPage{
         stasiunManager = new StasiunManager();
         scanner = new Scanner(System.in);
     }
-
-    public void showMenu(){
-        System.out.println("\n#KELOLA DATA STASIUN#");
-        int pilihan;
-        do{
-            System.out.println("\n1.  Tambah Data Stasiun");
-            System.out.println("2.  Lihat Data Stasiun");
-            System.out.println("3.  Edit Data Stasiun");
-            System.out.println("4.  Delete Data Stasiun");
-            System.out.println("99. Menu Utama\n");
-            System.out.print("Pilihan : ");
-            pilihan = scanner.nextInt();
-            switch(pilihan){
-                case 1:
-                    menuTambah();
-                    break;
-                case 2:
-                    showMenuTampil();
-                    break;
-                case 3:
-                    menuUbah();
-                    break;
-                case 4:
-                    menuHapus();
-                    break;
-                case 99:
-                    UserMenuPage menu = new UserMenuPage();
-                    menu.ShowMenuAdmin();
-                    break;
-            }
-        }while(pilihan!=99);
-    }
-
-    public void menuTambah(){
-        System.out.println("\n#TAMBAH DATA STASIUN#");
-        Stasiun stasiun = new Stasiun();
-        System.out.print("Tambah Data Stasiun : ");
-        stasiun.setKodeStasiun(scanner.next());
-        stasiun.setNamaStasiun(scanner.nextLine());
-        stasiunManager.add(stasiun);
-        System.out.println("----------------------------------------");
-        System.out.println("Stasiun Berhasil Ditambahkan");
-        System.out.println("----------------------------------------");
-        showMenu();
-    }
-    
-    public void menuTampil(){
-        System.out.println("Data Lengkap Stasiun");
-        System.out.println("----------------------------------------");
-        System.out.println("No \t Kode Stasiun \t Nama Stasiun");
-        List<Stasiun> listStasiun = stasiunManager.getAll();
-        int i = 0;
-        for(Stasiun stasiun : listStasiun){
-            i++;
-            System.out.println(i+" \t "+stasiun.getKodeStasiun()+"\t\t"+stasiun.getNamaStasiun());
+    private void generateListStasiun(WindowBasedTextGUI gui, Panel mainPanel)
+    {
+         mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+         addEmptySpace(mainPanel, 1);
+         Table<String> table = new Table<String>("No", "KODE STASIUN", "NAMA STASIUN");
+         table.addTo(mainPanel);
+         table.setSelectAction(new Runnable() {
+             @Override
+             public void run() {
+                 List<String> data = table.getTableModel().getRow(table.getSelectedRow());
+                 Stasiun stasiun = stasiunManager.getByKodeStasiun(data.get(1));
+                      String result =   new TextInputDialogBuilder()
+                     .setTitle("Pilih")
+                     .setDescription("EDIT/DELETE")
+                     .setValidationPattern(Pattern.compile("(EDIT|DELETE){1}"), "input tidak valid")
+                     .build()
+                     .showDialog(gui);
+                     switch(result)
+                     {
+                         case "EDIT":
+                             menuUbah(stasiun);
+                             break;
+                         case "DELETE":
+                             stasiunManager.delete(stasiun);
+                             MessageDialog.showMessageDialog(gui, "Success", "data stasiun berhasil dihapus", MessageDialogButton.OK);
+                             menuTampil();
+                             break;
+                     }
+                 
+              
+             }
+         });
+         List<Stasiun> listStasiun = stasiunManager.getAll();
+         if(listStasiun.size() > 0)
+         {
+             int no = 0;
+             for (Stasiun stasiun : listStasiun) {
+                 no++;
+                 table.getTableModel().addRow(String.valueOf(no), stasiun.getKodeStasiun(), stasiun.getNamaStasiun());
+             }
+             
+         }   
         }
-        System.out.println("\n----------------------------------------");
-    }
+    
 
-    public void showMenuTampil(){
-        System.out.println("\n#LIHAT DATA STASIUN#");
-        menuTampil();
-        showMenu();
-    }
+    public void menuTampil()
+    {
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
 
-    public void menuUbah(){
-        System.out.println("\n#EDIT DATA STASIUN#");
-        menuTampil();
-        String kodeStasiun=null;
-        String perintah;
-        Stasiun stasiun=null;
-        boolean flagIterate=true;
-        do{
-            System.out.print("Edit Stasiun : ");
-            kodeStasiun=scanner.next();
-            if(!kodeStasiun.equals("99")){
-                perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),5));
-                while(!perintah.equals("EDIT_")){
-                    System.out.print("Format Salah\nEdit Stasiun : ");
-                    kodeStasiun=scanner.next();
-                    perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),5));
-                }
-                if(perintah.equals("EDIT_")){
-                    kodeStasiun=kodeStasiun.substring(5);
-                    stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
-                    if(stasiun!=null){
-                        stasiunManager.delete(stasiun);
-                        flagIterate=false;
-                    }else{
-                        System.out.println("Stasiun Tidak Tersedia");
+        Panel mainPanel = new Panel();
+        Panel listPanel = new Panel();
+        mainPanel.addComponent(listPanel.withBorder(Borders.singleLine()));
+        generateListStasiun(gui,listPanel);
+        addEmptySpace(mainPanel, 1);
+        Panel panel = new Panel(new GridLayout(2));
+       
+        Button btnTambah = new Button("Tambah", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                menuTambah();
+          		
+			}
+            
+        });
+        Button btnKembali = new Button("Kembali", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuAdmin();
+          		
+			}
+            
+        });
+        btnTambah.addTo(panel);
+        btnKembali.addTo(panel);
+        mainPanel.addComponent(panel);
+        BasicWindow window = new BasicWindow("LIST STASIUN");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+
+    }
+    private void menuTambah() {
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+
+        Panel mainPanel = new Panel();
+
+        mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+        addEmptySpace(mainPanel, 1);
+        mainPanel.addComponent(new Label("[KODE STASIUN] [NAMA STASIUN] :"));
+        final TextBox tbStatiun = new TextBox();
+        tbStatiun.setPreferredSize(new TerminalSize(35, 1));
+        mainPanel.addComponent(tbStatiun);
+        addEmptySpace(mainPanel, 1);
+        Panel panelButton = new Panel(new GridLayout(2));
+       
+        Button btnOK = new Button("OK", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                String[] stasiunText = tbStatiun.getText().split(" ");
+                if(stasiunText.length != 2)
+                {
+                    MessageDialog.showMessageDialog(gui, "Error", "not valid input", MessageDialogButton.OK);
+                    
+                }else
+                {
+                    try
+                    {
+
+                        Stasiun stasiun = new Stasiun(UUID.randomUUID().toString(), stasiunText[0],stasiunText[1]);
+                        stasiunManager.add(stasiun); 
+                        MessageDialog.showMessageDialog(gui, "Success", "stasiun berhasil ditambahkan", MessageDialogButton.OK);
+                        menuTampil();
+                    }catch(Exception ex)
+                    {
+                        MessageDialog.showMessageDialog(gui, "Error", "data stasiun gagal ditambahkan", MessageDialogButton.OK);
+                       
                     }
                 }
-            }else{
-                flagIterate=false;
-            }
-        }while(flagIterate);
-        stasiun = new Stasiun();
-        System.out.print("Kode Stasiun : ");
-        stasiun.setKodeStasiun(scanner.next());
-        System.out.print("Nama stasiun : ");
-        stasiun.setNamaStasiun(scanner.next());
-        stasiunManager.add(stasiun);
+				
+			}
+            
+        });
+        btnOK.addTo(panelButton);
+        Button btnKembali = new Button("TAMPILKAN STASIUN", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+               menuTampil();
+				
+			}
+            
+        });
+        btnKembali.addTo(panelButton);
+        mainPanel.addComponent(panelButton);
+        BasicWindow window = new BasicWindow("TAMBAH STASIUN");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+        
+        
+    }
+   
+
+    private void menuUbah(Stasiun stasiun){
+        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        new EmptySpace(TextColor.ANSI.BLUE));
+
+        Panel mainPanel = new Panel(new GridLayout(2));
+        mainPanel.addComponent(new Label("Kode Stasiun:"));
+        final TextBox tbKodeStasiun = new TextBox(stasiun.getKodeStasiun());
+        mainPanel.addComponent(tbKodeStasiun);
+        addEmptySpace(mainPanel, 2);
+        mainPanel.addComponent(new Label("Nama Stasiun:"));
+        final TextBox tbNamaStasiun = new TextBox(stasiun.getNamaStasiun());
+        mainPanel.addComponent(tbNamaStasiun);
+        addEmptySpace(mainPanel, 2);
+       
+        Button btnOK = new Button("OK", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                try
+                {
+                    Stasiun updatedStasiun = new Stasiun(stasiun.getId(), tbKodeStasiun.getText(),tbNamaStasiun.getText());
+                    stasiunManager.edit(updatedStasiun);
+                    MessageDialog.showMessageDialog(gui, "Success", "data stasiun berhasil diupdate", MessageDialogButton.OK);
+                    menuTampil();
+                }
+                catch(Exception ex)
+                {
+                    MessageDialog.showMessageDialog(gui, "Error", "data stasiun gagal diupdate", MessageDialogButton.OK);
+                    
+                }
+				
+			}
+            
+        });
+        btnOK.addTo(mainPanel);
+        BasicWindow window = new BasicWindow("EDIT STASIUN");
+        // Create gui and start gui
+        window.setComponent(mainPanel);
+        window.setHints(Arrays.asList(Hint.CENTERED));
+       
+        gui.addWindowAndWait(window);
+        
     }
 
-    public void menuHapus(){
-        System.out.println("\n#DELETE DATA STASIUN#");
-        menuTampil();
-        String kodeStasiun=null;
-        String perintah;
-        Stasiun stasiun=null;
-        boolean flagIterate=true;
-        do{
-            System.out.print("Delete Stasiun : ");
-            kodeStasiun=scanner.next();
-            if(!kodeStasiun.equals("99")){
-                perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),7));
-                while(!perintah.equals("DELETE_")){
-                    System.out.print("Format Salah\nDelete Stasiun : ");
-                    kodeStasiun=scanner.next();
-                    perintah=kodeStasiun.substring(0,Math.min(kodeStasiun.length(),7));
-                }
-                if(perintah.equals("DELETE_")){
-                    kodeStasiun=kodeStasiun.substring(7);
-                    stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
-                    if(stasiun!=null){
-                        stasiunManager.delete(stasiun);
-                        flagIterate=false;
-                    }else{
-                        System.out.println("Stasiun Tidak Tersedia");
-                    }
-                }
-            }else{
-                flagIterate=false;
-            }
-        }while(flagIterate);
-    }
+    
 }
