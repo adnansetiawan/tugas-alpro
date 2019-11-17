@@ -23,6 +23,24 @@ public class RuteManager {
         return repository.getAll();
     }
 
+    public int GetIndexByKodeRute(String kodeRute)
+    {
+        List<Rute> listRute = repository.getAll();
+        int indexFound = -1;
+        for(int i = 0; i< listRute.size(); i++)
+        {
+            Rute kta = listRute.get(i);
+            
+            if(kta.getKodeRute().equals(kodeRute))
+            {
+                indexFound = i;
+                break;
+            }
+        }
+        return indexFound;
+
+    }
+
     public Rute GetByKodeRute(String kodeRute)
     {
         List<Rute> listRute = repository.getAll();
