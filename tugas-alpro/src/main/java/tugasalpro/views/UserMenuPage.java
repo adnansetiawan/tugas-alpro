@@ -152,7 +152,7 @@ class OnOkMenuAdminClicked implements Runnable
                 break;
             case 2:
                 KotaPage kotaPage = new KotaPage();
-                kotaPage.showMenu();
+                kotaPage.menuTampil();
                 break;
             case 3:
                 

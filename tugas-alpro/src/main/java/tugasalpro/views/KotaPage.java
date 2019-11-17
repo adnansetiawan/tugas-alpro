@@ -6,12 +6,13 @@ import java.util.Scanner;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import com.googlecode.lanterna.TerminalSize;
+
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.Window.Hint;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import com.googlecode.lanterna.gui2.table.Table;
 
 import tugasalpro.managers.*;
@@ -28,61 +29,7 @@ public class KotaPage extends BasePage {
 
     }
 
-    public void showMenu() {
-
-        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
-        new EmptySpace(TextColor.ANSI.BLUE));
-
-        Panel mainPanel = new Panel();
-
-        mainPanel.setLayoutManager(new GridLayout(1));
-        addEmptySpace(mainPanel, 1);
-        Panel panel = new Panel(new LinearLayout(Direction.VERTICAL));
-        panel.addComponent(new Label("1. Tambah Kota"));
-        panel.addComponent(new Label("2. Tampilkan Kota"));
-        panel.addComponent(new Label("99. Keluar"));
-        addEmptySpace(panel, 1);
-        mainPanel.addComponent(panel);
-        Panel panelInput = new Panel(new GridLayout(3));
-        
-        panelInput.addComponent(new Label("Pilih    :"));
-        panelInput.addComponent(AnimatedLabel.createClassicSpinningLine());
-        final TextBox pilihanText = new TextBox().setValidationPattern(Pattern.compile("[0-9]*"));
-        pilihanText.addTo(panelInput);
-        mainPanel.addComponent(panelInput);
-        addEmptySpace(mainPanel, 1);
-        Button btnOK = new Button("OK", new Runnable()
-        {
-        
-			@Override
-			public void run() {
-                int input = Integer.parseInt(pilihanText.getText());
-                switch(input)
-                {
-                    case 1 : 
-                        menuTambah();
-                        break;
-                    case 2:
-                        menuTampil();
-                        break;
-                    case 99:
-                        UserMenuPage userMenuPage = new UserMenuPage();
-                        userMenuPage.ShowMenuAdmin();
-                        break;    
-                    
-                }
-				
-			}
-            
-        });
-        btnOK.addTo(mainPanel);
-        BasicWindow window = new BasicWindow("MENU KOTA");
-        // Create gui and start gui
-        window.setComponent(mainPanel);
-        window.setHints(Arrays.asList(Hint.CENTERED));
-       
-        gui.addWindowAndWait(window);
-    }
+    
 
     private void menuTambah() {
        
@@ -124,7 +71,7 @@ public class KotaPage extends BasePage {
         
 			@Override
 			public void run() {
-               showMenu();
+               menuTampil();
 				
 			}
             
@@ -139,7 +86,7 @@ public class KotaPage extends BasePage {
         gui.addWindowAndWait(window);
         
     }
-   private void generateListKota(Panel mainPanel)
+   private void generateListKota(WindowBasedTextGUI gui, Panel mainPanel)
    {
         mainPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         addEmptySpace(mainPanel, 1);
@@ -149,7 +96,26 @@ public class KotaPage extends BasePage {
             public void run() {
                 List<String> data = table.getTableModel().getRow(table.getSelectedRow());
                 Kota kota = kotaManager.GetByKodeKota(data.get(1));
-                menuUbah(kota);
+               // MessageDialog.showMessageDialog(gui, "Success", "kota berhasil ditambahkan", MessageDialogButton.OK);
+            String result =   new TextInputDialogBuilder()
+                    .setTitle("Pilih")
+                    .setDescription("EDIT/DELETE")
+                    .setValidationPattern(Pattern.compile("(EDIT|DELETE){1}"), "input tidak valid")
+                    .build()
+                    .showDialog(gui);
+                    switch(result)
+                    {
+                        case "EDIT":
+                            menuUbah(kota);
+                            break;
+                        case "DELETE":
+                            kotaManager.delete(kota);
+                            MessageDialog.showMessageDialog(gui, "Success", "data kota berhasil dihapus", MessageDialogButton.OK);
+                            menuTampil();
+                            break;
+                    }
+                
+             
             }
         });
         List<Kota> listKota = kotaManager.GetAll();
@@ -162,25 +128,42 @@ public class KotaPage extends BasePage {
         }
         table.addTo(mainPanel);
    }
-   private void menuTampil()  {
+   public void menuTampil()  {
 
-        MultiWindowTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
+        WindowBasedTextGUI gui = new MultiWindowTextGUI(getScreen(), new DefaultWindowManager(),
         new EmptySpace(TextColor.ANSI.BLUE));
 
         Panel mainPanel = new Panel();
-        generateListKota(mainPanel);
-        //addEmptySpace(mainPanel, 1);
-        Button btnOK = new Button("OK", new Runnable()
+        Panel listPanel = new Panel();
+        mainPanel.addComponent(listPanel.withBorder(Borders.singleLine()));
+        generateListKota(gui,listPanel);
+        addEmptySpace(mainPanel, 1);
+        Panel panel = new Panel(new GridLayout(2));
+       
+        Button btnTambah = new Button("Tambah", new Runnable()
         {
         
 			@Override
 			public void run() {
-                showMenu();
+                menuTambah();
           		
 			}
             
         });
-        btnOK.addTo(mainPanel);
+        Button btnKembali = new Button("Kembali", new Runnable()
+        {
+        
+			@Override
+			public void run() {
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuAdmin();
+          		
+			}
+            
+        });
+        btnTambah.addTo(panel);
+        btnKembali.addTo(panel);
+        mainPanel.addComponent(panel);
         BasicWindow window = new BasicWindow("LIST KOTA");
         // Create gui and start gui
         window.setComponent(mainPanel);
@@ -212,7 +195,7 @@ public class KotaPage extends BasePage {
 			public void run() {
                  Kota updatedKota = new Kota(kota.getId(), tbKode.getText(), tbNama.getText());
                     kotaManager.edit(updatedKota);   
-                    MessageDialog.showMessageDialog(gui, "Success", "kota berhasil ditambahkan", MessageDialogButton.OK);
+                    MessageDialog.showMessageDialog(gui, "Success", "data kota berhasil diupdate", MessageDialogButton.OK);
                     menuTampil();
                 
 				
@@ -228,24 +211,5 @@ public class KotaPage extends BasePage {
         gui.addWindowAndWait(window);
     }
 
-   private void menuHapus() {
-        menuTampil();
-        String kodeKota = null;
-        Kota delKota = null;
-        boolean flagIterate = true;
-        do {
-            System.out.print("Hapus Kota : ");
-            kodeKota = scanner.next();
-            if (kodeKota=="99") {
-                flagIterate = false;
-            } else {
-                kodeKota = kodeKota.substring(7);
-                delKota = kotaManager.GetByKodeKota(kodeKota);
-                if (delKota!=null) {
-                    kotaManager.delete(delKota);
-                    flagIterate = false;
-                }
-            }
-        } while (flagIterate);
-    }
+   
 }
