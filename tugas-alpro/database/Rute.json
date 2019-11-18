@@ -30,5 +30,20 @@
     },
     "hargaBisnis": 180000.0,
     "hargaPremium": 350000.0
+  },
+  {
+    "kodeRute": "JKT-SMG",
+    "kotaAsal": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "5f652cef-4cf5-43cc-970e-c82d997dce38",
+      "kodeKota": "SMG",
+      "namaKota": "Semarang"
+    },
+    "hargaBisnis": 300000.0,
+    "hargaPremium": 400000.0
   }
 ]

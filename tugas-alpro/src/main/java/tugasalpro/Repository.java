@@ -52,6 +52,7 @@ public class Repository<T> {
         try {
           
             File file = getFile(this.fileName);
+
             FileWriter fr = new FileWriter(file, false);
             fr.write(jsonContent);
             fr.close();
@@ -89,7 +90,17 @@ public class Repository<T> {
     private File getFile(String filename)
     {
         Path databasePath = FileSystems.getDefault().getPath("database").toAbsolutePath();;
-       return new File(databasePath.toString(), this.fileName+".json");
+        File file = new File(databasePath.toString(), this.fileName+".json");
+        if(!file.exists())
+        {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return file;
         
 
     }
@@ -99,6 +110,7 @@ public class Repository<T> {
         byte[] byteData=null;
         try {
             File f = getFile(this.fileName.toString()+".json");
+          
             byteData = Files.readAllBytes(f.toPath());
             
         } catch (IOException e) {
