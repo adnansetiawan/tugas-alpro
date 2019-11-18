@@ -138,7 +138,7 @@ public class ProfilePenggunaPage
        String userName = InputEmail();
        String password = InputPassword(true);
        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
-       userManager.Add(new User(userName, password, userInfo));
+       userManager.add(new User(userName, password, userInfo));
        LoginPage loginPage =new LoginPage();
        loginPage.showWelcome();
        
@@ -146,9 +146,9 @@ public class ProfilePenggunaPage
     public void ShowProfile(User user)
     {
         System.out.println("-- Data Pengguna --");
-        System.out.println("No KTP :" +user.getUserInfo().geKtp());
-        System.out.println("Nama Lengkap :" +user.getUserInfo().geName());
-        System.out.println("Nomor Handphone :" +user.getUserInfo().geHandphone());
+        System.out.println("No KTP :" +user.getUserInfo().getKtp());
+        System.out.println("Nama Lengkap :" +user.getUserInfo().getName());
+        System.out.println("Nomor Handphone :" +user.getUserInfo().getHandphone());
         System.out.println("Email :" +user.getUsername());
         System.out.println("Password :" +user.getPassword());
       
@@ -175,7 +175,7 @@ public class ProfilePenggunaPage
             do
             {
                 noKtp = InputKtp();
-                userByKtp = userManager.GetByKtp(noKtp);
+                userByKtp = userManager.getByKtp(noKtp);
                 isUserByKtpFound = userByKtp != null;
                 if(userByKtp == null)
                 {
@@ -187,7 +187,7 @@ public class ProfilePenggunaPage
 
         }else
         {
-            noKtp = user.getUserInfo().geKtp();
+            noKtp = user.getUserInfo().getKtp();
             System.out.println(""); 
             ShowProfile(user);
         }
@@ -199,7 +199,7 @@ public class ProfilePenggunaPage
         String password = InputPassword(false);
         UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
         User newUser = new User(userName, password, userInfo);
-        userManager.Update(newUser);
+        userManager.update(newUser);
         if(!user.isAdmin())
         {
             ApplicationSession.setLoggedUser(user);

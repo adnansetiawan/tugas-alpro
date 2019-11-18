@@ -1,17 +1,16 @@
 package tugasalpro.views;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
-import tugasalpro.*;
 import tugasalpro.models.*;
 import tugasalpro.managers.*;
 
 public class JalurRuteMenuPage{
-    private final JalurRuteManager jalurRuteManager;
-    private final RuteManager ruteManager;
-    private final StasiunManager stasiunManager;
+    private  JalurRuteManager jalurRuteManager;
+    private  RuteManager ruteManager;
+    private  StasiunManager stasiunManager;
     Scanner scanner;
     
     public JalurRuteMenuPage(){

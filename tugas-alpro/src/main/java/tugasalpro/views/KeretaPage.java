@@ -1,7 +1,6 @@
 package tugasalpro.views;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,12 +12,10 @@ import tugasalpro.models.Kereta;
 
 public class KeretaPage{
     private KeretaManager keretaManager;
-    private Gerbong gerbong;
     Scanner scanner;
 
     public KeretaPage(){
         keretaManager = new KeretaManager();
-        gerbong = new Gerbong();
         scanner = new Scanner(System.in);
     }
 
