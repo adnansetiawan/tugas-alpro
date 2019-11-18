@@ -89,8 +89,13 @@ public class Repository<T> {
     }
     private File getFile(String filename)
     {
-        Path databasePath = FileSystems.getDefault().getPath("database").toAbsolutePath();;
-        File file = new File(databasePath.toString(), this.fileName+".json");
+        //Asli dari mas Adnan **
+        //Path databasePath = FileSystems.getDefault().getPath("database").toAbsolutePath();;
+        //File file = new File(databasePath.toString(), this.fileName+".json");
+        //Untuk running di Windows **
+        String namaFile = this.fileName+".json";
+        String direktory = System.getProperty("user.dir")+"/tugas-alpro/tugas-alpro/database/";
+        File file = new File(direktory, namaFile);
         if(!file.exists())
         {
             try {
