@@ -21,6 +21,11 @@
             <artifactId>gson</artifactId>
             <version>2.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.lanterna</groupId>
+            <artifactId>lanterna</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
@@ -46,6 +51,10 @@
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     </configuration>
                 </plugin>
+               
+                
+        
+          
             </plugins>
         </pluginManagement>
         <plugins>
@@ -63,6 +72,32 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.1</version>
             </plugin>
+             <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.1.0</version>
+                     
+                    <executions>
+                        <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>tugasalpro.App</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+                
         </plugins>
     </build>
     <reporting>

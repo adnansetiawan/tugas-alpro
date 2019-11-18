@@ -3,7 +3,6 @@ package tugasalpro.views;
 import java.util.Scanner;
 
 import tugasalpro.ApplicationSession;
-import tugasalpro.WaktuManager;
 import tugasalpro.models.User;
 
 public class UserMenuPage {
@@ -28,9 +27,13 @@ public class UserMenuPage {
             pilihan = scanner.nextInt();
         } while (pilihan < 0 || pilihan > 3);
         switch (pilihan) {
-            case 0:
+        case 0:
             LoginPage loginPage = new LoginPage();
             loginPage.Logout();
+            break;
+        case 1:
+            BookingPage bookingPage = new BookingPage();
+            bookingPage.showInput();
             break;
         case 2:
             ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
@@ -79,7 +82,8 @@ public class UserMenuPage {
                     kotaPage.showMenu();
                     break;
                 case 3:
-                    new WaktuManager().Generate();;
+                    WaktuPage waktuPage = new WaktuPage();
+                    waktuPage.generate();
                     break;
                 case 4:
                     RutePage rutePage = new RutePage();

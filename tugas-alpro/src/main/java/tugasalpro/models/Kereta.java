@@ -3,27 +3,32 @@ package tugasalpro.models;
 import tugasalpro.Gerbong;
 
 public class Kereta {
+    private String id;
     private String kodeKereta;
     private String namaKereta;
     private int jmlGerbong;
     private int jmlGBisnis;
     private int jmlGPremium;
-    private Gerbong[] arrGBisnis;
-    private Gerbong[] arrGPremium;
-
+   
     public Kereta() {
     }
 
-    public Kereta(String kodeKereta, String namaKereta, int jmlGerbong, int jmlGBisnis, int jmlGPremium, Gerbong[] arrGBisnis, Gerbong[] arrGPremium) {
+    public Kereta(String id, String kodeKereta, String namaKereta, int jmlGerbong, int jmlGBisnis, int jmlGPremium) {
         this.kodeKereta = kodeKereta;
         this.namaKereta = namaKereta;
         this.jmlGerbong = jmlGerbong;
         this.jmlGBisnis = jmlGBisnis;
         this.jmlGPremium = jmlGPremium;
-        this.arrGBisnis = arrGBisnis;
-        this.arrGPremium = arrGPremium;
+         this.id = id;
     }
-
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+    public String getId()
+    {
+        return this.id;
+    }
     public String getKodeKereta() {
         return this.kodeKereta;
     }
@@ -64,22 +69,6 @@ public class Kereta {
         this.jmlGPremium = jmlGPremium;
     }
 
-    public Gerbong[] getArrGBisnis() {
-        return this.arrGBisnis;
-    }
-
-    public void setArrGBisnis(Gerbong[] arrGBisnis) {
-        this.arrGBisnis = arrGBisnis;
-    }
-
-    public Gerbong[] getArrGPremium() {
-        return this.arrGPremium;
-    }
-
-    public void setArrGPremium(Gerbong[] arrGPremium) {
-        this.arrGPremium = arrGPremium;
-    }
-
     public Kereta kodeKereta(String kodeKereta) {
         this.kodeKereta = kodeKereta;
         return this;
@@ -105,13 +94,5 @@ public class Kereta {
         return this;
     }
 
-    public Kereta arrGBisnis(Gerbong[] arrGBisnis) {
-        this.arrGBisnis = arrGBisnis;
-        return this;
-    }
-
-    public Kereta arrGPremium(Gerbong[] arrGPremium) {
-        this.arrGPremium = arrGPremium;
-        return this;
-    }
+    
 }
