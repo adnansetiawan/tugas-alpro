@@ -1,7 +1,9 @@
-package tugasalpro;
+package tugasalpro.managers;
 
 import java.util.List;
 import java.util.Optional;
+import tugasalpro.*;
+import tugasalpro.models.*;
 /**
  *
  * @author Iswahyudi

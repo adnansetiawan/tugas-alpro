@@ -80,7 +80,7 @@ public class UserMenuPage {
                     kotaPage.showMenu();
                     break;
                 case 3:
-                    new WaktuManager().Generate();;
+                    new WaktuPage();
                     break;
                 case 4:
                     RutePage rutePage = new RutePage();

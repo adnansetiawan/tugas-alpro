@@ -1,4 +1,4 @@
-package tugasalpro;
+package tugasalpro.models;
 /**
  *
  * @author Iswahyudi
