@@ -2,20 +2,13 @@ package tugasalpro.managers;
 
 import java.util.List;
 import java.util.Optional;
-<<<<<<< HEAD:tugas-alpro/src/main/java/tugasalpro/managers/WaktuManager.java
-import tugasalpro.*;
-import tugasalpro.models.*;
-/**
- *
- * @author Iswahyudi
- */
-import java.util.Scanner;
-=======
+
+
 
 import tugasalpro.Repository;
 import tugasalpro.models.Waktu;
 
->>>>>>> master:tugas-alpro/src/main/java/tugasalpro/managers/WaktuManager.java
+
 
 public class WaktuManager {
     private Repository<Waktu> repository;
