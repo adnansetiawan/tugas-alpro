@@ -15,7 +15,7 @@ public class Booking
     private Double totalPembayaran;
     private String rekeningTujuan;
     private boolean isBayar;
-   
+  
     public Booking(String bookingId, String kodeJadwal)
     {
         penumpangs = new ArrayList<>();
