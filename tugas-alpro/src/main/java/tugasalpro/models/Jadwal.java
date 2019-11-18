@@ -1,22 +1,32 @@
 package tugasalpro.models;
 
+import java.util.Date;
+
 import tugasalpro.models.Waktu;
 
 public class Jadwal {
     private String kodeJadwal;
-    private String tanggalJadwal;
-    private Waktu waktuRute;
-    private KeretaRute keretaRute;
+    private Date tanggalJadwal;
+    private Waktu waktuBerangkat;
+    private Waktu waktuTiba;
+    private Kota kotaKeberangkatan;
+    private Kota kotaTujuan;
+    private Kereta kereta;
+    private int kursiKosong;
 
 
     public Jadwal() {
     }
 
-    public Jadwal(String kodeJadwal, String tanggalJadwal, Waktu waktuRute, KeretaRute keretaRute) {
+    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, Waktu waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta, int kursiKosong) {
         this.kodeJadwal = kodeJadwal;
         this.tanggalJadwal = tanggalJadwal;
-        this.waktuRute = waktuRute;
-        this.keretaRute = keretaRute;
+        this.waktuBerangkat = waktuBerangkat;
+        this.waktuTiba = waktuTiba;
+        this.kotaKeberangkatan = kotaKeberangkatan;
+        this.kotaTujuan = kotaTujuan;
+        this.kereta = kereta;
+        this.kursiKosong = kursiKosong;
     }
 
     public String getKodeJadwal() {
@@ -27,48 +37,61 @@ public class Jadwal {
         this.kodeJadwal = kodeJadwal;
     }
 
-    public String getTanggalJadwal() {
+    public Date getTanggalJadwal() {
         return this.tanggalJadwal;
     }
 
-    public void setTanggalJadwal(String tanggalJadwal) {
+    public void setTanggalJadwal(Date tanggalJadwal) {
         this.tanggalJadwal = tanggalJadwal;
     }
 
-    public Waktu getWaktuRute() {
-        return this.waktuRute;
+    public Waktu getWaktuBerangkat() {
+        return this.waktuBerangkat;
     }
 
-    public void setWaktuRute(Waktu waktuRute) {
-        this.waktuRute = waktuRute;
+    public void setWaktuBerangkat(Waktu waktuBerangkat) {
+        this.waktuBerangkat = waktuBerangkat;
     }
 
-    public KeretaRute getKeretaRute() {
-        return this.keretaRute;
+    public Waktu getWaktuTiba() {
+        return this.waktuTiba;
     }
 
-    public void setKeretaRute(KeretaRute keretaRute) {
-        this.keretaRute = keretaRute;
+    public void setWaktuTiba(Waktu waktuTiba) {
+        this.waktuTiba = waktuTiba;
     }
 
-    public Jadwal kodeJadwal(String kodeJadwal) {
-        this.kodeJadwal = kodeJadwal;
-        return this;
+    public Kota getKotaKeberangkatan() {
+        return this.kotaKeberangkatan;
     }
 
-    public Jadwal tanggalJadwal(String tanggalJadwal) {
-        this.tanggalJadwal = tanggalJadwal;
-        return this;
+    public void setKotaKeberangkatan(Kota kotaKeberangkatan) {
+        this.kotaKeberangkatan = kotaKeberangkatan;
     }
 
-    public Jadwal waktuRute(Waktu waktuRute) {
-        this.waktuRute = waktuRute;
-        return this;
+    public Kota getKotaTujuan() {
+        return this.kotaTujuan;
     }
 
-    public Jadwal keretaRute(KeretaRute keretaRute) {
-        this.keretaRute = keretaRute;
-        return this;
+    public void setKotaTujuan(Kota kotaTujuan) {
+        this.kotaTujuan = kotaTujuan;
     }
-   
+
+    public Kereta getKereta() {
+        return this.kereta;
+    }
+
+    public void setKereta(Kereta kereta) {
+        this.kereta = kereta;
+    }
+
+    public int getKursiKosong() {
+        return this.kursiKosong;
+    }
+
+    public void setKursiKosong(int kursiKosong) {
+        this.kursiKosong = kursiKosong;
+    }
+
+
 }

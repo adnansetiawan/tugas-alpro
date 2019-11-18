@@ -1,0 +1,64 @@
+[
+  {
+    "kodeJadwal": "JW1",
+    "tanggalJadwal": "18-11-2019",
+    "waktuBerangkat": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "waktuTiba": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "kotaKeberangkatan": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "kereta": {
+      "id": "6b6518db-d5e8-4dfa-a79e-adf83365507b",
+      "kodeKereta": "KAI19081",
+      "namaKereta": "ARGO MERAPI",
+      "jmlGerbong": 6,
+      "jmlGBisnis": 4,
+      "jmlGPremium": 2
+    },
+    "kursiKosong": 80
+  },
+  {
+    "kodeJadwal": "JW2",
+    "tanggalJadwal": "18-11-2019",
+    "waktuBerangkat": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "waktuTiba": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "kotaKeberangkatan": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "kereta": {
+      "id": "f9405ad6-2609-410c-9e08-18ec17adcf15",
+      "kodeKereta": "KAI1982",
+      "namaKereta": "HARINA",
+      "jmlGerbong": 10,
+      "jmlGBisnis": 6,
+      "jmlGPremium": 4
+    },
+    "kursiKosong": 140
+  }
+]

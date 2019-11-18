@@ -1,7 +1,4 @@
 package tugasalpro.views;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -78,7 +75,6 @@ public class KotaPage {
                 flagIterate = false;
             } else {
                 kodeKota = kodeKota.substring(5);
-                System.out.println(kodeKota);
                 kota = kotaManager.GetByKodeKota(kodeKota);
                 if (kota!=null) {
                     kotaManager.delete(kota);
