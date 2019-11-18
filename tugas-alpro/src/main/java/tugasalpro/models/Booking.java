@@ -7,7 +7,7 @@ import java.util.List;
 public class Booking
 {
     private String bookingId;
-    private String kodeJadwal;
+    private Jadwal jadwal;
     private User bookedBy;
     private Date bookingDate;
    
@@ -16,10 +16,10 @@ public class Booking
     private String rekeningTujuan;
     private boolean isBayar;
   
-    public Booking(String bookingId, String kodeJadwal)
+    public Booking(String bookingId, Jadwal jadwal)
     {
         penumpangs = new ArrayList<>();
-        this.kodeJadwal = kodeJadwal;
+        this.jadwal = jadwal;
         this.bookingId = bookingId;
     }
     public void addPenumpang(Penumpang penumpang)
@@ -34,9 +34,9 @@ public class Booking
     {
         return penumpangs;
     }
-    public String getKodeJadwal()
+    public Jadwal getJadwal()
     {
-        return this.kodeJadwal;
+        return this.jadwal;
     }
     public void setBookingDate(Date bookingDate)
     {

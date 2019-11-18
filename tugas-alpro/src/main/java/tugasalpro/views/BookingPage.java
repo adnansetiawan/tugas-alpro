@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import tugasalpro.managers.BookingManager;
+import tugasalpro.managers.JadwalManager;
 import tugasalpro.models.*;
 
 public class BookingPage
@@ -63,12 +64,28 @@ public class BookingPage
     }
     public void showInput()
     {
+        boolean jadwalIsValid = false;
+        Jadwal jadwal = null;
+        do
+        {
         System.out.print("Kode Jadwal :");
+        JadwalManager jadwalManager = new JadwalManager();
         String kodeJadwal = scanner.nextLine();
+         jadwal = jadwalManager.GetByKodeJadwal(kodeJadwal);
+        if(jadwal == null)
+        {
+            jadwalIsValid = false;
+            System.out.println("jadwal tidak valid");
+        }else
+        {
+            jadwalIsValid = true;
+        }
+        }while(!jadwalIsValid);
+       
         System.out.print("Jumlah Penumpang :");
         int jumlahPenumpang = scanner.nextInt();
         System.out.println("------------------------------------------------------------------------------------------");
-        Booking booking = new Booking(UUID.randomUUID().toString(), kodeJadwal);
+        Booking booking = new Booking(UUID.randomUUID().toString(), jadwal);
            
        
         for(int i=1; i<=jumlahPenumpang; i++)
@@ -79,8 +96,16 @@ public class BookingPage
             booking.addPenumpang(new Penumpang(penumpangName));
         }
         System.out.println();
-        showGerbong("Bisnis", "B", 2, 1);
-        showGerbong("Premium", "P", 3, 2);
+        int jmlGBisnis = jadwal.getKereta().getJmlGBisnis();
+        int jmlGPremium = jadwal.getKereta().getJmlGPremium();
+        if(jmlGBisnis > 0)
+        {
+            showGerbong("Bisnis", "B", jmlGBisnis, 1);
+        }
+        if(jmlGPremium > 0)
+        {
+             showGerbong("Premium", "P", jmlGPremium, 2);
+        }
         System.out.println("Pilih Kursi (Dengan Tanda E/Empty) : ");
         int pIndex = 1;
         for(Penumpang p : booking.getAllPenumpang())
