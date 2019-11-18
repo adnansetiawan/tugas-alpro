@@ -1,10 +1,12 @@
 package tugasalpro.models;
 
+import java.util.Date;
+
 import tugasalpro.models.Waktu;
 
 public class Jadwal {
     private String kodeJadwal;
-    private String tanggalJadwal;
+    private Date tanggalJadwal;
     private Waktu waktuBerangkat;
     private Waktu waktuTiba;
     private Kota kotaKeberangkatan;
@@ -16,7 +18,7 @@ public class Jadwal {
     public Jadwal() {
     }
 
-    public Jadwal(String kodeJadwal, String tanggalJadwal, Waktu waktuBerangkat, Waktu waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta, int kursiKosong) {
+    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, Waktu waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta, int kursiKosong) {
         this.kodeJadwal = kodeJadwal;
         this.tanggalJadwal = tanggalJadwal;
         this.waktuBerangkat = waktuBerangkat;
@@ -35,11 +37,11 @@ public class Jadwal {
         this.kodeJadwal = kodeJadwal;
     }
 
-    public String getTanggalJadwal() {
+    public Date getTanggalJadwal() {
         return this.tanggalJadwal;
     }
 
-    public void setTanggalJadwal(String tanggalJadwal) {
+    public void setTanggalJadwal(Date tanggalJadwal) {
         this.tanggalJadwal = tanggalJadwal;
     }
 
