@@ -55,6 +55,17 @@ public class StasiunManager{
         }
         return index;
     }
+    public int getIndexById(String id){
+        List<Stasiun> listStasiun = repository.getAll();
+        int index = -1;
+        for(int i=0; i<listStasiun.size(); i++){
+            if(listStasiun.get(i).getId().equals(id)){
+                index = i;
+                break;
+            }            
+        }
+        return index;
+    }
 
     public int getIndexByNamaStasiun(String namaStasiun){
         List<Stasiun> listStasiun = repository.getAll();
@@ -70,7 +81,7 @@ public class StasiunManager{
 
     public void edit(Stasiun stasiun){
         try{
-            int indexFound = getIndexByKodeStasiun(stasiun.getKodeStasiun());
+            int indexFound = getIndexById(stasiun.getId());
             repository.edit(stasiun, indexFound);
         }
         catch(Exception e){

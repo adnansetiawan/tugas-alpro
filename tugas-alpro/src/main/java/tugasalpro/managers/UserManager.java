@@ -17,16 +17,16 @@ public class UserManager {
         repository = new Repository<User>("Users", User[].class);
     }
     
-    public void Add(User user)
+    public void add(User user)
     {
          repository.add(user);  
     
     }
-    public List<User> GetAll()
+    public List<User> getAll()
     {
         return repository.getAll();
     }
-    public User GetByUsername(String username)
+    public User getByUsername(String username)
     {
         List<User> users = repository.getAll();
         Optional<User> selectedUser = 
@@ -36,7 +36,7 @@ public class UserManager {
         return null;
 
     }
-    public User GetByKtp(String ktp)
+    public User getByKtp(String ktp)
     {
         int indexFound = getIndexByKtp(ktp);
         if(indexFound == -1)
@@ -51,7 +51,7 @@ public class UserManager {
         for(int i=0; i<users.size(); i++)
         {
             
-            if(users.get(i).getUserInfo().geKtp().equals(ktp))
+            if(users.get(i).getUserInfo().getKtp().equals(ktp))
             {
                 index = i;
                 break;
@@ -61,12 +61,12 @@ public class UserManager {
         return index;
 
     }
-    public void Update(User user)
+    public void update(User user)
     {
         
         try
         {
-            int indexFound = getIndexByKtp(user.getUserInfo().geKtp());
+            int indexFound = getIndexByKtp(user.getUserInfo().getKtp());
             repository.edit(user, indexFound);
            
         }
@@ -78,12 +78,12 @@ public class UserManager {
         
       
     }
-    public void Delete(User user)
+    public void delete(User user)
     {
         
         try
         {
-            int indexFound = getIndexByKtp(user.getUserInfo().geKtp());
+            int indexFound = getIndexByKtp(user.getUserInfo().getKtp());
             repository.delete(user, indexFound);
         }
         catch(Exception e)

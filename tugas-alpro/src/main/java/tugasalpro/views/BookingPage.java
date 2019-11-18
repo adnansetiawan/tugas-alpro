@@ -8,11 +8,9 @@ import tugasalpro.models.*;
 
 public class BookingPage
 {
-    private Booking booking;
     private Scanner scanner;
     public BookingPage()
     {
-        booking = new Booking();
         scanner = new Scanner(System.in);
     }
     public void showInput()

@@ -1,8 +1,12 @@
 package tugasalpro.models;
+<<<<<<< HEAD:tugas-alpro/src/main/java/tugasalpro/models/Waktu.java
 /**
  *
  * @author Iswahyudi
  */
+=======
+
+>>>>>>> master:tugas-alpro/src/main/java/tugasalpro/models/Waktu.java
 public class Waktu {
     private String kodeWaktu;
     private String waktu;

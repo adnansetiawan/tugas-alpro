@@ -1,15 +1,16 @@
 package tugasalpro.models;
 public class Stasiun {
+    private String id;
     private String kodeStasiun;
     private String namaStasiun;
-
     public Stasiun(){
 
     }
 
-    public Stasiun(String kS, String nS){
+    public Stasiun(String id, String kS, String nS){
         kodeStasiun=kS;
         namaStasiun=nS;
+        this.id = id;
     }
 
     public void setKodeStasiun(String kS){
@@ -19,7 +20,14 @@ public class Stasiun {
     public void setNamaStasiun(String nS){
         namaStasiun=nS;
     }
-    
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+    public String getId()
+    {
+        return this.id;
+    }
     public String getKodeStasiun(){
         return kodeStasiun;
     }

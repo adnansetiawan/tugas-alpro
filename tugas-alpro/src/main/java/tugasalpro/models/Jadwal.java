@@ -1,6 +1,6 @@
 package tugasalpro.models;
 
-import tugasalpro.Waktu;
+import tugasalpro.models.Waktu;
 
 public class Jadwal {
     private String kodeJadwal;

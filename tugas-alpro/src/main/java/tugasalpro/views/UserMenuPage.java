@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Scanner;
 
 import tugasalpro.*;
+import tugasalpro.managers.WaktuManager;
 import tugasalpro.models.*;
 
 public class UserMenuPage {

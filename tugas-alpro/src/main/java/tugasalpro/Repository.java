@@ -4,10 +4,13 @@ package tugasalpro;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -33,21 +36,10 @@ public class Repository<T> {
         this.fileName = fileName;
         this.className = className;
     }
-    public File getFileFromResources(String fileName) {
-
-        ClassLoader classLoader = getClass().getClassLoader();
-
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("file is not found!, please add the file first");
-        } else {
-            return new File(resource.getFile());
-        }
-
-    }
+  
+    
     public boolean add(T data)
     {
-        File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Type type = new TypeToken<List<T>>() {}.getType();  
         List<T> existingData = getAll();
@@ -58,6 +50,9 @@ public class Repository<T> {
         existingData.add(data);
         String jsonContent = gson.toJson(existingData, type);
         try {
+          
+            File file = getFile(this.fileName);
+
             FileWriter fr = new FileWriter(file, false);
             fr.write(jsonContent);
             fr.close();
@@ -73,13 +68,13 @@ public class Repository<T> {
     }
     public boolean update(List<T> data)
     {
-        File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Type type = new TypeToken<List<T>>() {}.getType();  
         List<T> existingData = getAll();
         existingData = data; 
         String jsonContent = gson.toJson(existingData, type);
         try {
+            File file = getFile(this.fileName);
             FileWriter fr = new FileWriter(file, false);
             fr.write(jsonContent);
             fr.close();
@@ -92,13 +87,32 @@ public class Repository<T> {
        
         
     }
+    private File getFile(String filename)
+    {
+        Path databasePath = FileSystems.getDefault().getPath("database").toAbsolutePath();;
+        File file = new File(databasePath.toString(), this.fileName+".json");
+        if(!file.exists())
+        {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return file;
+        
+
+    }
     public List<T> getAll() 
     {
-        File file = getFileFromResources(this.fileName.toString()+".json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         byte[] byteData=null;
         try {
-            byteData = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+            File f = getFile(this.fileName.toString()+".json");
+          
+            byteData = Files.readAllBytes(f.toPath());
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

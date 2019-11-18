@@ -1,0 +1,22 @@
+[
+  {
+    "kodeStasiun": "GMB",
+    "namaStasiun": "GAMBIR",
+    "id": "b668f9e8-f518-4126-a8e4-3eefc3a100ae"
+  },
+  {
+    "kodeStasiun": "JTR",
+    "namaStasiun": "JATINEGARA",
+    "id": "f3af910b-dcf6-44af-815b-1d7d4b6dc832"
+  },
+  {
+    "kodeStasiun": "PCL",
+    "namaStasiun": "PONCOL",
+    "id": "dcbce46d-7006-4f62-a2ad-ae6a6143e526"
+  },
+  {
+    "kodeStasiun": "TWG",
+    "namaStasiun": "TAWANG",
+    "id": "45fb45af-1a7e-42de-8d49-7df5514f4e50"
+  }
+]

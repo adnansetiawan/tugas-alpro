@@ -23,21 +23,18 @@ public class LoginManager
             this.isLogin = true;
             return;
         }
-       User user = userManager.GetByUsername(username);
+       User user = userManager.getByUsername(username);
        if(user == null)
        {
-           System.out.println("username or password is wrong");
            this.isLogin = false;
        }else
        {
 
            if(!user.getPassword().equals(password))
            {
-                System.out.println("username or password is wrong");
                 this.isLogin = false ;
            }else
            {
-                System.out.println("login success");
                 ApplicationSession.setLoggedUser(user);
                 this.isLogin = true ;
            }

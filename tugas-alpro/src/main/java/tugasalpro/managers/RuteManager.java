@@ -22,7 +22,26 @@ public class RuteManager {
         return repository.getAll();
     }
 
-    public Rute GetByKodeRute(String kodeRute) {
+    public int GetIndexByKodeRute(String kodeRute)
+    {
+        List<Rute> listRute = repository.getAll();
+        int indexFound = -1;
+        for(int i = 0; i< listRute.size(); i++)
+        {
+            Rute kta = listRute.get(i);
+            
+            if(kta.getKodeRute().equals(kodeRute))
+            {
+                indexFound = i;
+                break;
+            }
+        }
+        return indexFound;
+
+    }
+
+    public Rute GetByKodeRute(String kodeRute)
+    {
         List<Rute> listRute = repository.getAll();
         if (listRute.size()>0)
         {
@@ -37,6 +56,33 @@ public class RuteManager {
             return null;
         }
 
+    }
+    public Rute GetById(String id) {
+        List<Rute> listRute = repository.getAll();
+        if (listRute.size()>0)
+        {
+            Optional<Rute> selectedRute = 
+            listRute.stream().filter(x->x.getId().equals(id)).findFirst();
+            if(selectedRute.isPresent())
+                return selectedRute.get();
+            return null;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+    public int getIndexById(String id){
+        List<Rute> listRute = repository.getAll();
+        int index = -1;
+        for(int i=0; i<listRute.size(); i++){
+            if(listRute.get(i).getId().equals(id)){
+                index = i;
+                break;
+            }            
+        }
+        return index;
     }
     public Rute GetByNamaKotaAsal(String namaKota)
     {
@@ -62,28 +108,11 @@ public class RuteManager {
 
     public void edit(Rute rute)
     {
-        List<Rute> listRute = repository.getAll();
-        int indexFound = -1;
-        for(int i = 0; i< listRute.size(); i++)
+        int indexFound = getIndexById(rute.getId());
+        if(indexFound != -1)
         {
-            Rute kta = listRute.get(i);
-            
-            if(kta.getKodeRute().equals(rute.getKodeRute()))
-            {
-                indexFound = i;
-                break;
-            }
-        }
-            if (indexFound != -1) {
-            try {
-                listRute.remove(indexFound);
-                listRute.add(rute);
-                repository.update(listRute);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+            repository.edit(rute, indexFound);
+        }  
         
       
     }
