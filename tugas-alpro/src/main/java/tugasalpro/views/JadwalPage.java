@@ -1,18 +1,15 @@
 package tugasalpro.views;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import tugasalpro.Gerbong;
-
+import tugasalpro.managers.WaktuManager;
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.managers.KeretaRuteManager;
-import tugasalpro.managers.WaktuManager;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.Kereta;
 import tugasalpro.models.KeretaRute;
@@ -65,7 +62,6 @@ public class JadwalPage{
             // generate Jadwal
 
             // get today
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             Date dateobj = new Date();
             
             // get last generated index;
@@ -83,7 +79,7 @@ public class JadwalPage{
                     jadwal.setKotaKeberangkatan(keretaRute.getRuteKereta().getKotaAsal());
                     jadwal.setKotaTujuan(keretaRute.getRuteKereta().getKotaTujuan());
                     jadwal.setKursiKosong(listKereta.get(j).getJmlGBisnis()*10+listKereta.get(j).getJmlGPremium()*20);
-                    jadwal.setTanggalJadwal(df.format(dateobj).toString());
+                    jadwal.setTanggalJadwal(dateobj);
                     jadwal.setWaktuBerangkat(waktuManager.GetByKodeWaktu("TM1"));
                     jadwal.setWaktuTiba(waktuManager.GetByKodeWaktu("TM1"));
                     jadwalManager.add(jadwal);
