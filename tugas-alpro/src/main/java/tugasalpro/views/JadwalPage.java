@@ -1,22 +1,15 @@
 package tugasalpro.views;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import tugasalpro.Gerbong;
-<<<<<<< HEAD
 import tugasalpro.managers.WaktuManager;
-=======
-
->>>>>>> master
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.managers.KeretaRuteManager;
-import tugasalpro.managers.WaktuManager;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.Kereta;
 import tugasalpro.models.KeretaRute;
