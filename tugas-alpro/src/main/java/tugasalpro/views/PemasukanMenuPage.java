@@ -1,8 +1,10 @@
 package tugasalpro.views;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-import java.text.SimpleDateFormat;import java.text.spi.DateFormatProvider;
+import java.text.SimpleDateFormat;
+import java.text.spi.DateFormatProvider;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +14,11 @@ import tugasalpro.models.*;
 import tugasalpro.managers.*;
 
 public class PemasukanMenuPage{
+    PemasukanManager pemasukanManager;
     Scanner scanner;
 
     public PemasukanMenuPage(){
+        pemasukanManager=new PemasukanManager();
         scanner=new Scanner(System.in);
     }
 
@@ -60,17 +64,17 @@ public class PemasukanMenuPage{
         System.out.println("Data Pemasukan Harian");
         System.out.println("----------------------------------------");
         System.out.println("No \t Tanggal \t KAI \t Jumlah Pemasukan");
-        /*List<PemasukanKeretaHarian> listPemasukanKeretaHarian = pemasukanKeretaHarianManager.getAll();
+        List<Pemasukan> listPemasukan = pemasukanManager.getAll();
         int i=0;
         int totalPemasukanHarian=0;
-        for(PemasukanKeretaHarian pemasukanKeretaHarian : listPemasukanKeretaHarian){
-            if(pemasukanKeretaHarian.getTanggal().equals(tgl)){
+        for(Pemasukan pemasukan : listPemasukan){
+            if(pemasukan.getTanggal().equals(tgl)){
                 i++;
-                System.out.println(i+" \t "+pemasukanKeretaHarian.getTanggal()+" \t "+pemasukanKeretaHarian.getKereta().getKodeKereta()+" \t "+pemasukanKeretaHarian.getJumlahPemasukan());
-                totalPemasukanHarian+=pemasukanKeretaHarian.getJumlahPemasukan();
+                System.out.println(i+" \t "+pemasukan.getTanggal()+" \t "+pemasukan.getKereta().getKodeKereta()+" \t "+pemasukan.getPemasukan());
+                totalPemasukanHarian+=pemasukan.getPemasukan();
             }
         }
-        System.out.println("Total Masukan Harian : "+totalPemasukanHarian);*/
+        System.out.println("Total Masukan Harian : "+totalPemasukanHarian);
         System.out.println("----------------------------------------");
     }
 
@@ -88,22 +92,26 @@ public class PemasukanMenuPage{
         System.out.println("Data Pemasukan Bulanan");
         System.out.println("----------------------------------------");
         System.out.println("No \t Tanggal \t Jumlah Pemasukan");
-        /*List<PemasukanKeretaHarian> listPemasukanKeretaHarian = pemasukanKeretaHarianManager.getAll();
+        List<Pemasukan> listPemasukan = pemasukanManager.getAll();
         int i=0;
         int totalPemasukanBulanan=0;
-        for(pemasukanKeretaHarian pemasukanKeretaHarian : listPemasukanKeretaHarian){
-            if(pemasukanKeretaHarian.getTanggal().MONTH.equals(tgl.MONTH)&&pemasukanKeretaHarian.getTanggal().YEAR.equals(tgl.YEAR))
+        Calendar cal1=Calendar.getInstance();
+        Calendar cal2=Calendar.getInstance();
+        cal2.setTime(tgl);
+        for(Pemasukan pemasukan : listPemasukan){
+            cal1.setTime(pemasukan.getTanggal());
+            if(cal1.get(Calendar.MONTH)==cal2.get(Calendar.MONTH)&&cal1.get(Calendar.YEAR)==cal2.get(Calendar.YEAR)){
                 i++;
-                System.out.println(i+" \t "+pemasukanKeretaHarian.getTanggal()+" \t ");
+                System.out.println(i+" \t "+pemasukan.getTanggal()+" \t ");
                 int totalPemasukanHarian=0;
-                for(pemasukanKeretaHarian pemasukanKeretaHarian : listPemasukanKeretaHarian){
-                    totalPemasukanHarian+=pemasukanKeretaHarian.getJumlahPemasukan();
+                for(Pemasukan pemasukan1 : listPemasukan){
+                    totalPemasukanHarian+=pemasukan1.getPemasukan();
                 }
                 System.out.println(totalPemasukanHarian);
                 totalPemasukanBulanan+=totalPemasukanHarian;
             }
         }
-        System.out.println("Total Masukan Bulanan : "+totalPemasukanBulanan);*/
+        System.out.println("Total Masukan Bulanan : "+totalPemasukanBulanan);
         System.out.println("----------------------------------------");
     }
 
@@ -121,27 +129,10 @@ public class PemasukanMenuPage{
         System.out.println("Data Pemasukan Tahunan");
         System.out.println("----------------------------------------");
         System.out.println("No \t Bulan \t Jumlah Pemasukan");
-        /*List<PemasukanKeretaHarian> listPemasukanKeretaHarian = pemasukanKeretaHarianManager.getAll();
+        List<Pemasukan> listPemasukan = pemasukanManager.getAll();
         int i=0;
         int totalPemasukanTahunan=0;
-        for(pemasukanKeretaHarian pemasukanKeretaHarian : listPemasukanKeretaHarian){
-            if(pemasukanKeretaHarian.getTanggal().YEAR.equals(tgl.YEAR)){
-                i++;
-                System.out.println(i+" \t "+pemasukanKeretaHarian.getTanggal().MONTH+"+" \t ");
-                int totalPemasukanBulanan=0;
-                for(pemasukanKeretaHarian pemasukanKeretaHarian : listPemasukanKeretaHarian){
-                    int totalPemasukanHarian=0;
-                    for(pemasukanKeretaHarian pemasukanKeretaHarian : listPemasukanKeretaHarian){
-                        totalPemasukanHarian+=pemasukanKeretaHarian.getJumlahPemasukan();
-                    }
-                    totalPemasukanBulanan+=pemasukanKeretaHarian.getJumlahPemasukan();
-                }
-                totalPemasukanBulanan+=pemasukanKeretaHarian.totalPemasukanHarian;
-            }
-            System.out.println(totalPemasukanBulanan);
-            totalPemasukanTahunan+=totalPemasukanBulanan;
-        }
-        System.out.println("Total Masukan Tahunan : "+totalPemasukanTahunan);*/
+        System.out.println("Total Masukan Tahunan : "+totalPemasukanTahunan);
         System.out.println("----------------------------------------");
     }
 }
