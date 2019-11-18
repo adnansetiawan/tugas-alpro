@@ -1,11 +1,10 @@
 package tugasalpro.views;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Scanner;
 
-import tugasalpro.*;
-import tugasalpro.models.*;
+import tugasalpro.ApplicationSession;
+import tugasalpro.WaktuManager;
+import tugasalpro.models.User;
 
 public class UserMenuPage {
     private Scanner scanner;
@@ -100,6 +99,10 @@ public class UserMenuPage {
                 case 8:
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
                     keretaRutePage.showMenu();
+                    break;
+                case 9:
+                    JadwalPage jadwalPage = new JadwalPage();
+                    jadwalPage.showMenu();
                     break;
                  case 12:
                     KeretaPage keretaPage = new KeretaPage();
