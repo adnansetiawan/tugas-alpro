@@ -50,14 +50,21 @@ public class JalurRuteMenuPage{
     public void menuTambah(){
         System.out.println("\n#TAMBAH JALUR STASIUN PADA RUTE#");
         JalurRute jalurRute = new JalurRute();
+        RuteManager ruteManager = new RuteManager();
         String kodeJalur;
+        boolean reInput = false;
         do{
             System.out.print("Kode Jalur : ");
             kodeJalur=scanner.next();
-            if(jalurRuteManager.getIndexByKodeJalur(kodeJalur)!=-1){
+            Rute rute = ruteManager.GetByKodeRute(kodeJalur);
+            if(rute == null){
                 System.out.println("Kode Jalur Tidak Tersedia");
+                reInput = false;
+            }else
+            {
+                reInput = true;
             }
-        }while(jalurRuteManager.getIndexByKodeJalur(kodeJalur)!=-1);
+        }while(!reInput);
         jalurRute.setKodeJalur(kodeJalur);
         String kodeRute=null;
         /*do{

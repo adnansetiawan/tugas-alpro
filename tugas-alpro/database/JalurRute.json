@@ -1,0 +1,22 @@
+[
+  {
+    "kodeJalur": "JKT-BDG",
+    "durasi": 120,
+    "activeStatus": true,
+    "arrJalurStasiun": [
+      {
+        "stasiunAsal": {
+          "id": "b668f9e8-f518-4126-a8e4-3eefc3a100ae",
+          "kodeStasiun": "GMB",
+          "namaStasiun": "GAMBIR"
+        },
+        "stasiunTujuan": {
+          "id": "45fb45af-1a7e-42de-8d49-7df5514f4e50",
+          "kodeStasiun": "TWG",
+          "namaStasiun": "TAWANG"
+        },
+        "durasi": 120
+      }
+    ]
+  }
+]
