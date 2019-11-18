@@ -85,7 +85,8 @@ public class UserMenuPage {
                     kotaPage.showMenu();
                     break;
                 case 3:
-                    new WaktuPage();
+                    WaktuPage waktuPage = new WaktuPage();
+                    waktuPage.generate();
                     break;
                 case 4:
                     RutePage rutePage = new RutePage();
