@@ -1,7 +1,37 @@
 [
   {
-    "bookingId": "ff0b3b2b-569a-4579-a815-71d90d5f25c5",
-    "kodeJadwal": "J30001",
+    "bookingId": "4c86f824-c7f0-4a25-99cc-51fc56688287",
+    "jadwal": {
+      "kodeJadwal": "JW1",
+      "tanggalJadwal": "18-11-2019",
+      "waktuBerangkat": {
+        "kodeWaktu": "TM1",
+        "waktu": "00.00"
+      },
+      "waktuTiba": {
+        "kodeWaktu": "TM1",
+        "waktu": "00.00"
+      },
+      "kotaKeberangkatan": {
+        "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "kotaTujuan": {
+        "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "kereta": {
+        "id": "6b6518db-d5e8-4dfa-a79e-adf83365507b",
+        "kodeKereta": "KAI19081",
+        "namaKereta": "ARGO MERAPI",
+        "jmlGerbong": 6,
+        "jmlGBisnis": 4,
+        "jmlGPremium": 2
+      },
+      "kursiKosong": 80
+    },
     "bookedBy": {
       "username": "adnansetiawan@gmail.com",
       "password": "pass",
@@ -11,14 +41,14 @@
         "handphone": "081390553497"
       }
     },
-    "bookingDate": "Nov 18, 2019, 10:11:54 AM",
+    "bookingDate": "Nov 18, 2019, 11:08:27 AM",
     "penumpangs": [
       {
-        "name": "plato",
+        "name": "PLATO",
         "KodeKursi": "B1-1"
       },
       {
-        "name": "aristoteles",
+        "name": "ARISTOTELES",
         "KodeKursi": "B1-2"
       }
     ],
