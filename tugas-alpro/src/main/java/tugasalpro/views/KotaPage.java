@@ -1,7 +1,12 @@
 package tugasalpro.views;
+
 import java.util.List;
 import java.util.Scanner;
 
+import de.vandermeer.asciitable.AT_Row;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
 
@@ -51,16 +56,24 @@ public class KotaPage {
     }
 
    private void menuTampil()  {
-        System.out.println("-------------------------------------------------------");
-        System.out.println("No \t Kode Kota \t Nama Kota");
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        AT_Row row =  at.addRow("N0", "KODE KOTA", "NAMA KOTA");
+        row.setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
         List<Kota> listKota = kotaManager.GetAll();
         int i = 0;
         for (Kota kota : listKota) {
             i++;
-			System.out.println(i+" \t "+kota.getKodeKota()+" \t\t "+kota.getNamaKota());
+            at.addRow(i,kota.getKodeKota(),kota.getKodeKota());
+            at.addRule();
         }
-        System.out.println("-------------------------------------------------------");
-
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(4, 0).add(20, 0).add(50, 0);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
+      
+      
     }
 
    private void menuUbah() {

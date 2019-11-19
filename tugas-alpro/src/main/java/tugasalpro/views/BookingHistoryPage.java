@@ -3,6 +3,10 @@ package tugasalpro.views;
 import java.util.List;
 import java.util.Scanner;
 
+import de.vandermeer.asciitable.AT_Row;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.ApplicationSession;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.models.*;
@@ -18,22 +22,27 @@ public class BookingHistoryPage
     }
     public void show()
     {
-        System.out.println("BOOKING HISTORY");
-        System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf("%5s %10s %10s %30s %10s %10s %10s", "N0", "KODE BOOKING", "TANGGAL", "JML.PENUMPANG", "KODE JADWAL", "TOTAL", "STATUS");
-        System.out.println();
-        System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
+        AsciiTable at = new AsciiTable();
+        
+        System.out.println("#BOOKING HISTORY#");
+        at.addRule();
+        AT_Row row =  at.addRow("N0", "KODE BOOKING", "TANGGAL", "JML.PENUMPANG", "KODE JADWAL", "TOTAL", "STATUS");
+        row.setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
         List<Booking> bookings = bookingManager.getAll(ApplicationSession.getLoggedUser());
        int no=1;
         for(Booking booking : bookings)
         {
-            System.out.printf("%5s %10s %10s %10s %10s %10s %10s",
+            at.addRow(
             String.valueOf(no), booking.getBookingId(), String.valueOf(booking.getBookingDate()),String.valueOf(booking.getJumlahPenumpang()),
                 booking.getKodeJadwal(),String.valueOf(booking.getTotalPembayaran()),(booking.IsBayar()?"paid" : "not paid"));
-           System.out.println();
-            System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
+                at.addRule();
             no++;
         }
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(4, 0).add(20, 0).add(30, 0).add(10, 0).add(20, 0).add(20, 10).add(20, 10);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
         System.out.println();
         System.out.println("1. Detail");
         System.out.println("99. Keluar");

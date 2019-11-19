@@ -7,6 +7,10 @@ import java.util.Scanner;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import de.vandermeer.asciitable.AT_Row;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.RuteManager;
@@ -30,51 +34,48 @@ public class BookingPage
             if(arrKursi.size() < 10)
                 return;
          
+                AsciiTable at = new AsciiTable();
+                CWC_LongestLine cwc = new CWC_LongestLine();
+                
+                
              int offset = 1;
             int limit = 10;
             for(int r=1; r<=jmlRow; r++)
             {
+                List<String> nomors = new ArrayList<String>();
+               
+                 at.addRule();
                 
-                if(r > 1)
-                {
-                    System.out.println("------------------------------------------------------------------------------------------");
-          
-                }
-                 int j = 1;
                  int k =offset;
                  for(k=offset; k<=limit; k++)
                  {
-                    
+                    cwc.add(8,0);
                     char availbelFlag = arrKursi.get(k-1).getIsAvailable() ? 'E' : 'F'; 
                     String nomorKursi = "";
-                    if(j == 1)
-                    {
-                        nomorKursi += "|";
-                    }
-                    if(k < 10)
-                    {
-                        nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+" "+availbelFlag + " |";
-                    }else
-                    {
-                        nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+""+availbelFlag + " |";
-               
-                    }
-
-                       
-                   
                     
-                    System.out.print(nomorKursi);
-                    j++;
+                    
+                    nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+""+availbelFlag;
+               
+                    
+                    nomors.add(nomorKursi);
+                    
                     
                 }
+                if(nomors.size() > 0)
+                {
+                    AT_Row row =  at.addRow(nomors);
+                    row.setTextAlignment(TextAlignment.CENTER);
+                    at.addRule();
+                }
+                
                 offset=k;
                 limit = k+9;
-                j=1;
-                System.out.println();
+                
+                
             }
-           
-            System.out.println("------------------------------------------------------------------------------------------");
-          
+            at.getRenderer().setCWC(cwc);
+            System.out.println(at.render());
+            
             System.out.println();
           
         
@@ -124,7 +125,7 @@ public class BookingPage
             {
                 int nomor =i+1;
                 System.out.println("Bisnis "+nomor);
-                System.out.println("------------------------------------------------------------------------------------------");
+                System.out.println();
                 List<Kursi> kursiBisnisByNo = kursiBisnis.stream().
                 filter(x->x.getGerbong().getNomor()==nomor)
                 .collect(Collectors.toList());
@@ -140,8 +141,7 @@ public class BookingPage
             {
                 int nomor =i+1;
                 System.out.println("Premium "+nomor);
-                System.out.println("------------------------------------------------------------------------------------------");
-               
+                System.out.println();
                 List<Kursi> kursiPremiumsByNo = kursiPremium.stream().
                 filter(x->x.getGerbong().getNomor()==nomor)
                 .collect(Collectors.toList());
