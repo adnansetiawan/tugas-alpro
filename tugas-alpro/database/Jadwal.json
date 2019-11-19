@@ -1,7 +1,7 @@
 [
   {
     "kodeJadwal": "JW2",
-    "tanggalJadwal": "Nov 19, 2019, 1:18:25 PM",
+    "tanggalJadwal": "Nov 19, 2019, 9:30:54 PM",
     "waktuBerangkat": {
       "kodeWaktu": "TM1",
       "waktu": "00.00"
@@ -1153,7 +1153,7 @@
   },
   {
     "kodeJadwal": "JW1",
-    "tanggalJadwal": "Nov 19, 2019, 1:18:25 PM",
+    "tanggalJadwal": "Nov 19, 2019, 9:30:54 PM",
     "waktuBerangkat": {
       "kodeWaktu": "TM1",
       "waktu": "00.00"
@@ -1267,7 +1267,7 @@
           "kategori": "Bisnis",
           "nomor": 2
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "B2-2",
@@ -1275,7 +1275,7 @@
           "kategori": "Bisnis",
           "nomor": 2
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "B2-3",
@@ -1507,7 +1507,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-2",
@@ -1515,7 +1515,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-3",
@@ -1523,7 +1523,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-4",
@@ -1531,7 +1531,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-5",
@@ -1667,7 +1667,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P2-2",
@@ -1675,7 +1675,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P2-3",

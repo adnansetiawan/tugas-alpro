@@ -1,5 +1,6 @@
 package tugasalpro.views;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,15 +11,18 @@ import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.RuteManager;
 import tugasalpro.models.*;
+import tugasalpro.utilities.StringUtility;
 
 public class BookingPage
 {
     private Scanner scanner;
     private BookingManager bookingManager;
+    private JadwalManager jadwalManager;
     public BookingPage()
     {
         scanner = new Scanner(System.in);
         bookingManager = new BookingManager();
+        jadwalManager = new JadwalManager();
        
     }
     private void showGerbong(int jmlRow, List<Kursi> arrKursi)
@@ -98,7 +102,7 @@ public class BookingPage
         System.out.print("Jumlah Penumpang :");
         int jumlahPenumpang = scanner.nextInt();
         System.out.println("------------------------------------------------------------------------------------------");
-        Booking booking = new Booking(UUID.randomUUID().toString(), jadwal.getKodeJadwal());
+        Booking booking = new Booking(StringUtility.getAlphaNumericString(6), jadwal.getKodeJadwal());
            
        
         for(int i=1; i<=jumlahPenumpang; i++)
@@ -153,7 +157,7 @@ public class BookingPage
             {
             System.out.print("Kursi " +pIndex + " : ");
             String kodeKursi = scanner.nextLine();
-            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase());
+            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
             
             if(kursiFound > -1)
             {
@@ -168,7 +172,7 @@ public class BookingPage
            
            
         }
-        JadwalManager jadwalManager = new JadwalManager();
+         jadwalManager = new JadwalManager();
         jadwalManager.edit(jadwal);
         RuteManager ruteManager = new RuteManager();
         Rute rute =   ruteManager.getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
@@ -182,11 +186,11 @@ public class BookingPage
         bookingManager.add(booking);
         
         System.out.println("1. Pembayaran");
-        System.out.println("2. Menu utama");
+        System.out.println("99. Menu utama");
         int pilihan = scanner.nextInt();
         switch(pilihan)
         {
-            case 2 :
+            case 99 :
                 UserMenuPage userMenuPage = new UserMenuPage();
                 userMenuPage.ShowMenuPengguna();
                 break;
@@ -194,4 +198,112 @@ public class BookingPage
         }
      
     }
+    public void showDetail()
+    {
+        System.out.println("-----------------");
+        System.out.println("#BOOKING DETAIL#");
+        System.out.println("-----------------");
+        Booking bookingByKode =null;
+        do
+        {
+        System.out.print("Masukkan kode booking : ");
+        scanner =new Scanner(System.in);
+        String bookingKode = scanner.nextLine();
+         bookingByKode = bookingManager.getByKode(bookingKode);
+        if(bookingByKode== null)
+        {
+            System.out.println("kode booking tidak ada");
+        }
+        }while(bookingByKode==null);
+        System.out.println("---------------------------------------------------");
+        System.out.println("Kode Jadwal : " + bookingByKode.getKodeJadwal());
+        System.out.println("---------------------------------------------------");
+        for(int i=1; i<=bookingByKode.getJumlahPenumpang(); i++)
+        {
+            Penumpang penumpang = bookingByKode.getAllPenumpang().get(i-1);
+            System.out.println("Penumpang "+i+" : " + penumpang.getName());
+            System.out.println("No. Kursi  : " + penumpang.getKodeKursi());
+            System.out.println("---------------------------------------------------");
+     
+        }
+        System.out.println("1. Ganti Kursi");
+        System.out.println("2. Cancel");
+        System.out.println("99. Keluar");
+        int pilihan = scanner.nextInt();
+        switch(pilihan)
+        {
+            case 1:
+                gantiKursi(bookingByKode);
+                break;
+            case 2:
+                 deleteBooking(bookingByKode);
+                 break;
+            case 99:
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuPengguna();
+                break;
+        }
+       
+      
+    }
+    private void deleteBooking(Booking booking)
+    {
+        System.out.print("Anda yakin untuk menghapus booking: Y/N : ");
+        String pilihan = scanner.next();
+        if (pilihan.equals("Y")) 
+        {
+            bookingManager.delete(booking);
+        }
+        System.out.println("delete success!!");
+        showMenu();
+    }
+    private void gantiKursi(Booking booking)
+    {
+        
+        Jadwal jadwal = jadwalManager.GetByKodeJadwal(booking.getKodeJadwal());
+                
+        for(Penumpang p : booking.getAllPenumpang())
+        {
+            int kursiFound =-1;
+            do
+            {
+                String oldKode = p.getKodeKursi();
+                System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
+        
+            String kodeKursi = scanner.next();
+            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            
+            if(kursiFound > -1)
+            {
+                p.setKodeKursi(kodeKursi.toUpperCase());
+                jadwal.bookingKursi(oldKode, true);
+                
+            }else
+            {
+                System.out.println("nomor kursi tidak tersedia");
+            }
+            }while(kursiFound == -1);
+        
+        }
+    bookingManager.update(booking);
+    showMenu();
+}
+    private void showMenu()
+    {
+        System.out.println("1. Lihat Detail");
+        System.out.println("99. Keluar");
+        int pilihan = scanner.nextInt();
+        switch(pilihan)
+        {
+            case 1:
+                showDetail();
+                break;
+            case 99:
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuPengguna();
+                break;
+        }
+    
+    }
+  
 }
