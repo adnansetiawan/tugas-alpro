@@ -2,10 +2,8 @@ package tugasalpro.views;
 
 import java.util.List;
 import java.util.Scanner;
-import tugasalpro.*;
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
-import tugasalpro.views.*;
 
 public class WaktuRutePage
 {

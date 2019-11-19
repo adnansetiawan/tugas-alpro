@@ -45,5 +45,20 @@
     },
     "hargaBisnis": 300000.0,
     "hargaPremium": 400000.0
+  },
+  {
+    "kodeRute": "JKT-BDG",
+    "kotaAsal": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "hargaBisnis": 5000.0,
+    "hargaPremium": 10000.0
   }
 ]

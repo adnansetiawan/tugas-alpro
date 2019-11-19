@@ -3,8 +3,6 @@ package tugasalpro.views;
 import java.util.List;
 import java.util.Scanner;
 import tugasalpro.managers.*;
-import tugasalpro.models.*;
-import tugasalpro.Repository;
 import tugasalpro.models.Waktu;
 
 public class WaktuPage
