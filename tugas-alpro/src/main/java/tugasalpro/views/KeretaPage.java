@@ -86,7 +86,6 @@ public class KeretaPage {
                 inputNotValid = true;
             }
             catch(Exception ex) {
-                System.out.println(ex);
                 System.out.println("Format Salah");
                 inputNotValid = false;
             }
@@ -138,6 +137,7 @@ public class KeretaPage {
         menuTampil();
         String kodeKereta = null;
         Kereta kereta = null;
+        Kereta newKereta = null;
         String perintah;
         boolean flagIterate = true;
 
@@ -158,8 +158,46 @@ public class KeretaPage {
                     kodeKereta = kodeKereta.substring(5);
                     kereta = keretaManager.getByKodeKereta(kodeKereta);
                     if(kereta != null){
-                        keretaManager.delete(kereta);
-                        flagIterate = false;
+
+                        scanner.nextLine();
+
+                        newKereta = new Kereta();
+                        System.out.print("Kode Kereta : ");
+                        kodeKereta = scanner.next();
+                        System.out.print("Nama Kereta : ");
+                        scanner.nextLine();
+                        namaKereta = scanner.nextLine();
+                        System.out.print("Jumlah Gerbong : ");
+                        jmlGerbong = scanner.nextInt();
+                        System.out.print("Jumlah Gerbong Bussiness : ");
+                        jmlGBisnis = scanner.nextInt();
+                        System.out.print("Jumlah Gerbong Premium: ");
+                        jmlGPremium = scanner.nextInt();
+
+                        if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
+                            newKereta.setKodeKereta(kodeKereta);
+                            newKereta.setNamaKereta(namaKereta);
+                            newKereta.jmlGerbong(jmlGerbong);
+                            newKereta.jmlGBisnis(jmlGBisnis);
+                            newKereta.jmlGPremium(jmlGPremium);
+
+                            
+                            keretaManager.delete(kereta);
+
+                            keretaManager.add(newKereta);
+
+                            System.out.println("----------------------------------------");
+                            System.out.println("Kereta Api Berhasil Diedit");
+                            System.out.println("----------------------------------------");
+                            flagIterate = false;
+                        }
+                        else{
+                            System.out.println("----------------------------------------");
+                            System.out.println("Kereta Api Gagal Diedit");
+                            System.out.println("----------------------------------------");
+                            
+                        }
+                        
                     }else{
                         System.out.println("Kereta Tidak Tersedia");
                     }
@@ -169,37 +207,38 @@ public class KeretaPage {
             }
         } while (flagIterate);
 
-        kereta = new Kereta();
-        System.out.print("Kode Kereta : ");
-        kodeKereta = scanner.next();
-        System.out.print("Nama Kereta : ");
-        namaKereta = scanner.next();
-        System.out.print("Jumlah Gerbong : ");
-        jmlGerbong = scanner.nextInt();
-        System.out.print("Jumlah Gerbong Bussiness : ");
-        jmlGBisnis = scanner.nextInt();
-        System.out.print("Jumlah Gerbong Premium: ");
-        jmlGPremium = scanner.nextInt();
+        showMenu();
+        // kereta = new Kereta();
+        // System.out.print("Kode Kereta : ");
+        // kodeKereta = scanner.next();
+        // System.out.print("Nama Kereta : ");
+        // namaKereta = scanner.next();
+        // System.out.print("Jumlah Gerbong : ");
+        // jmlGerbong = scanner.nextInt();
+        // System.out.print("Jumlah Gerbong Bussiness : ");
+        // jmlGBisnis = scanner.nextInt();
+        // System.out.print("Jumlah Gerbong Premium: ");
+        // jmlGPremium = scanner.nextInt();
 
-        if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
-            kereta.setKodeKereta(kodeKereta);
-            kereta.setNamaKereta(namaKereta);
-            kereta.jmlGerbong(jmlGerbong);
-            kereta.jmlGBisnis(jmlGBisnis);
-            kereta.jmlGPremium(jmlGPremium);
+        // if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
+        //     kereta.setKodeKereta(kodeKereta);
+        //     kereta.setNamaKereta(namaKereta);
+        //     kereta.jmlGerbong(jmlGerbong);
+        //     kereta.jmlGBisnis(jmlGBisnis);
+        //     kereta.jmlGPremium(jmlGPremium);
 
-            keretaManager.add(kereta);
-            System.out.println("----------------------------------------");
-            System.out.println("Kereta Api Berhasil Diedit");
-            System.out.println("----------------------------------------");
-            showMenu();
-        }
-        else{
-            System.out.println("----------------------------------------");
-            System.out.println("Kereta Api Gagal Diedit");
-            System.out.println("----------------------------------------");
-            menuUbah();
-        }
+        //     keretaManager.add(kereta);
+        //     System.out.println("----------------------------------------");
+        //     System.out.println("Kereta Api Berhasil Diedit");
+        //     System.out.println("----------------------------------------");
+        //     showMenu();
+        // }
+        // else{
+        //     System.out.println("----------------------------------------");
+        //     System.out.println("Kereta Api Gagal Diedit");
+        //     System.out.println("----------------------------------------");
+        //     menuUbah();
+        // }
     }    
 
     void menuHapus() {
