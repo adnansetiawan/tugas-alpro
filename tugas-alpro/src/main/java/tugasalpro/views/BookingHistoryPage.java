@@ -1,6 +1,7 @@
 package tugasalpro.views;
 
 import java.util.List;
+import java.util.Scanner;
 
 import tugasalpro.ApplicationSession;
 import tugasalpro.managers.BookingManager;
@@ -28,6 +29,17 @@ public class BookingHistoryPage
             +"\t"+booking.getKodeJadwal()+"\t"+booking.getTotalPembayaran()+"\t"+(booking.IsBayar()?"sudah bayara" : "menunggu pembayaran"));
             System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
             no++;
+        }
+        System.out.println();
+        System.out.println("99. Keluar");
+        Scanner scanner = new Scanner(System.in);
+        int pilihan = scanner.nextInt();
+        switch(pilihan)
+        {
+            case 99:
+                UserMenuPage userMenuPage = new UserMenuPage();
+                userMenuPage.ShowMenuPengguna();
+                break;
         }
         
     }
