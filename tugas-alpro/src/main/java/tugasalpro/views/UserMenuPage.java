@@ -39,6 +39,10 @@ public class UserMenuPage {
             ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
             profilePenggunaPage.ShowUpdatePenggunaPage();
             break;
+        case 3:
+            BookingHistoryPage bookingHistoryPage = new BookingHistoryPage();
+            bookingHistoryPage.show();
+            break;
         }
 
     }
