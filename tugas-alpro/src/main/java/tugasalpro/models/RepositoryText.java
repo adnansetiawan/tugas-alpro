@@ -1,22 +1,21 @@
 package tugasalpro.models;
 
-import tugasalpro.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
+//import java.net.URL;
 import java.io.File;
  
 public class RepositoryText {
     // Method tulis file
 
-    public RepositoryText()
+	public RepositoryText()
     {
-        
     }
+    
     public void tulisFile(String teks, String namaFile) {
         File namaTxt = getFileFromResources(namaFile);
         try {
@@ -57,7 +56,23 @@ public class RepositoryText {
         return stringHasil;
     }
 
-    public File getFileFromResources(String fileName) {
+    public File getFileFromResources(String namaFile)
+    {
+        String direktory = System.getProperty("user.dir")+"/tugas-alpro/tugas-alpro/database/";
+        File file = new File(direktory, namaFile);
+        if(!file.exists())
+        {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    /*public File getFileFromResources(String fileName) {
 
         ClassLoader classLoader = getClass().getClassLoader();
 
@@ -67,17 +82,6 @@ public class RepositoryText {
         } else {
             return new File(resource.getFile());
         }
-
-    }
+    }*/
 
 }
-
-/*public void main(String[] a) {
-    String namaFile = "D:\\ContohTeks.txt";
-    for (int i = 0; i < 5; i++) {
-        BacaTulisFile.tulisFile("Teks ke-" + i, namaFile);
-    }
-     
-    String hasil = BacaTulisFile.bacaFile(namaFile);
-    System.out.println(hasil);
-} */
