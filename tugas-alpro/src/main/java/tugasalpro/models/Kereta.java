@@ -12,55 +12,56 @@ public class Kereta {
     }
 
     public Kereta(String id, String kodeKereta, String namaKereta, int jmlGerbong, int jmlGBisnis, int jmlGPremium) {
+        this.id = id;
         this.kodeKereta = kodeKereta;
         this.namaKereta = namaKereta;
         this.jmlGerbong = jmlGerbong;
         this.jmlGBisnis = jmlGBisnis;
         this.jmlGPremium = jmlGPremium;
-         this.id = id;
-    }
-    public void setId(String id)
-    {
-        this.id = id;
-    }
-    public String getId()
-    {
-        return this.id;
-    }
-    public String getKodeKereta() {
-        return this.kodeKereta;
     }
 
-    public void setKodeKereta(String kodeKereta) {
-        this.kodeKereta = kodeKereta;
+    public String getId() {
+        return this.id;
+    }
+
+    public String getKodeKereta() {
+        return this.kodeKereta;
     }
 
     public String getNamaKereta() {
         return this.namaKereta;
     }
 
-    public void setNamaKereta(String namaKereta) {
-        this.namaKereta = namaKereta;
-    }
-
     public int getJmlGerbong() {
         return this.jmlGerbong;
+    }
+    
+    public int getJmlGBisnis() {
+        return this.jmlGBisnis;
+    }
+
+    public int getJmlGPremium() {
+        return this.jmlGPremium;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setKodeKereta(String kodeKereta) {
+        this.kodeKereta = kodeKereta;
+    }
+
+    public void setNamaKereta(String namaKereta) {
+        this.namaKereta = namaKereta;
     }
 
     public void setJmlGerbong(int jmlGerbong) {
         this.jmlGerbong = jmlGerbong;
     }
 
-    public int getJmlGBisnis() {
-        return this.jmlGBisnis;
-    }
-
     public void setJmlGBisnis(int jmlGBisnis) {
         this.jmlGBisnis = jmlGBisnis;
-    }
-
-    public int getJmlGPremium() {
-        return this.jmlGPremium;
     }
 
     public void setJmlGPremium(int jmlGPremium) {
@@ -91,6 +92,4 @@ public class Kereta {
         this.jmlGPremium = jmlGPremium;
         return this;
     }
-
-    
 }
