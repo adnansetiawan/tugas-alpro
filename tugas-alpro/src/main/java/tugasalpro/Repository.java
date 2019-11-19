@@ -4,10 +4,7 @@ package tugasalpro;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -89,8 +86,10 @@ public class Repository<T> {
     }
     private File getFile(String filename)
     {
-        Path databasePath = FileSystems.getDefault().getPath("database").toAbsolutePath();;
-        File file = new File(databasePath.toString(), this.fileName+".json");
+    
+        Path databasePath = FileSystems.getDefault().getPath("database/"+this.fileName+".json").toAbsolutePath();
+        
+        File file = databasePath.toFile();
         if(!file.exists())
         {
             try {

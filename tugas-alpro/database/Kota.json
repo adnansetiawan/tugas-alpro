@@ -1,17 +1,10 @@
 [
   {
-    "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
     "kodeKota": "JKT",
     "namaKota": "Jakarta"
   },
   {
-    "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
     "kodeKota": "BDG",
     "namaKota": "Bandung"
-  },
-  {
-    "id": "5f652cef-4cf5-43cc-970e-c82d997dce38",
-    "kodeKota": "SMG",
-    "namaKota": "Semarang"
   }
 ]
