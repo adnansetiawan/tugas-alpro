@@ -18,15 +18,17 @@ public class BookingHistoryPage
     {
         System.out.println("BOOKING HISTORY");
         System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("No Tanggal\t\t\t\t\tJml.Penumpang\t\tKode Jadwal Total Pembayaran Status");
+        System.out.printf("%5s %10s %30s %10s %10s %10s", "N0", "TANGGAL", "JML.PENUMPANG", "KODE JADWAL", "TOTAL", "STATUS");
+        System.out.println();
         System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
         List<Booking> bookings = bookingManager.getAll(ApplicationSession.getLoggedUser());
        int no=1;
         for(Booking booking : bookings)
         {
-            
-            System.out.println(no+"\t"+booking.getBookingDate()+"\t"+booking.getJumlahPenumpang()
-            +"\t"+booking.getKodeJadwal()+"\t"+booking.getTotalPembayaran()+"\t"+(booking.IsBayar()?"sudah bayara" : "menunggu pembayaran"));
+            System.out.printf("%5s %10s %10s %10s %10s %10s",
+            String.valueOf(no), String.valueOf(booking.getBookingDate()),String.valueOf(booking.getJumlahPenumpang()),
+                booking.getKodeJadwal(),String.valueOf(booking.getTotalPembayaran()),(booking.IsBayar()?"paid" : "not paid"));
+           System.out.println();
             System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
             no++;
         }

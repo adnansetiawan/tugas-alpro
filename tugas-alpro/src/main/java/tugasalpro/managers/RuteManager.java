@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import tugasalpro.Repository;
+import tugasalpro.models.Kota;
 import tugasalpro.models.Rute;
 
 public class RuteManager {
@@ -116,7 +117,17 @@ public class RuteManager {
         
       
     }
-
+    public Rute getByKota(String kodeKotaAsal, String kodeKotaTujuan)
+    {
+        List<Rute> listRute = repository.getAll();
+        Optional<Rute> selectedRute = listRute.stream()
+        .filter(x->x.getKotaAsal().getKodeKota().equals(kodeKotaAsal)
+        && x.getKotaTujuan().getKodeKota().equals(kodeKotaTujuan))
+        .findFirst();
+        if(selectedRute == null)
+            return null;
+        return selectedRute.get();
+    }
     public void delete(Rute rute)
     {
         List<Rute> listRute = repository.getAll();

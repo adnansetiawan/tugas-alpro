@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
+import tugasalpro.managers.RuteManager;
 import tugasalpro.models.*;
 
 public class BookingPage
@@ -153,7 +154,7 @@ public class BookingPage
                 pIndex++;
             }else
             {
-                System.out.println("nomor kursi salah");
+                System.out.println("nomor kursi tidak tersedia");
             }
         }while(kursiFound == -1);
           
@@ -162,7 +163,10 @@ public class BookingPage
         }
         JadwalManager jadwalManager = new JadwalManager();
         jadwalManager.edit(jadwal);
-        double totalPembayaran = 400000;
+        RuteManager ruteManager = new RuteManager();
+        Rute rute =   ruteManager.getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
+        jadwal.getKotaTujuan().getKodeKota());
+        double totalPembayaran = (jmlGBisnis * rute.getHargaBisnis()) + (jmlGPremium * rute.getHargaPremium());
         System.out.println("Total Pembayaran = " +totalPembayaran);
         String rekeningTujuan = "803255671891";
         System.out.println("Rekening Tujuan = " +rekeningTujuan);

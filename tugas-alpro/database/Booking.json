@@ -25,5 +25,32 @@
     "totalPembayaran": 400000.0,
     "rekeningTujuan": "803255671891",
     "isBayar": false
+  },
+  {
+    "bookingId": "ca6d6998-ecf1-4107-adb0-7c79a8b0de08",
+    "kodeJadwal": "JW1",
+    "bookedBy": {
+      "username": "adnansetiawan@gmail.com",
+      "password": "pass",
+      "userInfo": {
+        "nama": "adnan setiawan",
+        "ktp": "1234567890123456",
+        "handphone": "081390553497"
+      }
+    },
+    "bookingDate": "Nov 19, 2019, 5:54:08 PM",
+    "penumpangs": [
+      {
+        "name": "ABCD",
+        "KodeKursi": "P2-1"
+      },
+      {
+        "name": "DEFG",
+        "KodeKursi": "P2-2"
+      }
+    ],
+    "totalPembayaran": 880000.0,
+    "rekeningTujuan": "803255671891",
+    "isBayar": false
   }
 ]

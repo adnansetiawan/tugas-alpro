@@ -149,7 +149,10 @@ public class Jadwal {
         }
         if(selectedKursi != null)
         {
-        
+            if(!selectedKursi.getIsAvailable())
+            {
+                return -1;
+            }
             selectedKursi.setIsAvailable(false);
             kursi.set(indexFound, selectedKursi);
         }
