@@ -47,8 +47,15 @@ public class BookingPage
                     {
                         nomorKursi += "|";
                     }
-                    
-                    nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+" "+availbelFlag + " |";
+                    if(k < 10)
+                    {
+                        nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+" "+availbelFlag + " |";
+                    }else
+                    {
+                        nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+""+availbelFlag + " |";
+               
+                    }
+
                        
                    
                     
