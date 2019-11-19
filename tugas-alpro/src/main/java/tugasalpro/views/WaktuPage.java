@@ -18,6 +18,7 @@ public class WaktuPage
     
     public void generate()
     {
+        System.out.println("#GENERATE DATA WAKTU#");
         System.out.print("Apakah anda yakin untuk generate waktu (Y/N)?");
         String input= scanner.nextLine();
         if(input.equals("Y"))
@@ -42,7 +43,7 @@ public class WaktuPage
         System.out.println("-----------------------------------------------------------------");
         System.out.println("1. Lihat Data Waktu");
         System.out.println("99. Menu Utama");
-        
+        System.out.print("Pilihan : ");
         int pilihan = scanner.nextInt();
         switch(pilihan)
         {
@@ -60,6 +61,8 @@ public class WaktuPage
     public void Tampil()
     {
         int i = 1;
+        System.out.println("#LIHAT DATA WAKTU#");
+        System.out.println("Data Lengkap Waktu");
         System.out.println("-----------------------------------------------------------------");
         System.out.println("No \t Kode Waktu \t Waktu");
         List<Waktu> listWaktu = new WaktuManager().GetAll();
