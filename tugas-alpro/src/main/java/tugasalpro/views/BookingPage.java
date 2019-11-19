@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
@@ -17,42 +18,46 @@ public class BookingPage
     {
         scanner = new Scanner(System.in);
         bookingManager = new BookingManager();
+       
     }
-    private void showGerbong(String nama, String prefix, int jmlGerbong, int jmlRow)
+    private void showGerbong(int jmlRow, List<Kursi> arrKursi)
     {
-        for(int i=1; i<=jmlGerbong; i++)
-        {
-            System.out.println("Gerbong "+nama+"" + i + ": ");
-            System.out.println("------------------------------------------------------------------------------------------");
-            int no = 1;
-              
-            for(int r=0; r<jmlRow; r++)
+            if(arrKursi.size() < 10)
+                return;
+         
+             int offset = 1;
+            int limit = 10;
+            for(int r=1; r<=jmlRow; r++)
             {
-                if(r > 0)
+                
+                if(r > 1)
                 {
                     System.out.println("------------------------------------------------------------------------------------------");
           
                 }
-                 for(int k=1; k<=10; k++)
-                {
-                    char namaKursi = k > 5 ? 'F' : 'E'; 
+                 int j = 1;
+                 int k =offset;
+                 for(k=offset; k<=limit; k++)
+                 {
+                    
+                    char availbelFlag = arrKursi.get(k-1).getIsAvailable() ? 'E' : 'F'; 
                     String nomorKursi = "";
-                    if(k == 1)
+                    if(j == 1)
                     {
                         nomorKursi += "|";
                     }
-                    if(no < 10)
-                    {
-                        nomorKursi +=prefix+i+"- "+no+" "+namaKursi + " |";
+                    
+                    nomorKursi +=" "+arrKursi.get(k-1).getKodeKursi()+" "+availbelFlag + " |";
                        
-                    }else
-                    {
-                        nomorKursi +=prefix+i+"-"+no+" "+namaKursi + " |";
-                    }
-                    no++;
+                   
+                    
                     System.out.print(nomorKursi);
+                    j++;
                     
                 }
+                offset=k;
+                limit = k+9;
+                j=1;
                 System.out.println();
             }
            
@@ -60,7 +65,7 @@ public class BookingPage
           
             System.out.println();
           
-        }
+        
     }
     public void showInput()
     {
@@ -85,7 +90,7 @@ public class BookingPage
         System.out.print("Jumlah Penumpang :");
         int jumlahPenumpang = scanner.nextInt();
         System.out.println("------------------------------------------------------------------------------------------");
-        Booking booking = new Booking(UUID.randomUUID().toString(), jadwal);
+        Booking booking = new Booking(UUID.randomUUID().toString(), jadwal.getKodeJadwal());
            
        
         for(int i=1; i<=jumlahPenumpang; i++)
@@ -100,21 +105,63 @@ public class BookingPage
         int jmlGPremium = jadwal.getKereta().getJmlGPremium();
         if(jmlGBisnis > 0)
         {
-            showGerbong("Bisnis", "B", jmlGBisnis, 1);
+            List<Kursi> kursiBisnis = jadwal.getKursi().stream().filter(x->x.getGerbong()
+            .getKategori().equals("Bisnis"))
+            .collect(Collectors.toList());
+             for(int i=0; i<jmlGBisnis; i++)
+            {
+                int nomor =i+1;
+                System.out.println("Bisnis "+nomor);
+                System.out.println("------------------------------------------------------------------------------------------");
+                List<Kursi> kursiBisnisByNo = kursiBisnis.stream().
+                filter(x->x.getGerbong().getNomor()==nomor)
+                .collect(Collectors.toList());
+                showGerbong(1, kursiBisnisByNo);
+            }
         }
         if(jmlGPremium > 0)
         {
-             showGerbong("Premium", "P", jmlGPremium, 2);
+            List<Kursi> kursiPremium = jadwal.getKursi().stream().filter(x->x.getGerbong()
+            .getKategori().equals("Premium"))
+            .collect(Collectors.toList());
+            for(int i=0; i<jmlGPremium; i++)
+            {
+                int nomor =i+1;
+                System.out.println("Premium "+nomor);
+                System.out.println("------------------------------------------------------------------------------------------");
+               
+                List<Kursi> kursiPremiumsByNo = kursiPremium.stream().
+                filter(x->x.getGerbong().getNomor()==nomor)
+                .collect(Collectors.toList());
+                showGerbong(2, kursiPremiumsByNo);
+            }
         }
         System.out.println("Pilih Kursi (Dengan Tanda E/Empty) : ");
         int pIndex = 1;
         for(Penumpang p : booking.getAllPenumpang())
         {
+            int kursiFound =-1;
+            do
+            {
             System.out.print("Kursi " +pIndex + " : ");
-            p.setKodeKursi(scanner.nextLine());
-            pIndex++;
+            String kodeKursi = scanner.nextLine();
+            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase());
+            
+            if(kursiFound > -1)
+            {
+                p.setKodeKursi(kodeKursi.toUpperCase());
+                pIndex++;
+            }else
+            {
+                System.out.println("nomor kursi salah");
+            }
+        }while(kursiFound == -1);
+          
+           
            
         }
+        JadwalManager jadwalManager = new JadwalManager();
+        jadwalManager.edit(jadwal);
         double totalPembayaran = 400000;
         System.out.println("Total Pembayaran = " +totalPembayaran);
         String rekeningTujuan = "803255671891";
@@ -122,6 +169,7 @@ public class BookingPage
         booking.setTotalPembayaran(totalPembayaran);
         booking.setRekeningTujuan(rekeningTujuan);
         bookingManager.add(booking);
+        
         System.out.println("1. Pembayaran");
         System.out.println("2. Menu utama");
         int pilihan = scanner.nextInt();

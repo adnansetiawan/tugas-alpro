@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import tugasalpro.managers.JadwalManager;
-import tugasalpro.managers.KeretaManager;
 import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.managers.KotaManager;
 import tugasalpro.managers.WaktuManager;
@@ -17,7 +16,6 @@ import tugasalpro.models.Kereta;
 import tugasalpro.models.KeretaRute;
 
 public class JadwalPage {
-    private KeretaManager keretaManager;
     private KotaManager kotaManager;
     private KeretaRuteManager keretaRuteManager;
     private WaktuManager waktuManager;
@@ -25,7 +23,6 @@ public class JadwalPage {
     Scanner scanner;
 
     public JadwalPage() {
-        keretaManager = new KeretaManager();
         keretaRuteManager = new KeretaRuteManager();
         jadwalManager = new JadwalManager();
         waktuManager = new WaktuManager();
@@ -77,11 +74,10 @@ public class JadwalPage {
                     jadwal.setKereta(listKereta.get(j));
                     jadwal.setKotaKeberangkatan(keretaRute.getRuteKereta().getKotaAsal());
                     jadwal.setKotaTujuan(keretaRute.getRuteKereta().getKotaTujuan());
-                    jadwal.setKursiKosong(
-                            listKereta.get(j).getJmlGBisnis() * 10 + listKereta.get(j).getJmlGPremium() * 20);
                     jadwal.setTanggalJadwal(dateobj);
                     jadwal.setWaktuBerangkat(waktuManager.GetByKodeWaktu("TM1"));
                     jadwal.setWaktuTiba(waktuManager.GetByKodeWaktu("TM1"));
+                    jadwal.generateKursi();
                     jadwalManager.add(jadwal);
                 }
 

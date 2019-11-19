@@ -1,7 +1,5 @@
 package tugasalpro.models;
 
-import tugasalpro.Gerbong;
-
 public class Kereta {
     private String id;
     private String kodeKereta;

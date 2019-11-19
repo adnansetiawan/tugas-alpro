@@ -5,16 +5,14 @@ import java.util.Scanner;
 
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.models.Kereta;
-import tugasalpro.Gerbong;
+
 
 public class KeretaPage{
     private KeretaManager keretaManager;
-    private Gerbong gerbong;
     Scanner scanner;
 
     public KeretaPage(){
         keretaManager = new KeretaManager();
-        gerbong = new Gerbong();
         scanner = new Scanner(System.in);
     }
 

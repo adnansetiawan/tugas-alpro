@@ -1,6 +1,9 @@
 package tugasalpro.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 import tugasalpro.models.Waktu;
 
@@ -12,13 +15,15 @@ public class Jadwal {
     private Kota kotaKeberangkatan;
     private Kota kotaTujuan;
     private Kereta kereta;
-    private int kursiKosong;
-
+   
+    private List<Kursi> kursi;
 
     public Jadwal() {
+        this.kursi = new ArrayList<Kursi>();
+        
     }
 
-    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, Waktu waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta, int kursiKosong) {
+    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, Waktu waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta) {
         this.kodeJadwal = kodeJadwal;
         this.tanggalJadwal = tanggalJadwal;
         this.waktuBerangkat = waktuBerangkat;
@@ -26,7 +31,38 @@ public class Jadwal {
         this.kotaKeberangkatan = kotaKeberangkatan;
         this.kotaTujuan = kotaTujuan;
         this.kereta = kereta;
-        this.kursiKosong = kursiKosong;
+        this.kursi = new ArrayList<Kursi>();
+        generateKursi();
+    }
+
+    private void generateAvailableKursiByGerbong(int jmlGerbong, String kategori, String prefix, int row)
+    {
+        for(int i=1; i<= jmlGerbong; i++) 
+        {
+            int l=1;
+               
+            for(int j=1; j<=row; j++)
+            {
+                for(int k=1; k<= 10; k++)
+                {
+                    String padded = String.format("%01d" , l);
+                    String kodeKursi = prefix + (i) + "-" + padded;
+                    Gerbong gerbong = new Gerbong(kategori, i);
+                    kursi.add(new Kursi(kodeKursi, gerbong,true));
+                    l++;
+                }
+            }
+        }
+    }
+
+    public void generateKursi()
+    {
+        kursi.clear();
+        int jmlGBisnis = kereta.getJmlGBisnis();
+        generateAvailableKursiByGerbong(jmlGBisnis, "Bisnis", "B", 1);
+        int jmlGPremium = kereta.getJmlGPremium();
+        generateAvailableKursiByGerbong(jmlGPremium, "Premium", "P", 2);
+        
     }
 
     public String getKodeJadwal() {
@@ -86,12 +122,38 @@ public class Jadwal {
     }
 
     public int getKursiKosong() {
-        return this.kursiKosong;
+        long kursiKosongFromList = kursi.stream()
+        .filter(c -> c.getIsAvailable())
+        .count();
+        return (int) kursiKosongFromList;
     }
 
-    public void setKursiKosong(int kursiKosong) {
-        this.kursiKosong = kursiKosong;
+    public List<Kursi> getKursi()
+    {
+        return this.kursi;
+
     }
 
+    public int bookingKursi(String kodeKursi)
+    {
+        int indexFound = -1;
+        Kursi selectedKursi = null;
+        for(int i=0; i<kursi.size(); i++)
+        {
+            if(kursi.get(i).getKodeKursi().equals(kodeKursi))
+            {
+                indexFound  = i;
+                selectedKursi = kursi.get(i);
+                break;
+            }
+        }
+        if(selectedKursi != null)
+        {
+        
+            selectedKursi.setIsAvailable(false);
+            kursi.set(indexFound, selectedKursi);
+        }
+        return indexFound;
+    }
 
 }
