@@ -67,7 +67,7 @@ public class BookingPage
                     row.setTextAlignment(TextAlignment.CENTER);
                     at.addRule();
                 }
-                
+               
                 offset=k;
                 limit = k+9;
                 
@@ -75,7 +75,7 @@ public class BookingPage
             }
             at.getRenderer().setCWC(cwc);
             System.out.println(at.render());
-            
+          
             System.out.println();
           
         
