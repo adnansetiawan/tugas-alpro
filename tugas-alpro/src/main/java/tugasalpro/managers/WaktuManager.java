@@ -24,6 +24,7 @@ public class WaktuManager {
     
     public void Generate()
     {
+        // Var waktu
         Waktu textWaktu = new Waktu();
         for (i=1; i<=95;i++)
         {
