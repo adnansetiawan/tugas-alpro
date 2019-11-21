@@ -280,16 +280,16 @@ public class BookingPage
                 
         for(Penumpang p : booking.getAllPenumpang())
         {
-            int kursiFound =-1;
+            Kursi kursiByKode = null;
             do
             {
                 String oldKode = p.getKodeKursi();
                 System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
         
             String kodeKursi = scanner.next();
-            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            kursiByKode = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
             
-            if(kursiFound > -1)
+            if(kursiByKode != null)
             {
                 p.setKodeKursi(kodeKursi.toUpperCase());
                 jadwal.bookingKursi(oldKode, true);
@@ -298,7 +298,7 @@ public class BookingPage
             {
                 System.out.println("nomor kursi tidak tersedia");
             }
-            }while(kursiFound == -1);
+            }while(kursiByKode == null);
         
         }
     bookingManager.update(booking);
