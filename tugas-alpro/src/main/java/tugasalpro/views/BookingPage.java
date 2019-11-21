@@ -151,34 +151,43 @@ public class BookingPage
         }
         System.out.println("Pilih Kursi (Dengan Tanda E/Empty) : ");
         int pIndex = 1;
+        double totalPembayaran = 0;
+        RuteManager ruteManager = new RuteManager();
+        Rute rute =   ruteManager.getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
+        jadwal.getKotaTujuan().getKodeKota());
         for(Penumpang p : booking.getAllPenumpang())
         {
-            int kursiFound =-1;
+            Kursi bookedKursi = null;
             do
             {
             System.out.print("Kursi " +pIndex + " : ");
             String kodeKursi = scanner.nextLine();
-            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            bookedKursi = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
             
-            if(kursiFound > -1)
+            if(bookedKursi != null)
             {
                 p.setKodeKursi(kodeKursi.toUpperCase());
+                if(bookedKursi.getGerbong().getKategori().toLowerCase().equals("premium"))
+                {
+                    totalPembayaran += rute.getHargaPremium();
+                }else
+                {
+                    totalPembayaran += rute.getHargaBisnis();
+                }
                 pIndex++;
             }else
             {
                 System.out.println("nomor kursi tidak tersedia");
             }
-        }while(kursiFound == -1);
+        }while(bookedKursi == null);
           
            
            
         }
          jadwalManager = new JadwalManager();
         jadwalManager.edit(jadwal);
-        RuteManager ruteManager = new RuteManager();
-        Rute rute =   ruteManager.getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
-        jadwal.getKotaTujuan().getKodeKota());
-        double totalPembayaran = (jmlGBisnis * rute.getHargaBisnis()) + (jmlGPremium * rute.getHargaPremium());
+        
+        
         System.out.println("Total Pembayaran = " +totalPembayaran);
         String rekeningTujuan = "803255671891";
         System.out.println("Rekening Tujuan = " +rekeningTujuan);

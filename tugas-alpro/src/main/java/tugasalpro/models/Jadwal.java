@@ -134,7 +134,7 @@ public class Jadwal {
 
     }
 
-    public int bookingKursi(String kodeKursi, boolean setIsAvailable)
+    public Kursi bookingKursi(String kodeKursi, boolean setIsAvailable)
     {
         int indexFound = -1;
         Kursi selectedKursi = null;
@@ -151,12 +151,12 @@ public class Jadwal {
         {
             if(!selectedKursi.getIsAvailable())
             {
-                return -1;
+                return null;
             }
             selectedKursi.setIsAvailable(setIsAvailable);
             kursi.set(indexFound, selectedKursi);
         }
-        return indexFound;
+        return selectedKursi;
     }
     
 
