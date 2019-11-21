@@ -1,0 +1,22 @@
+[
+  {
+    "kodePembayaran": "5Z21JE",
+    "kodeBooking": "KETIKJ",
+    "kodeKereta": "KAI19081",
+    "totalPembayaran": 880000.0,
+    "tanggalPembayaran": "Nov 21, 2019, 10:47:59 AM",
+    "tiket": {
+      "kode": "6D7IL9",
+      "penumpang": [
+        {
+          "name": "PPPPPP",
+          "KodeKursi": "P2-1"
+        },
+        {
+          "name": "QQQQQQ",
+          "KodeKursi": "P2-2"
+        }
+      ]
+    }
+  }
+]

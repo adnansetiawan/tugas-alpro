@@ -13,6 +13,7 @@ import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
+import tugasalpro.managers.PembayaranManager;
 import tugasalpro.managers.RuteManager;
 import tugasalpro.models.*;
 import tugasalpro.utilities.StringUtility;
@@ -190,6 +191,10 @@ public class BookingPage
         int pilihan = scanner.nextInt();
         switch(pilihan)
         {
+            case 1:
+                PembayaranPage pembayaranPage = new PembayaranPage();
+                pembayaranPage.showInputWithBooking(booking);
+                break;
             case 99 :
                 UserMenuPage userMenuPage = new UserMenuPage();
                 userMenuPage.ShowMenuPengguna();
@@ -253,6 +258,8 @@ public class BookingPage
         if (pilihan.equals("Y")) 
         {
             bookingManager.delete(booking);
+            PembayaranManager pembayaranManager = new PembayaranManager();
+            pembayaranManager.delete(booking.getKodeJadwal());
         }
         System.out.println("delete success!!");
         showMenu();
