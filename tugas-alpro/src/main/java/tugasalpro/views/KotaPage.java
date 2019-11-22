@@ -65,7 +65,7 @@ public class KotaPage {
         int i = 0;
         for (Kota kota : listKota) {
             i++;
-            at.addRow(i,kota.getKodeKota(),kota.getKodeKota());
+            at.addRow(i,kota.getKodeKota(),kota.getNamaKota());
             at.addRule();
         }
         CWC_LongestLine cwc = new CWC_LongestLine();

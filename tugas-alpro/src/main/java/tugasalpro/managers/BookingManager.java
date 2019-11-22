@@ -37,6 +37,14 @@ public class BookingManager
         }
         return indexFound;
     }
+    public Booking findByKode(String kode)
+    {
+        int index = findById(kode);
+        if(index == -1)
+            return null;
+        List<Booking> bookings = getAll();
+        return bookings.get(index);
+    }
     public void update(Booking booking)
     {
         int indexFound = findById(booking.getBookingId());   
@@ -70,6 +78,12 @@ public class BookingManager
         bookings = bookings.stream().filter(x->x.getBookedBy().getUserInfo().getKtp().equals(user.getUserInfo().getKtp()))
         .collect(Collectors.toList());
         return bookings;
+
+    }
+    public List<Booking> getAll()
+    {
+        return repository.getAll();
+        
 
     }
     public Booking getByKode(String kode)

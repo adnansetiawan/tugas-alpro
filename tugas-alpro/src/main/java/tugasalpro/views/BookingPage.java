@@ -13,6 +13,7 @@ import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
+import tugasalpro.managers.PembayaranManager;
 import tugasalpro.managers.RuteManager;
 import tugasalpro.models.*;
 import tugasalpro.utilities.StringUtility;
@@ -67,7 +68,7 @@ public class BookingPage
                     row.setTextAlignment(TextAlignment.CENTER);
                     at.addRule();
                 }
-                
+               
                 offset=k;
                 limit = k+9;
                 
@@ -75,7 +76,7 @@ public class BookingPage
             }
             at.getRenderer().setCWC(cwc);
             System.out.println(at.render());
-            
+          
             System.out.println();
           
         
@@ -150,34 +151,43 @@ public class BookingPage
         }
         System.out.println("Pilih Kursi (Dengan Tanda E/Empty) : ");
         int pIndex = 1;
+        double totalPembayaran = 0;
+        RuteManager ruteManager = new RuteManager();
+        Rute rute =   ruteManager.getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
+        jadwal.getKotaTujuan().getKodeKota());
         for(Penumpang p : booking.getAllPenumpang())
         {
-            int kursiFound =-1;
+            Kursi bookedKursi = null;
             do
             {
             System.out.print("Kursi " +pIndex + " : ");
             String kodeKursi = scanner.nextLine();
-            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            bookedKursi = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
             
-            if(kursiFound > -1)
+            if(bookedKursi != null)
             {
                 p.setKodeKursi(kodeKursi.toUpperCase());
+                if(bookedKursi.getGerbong().getKategori().toLowerCase().equals("premium"))
+                {
+                    totalPembayaran += rute.getHargaPremium();
+                }else
+                {
+                    totalPembayaran += rute.getHargaBisnis();
+                }
                 pIndex++;
             }else
             {
                 System.out.println("nomor kursi tidak tersedia");
             }
-        }while(kursiFound == -1);
+        }while(bookedKursi == null);
           
            
            
         }
          jadwalManager = new JadwalManager();
         jadwalManager.edit(jadwal);
-        RuteManager ruteManager = new RuteManager();
-        Rute rute =   ruteManager.getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
-        jadwal.getKotaTujuan().getKodeKota());
-        double totalPembayaran = (jmlGBisnis * rute.getHargaBisnis()) + (jmlGPremium * rute.getHargaPremium());
+        
+        
         System.out.println("Total Pembayaran = " +totalPembayaran);
         String rekeningTujuan = "803255671891";
         System.out.println("Rekening Tujuan = " +rekeningTujuan);
@@ -190,6 +200,10 @@ public class BookingPage
         int pilihan = scanner.nextInt();
         switch(pilihan)
         {
+            case 1:
+                PembayaranPage pembayaranPage = new PembayaranPage();
+                pembayaranPage.showInputWithBooking(booking);
+                break;
             case 99 :
                 UserMenuPage userMenuPage = new UserMenuPage();
                 userMenuPage.ShowMenuPengguna();
@@ -253,6 +267,8 @@ public class BookingPage
         if (pilihan.equals("Y")) 
         {
             bookingManager.delete(booking);
+            PembayaranManager pembayaranManager = new PembayaranManager();
+            pembayaranManager.delete(booking.getKodeJadwal());
         }
         System.out.println("delete success!!");
         showMenu();
@@ -264,16 +280,16 @@ public class BookingPage
                 
         for(Penumpang p : booking.getAllPenumpang())
         {
-            int kursiFound =-1;
+            Kursi kursiByKode = null;
             do
             {
                 String oldKode = p.getKodeKursi();
                 System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
         
             String kodeKursi = scanner.next();
-            kursiFound = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            kursiByKode = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
             
-            if(kursiFound > -1)
+            if(kursiByKode != null)
             {
                 p.setKodeKursi(kodeKursi.toUpperCase());
                 jadwal.bookingKursi(oldKode, true);
@@ -282,7 +298,7 @@ public class BookingPage
             {
                 System.out.println("nomor kursi tidak tersedia");
             }
-            }while(kursiFound == -1);
+            }while(kursiByKode == null);
         
         }
     bookingManager.update(booking);
