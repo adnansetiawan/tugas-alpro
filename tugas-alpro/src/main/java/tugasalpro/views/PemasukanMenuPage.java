@@ -1,6 +1,5 @@
 package tugasalpro.views;
 
-
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
@@ -8,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import tugasalpro.models.*;
-import tugasalpro.managers.*;
+import tugasalpro.models.Pemasukan;
+import tugasalpro.managers.PemasukanManager;
 
 public class PemasukanMenuPage{
     PemasukanManager pemasukanManager;
@@ -24,9 +23,9 @@ public class PemasukanMenuPage{
         int pilihan;
         System.out.println("#LAPORAN PEMASUKAN#\n");
         do{
-            System.out.println("1.  Laporan Harian");
-            System.out.println("2.  Laporan Bulanan");
-            System.out.println("3.  Laporan Tahunan");
+            System.out.println("1. Laporan Harian");
+            System.out.println("2. Laporan Bulanan");
+            System.out.println("3. Laporan Tahunan");
             System.out.println("99. Menu Utama");
             System.out.print("Pilihan : ");
             pilihan=scanner.nextInt();

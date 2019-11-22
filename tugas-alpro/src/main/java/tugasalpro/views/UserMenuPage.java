@@ -65,8 +65,7 @@ public class UserMenuPage {
             System.out.println("8. Kelola Kereta Pada Rute");
             System.out.println("9. Generate Jadwal Kereta Api");
             System.out.println("10. Lihat Pemasukan");
-            System.out.println("11. Lihat Jadwal Kereta Api");
-            System.out.println("12. Kelola Kereta");
+            System.out.println("11. Kelola Kereta");
             System.out.println("0. Logout");
             System.out.print("Pilihan :");
             pilihan = scanner.nextInt();
@@ -112,11 +111,14 @@ public class UserMenuPage {
                     JadwalPage jadwalPage = new JadwalPage();
                     jadwalPage.showMenu();
                     break;
-                 case 12:
+                case 10:
+                    PemasukanMenuPage pemasukanMenuPage = new PemasukanMenuPage();
+                    pemasukanMenuPage.showMenu();
+                    break;
+                 case 11:
                     KeretaPage keretaPage = new KeretaPage();
                     keretaPage.showMenu();
                     break;
-            
                 default:
                     break;
             }

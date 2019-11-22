@@ -1,4 +1,5 @@
 package tugasalpro.models;
+
 public class Kursi {
     private String kodeKursi;
     private Gerbong gerbong;
@@ -20,6 +21,7 @@ public class Kursi {
     public void setKodeKursi(String kodeKursi) {
         this.kodeKursi = kodeKursi;
     }
+
     public Gerbong getGerbong() {
         return this.gerbong;
     }
@@ -45,6 +47,4 @@ public class Kursi {
         this.isAvailable = isAvailable;
         return this;
     }
-   
-
 }
