@@ -1,4 +1,5 @@
 package tugasalpro.models;
+
 public class Gerbong {
     private String kategori;
     private int nomor;
@@ -29,15 +30,12 @@ public class Gerbong {
     public void setKategori(String kategori) {
         this.kategori = kategori;
     }
+
     public String getNama() {
         if(kategori.equals("Bisnis"))
         {
             return "Bisnis "+this.nomor;
         }
         return "Premium "+this.nomor;
-    }
-
-    
-
-    
+    }    
 }

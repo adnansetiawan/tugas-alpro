@@ -2,6 +2,10 @@ package tugasalpro.views;
 
 import java.util.List;
 import java.util.Scanner;
+import de.vandermeer.asciitable.AT_Row;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.models.Kereta;
@@ -99,31 +103,36 @@ public class KeretaPage {
             kereta.jmlGPremium(jmlGPremium);
 
             keretaManager.add(kereta);
-            System.out.println("----------------------------------------");
             System.out.println("Kereta Api Berhasil Ditambahkan");
-            System.out.println("----------------------------------------");
             showMenu();
         }
         else{
-            System.out.println("----------------------------------------");
             System.out.println("Kereta Api Gagal Ditambahkan");
-            System.out.println("----------------------------------------");
             menuTambah();
         }
     } 
 
    public void menuTampil() {
         System.out.println("Data Lengkap Kereta Api");
-        System.out.println("----------------------------------------");
-        System.out.println("No \t Kode Kereta \t Nama Kereta \t     Gerbong  Bisnis   Premium");
-        List<Kereta> listKereta = keretaManager.GetAll();
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        AT_Row row =  at.addRow("No", "Kode Kereta", "Nama Kereta", "Gerbong", "Binis", "Premium");
+        row.setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
+
+        List<Kereta> listKereta = keretaManager.getAll();
 
         int i = 0;
         for(Kereta kereta : listKereta) {
             i++;
-            System.out.println(i+" \t "+kereta.getKodeKereta()+" \t "+kereta.getNamaKereta()+"\t\t"+kereta.getJmlGerbong()+"\t"+kereta.getJmlGBisnis()+"\t"+kereta.getJmlGPremium());
+            at.addRow(i, kereta.getKodeKereta(), kereta.getNamaKereta(), kereta.getJmlGerbong(), kereta.getJmlGBisnis(), kereta.getJmlGPremium());
+            at.addRule();
         }
-        System.out.println("\n----------------------------------------");
+
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(4, 0).add(20, 0).add(50, 0);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
     }
 
     public void showMenuTampil() {
@@ -181,21 +190,15 @@ public class KeretaPage {
                             newKereta.jmlGBisnis(jmlGBisnis);
                             newKereta.jmlGPremium(jmlGPremium);
 
-                            
                             keretaManager.delete(kereta);
 
                             keretaManager.add(newKereta);
 
-                            System.out.println("----------------------------------------");
                             System.out.println("Kereta Api Berhasil Diedit");
-                            System.out.println("----------------------------------------");
                             flagIterate = false;
                         }
                         else{
-                            System.out.println("----------------------------------------");
-                            System.out.println("Kereta Api Gagal Diedit");
-                            System.out.println("----------------------------------------");
-                            
+                            System.out.println("Kereta Api Gagal Diedit");                         
                         }
                         
                     }else{
@@ -208,37 +211,6 @@ public class KeretaPage {
         } while (flagIterate);
 
         showMenu();
-        // kereta = new Kereta();
-        // System.out.print("Kode Kereta : ");
-        // kodeKereta = scanner.next();
-        // System.out.print("Nama Kereta : ");
-        // namaKereta = scanner.next();
-        // System.out.print("Jumlah Gerbong : ");
-        // jmlGerbong = scanner.nextInt();
-        // System.out.print("Jumlah Gerbong Bussiness : ");
-        // jmlGBisnis = scanner.nextInt();
-        // System.out.print("Jumlah Gerbong Premium: ");
-        // jmlGPremium = scanner.nextInt();
-
-        // if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
-        //     kereta.setKodeKereta(kodeKereta);
-        //     kereta.setNamaKereta(namaKereta);
-        //     kereta.jmlGerbong(jmlGerbong);
-        //     kereta.jmlGBisnis(jmlGBisnis);
-        //     kereta.jmlGPremium(jmlGPremium);
-
-        //     keretaManager.add(kereta);
-        //     System.out.println("----------------------------------------");
-        //     System.out.println("Kereta Api Berhasil Diedit");
-        //     System.out.println("----------------------------------------");
-        //     showMenu();
-        // }
-        // else{
-        //     System.out.println("----------------------------------------");
-        //     System.out.println("Kereta Api Gagal Diedit");
-        //     System.out.println("----------------------------------------");
-        //     menuUbah();
-        // }
     }    
 
     void menuHapus() {
