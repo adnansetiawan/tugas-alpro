@@ -103,11 +103,15 @@ public class KeretaPage {
             kereta.jmlGPremium(jmlGPremium);
 
             keretaManager.add(kereta);
+            System.out.println("----------------------------------");
             System.out.println("Kereta Api Berhasil Ditambahkan");
+            System.out.println("----------------------------------");
             showMenu();
         }
         else{
+            System.out.println("----------------------------------");
             System.out.println("Kereta Api Gagal Ditambahkan");
+            System.out.println("----------------------------------");
             menuTambah();
         }
     } 
@@ -194,11 +198,15 @@ public class KeretaPage {
 
                             keretaManager.add(newKereta);
 
+                            System.out.println("----------------------------------");
                             System.out.println("Kereta Api Berhasil Diedit");
+                            System.out.println("----------------------------------");
                             flagIterate = false;
                         }
                         else{
-                            System.out.println("Kereta Api Gagal Diedit");                         
+                            System.out.println("----------------------------------");
+                            System.out.println("Kereta Api Gagal Diedit");  
+                            System.out.println("----------------------------------");                       
                         }
                         
                     }else{
