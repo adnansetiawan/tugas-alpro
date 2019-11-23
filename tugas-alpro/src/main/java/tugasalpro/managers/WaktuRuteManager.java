@@ -23,10 +23,21 @@ public class WaktuRuteManager
         return repository.getAll();
     }
 
+    public WaktuRute getByKodeRute(String kodeRute)
+    {
+        List<WaktuRute> textWaktuRute = repository.getAll();
+        Optional<WaktuRute> selectedWaktuRute = textWaktuRute.stream().filter(x->x.getKodeRute().equals(kodeRute)).findFirst();
+        if(selectedWaktuRute.isPresent())
+        {
+            return selectedWaktuRute.get();
+        }
+        return null;
+    }
+
     public WaktuRute getByKodeWaktuRute(String kodeWaktuRute)
     {
-        List<WaktuRute> textwaktuRute = repository.getAll();
-        Optional<WaktuRute> selectedWaktuRute = textwaktuRute.stream().filter(x->x.getKodeWaktuRute().equals(kodeWaktuRute)).findFirst();
+        List<WaktuRute> textWaktuRute = repository.getAll();
+        Optional<WaktuRute> selectedWaktuRute = textWaktuRute.stream().filter(x->x.getKodeWaktuRute().equals(kodeWaktuRute)).findFirst();
         if(selectedWaktuRute.isPresent())
         {
             return selectedWaktuRute.get();
@@ -56,7 +67,7 @@ public class WaktuRuteManager
         for(int i = 0; i<listWaktuRute.size(); i++)
         {
             WaktuRute wktrute = listWaktuRute.get(i);
-            if(wktrute.getKodeWaktuRute().equals(waktuRute.getKodeWaktuRute()))
+            if(wktrute.getKodeRute().equals(waktuRute.getKodeRute()))
             {
                 try {
                     listWaktuRute.remove(i);
@@ -91,7 +102,15 @@ public class WaktuRuteManager
                 Rute textRute = new RuteManager().GetByKodeRute(textKodeRute);
                 if (textRute != null)
                 {
-                    status = 1;
+                    WaktuRute textBanding = getByKodeRute(textKodeRute);
+                    if (textBanding != null)
+                    {
+                        System.out.println("Data sudah ada.");
+                    }
+                    else
+                    {
+                        status=1;
+                    }
                 }
                 else
                 {
@@ -149,24 +168,24 @@ public class WaktuRuteManager
         int status = 0;
         do 
         {
-            System.out.print("Hapus Kode Waktu Rute : ");
-            textKodeWaktuRute = keyb.nextLine();
-            if (textKodeWaktuRute.compareTo("99")==0)
+            System.out.print("Hapus Kode Rute : ");
+            textKodeRute = keyb.nextLine();
+            if (textKodeRute.compareTo("99")==0)
             {
                 status=1;
             }
             else
             {
-                WaktuRute dataWaktuRute = getByKodeWaktuRute(textKodeWaktuRute);
+                WaktuRute dataWaktuRute = getByKodeRute(textKodeRute);
                 if (dataWaktuRute != null)
                 {
                     delete(dataWaktuRute);
-                    System.out.println("Kode Waktu Rute "+textKodeWaktuRute+" berhasil dihapus.");
+                    System.out.println("Kode Rute "+textKodeRute+" berhasil dihapus.");
                     status = 1;
                 }
                 else
                 {
-                    System.out.println("Kode Waktu Rute "+textKodeWaktuRute+" tidak ditemukan.");
+                    System.out.println("Kode Rute "+textKodeRute+" tidak ditemukan.");
                 }
             }
         } while (status==0);
