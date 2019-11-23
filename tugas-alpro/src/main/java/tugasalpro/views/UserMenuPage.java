@@ -78,8 +78,9 @@ public class UserMenuPage {
                     loginPage.Logout();
                     break;
                 case 1:
-                    ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
-                    profilePenggunaPage.ShowUpdatePenggunaPage();
+                    //ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+                    //profilePenggunaPage.ShowUpdatePenggunaPage();
+                    new ProfilePenggunaPage().ShowUpdatePenggunaPage();
                     break;
                 case 2:
                     KotaPage kotaPage = new KotaPage();

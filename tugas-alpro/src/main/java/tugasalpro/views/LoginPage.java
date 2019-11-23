@@ -66,6 +66,7 @@ public class LoginPage {
         switch(pilihan)
         {
             case 0:
+                //Keluar dari program
                 break;
             case 1:
                 showLogin();
