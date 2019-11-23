@@ -1,10 +1,15 @@
 package tugasalpro.views;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import tugasalpro.managers.*;
+
+import de.vandermeer.asciitable.AT_Row;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import tugasalpro.managers.KotaManager;
+import tugasalpro.managers.RuteManager;
 import tugasalpro.models.Rute;
 
 
@@ -19,6 +24,14 @@ public class RutePage {
         kotaManager = new KotaManager();
         scanner = new Scanner(System.in);
 
+    }
+
+    boolean isValid(Rute rute) {
+        if (rute.getKotaAsal().equals(null) && rute.getKotaTujuan().equals(null)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void showMenu(){
@@ -51,35 +64,47 @@ public class RutePage {
         String kotaAsal,kotaTujuan;
         int hrgBisnis,hrgPremium;
         System.out.print("Tambah Rute : ");
-        kotaAsal = scanner.next();
-        kotaTujuan = scanner.next();
-        hrgBisnis = scanner.nextInt();
-        hrgPremium = scanner.nextInt();
-        rute.setKotaAsal(kotaManager.GetByNamaKota(kotaAsal));
-        rute.setKotaTujuan(kotaManager.GetByNamaKota(kotaTujuan));
-        rute.setHargaBisnis(hrgBisnis);
-        rute.setHargaPremium(hrgPremium);
-        rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
-        rute.setKeretaRute(null);
-        ruteManager.add(rute);
+        try {
+            kotaAsal = scanner.next();
+            kotaTujuan = scanner.next();
+            hrgBisnis = scanner.nextInt();
+            hrgPremium = scanner.nextInt();
+            rute.setKotaAsal(kotaManager.GetByNamaKota(kotaAsal));
+            rute.setKotaTujuan(kotaManager.GetByNamaKota(kotaTujuan));
+            rute.setHargaBisnis(hrgBisnis);
+            rute.setHargaPremium(hrgPremium);
+            rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
+            rute.setKeretaRute(null);
+            ruteManager.add(rute);
+        } catch(Exception er) {
+            System.out.println("Data gagal ditambahkan");
+        }
+        
+        
         
     }
 
   public  void menuTampil() {
-        System.out.println("-------------------------------------------------------");
-        System.out.println("No \t Keberangkatan \t Tujuan \t Kode_Rute \t Bisnis \t Premium");
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        AT_Row row =  at.addRow("No","Keberangkatan","Tujuan","Kode_Rute","Bisnis","Premium");
+        row.setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
         List<Rute> listRute = ruteManager.GetAll();
         int i = 0;
         for (Rute rute : listRute) {
             i++;
-            System.out.println(i+" \t "+rute.getKotaAsal().getNamaKota()+" \t\t "
-                +rute.getKotaTujuan().getNamaKota()+" \t "
-                +rute.getKodeRute()+" \t "
-                +rute.getHargaBisnis()+" \t "
-                +rute.getHargaPremium());
+            at.addRow(i,rute.getKotaAsal().getNamaKota(),
+                rute.getKotaTujuan().getNamaKota(),
+                rute.getKodeRute(),
+                rute.getHargaBisnis(),
+                rute.getHargaPremium());
+            at.addRule();
         }
-        System.out.println("-------------------------------------------------------");
-
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(4, 0).add(20, 0).add(20, 0);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
     }
 
    public void menuUbah() {
