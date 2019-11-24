@@ -1,59 +1,24 @@
 package tugasalpro.managers;
 
-import java.util.Scanner;
 import java.util.List;
-import tugasalpro.*;
-import tugasalpro.models.*;
 import java.util.Optional;
+
+import tugasalpro.Repository;
+import tugasalpro.models.Rute;
+import tugasalpro.models.WaktuRute;
 
 public class WaktuRuteManager
 {
     private Repository<WaktuRute> repository;
-    private String textKodeWaktuRute, textKodeRute, textKodeWaktu;
-    Scanner keyb;
 
     public WaktuRuteManager()
     {
        repository = new Repository<WaktuRute>("WaktuRute", WaktuRute[].class);
-       keyb = new Scanner(System.in);
     }
     
     public List<WaktuRute> GetAll()
     {
         return repository.getAll();
-    }
-
-    public WaktuRute getByKodeRute(String kodeRute)
-    {
-        List<WaktuRute> textWaktuRute = repository.getAll();
-        Optional<WaktuRute> selectedWaktuRute = textWaktuRute.stream().filter(x->x.getKodeRute().equals(kodeRute)).findFirst();
-        if(selectedWaktuRute.isPresent())
-        {
-            return selectedWaktuRute.get();
-        }
-        return null;
-    }
-
-    public WaktuRute getByKodeWaktuRute(String kodeWaktuRute)
-    {
-        List<WaktuRute> textWaktuRute = repository.getAll();
-        Optional<WaktuRute> selectedWaktuRute = textWaktuRute.stream().filter(x->x.getKodeWaktuRute().equals(kodeWaktuRute)).findFirst();
-        if(selectedWaktuRute.isPresent())
-        {
-            return selectedWaktuRute.get();
-        }
-        return null;
-    }
-
-    public WaktuRute getByKodeRuteWaktu(String kodeRute, String kodeWaktu)
-    {
-        List<WaktuRute> textRute = repository.getAll();
-        Optional<WaktuRute> selectedRute = textRute.stream().filter(x->x.getKodeRute().equals(kodeRute) && x.getArrWaktu().equals(kodeWaktu)).findFirst();
-        if(selectedRute.isPresent())
-        {
-            return selectedRute.get();
-        }
-        return null;
     }
 
     public void add(WaktuRute waktuRute)
@@ -67,7 +32,7 @@ public class WaktuRuteManager
         for(int i = 0; i<listWaktuRute.size(); i++)
         {
             WaktuRute wktrute = listWaktuRute.get(i);
-            if(wktrute.getKodeRute().equals(waktuRute.getKodeRute()))
+            if(wktrute.getKodeWaktuRute().equals(waktuRute.getKodeWaktuRute()))
             {
                 try {
                     listWaktuRute.remove(i);
@@ -80,6 +45,54 @@ public class WaktuRuteManager
             }
         }
     }
+
+    public WaktuRute getByKodeWaktuRute(String kodeWaktuRute)
+    {
+        List<WaktuRute> textwaktuRute = repository.getAll();
+        Optional<WaktuRute> selectedWaktuRute = textwaktuRute.stream().filter(x->x.getKodeWaktuRute().equals(kodeWaktuRute)).findFirst();
+        if(selectedWaktuRute.isPresent())
+        {
+            return selectedWaktuRute.get();
+        }
+        return null;
+    }
+    public WaktuRute getByRute(Rute rute)
+    {
+       
+        List<WaktuRute> textwaktuRute = repository.getAll();
+        Optional<WaktuRute> selectedWaktuRute = textwaktuRute.stream().filter(x->x.getRute().getKodeRute().equals(rute.getKodeRute())).findFirst();
+        if(selectedWaktuRute.isPresent())
+        {
+            return selectedWaktuRute.get();
+        }
+        return null;
+    }
+
+    public WaktuRute getByLast()
+    {
+        List<WaktuRute> textwaktuRute = repository.getAll();
+        if (textwaktuRute.size()==0) {
+            return null;
+        } else {
+            return textwaktuRute.get(textwaktuRute.size()-1);
+        }
+    }
+
+    /*
+    // this code below was comment due to correcting to the base archttecture
+
+    public WaktuRute getByKodeRuteWaktu(String kodeRute, String kodeWaktu)
+    {
+        List<WaktuRute> textRute = repository.getAll();
+        Optional<WaktuRute> selectedRute = textRute.stream().filter(x->x.getKodeRute().equals(kodeRute) && x.getArrWaktu().equals(kodeWaktu)).findFirst();
+        if(selectedRute.isPresent())
+        {
+            return selectedRute.get();
+        }
+        return null;
+    }
+
+    
 
     public void tambahRute()
     {
@@ -190,4 +203,5 @@ public class WaktuRuteManager
             }
         } while (status==0);
     }
+    */
 }

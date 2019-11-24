@@ -35,14 +35,19 @@ public class KeretaRutePage {
             System.out.println("3. Hapus Kereta Rute");
             System.out.println("99. Keluar");
             System.out.print("Pilihan : ");
-            pilihan = scanner.nextInt();
-            if (pilihan == 1) {
-                menuTambah();
-            } else if (pilihan == 2) {
-                menuTampil();
-            } else if (pilihan == 3) {
-                menuHapus();
+            try {
+                pilihan = scanner.nextInt();
+                if (pilihan == 1) {
+                    menuTambah();
+                } else if (pilihan == 2) {
+                    menuTampil();
+                } else if (pilihan == 3) {
+                    menuHapus();
+                }
+            } catch (Exception e) {
+                System.out.println("Format input salah");
             }
+            
 
         } while (pilihan != 99);
     }

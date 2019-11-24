@@ -10,15 +10,19 @@ import java.util.Scanner;
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.managers.KotaManager;
+import tugasalpro.managers.RuteManager;
 import tugasalpro.managers.WaktuManager;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.Kereta;
 import tugasalpro.models.KeretaRute;
+import tugasalpro.models.Rute;
+import tugasalpro.models.Waktu;
 
 public class JadwalPage {
     private KotaManager kotaManager;
     private KeretaRuteManager keretaRuteManager;
     private WaktuManager waktuManager;
+    private RuteManager ruteManager;
     private JadwalManager jadwalManager;
     Scanner scanner;
 
@@ -27,6 +31,7 @@ public class JadwalPage {
         jadwalManager = new JadwalManager();
         waktuManager = new WaktuManager();
         kotaManager = new KotaManager();
+        ruteManager = new RuteManager();
 
         scanner = new Scanner(System.in);
     }
@@ -51,6 +56,7 @@ public class JadwalPage {
 
     public void menuGenerate() {
         String pilihan;
+        List<Rute> listRute = ruteManager.GetAll();
         int lastIndex = -1;
         System.out.print("Anda Yakin untuk generate Jadwal Kereta: Y/N : ");
         pilihan = scanner.next();
@@ -65,6 +71,12 @@ public class JadwalPage {
             Jadwal jadwal = new Jadwal();
             List<KeretaRute> listKeretaRute = keretaRuteManager.GetAll();
             ArrayList<Kereta> listKereta = null;
+            ArrayList<Waktu> listWaktu = null;
+
+            // first, get all rute..
+
+
+
             for (int i = 0; i < listKeretaRute.size(); i++) {
                 KeretaRute keretaRute = listKeretaRute.get(i);
                 listKereta = keretaRute.getKeretaTersedia();

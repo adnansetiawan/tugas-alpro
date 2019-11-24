@@ -54,7 +54,7 @@ public class JalurRuteMenuPage{
         String kodeJalur;
         boolean reInput = false;
         do{
-            System.out.print("Kode Jalur : ");
+            System.out.print("Kode Rute : ");
             kodeJalur=scanner.next();
             Rute rute = ruteManager.GetByKodeRute(kodeJalur);
             if(rute == null){
@@ -85,11 +85,11 @@ public class JalurRuteMenuPage{
             if (!namaStasiunAsal.equals("99")){
                 namaStasiunTujuan=scanner.next();
                 durasiJalurStasiun=scanner.nextInt();
-                while(stasiunManager.getIndexByNamaStasiun(namaStasiunAsal)==-1||stasiunManager.getIndexByNamaStasiun(namaStasiunTujuan)==-1){
-                    if(stasiunManager.getIndexByNamaStasiun(namaStasiunAsal)==-1){
+                while(stasiunManager.getByNamaStasiun(namaStasiunAsal)==null||stasiunManager.getByNamaStasiun(namaStasiunTujuan)==null){
+                    if(stasiunManager.getByNamaStasiun(namaStasiunAsal)==null){
                         System.out.println("Stasiun Asal Tidak Tersedia");
                     }
-                    if(stasiunManager.getIndexByNamaStasiun(namaStasiunTujuan)==-1){
+                    if(stasiunManager.getByNamaStasiun(namaStasiunTujuan)==null){
                         System.out.println("Stasiun Tujuan Tidak Tersedia");
                     }
                     System.out.print("Jalur "+i+" : ");

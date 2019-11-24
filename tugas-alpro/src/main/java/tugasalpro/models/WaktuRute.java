@@ -4,43 +4,42 @@ import java.util.ArrayList;
 
 public class WaktuRute
 {
-    private String kodeWaktuRute, kodeRute, arrWaktu;
-    
-    public String getKodeWaktuRute()
-    {
-        return kodeWaktuRute;
+    private String kodeWaktuRute;
+    private Rute rute;
+    private ArrayList<Waktu> arrWaktu;
+
+
+    public WaktuRute() {
     }
-    public void setKodeWaktuRute(String kodeWaktuRute)
-    {
+
+    public WaktuRute(String kodeWaktuRute, Rute rute, ArrayList<Waktu> arrWaktu) {
         this.kodeWaktuRute = kodeWaktuRute;
-    }
-
-    public String getKodeRute()
-    {
-        return kodeRute;
-    }
-    public void setKodeRute(String kodeRute)
-    {
-        this.kodeRute = kodeRute;
-    }
-
-    public String getArrWaktu()
-    {
-        return arrWaktu;
-    }
-    public void setArrWaktu(String arrWaktu)
-    {
+        this.rute = rute;
         this.arrWaktu = arrWaktu;
     }
 
-    public WaktuRute()
-    {
+    public String getKodeWaktuRute() {
+        return this.kodeWaktuRute;
     }
 
-    public WaktuRute(String kodeWaktuRute, String kodeRute, String arrWaktu)
-    {
+    public void setKodeWaktuRute(String kodeWaktuRute) {
         this.kodeWaktuRute = kodeWaktuRute;
-        this.kodeRute = kodeRute;
+    }
+
+    public Rute getRute() {
+        return this.rute;
+    }
+
+    public void setRute(Rute rute) {
+        this.rute = rute;
+    }
+
+    public ArrayList<Waktu> getArrWaktu() {
+        return this.arrWaktu;
+    }
+
+    public void setArrWaktu(ArrayList<Waktu> arrWaktu) {
         this.arrWaktu = arrWaktu;
     }
+
 }

@@ -1,7 +1,6 @@
 package tugasalpro.models;
 
 import java.util.ArrayList;
-import tugasalpro.*;
 public class JalurRute{
     private String kodeJalur;
     private Rute ruteJalur;
@@ -12,7 +11,7 @@ public class JalurRute{
     public JalurRute(){
         durasi = 0;
         activeStatus = true;
-        arrJalurStasiun = new ArrayList<>();
+        arrJalurStasiun = new ArrayList<JalurStasiun>();
     }
 
     public JalurRute(String kJ, Rute rJ){
@@ -20,7 +19,7 @@ public class JalurRute{
         ruteJalur = rJ;
         durasi = 0;
         activeStatus = true;
-        arrJalurStasiun = new ArrayList<>();
+        arrJalurStasiun = new ArrayList<JalurStasiun>();
     }
 
     public void setKodeJalur(String kJ){
