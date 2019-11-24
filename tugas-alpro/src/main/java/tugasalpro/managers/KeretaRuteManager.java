@@ -3,8 +3,8 @@ package tugasalpro.managers;
 import java.util.List;
 import java.util.Optional;
 
-import tugasalpro.models.KeretaRute;
 import tugasalpro.Repository;
+import tugasalpro.models.KeretaRute;
 
 public class KeretaRuteManager {
     private Repository<KeretaRute> repository;
@@ -38,7 +38,16 @@ public class KeretaRuteManager {
         
     }
 
-
+    public KeretaRute getLast()
+    {
+        List<KeretaRute> listKeretaRute = repository.getAll();
+        if (listKeretaRute.size()==0) {
+            return null;
+        } else {
+            return listKeretaRute.get(listKeretaRute.size()-1);
+        }
+    }
+    
      public void edit(KeretaRute keretaRute)
     {
         List<KeretaRute> listKeretaRute = repository.getAll();

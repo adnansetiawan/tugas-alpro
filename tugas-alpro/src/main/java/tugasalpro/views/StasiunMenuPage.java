@@ -61,7 +61,7 @@ public class StasiunMenuPage{
         }while(stasiunManager.getIndexByKodeStasiun(kodeStasiun)!=-1);
         stasiun.setKodeStasiun(kodeStasiun);
         String namaStasiun = scanner.nextLine();
-        stasiun.setNamaStasiun(namaStasiun);
+        stasiun.setNamaStasiun(namaStasiun.substring(1));
         stasiunManager.add(stasiun);
         System.out.println("----------------------------------------");
         System.out.println("Stasiun Berhasil Ditambahkan");
