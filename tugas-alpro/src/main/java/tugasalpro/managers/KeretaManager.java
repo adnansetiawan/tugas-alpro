@@ -17,7 +17,7 @@ public class KeretaManager {
         repository.add(kereta); 
     }
 
-    public List<Kereta> GetAll() {
+    public List<Kereta> getAll() {
         return repository.getAll();
     }
 
