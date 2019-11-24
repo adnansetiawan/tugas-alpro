@@ -353,8 +353,8 @@ public class BookingPage
                     loop = false;
                     p.setKodeKursi(kursiByKode.getKodeKursi());
                     jadwal.bookingKursi(kursiByKode.getKodeKursi(), false);
-                    jadwal.bookingKursi(oldKode, false);
-                    
+                    jadwal.bookingKursi(oldKode, true);
+                    jadwalManager.edit(jadwal);
                 }
                 
             }else
@@ -365,7 +365,7 @@ public class BookingPage
             }while(loop);
         
         }
-    jadwalManager.edit(jadwal);
+    
     bookingManager.update(booking);
     showBookingDetail(booking);
 }
