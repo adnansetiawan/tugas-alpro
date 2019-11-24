@@ -18,5 +18,25 @@
         }
       ]
     }
+  },
+  {
+    "kodePembayaran": "N128KT",
+    "kodeBooking": "Q109FL",
+    "kodeKereta": "KAI19081",
+    "totalPembayaran": 400000.0,
+    "tanggalPembayaran": "Nov 21, 2019, 12:50:08 PM",
+    "tiket": {
+      "kode": "DUIG79",
+      "penumpang": [
+        {
+          "name": "MMMMMM",
+          "KodeKursi": "P2-3"
+        },
+        {
+          "name": "NNNNNN",
+          "KodeKursi": "P2-4"
+        }
+      ]
+    }
   }
 ]

@@ -1683,7 +1683,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P2-4",
@@ -1691,7 +1691,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P2-5",

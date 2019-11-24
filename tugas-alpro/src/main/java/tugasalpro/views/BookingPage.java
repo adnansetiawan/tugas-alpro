@@ -280,25 +280,35 @@ public class BookingPage
                 
         for(Penumpang p : booking.getAllPenumpang())
         {
-            Kursi kursiByKode = null;
+            boolean loop = true;
+            Kursi oldKursi =jadwal.bookingKursi(p.getKodeKursi().toUpperCase(), false);;
             do
             {
                 String oldKode = p.getKodeKursi();
                 System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
         
             String kodeKursi = scanner.next();
-            kursiByKode = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            Kursi kursiByKode = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
             
             if(kursiByKode != null)
             {
-                p.setKodeKursi(kodeKursi.toUpperCase());
-                jadwal.bookingKursi(oldKode, true);
+                if(!kursiByKode.getGerbong().getKategori().equals(oldKursi.getGerbong().getKategori()))
+                {
+                    System.out.println("kursi harus di gerbong yang sama");
+
+                }else
+                {
+                    loop = false;
+                    p.setKodeKursi(kodeKursi.toUpperCase());
+                    jadwal.bookingKursi(oldKode, true);
+                }
                 
             }else
             {
                 System.out.println("nomor kursi tidak tersedia");
+                
             }
-            }while(kursiByKode == null);
+            }while(loop);
         
         }
     bookingManager.update(booking);
