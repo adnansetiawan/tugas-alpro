@@ -232,13 +232,13 @@ public class BookingPage
         }
         }while(bookingByKode==null);
         System.out.println("---------------------------------------------------");
-        System.out.println("Kode Jadwal : " + bookingByKode.getKodeJadwal());
+        System.out.println("Kode Jadwal     :" + bookingByKode.getKodeJadwal());
         System.out.println("---------------------------------------------------");
         for(int i=1; i<=bookingByKode.getJumlahPenumpang(); i++)
         {
             Penumpang penumpang = bookingByKode.getAllPenumpang().get(i-1);
             System.out.println("Penumpang "+i+" : " + penumpang.getName());
-            System.out.println("No. Kursi  : " + penumpang.getKodeKursi());
+            System.out.println("No. Kursi       : " + penumpang.getKodeKursi());
             System.out.println("---------------------------------------------------");
      
         }

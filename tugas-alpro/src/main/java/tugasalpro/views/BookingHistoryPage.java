@@ -6,6 +6,8 @@ import java.util.Scanner;
 import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.asciitable.CWC_LongestWord;
+import de.vandermeer.asciitable.CWC_LongestWordMin;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.ApplicationSession;
 import tugasalpro.managers.BookingManager;
@@ -24,9 +26,11 @@ public class BookingHistoryPage
     public void show()
     {
         AsciiTable at = new AsciiTable();
-        
-        System.out.println("#BOOKING HISTORY#");
         at.addRule();
+    
+        AT_Row rowTitle =  at.addRow( null, null,null,null, null, null,"#BOOKING HISTORY#");
+        rowTitle.setTextAlignment(TextAlignment.CENTER);
+          at.addRule();
         AT_Row row =  at.addRow("N0", "KODE BOOKING", "TANGGAL", "JML.PENUMPANG", "KODE JADWAL", "TOTAL", "STATUS");
         row.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
@@ -34,14 +38,19 @@ public class BookingHistoryPage
        int no=1;
         for(Booking booking : bookings)
         {
-            at.addRow(
+            AT_Row contRow =  at.addRow(
             String.valueOf(no), booking.getBookingId(), StringUtility.getFormattedDate(booking.getBookingDate()),String.valueOf(booking.getJumlahPenumpang()),
                 booking.getKodeJadwal(),StringUtility.getCurrencyFormat(booking.getTotalPembayaran()),(booking.IsBayar()?"sudah bayar" : "belum bayar"));
                 at.addRule();
+            contRow.getCells().get(3).getContext().setTextAlignment(TextAlignment.JUSTIFIED_RIGHT);
+            contRow.getCells().get(5).getContext().setTextAlignment(TextAlignment.JUSTIFIED_RIGHT);
+
             no++;
         }
+        at.setPaddingLeft(1);
+        at.setPaddingRight(1);
         CWC_LongestLine cwc = new CWC_LongestLine();
-        cwc.add(4, 0).add(20, 0).add(30, 0).add(10, 0).add(20, 0).add(20, 10).add(20, 10);
+        cwc.add(3, 0).add(15, 0).add(15, 0).add(10, 0).add(10, 0).add(20, 0).add(15, 0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
         System.out.println();
