@@ -61,6 +61,12 @@ public class UserMenuPage {
             System.out.println("4. Kelola Rute");
             System.out.println("5. Kelola Stasiun");
             System.out.println("6. Kelola Jalur Stasiun Pada Rute");
+            System.out.println("7. Kelola Data Kereta Api");
+            System.out.println("8. Kelola Waktu Pada Rute");
+            System.out.println("9. Kelola Kereta Pada Rute");
+            System.out.println("10. Generate Jadwal Kereta Api");
+            System.out.println("11. Lihat Pemasukan");
+            System.out.println("12. Lihat Jadwal Kereta Api");
             System.out.println("7. Kelola Waktu Pada Rute");
             System.out.println("8. Kelola Kereta Pada Rute");
             System.out.println("9. Generate Jadwal Kereta Api");
@@ -77,8 +83,9 @@ public class UserMenuPage {
                     loginPage.Logout();
                     break;
                 case 1:
-                    ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
-                    profilePenggunaPage.ShowUpdatePenggunaPage();
+                    //ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
+                    //profilePenggunaPage.ShowUpdatePenggunaPage();
+                    new ProfilePenggunaPage().ShowUpdatePenggunaPage();
                     break;
                 case 2:
                     KotaPage kotaPage = new KotaPage();
@@ -100,17 +107,23 @@ public class UserMenuPage {
                     JalurRuteMenuPage jalurRuteMenuPage = new JalurRuteMenuPage();
                     jalurRuteMenuPage.showMenu();
                     break;
-                case 7:
+                case 8:
                     new WaktuRutePage().showMenu();
                     break;
-                case 8:
+                case 7:
+                    KeretaPage keretaPage = new KeretaPage();
+                    keretaPage.showMenu();
+                    break;
+                case 9:
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
                     keretaRutePage.showMenu();
                     break;
-                case 9:
+                case 10:
                     JadwalPage jadwalPage = new JadwalPage();
                     jadwalPage.showMenu();
                     break;
+                case 11:
+                    new PemasukanMenuPage().showMenu();
                 case 10:
                     PemasukanMenuPage pemasukanMenuPage = new PemasukanMenuPage();
                     pemasukanMenuPage.showMenu();

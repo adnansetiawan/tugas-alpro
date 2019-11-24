@@ -61,6 +61,24 @@ public class UserManager {
         return index;
 
     }
+
+    public User getByEmail(String email)
+    {
+        List<User> users = repository.getAll();
+        if (users.size()>0)
+        {
+            Optional<User> selectedUser = 
+            users.stream().filter(x->x.getUsername().equals(email)).findFirst();
+            if(selectedUser.isPresent())
+                return selectedUser.get();
+            return null;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public void update(User user)
     {
         

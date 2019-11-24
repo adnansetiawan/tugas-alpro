@@ -9,6 +9,7 @@ public class ProfilePenggunaPage
 {
     private UserManager userManager;
     private Scanner scanner;
+    private String userNameLama;
       
     public ProfilePenggunaPage() {
         userManager = new UserManager();
@@ -43,11 +44,21 @@ public class ProfilePenggunaPage
         {
             System.out.print("Nomor KTP :");
             nomorKtp = scanner.nextLine();
-            ktpIsValid = CheckKtp(nomorKtp);
-            if(!ktpIsValid)
+            //pengecekan apakah KTP duplikat atau tidak
+            User userByKtp= null; 
+            userByKtp = userManager.getByKtp(nomorKtp);
+            if(userByKtp != null)
             {
-                System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
-           
+                System.out.println("Nomor KTP tersebut sudah terdaftar.");
+            }
+            //akhir pengecekan
+            else
+            {
+                ktpIsValid = CheckKtp(nomorKtp);
+                if(!ktpIsValid)
+                {
+                    System.out.println("format ktp salah, hanya boleh angka dan 16 digit");
+                }
             }
         }while(!ktpIsValid);
         return nomorKtp;
@@ -97,11 +108,32 @@ public class ProfilePenggunaPage
         {
             System.out.print("Email :");
             userName = scanner.nextLine();
-            emailIsValid = CheckUsername(userName);
-            if(!emailIsValid)
+            //Pengecekan email sama atau berbeda
+            if (userNameLama.compareTo(userName)!=0)
             {
-                System.out.println("format email salah, silahkan coba lagi");
-           
+                //Pengecekan email di JSON
+                User userByEmail; 
+                userByEmail = userManager.getByEmail(userName);
+                if(userByEmail != null)
+                {
+                    System.out.println("Email tersebut sudah terdaftar.");
+                }
+                else
+                {
+                    emailIsValid = CheckUsername(userName);
+                    if(!emailIsValid)
+                    {
+                        System.out.println("format email salah, silahkan coba lagi");
+                    }
+                }
+            }
+            else
+            {
+                emailIsValid = CheckUsername(userName);
+                if(!emailIsValid)
+                {
+                    System.out.println("format email salah, silahkan coba lagi");
+                }
             }
         }while(!emailIsValid);
         return userName;
@@ -131,16 +163,17 @@ public class ProfilePenggunaPage
     }
     public void Registrasi()
     {
+        userNameLama = "";
         System.out.println("#REGISTER SISTEM#");
-       String nomorKtp =  InputKtp();
-       String nama = InputNama();
-       String nomorHp = InputHandphone();
-       String userName = InputEmail();
-       String password = InputPassword(true);
-       UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
-       userManager.add(new User(userName, password, userInfo));
-       LoginPage loginPage =new LoginPage();
-       loginPage.showWelcome();
+        String nomorKtp =  InputKtp();
+        String nama = InputNama();
+        String nomorHp = InputHandphone();
+        String userName = InputEmail();
+        String password = InputPassword(true);
+        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
+        userManager.add(new User(userName, password, userInfo));
+        LoginPage loginPage =new LoginPage();
+        loginPage.showWelcome();
        
     }
     public void ShowProfile(User user)
@@ -151,6 +184,7 @@ public class ProfilePenggunaPage
         System.out.println("Nomor Handphone :" +user.getUserInfo().getHandphone());
         System.out.println("Email :" +user.getUsername());
         System.out.println("Password :" +user.getPassword());
+        userNameLama = user.getUsername();
       
     }
     public void ShowUpdatePenggunaPage()

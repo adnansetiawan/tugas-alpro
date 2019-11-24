@@ -59,11 +59,15 @@ public class LoginPage {
         {
             System.out.println("1. Login");
             System.out.println("2. Registrasi");
+            System.out.println("0. Keluar");
             System.out.print("Pilihan :");
             pilihan = scanner.nextInt();
         }while(pilihan < 0 || pilihan > 2) ;
         switch(pilihan)
         {
+            case 0:
+                //Keluar dari program
+                break;
             case 1:
                 showLogin();
                 break;
