@@ -24,7 +24,7 @@
     ],
     "totalPembayaran": 880000.0,
     "rekeningTujuan": "803255671891",
-    "isBayar": false
+    "isBayar": true
   },
   {
     "bookingId": "Q109FL",

@@ -242,6 +242,10 @@ public class BookingPage
         }
         System.out.println("1. Ganti Kursi");
         System.out.println("2. Cancel");
+        if(!bookingByKode.IsBayar())
+        {
+            System.out.println("3. Pembayaran");
+        }
         System.out.println("99. Keluar");
         int pilihan = scanner.nextInt();
         switch(pilihan)
@@ -252,6 +256,14 @@ public class BookingPage
             case 2:
                  deleteBooking(bookingByKode);
                  break;
+            case 3:
+                if(!bookingByKode.IsBayar())
+                {
+                    PembayaranPage pembayaranPage = new PembayaranPage();
+                    pembayaranPage.showInputWithBooking(bookingByKode);
+                    
+                }
+                break;
             case 99:
                 UserMenuPage userMenuPage = new UserMenuPage();
                 userMenuPage.ShowMenuPengguna();

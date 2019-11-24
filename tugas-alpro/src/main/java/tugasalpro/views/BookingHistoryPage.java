@@ -36,7 +36,7 @@ public class BookingHistoryPage
         {
             at.addRow(
             String.valueOf(no), booking.getBookingId(), StringUtility.getFormattedDate(booking.getBookingDate()),String.valueOf(booking.getJumlahPenumpang()),
-                booking.getKodeJadwal(),StringUtility.getCurrencyFormat(booking.getTotalPembayaran()),(booking.IsBayar()?"paid" : "not paid"));
+                booking.getKodeJadwal(),StringUtility.getCurrencyFormat(booking.getTotalPembayaran()),(booking.IsBayar()?"sudah bayar" : "belum bayar"));
                 at.addRule();
             no++;
         }

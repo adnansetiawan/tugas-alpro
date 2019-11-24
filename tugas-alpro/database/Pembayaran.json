@@ -1,12 +1,12 @@
 [
   {
-    "kodePembayaran": "5Z21JE",
+    "kodePembayaran": "ZUDJ60",
     "kodeBooking": "KETIKJ",
     "kodeKereta": "KAI19081",
     "totalPembayaran": 880000.0,
-    "tanggalPembayaran": "Nov 21, 2019, 10:47:59 AM",
+    "tanggalPembayaran": "Nov 24, 2019, 10:12:38 AM",
     "tiket": {
-      "kode": "6D7IL9",
+      "kode": "MTQVKM",
       "penumpang": [
         {
           "name": "PPPPPP",
@@ -15,46 +15,6 @@
         {
           "name": "QQQQQQ",
           "KodeKursi": "P2-2"
-        }
-      ]
-    }
-  },
-  {
-    "kodePembayaran": "N128KT",
-    "kodeBooking": "Q109FL",
-    "kodeKereta": "KAI19081",
-    "totalPembayaran": 400000.0,
-    "tanggalPembayaran": "Nov 21, 2019, 12:50:08 PM",
-    "tiket": {
-      "kode": "DUIG79",
-      "penumpang": [
-        {
-          "name": "MMMMMM",
-          "KodeKursi": "P2-3"
-        },
-        {
-          "name": "NNNNNN",
-          "KodeKursi": "P2-4"
-        }
-      ]
-    }
-  },
-  {
-    "kodePembayaran": "UOACZA",
-    "kodeBooking": "63LS00",
-    "kodeKereta": "KAI19081",
-    "totalPembayaran": 240000.0,
-    "tanggalPembayaran": "Nov 24, 2019, 9:51:19 AM",
-    "tiket": {
-      "kode": "FRS92J",
-      "penumpang": [
-        {
-          "name": "XXXXXXX",
-          "KodeKursi": "B1-3"
-        },
-        {
-          "name": "yyyyyyy",
-          "KodeKursi": "B1-4"
         }
       ]
     }
