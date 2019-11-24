@@ -1,10 +1,8 @@
 package tugasalpro.views;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import de.vandermeer.asciitable.AT_Row;
@@ -44,9 +42,10 @@ public class BookingPage
             for(int r=1; r<=jmlRow; r++)
             {
                 List<String> nomors = new ArrayList<String>();
-               
-                 at.addRule();
-                
+                 if(r == 1)
+                 {
+                    at.addRule();
+                 }
                  int k =offset;
                  for(k=offset; k<=limit; k++)
                  {
@@ -67,8 +66,9 @@ public class BookingPage
                     AT_Row row =  at.addRow(nomors);
                     row.setTextAlignment(TextAlignment.CENTER);
                     at.addRule();
+                   
                 }
-               
+              
                 offset=k;
                 limit = k+9;
                 
@@ -76,8 +76,8 @@ public class BookingPage
             }
             at.getRenderer().setCWC(cwc);
             System.out.println(at.render());
-          
             System.out.println();
+           
           
         
     }
