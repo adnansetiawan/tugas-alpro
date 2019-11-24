@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import javax.lang.model.util.ElementScanner6;
+
 import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
@@ -242,10 +244,8 @@ public class BookingPage
         }
         System.out.println("1. Ganti Kursi");
         System.out.println("2. Cancel");
-        if(!bookingByKode.IsBayar())
-        {
-            System.out.println("3. Pembayaran");
-        }
+        System.out.println("3. Pembayaran");
+        
         System.out.println("99. Keluar");
         int pilihan = scanner.nextInt();
         switch(pilihan)
@@ -254,14 +254,26 @@ public class BookingPage
                 gantiKursi(bookingByKode);
                 break;
             case 2:
-                 deleteBooking(bookingByKode);
-                 break;
+                if(!bookingByKode.IsBayar())
+                {
+                    deleteBooking(bookingByKode);
+                }
+                else
+                {
+                    System.out.println("booking tidak bisa dicancel jika sudah dibayar");
+                    showMenu();
+                }
+                break;
             case 3:
                 if(!bookingByKode.IsBayar())
                 {
                     PembayaranPage pembayaranPage = new PembayaranPage();
                     pembayaranPage.showInputWithBooking(bookingByKode);
                     
+                }else
+                {
+                    System.out.println("booking sudah dibayar");
+                    showMenu();
                 }
                 break;
             case 99:
