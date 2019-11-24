@@ -112,19 +112,14 @@ public class UserMenuPage {
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
                     keretaRutePage.showMenu(); 
                     break;
-                case 10:
-                    JadwalPage jadwalGeneratePage = new JadwalPage();
-                    jadwalGeneratePage.menuGenerate(); 
-                    break;
                 case 11:
-                    PemasukanMenuPage pemasukanMenuPage = new PemasukanMenuPage();
-                    pemasukanMenuPage.showMenu();
-                    break;
-                case 12:
                     JadwalPage jadwalPage = new JadwalPage();
                     jadwalPage.showMenu();
                     break;
-              
+                case 12:
+                    PemasukanMenuPage pemasukanMenuPage = new PemasukanMenuPage();
+                    pemasukanMenuPage.showMenu();
+                    break;
                 default:
                     break;
             }
