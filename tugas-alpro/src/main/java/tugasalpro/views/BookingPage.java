@@ -218,7 +218,6 @@ public class BookingPage
     }
     public void showDetail()
     {    
-        AsciiTable at = new AsciiTable();
         
         Booking bookingByKode =null;
         do
@@ -232,6 +231,14 @@ public class BookingPage
             System.out.println("kode booking tidak ada");
         }
         }while(bookingByKode==null);
+        showBookingDetail(bookingByKode);
+       
+      
+    }
+    private void showBookingDetail(Booking bookingByKode)
+    {
+        AsciiTable at = new AsciiTable();
+        
         at.addRule();
         at.addRow(null, "#BOOKING DETAIL#").setTextAlignment(TextAlignment.CENTER);
         at.addRule();
@@ -249,16 +256,29 @@ public class BookingPage
         at.setPaddingLeft(1);
         at.setPaddingRight(1);
         System.out.println(at.render());
+        showDetailMenu(bookingByKode);
+     
+    }
+    private void showDetailMenu(Booking bookingByKode)
+    {
         System.out.println("1. Ganti Kursi");
         System.out.println("2. Cancel");
         System.out.println("3. Pembayaran");
-        
         System.out.println("99. Keluar");
         int pilihan = scanner.nextInt();
         switch(pilihan)
         {
             case 1:
-                gantiKursi(bookingByKode);
+                if(!bookingByKode.IsBayar())
+                {
+                    gantiKursi(bookingByKode);
+                }
+                else
+                {
+                    System.out.println("kursi tidak bisa diganti jika sudah dibayar!");
+                    showDetailMenu(bookingByKode);
+                }
+               
                 break;
             case 2:
                 if(!bookingByKode.IsBayar())
@@ -267,8 +287,8 @@ public class BookingPage
                 }
                 else
                 {
-                    System.out.println("booking tidak bisa dicancel jika sudah dibayar");
-                    showMenu();
+                    System.out.println("booking tidak bisa dicancel jika sudah dibayar!");
+                    showDetailMenu(bookingByKode);
                 }
                 break;
             case 3:
@@ -279,8 +299,8 @@ public class BookingPage
                     
                 }else
                 {
-                    System.out.println("booking sudah dibayar");
-                    showMenu();
+                    System.out.println("booking sudah dibayar!");
+                    showDetailMenu(bookingByKode);
                 }
                 break;
             case 99:
@@ -288,8 +308,6 @@ public class BookingPage
                 userMenuPage.ShowMenuPengguna();
                 break;
         }
-       
-      
     }
     private void deleteBooking(Booking booking)
     {
@@ -300,8 +318,9 @@ public class BookingPage
             bookingManager.delete(booking);
             PembayaranManager pembayaranManager = new PembayaranManager();
             pembayaranManager.delete(booking.getKodeJadwal());
+            System.out.println("delete success!");
         }
-        System.out.println("delete success!!");
+        
         showMenu();
     }
     private void gantiKursi(Booking booking)
@@ -312,26 +331,30 @@ public class BookingPage
         for(Penumpang p : booking.getAllPenumpang())
         {
             boolean loop = true;
-            Kursi oldKursi =jadwal.bookingKursi(p.getKodeKursi().toUpperCase(), false);;
+            Kursi oldKursi =jadwal.getKursiByKodeKursi(p.getKodeKursi());;
             do
             {
                 String oldKode = p.getKodeKursi();
                 System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
         
             String kodeKursi = scanner.next();
-            Kursi kursiByKode = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            Kursi kursiByKode = jadwal.getKursiByKodeKursi(kodeKursi);
             
-            if(kursiByKode != null)
+            if(kursiByKode != null && kursiByKode.getIsAvailable())
             {
-                if(!kursiByKode.getGerbong().getKategori().equals(oldKursi.getGerbong().getKategori()))
+
+                
+                if( !kursiByKode.getGerbong().getKategori().equals(oldKursi.getGerbong().getKategori()))
                 {
                     System.out.println("kursi harus di gerbong yang sama");
 
                 }else
                 {
                     loop = false;
-                    p.setKodeKursi(kodeKursi.toUpperCase());
-                    jadwal.bookingKursi(oldKode, true);
+                    p.setKodeKursi(kursiByKode.getKodeKursi());
+                    jadwal.bookingKursi(kursiByKode.getKodeKursi(), false);
+                    jadwal.bookingKursi(oldKode, false);
+                    
                 }
                 
             }else
@@ -342,8 +365,9 @@ public class BookingPage
             }while(loop);
         
         }
+    jadwalManager.edit(jadwal);
     bookingManager.update(booking);
-    showMenu();
+    showBookingDetail(booking);
 }
     private void showMenu()
     {

@@ -3,7 +3,7 @@ package tugasalpro.models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 
 import tugasalpro.models.Waktu;
 
@@ -131,6 +131,19 @@ public class Jadwal {
     public List<Kursi> getKursi()
     {
         return this.kursi;
+
+    }
+    public Kursi getKursiByKodeKursi(String kodeKursi)
+    {
+       Optional<Kursi> optKursi =  kursi.stream()
+        .filter(c -> c.getKodeKursi().toLowerCase().equals(kodeKursi.toLowerCase()))
+        .findFirst();
+        if(!optKursi.isPresent())
+        {
+            return null;
+        }
+        
+        return optKursi.get();
 
     }
 

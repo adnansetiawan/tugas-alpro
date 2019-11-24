@@ -124,7 +124,7 @@ public class RuteManager {
         .filter(x->x.getKotaAsal().getKodeKota().equals(kodeKotaAsal)
         && x.getKotaTujuan().getKodeKota().equals(kodeKotaTujuan))
         .findFirst();
-        if(selectedRute == null)
+        if(!selectedRute.isPresent())
             return null;
         return selectedRute.get();
     }
