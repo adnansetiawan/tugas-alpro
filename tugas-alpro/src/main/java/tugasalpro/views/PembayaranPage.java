@@ -1,14 +1,18 @@
 package tugasalpro.views;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
+import de.vandermeer.asciitable.AsciiTable;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.PembayaranManager;
 import tugasalpro.models.Booking;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.Pembayaran;
+import tugasalpro.models.Penumpang;
+import tugasalpro.models.Tiket;
 import tugasalpro.utilities.StringUtility;
 
 public class PembayaranPage
@@ -24,9 +28,9 @@ public class PembayaranPage
     }
     private void doPembayaran(Booking booking)
     {
-        System.out.println("no rekening         :" + booking.getRekeningTujuan());
-        System.out.println("jumlah pembayaran   :" + booking.getTotalPembayaran());
-        System.out.print("anda yakin ingin bayar :");
+        System.out.println("Total Pembayaran    :" + booking.getTotalPembayaran());
+        System.out.println("No. Rekening        :" + booking.getRekeningTujuan());
+        System.out.print("Apakah data pembayaran sudah benar (Y/N) :");
         String pilihan = scanner.nextLine();
         switch(pilihan)
         {
@@ -42,6 +46,8 @@ public class PembayaranPage
                 pembayaran.setTotalPembayaran(booking.getTotalPembayaran());
                 pembayaran.createTiket(StringUtility.getAlphaNumericString(6), booking.getAllPenumpang());
                 pembayaranManager.add(pembayaran);
+                System.out.println("Pembayaran berhasil!");
+                showTiket(pembayaran);
                 System.out.println("99. Keluar");
                 int pilihanMenu = scanner.nextInt();
                 switch(pilihanMenu)
@@ -56,6 +62,22 @@ public class PembayaranPage
 
 
         }
+    }
+    private void showTiket(Pembayaran pembayaran)
+    {
+        Tiket tiket =pembayaran.getTiket();
+        System.out.println("#TIKET#");
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow("Kode Tiket   :" + tiket.getKode());
+        List<Penumpang> penumpang = tiket.getPenumpang();
+        for(int i=1; i<=penumpang.size();i++)
+        {
+            at.addRow("Penumpang " + i + " :"  + penumpang.get(i-1).getName());
+           
+        }
+        at.addRule();
+        System.out.println(at.render());
     }
     public void showInput()
     {

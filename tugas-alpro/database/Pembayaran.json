@@ -38,5 +38,25 @@
         }
       ]
     }
+  },
+  {
+    "kodePembayaran": "UOACZA",
+    "kodeBooking": "63LS00",
+    "kodeKereta": "KAI19081",
+    "totalPembayaran": 240000.0,
+    "tanggalPembayaran": "Nov 24, 2019, 9:51:19 AM",
+    "tiket": {
+      "kode": "FRS92J",
+      "penumpang": [
+        {
+          "name": "XXXXXXX",
+          "KodeKursi": "B1-3"
+        },
+        {
+          "name": "yyyyyyy",
+          "KodeKursi": "B1-4"
+        }
+      ]
+    }
   }
 ]

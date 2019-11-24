@@ -1203,7 +1203,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "B1-4",
@@ -1211,7 +1211,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "B1-5",

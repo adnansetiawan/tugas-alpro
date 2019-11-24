@@ -90,7 +90,7 @@ public class BookingPage
         System.out.print("Kode Jadwal :");
         JadwalManager jadwalManager = new JadwalManager();
         String kodeJadwal = scanner.nextLine();
-         jadwal = jadwalManager.GetByKodeJadwal(kodeJadwal);
+        jadwal = jadwalManager.GetByKodeJadwal(kodeJadwal);
         if(jadwal == null)
         {
             jadwalIsValid = false;

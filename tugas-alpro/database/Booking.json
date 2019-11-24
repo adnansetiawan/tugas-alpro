@@ -52,5 +52,32 @@
     "totalPembayaran": 400000.0,
     "rekeningTujuan": "803255671891",
     "isBayar": false
+  },
+  {
+    "bookingId": "63LS00",
+    "kodeJadwal": "JW1",
+    "bookedBy": {
+      "username": "adnansetiawan@gmail.com",
+      "password": "pass",
+      "userInfo": {
+        "nama": "adnan setiawan",
+        "ktp": "1234567890123456",
+        "handphone": "081390553497"
+      }
+    },
+    "bookingDate": "Nov 24, 2019, 9:51:14 AM",
+    "penumpangs": [
+      {
+        "name": "XXXXXXX",
+        "KodeKursi": "B1-3"
+      },
+      {
+        "name": "yyyyyyy",
+        "KodeKursi": "B1-4"
+      }
+    ],
+    "totalPembayaran": 240000.0,
+    "rekeningTujuan": "803255671891",
+    "isBayar": false
   }
 ]

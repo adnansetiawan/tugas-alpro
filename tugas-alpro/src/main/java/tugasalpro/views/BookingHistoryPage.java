@@ -10,6 +10,7 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.ApplicationSession;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.models.*;
+import tugasalpro.utilities.StringUtility;
 
 public class BookingHistoryPage
 {
@@ -34,8 +35,8 @@ public class BookingHistoryPage
         for(Booking booking : bookings)
         {
             at.addRow(
-            String.valueOf(no), booking.getBookingId(), String.valueOf(booking.getBookingDate()),String.valueOf(booking.getJumlahPenumpang()),
-                booking.getKodeJadwal(),String.valueOf(booking.getTotalPembayaran()),(booking.IsBayar()?"paid" : "not paid"));
+            String.valueOf(no), booking.getBookingId(), StringUtility.getFormattedDate(booking.getBookingDate()),String.valueOf(booking.getJumlahPenumpang()),
+                booking.getKodeJadwal(),StringUtility.getCurrencyFormat(booking.getTotalPembayaran()),(booking.IsBayar()?"paid" : "not paid"));
                 at.addRule();
             no++;
         }
