@@ -101,12 +101,12 @@ public class UserMenuPage {
                     jalurRuteMenuPage.showMenu();
                     break;
                 case 7:
-                    WaktuRutePage waktuRutePage = new WaktuRutePage();
-                    waktuRutePage.showMenu();
-                    break;
-                case 8:
                     KeretaPage keretaPage = new KeretaPage();
                     keretaPage.showMenu();
+                    break;
+                case 8:
+                    WaktuRutePage waktuRutePage = new WaktuRutePage();
+                    waktuRutePage.showMenu();
                     break;
                 case 9:
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
