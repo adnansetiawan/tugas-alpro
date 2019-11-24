@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.lang.model.util.ElementScanner6;
 
+import org.abego.treelayout.internal.util.java.lang.string.StringUtil;
+
 import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
@@ -190,7 +192,7 @@ public class BookingPage
         jadwalManager.edit(jadwal);
         
         
-        System.out.println("Total Pembayaran = " +totalPembayaran);
+        System.out.println("Total Pembayaran = " + StringUtility.getCurrencyFormat(totalPembayaran));
         String rekeningTujuan = "803255671891";
         System.out.println("Rekening Tujuan = " +rekeningTujuan);
         booking.setTotalPembayaran(totalPembayaran);
@@ -215,10 +217,9 @@ public class BookingPage
      
     }
     public void showDetail()
-    {
-        System.out.println("-----------------");
-        System.out.println("#BOOKING DETAIL#");
-        System.out.println("-----------------");
+    {    
+        AsciiTable at = new AsciiTable();
+        
         Booking bookingByKode =null;
         do
         {
@@ -231,17 +232,23 @@ public class BookingPage
             System.out.println("kode booking tidak ada");
         }
         }while(bookingByKode==null);
-        System.out.println("---------------------------------------------------");
-        System.out.println("Kode Jadwal     :" + bookingByKode.getKodeJadwal());
-        System.out.println("---------------------------------------------------");
+        at.addRule();
+        at.addRow(null, "#BOOKING DETAIL#").setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
+        at.addRow("Kode Jadwal", bookingByKode.getKodeJadwal());
+        at.addRule();
         for(int i=1; i<=bookingByKode.getJumlahPenumpang(); i++)
         {
             Penumpang penumpang = bookingByKode.getAllPenumpang().get(i-1);
-            System.out.println("Penumpang "+i+" : " + penumpang.getName());
-            System.out.println("No. Kursi       : " + penumpang.getKodeKursi());
-            System.out.println("---------------------------------------------------");
+            at.addRow("Penumpang "+i+" / No. Kursi", penumpang.getName() +" / "+ penumpang.getKodeKursi());
+            at.addRule();
      
         }
+        at.addRow("Total Pembayaran", StringUtility.getCurrencyFormat(bookingByKode.getTotalPembayaran()));
+        at.addRule();
+        at.setPaddingLeft(1);
+        at.setPaddingRight(1);
+        System.out.println(at.render());
         System.out.println("1. Ganti Kursi");
         System.out.println("2. Cancel");
         System.out.println("3. Pembayaran");
