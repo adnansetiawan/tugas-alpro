@@ -315,9 +315,15 @@ public class BookingPage
         String pilihan = scanner.next();
         if (pilihan.equals("Y")) 
         {
+            Jadwal jadwal = jadwalManager.GetByKodeJadwal(booking.getKodeJadwal());
             bookingManager.delete(booking);
             PembayaranManager pembayaranManager = new PembayaranManager();
             pembayaranManager.delete(booking.getKodeJadwal());
+            List<Penumpang> penumpang = booking.getAllPenumpang();
+            for(int i=0; i<booking.getJumlahPenumpang(); i++)
+            {
+                jadwal.bookingKursi(penumpang.get(i).getKodeKursi(), true);
+            }
             System.out.println("delete success!");
         }
         
