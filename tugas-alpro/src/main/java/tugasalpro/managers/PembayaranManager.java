@@ -3,6 +3,7 @@ package tugasalpro.managers;
 import java.util.List;
 
 import tugasalpro.Repository;
+import tugasalpro.models.Booking;
 import tugasalpro.models.Pembayaran;
 
 public class PembayaranManager
@@ -14,7 +15,12 @@ public class PembayaranManager
     }
     public void add(Pembayaran pembayaran)
     {
+        BookingManager bookingManager = new BookingManager();
+        Booking booking = bookingManager.getByKode(pembayaran.getKodeBooking());
         repository.add(pembayaran);
+        booking.setBayar(true);
+        bookingManager.update(booking);
+        
     }
     public List<Pembayaran> getAll()
     {

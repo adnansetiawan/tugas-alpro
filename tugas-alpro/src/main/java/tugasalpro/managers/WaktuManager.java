@@ -9,7 +9,7 @@ import tugasalpro.models.Waktu;
 
 public class WaktuManager {
     private Repository<Waktu> repository;
-    private int i, jam, menit;
+    private int jam, menit;
     private String kode, textJam;
     
     public WaktuManager()
@@ -24,8 +24,9 @@ public class WaktuManager {
     
     public void Generate()
     {
+        // Var waktu
         Waktu textWaktu = new Waktu();
-        for (i=1; i<=95;i++)
+        for (int i=1; i<=95;i++)
         {
             kode = "TM"+i;
             if (i==1)

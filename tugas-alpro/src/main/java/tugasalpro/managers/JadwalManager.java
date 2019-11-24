@@ -26,7 +26,7 @@ public class JadwalManager {
     {
         List<Jadwal> listJadwal = repository.getAll();
         Optional<Jadwal> selectedJadwal = 
-            listJadwal.stream().filter(x->x.getKodeJadwal().equals(kodeJadwal)).findFirst();
+            listJadwal.stream().filter(x->x.getKodeJadwal().toLowerCase().equals(kodeJadwal.toLowerCase())).findFirst();
         if(selectedJadwal.isPresent())
             return selectedJadwal.get();
         return null;

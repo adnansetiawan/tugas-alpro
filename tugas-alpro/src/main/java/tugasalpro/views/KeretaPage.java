@@ -120,21 +120,30 @@ public class KeretaPage {
         System.out.println("Data Lengkap Kereta Api");
         AsciiTable at = new AsciiTable();
         at.addRule();
+        // AT_Row rowTitle =  at.addRow(null, null, null, null, null, "Data Lengkap Kereta Api");
+        // rowTitle.setTextAlignment(TextAlignment.CENTER);
+        // at.addRule();
         AT_Row row =  at.addRow("No", "Kode Kereta", "Nama Kereta", "Gerbong", "Binis", "Premium");
         row.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
 
         List<Kereta> listKereta = keretaManager.getAll();
 
-        int i = 0;
+        int no = 1;
         for(Kereta kereta : listKereta) {
-            i++;
-            at.addRow(i, kereta.getKodeKereta(), kereta.getNamaKereta(), kereta.getJmlGerbong(), kereta.getJmlGBisnis(), kereta.getJmlGPremium());
+            AT_Row contRow =  at.addRow(String.valueOf(no), kereta.getKodeKereta(), kereta.getNamaKereta(), kereta.getJmlGerbong(), kereta.getJmlGBisnis(), kereta.getJmlGPremium());
             at.addRule();
+            contRow.getCells().get(0).getContext().setTextAlignment(TextAlignment.CENTER);
+            contRow.getCells().get(1).getContext().setTextAlignment(TextAlignment.CENTER);
+            contRow.getCells().get(3).getContext().setTextAlignment(TextAlignment.CENTER);
+            contRow.getCells().get(4).getContext().setTextAlignment(TextAlignment.CENTER);
+            contRow.getCells().get(5).getContext().setTextAlignment(TextAlignment.CENTER);
+            no++;
         }
-
+        at.setPaddingLeft(1);
+        at.setPaddingRight(1);
         CWC_LongestLine cwc = new CWC_LongestLine();
-        cwc.add(4, 0).add(20, 0).add(50, 0);
+        cwc.add(4, 0).add(20, 0).add(40, 0).add(10, 0).add(10, 0).add(10, 0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
     }

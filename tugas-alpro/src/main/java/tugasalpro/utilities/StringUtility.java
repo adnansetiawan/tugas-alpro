@@ -1,5 +1,10 @@
 package tugasalpro.utilities;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class StringUtility
 {
     public static String getAlphaNumericString(int n) 
@@ -27,5 +32,15 @@ public class StringUtility
   
         return sb.toString(); 
     } 
-  
+    public static String getCurrencyFormat(Number amount)
+    {
+        Locale locale = new Locale("id", "ID");      
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        return currencyFormatter.format(amount);       
+    }
+    public static String getFormattedDate(Date date)
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+        return formatter.format(date);    
+    }
 }

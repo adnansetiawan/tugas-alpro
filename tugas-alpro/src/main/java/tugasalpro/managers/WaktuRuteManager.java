@@ -115,7 +115,15 @@ public class WaktuRuteManager
                 Rute textRute = new RuteManager().GetByKodeRute(textKodeRute);
                 if (textRute != null)
                 {
-                    status = 1;
+                    WaktuRute textBanding = getByKodeRute(textKodeRute);
+                    if (textBanding != null)
+                    {
+                        System.out.println("Data sudah ada.");
+                    }
+                    else
+                    {
+                        status=1;
+                    }
                 }
                 else
                 {
@@ -173,24 +181,24 @@ public class WaktuRuteManager
         int status = 0;
         do 
         {
-            System.out.print("Hapus Kode Waktu Rute : ");
-            textKodeWaktuRute = keyb.nextLine();
-            if (textKodeWaktuRute.compareTo("99")==0)
+            System.out.print("Hapus Kode Rute : ");
+            textKodeRute = keyb.nextLine();
+            if (textKodeRute.compareTo("99")==0)
             {
                 status=1;
             }
             else
             {
-                WaktuRute dataWaktuRute = getByKodeWaktuRute(textKodeWaktuRute);
+                WaktuRute dataWaktuRute = getByKodeRute(textKodeRute);
                 if (dataWaktuRute != null)
                 {
                     delete(dataWaktuRute);
-                    System.out.println("Kode Waktu Rute "+textKodeWaktuRute+" berhasil dihapus.");
+                    System.out.println("Kode Rute "+textKodeRute+" berhasil dihapus.");
                     status = 1;
                 }
                 else
                 {
-                    System.out.println("Kode Waktu Rute "+textKodeWaktuRute+" tidak ditemukan.");
+                    System.out.println("Kode Rute "+textKodeRute+" tidak ditemukan.");
                 }
             }
         } while (status==0);

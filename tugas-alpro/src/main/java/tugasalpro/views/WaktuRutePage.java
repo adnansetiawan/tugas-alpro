@@ -35,24 +35,24 @@ public class WaktuRutePage
         do {
             System.out.println("#KELOLA WAKTU BERDASARKAN RUTE#");
             System.out.println("Menu Waktu Rute");
-            System.out.println("1. Tambah Waktu Rute");
-            System.out.println("2. Tampilkan Waktu Rute");
-            System.out.println("3. Hapus Waktu Rute");
+            System.out.println("1. Tambah Waktu Pada Rute");
+            System.out.println("2. Lihat Waktu Pada Rute");
+            System.out.println("3. Delete Waktu Pada Rute");
             System.out.println("99. Keluar");
             System.out.print("Pilihan : ");
             pilihan = scanner.nextInt();
             if (pilihan == 1) {
-                Tambah();
+                menuTambah();
             } else if (pilihan == 2) {
-                Tampil();
+                menuTampil();
             } else if (pilihan == 3) {
-                Hapus();
+                menuHapus();
             }
 
         } while (pilihan != 99);
     }
 
-    private void Tambah()
+    private void menuTambah()
     {
         String kodeRute = null;
         Rute rute = null;
@@ -143,7 +143,7 @@ public class WaktuRutePage
         System.out.println(at.render());
     }
 
-    private void Tampil()
+    private void menuTampil()
     {
         int i = 1;
         int statusPrint = 1;
@@ -214,7 +214,7 @@ public class WaktuRutePage
         */
     }
 
-    private void Hapus()
+    private void menuHapus()
     {
         showAll();
         String kodeWaktuRute = null;

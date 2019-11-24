@@ -89,8 +89,8 @@ public class BookingManager
     public Booking getByKode(String kode)
     {
         List<Booking> bookings= repository.getAll();
-        Optional<Booking> booking = bookings.stream().filter(x->x.getBookingId().equals(kode)).findFirst();
-        if(booking == null)
+        Optional<Booking> booking = bookings.stream().filter(x->x.getBookingId().toLowerCase().equals(kode.toLowerCase())).findFirst();
+        if(!booking.isPresent())
             return null;
         return booking.get();
 
