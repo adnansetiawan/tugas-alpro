@@ -78,6 +78,24 @@ public class KotaManager {
 
     public void delete(Kota kota)
     {
+        List<Kota> listKota = repository.getAll();
+        for(int i = 0; i<listKota.size(); i++)
+        {
+            Kota textKota = listKota.get(i);
+            if (textKota.getKodeKota().equals(kota.getKodeKota()))
+            {
+                try {
+                    listKota.remove(i);
+                    repository.update(listKota);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                i=0;
+            }
+        }
+
+        /* Non aktifkan script lama
         int indexFound = findById(kota.getId());
         
         if (indexFound != -1) {
@@ -88,6 +106,7 @@ public class KotaManager {
                 e.printStackTrace();
             }
         }
+        */
       
     }
 
