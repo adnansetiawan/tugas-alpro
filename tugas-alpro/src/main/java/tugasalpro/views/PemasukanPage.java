@@ -14,12 +14,12 @@ import tugasalpro.utilities.StringUtility;
 import tugasalpro.managers.PemasukanManager;
 import tugasalpro.managers.PembayaranManager;
 
-public class PemasukanMenuPage {
+public class PemasukanPage {
     PemasukanManager pemasukanManager;
     PembayaranManager pembayaranManager;
     Scanner scanner;
 
-    public PemasukanMenuPage() {
+    public PemasukanPage() {
         pemasukanManager = new PemasukanManager();
         pembayaranManager = new PembayaranManager();
         scanner=new Scanner(System.in);
