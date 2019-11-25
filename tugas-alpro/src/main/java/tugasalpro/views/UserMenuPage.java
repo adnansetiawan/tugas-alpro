@@ -93,12 +93,12 @@ public class UserMenuPage {
                     rutePage.showMenu();
                     break;
                 case 5:
-                    StasiunMenuPage stasiunMenuPage = new StasiunMenuPage();
-                    stasiunMenuPage.showMenu();
+                    StasiunPage stasiunPage = new StasiunPage();
+                    stasiunPage.showMenu();
                     break;
                 case 6:
-                    JalurRuteMenuPage jalurRuteMenuPage = new JalurRuteMenuPage();
-                    jalurRuteMenuPage.showMenu();
+                    JalurRutePage jalurRutePage = new JalurRutePage();
+                    jalurRutePage.showMenu();
                     break;
                 case 7:
                     KeretaPage keretaPage = new KeretaPage();
@@ -117,8 +117,8 @@ public class UserMenuPage {
                     jadwalPage.showMenu();
                     break;
                 case 12:
-                    PemasukanMenuPage pemasukanMenuPage = new PemasukanMenuPage();
-                    pemasukanMenuPage.showMenu();
+                    PemasukanPage pemasukanPage = new PemasukanPage();
+                    pemasukanPage.showMenu();
                     break;
                 default:
                     break;
