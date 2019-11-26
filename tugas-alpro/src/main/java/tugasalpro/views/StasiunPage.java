@@ -77,13 +77,13 @@ public class StasiunPage{
                     }else{
                         if(namaStasiun.equals("99")){
                             System.out.println("Penambahan stasiun dibatalkan.");
-                            flagIterate=false;
                         }else{
                             stasiun.setKodeStasiun(kodeStasiun);
                             stasiun.setNamaStasiun(namaStasiun.substring(1));
                             stasiunManager.add(stasiun);
                             System.out.println("Stasiun berhasil ditambahkan.");
                         }
+                        flagIterate=false;
                     }
                 }
             }
