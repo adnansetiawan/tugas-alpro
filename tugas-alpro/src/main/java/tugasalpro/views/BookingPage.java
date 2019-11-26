@@ -209,8 +209,8 @@ public class BookingPage
                 pembayaranPage.showInputWithBooking(booking);
                 break;
             case 99 :
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuPengguna();
                 break;
 
         }
@@ -304,8 +304,8 @@ public class BookingPage
                 }
                 break;
             case 99:
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuPengguna();
                 break;
         }
     }
@@ -386,8 +386,8 @@ public class BookingPage
                 showDetail();
                 break;
             case 99:
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuPengguna();
                 break;
         }
     

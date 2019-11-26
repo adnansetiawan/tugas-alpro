@@ -64,8 +64,8 @@ public class BookingHistoryPage
                 bookingPage.showDetail();
                 break;
             case 99:
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage userMenuPage = new MenuPage();
+                userMenuPage.showMenuPengguna();
                 break;
         }
         

@@ -1,0 +1,382 @@
+[
+  {
+    "kodeWaktu": "TM1",
+    "waktu": "00.00"
+  },
+  {
+    "kodeWaktu": "TM2",
+    "waktu": "00.15"
+  },
+  {
+    "kodeWaktu": "TM3",
+    "waktu": "00.30"
+  },
+  {
+    "kodeWaktu": "TM4",
+    "waktu": "01.00"
+  },
+  {
+    "kodeWaktu": "TM5",
+    "waktu": "01.15"
+  },
+  {
+    "kodeWaktu": "TM6",
+    "waktu": "01.30"
+  },
+  {
+    "kodeWaktu": "TM7",
+    "waktu": "01.45"
+  },
+  {
+    "kodeWaktu": "TM8",
+    "waktu": "02.00"
+  },
+  {
+    "kodeWaktu": "TM9",
+    "waktu": "02.15"
+  },
+  {
+    "kodeWaktu": "TM10",
+    "waktu": "02.30"
+  },
+  {
+    "kodeWaktu": "TM11",
+    "waktu": "02.45"
+  },
+  {
+    "kodeWaktu": "TM12",
+    "waktu": "03.00"
+  },
+  {
+    "kodeWaktu": "TM13",
+    "waktu": "03.15"
+  },
+  {
+    "kodeWaktu": "TM14",
+    "waktu": "03.30"
+  },
+  {
+    "kodeWaktu": "TM15",
+    "waktu": "03.45"
+  },
+  {
+    "kodeWaktu": "TM16",
+    "waktu": "04.00"
+  },
+  {
+    "kodeWaktu": "TM17",
+    "waktu": "04.15"
+  },
+  {
+    "kodeWaktu": "TM18",
+    "waktu": "04.30"
+  },
+  {
+    "kodeWaktu": "TM19",
+    "waktu": "04.45"
+  },
+  {
+    "kodeWaktu": "TM20",
+    "waktu": "05.00"
+  },
+  {
+    "kodeWaktu": "TM21",
+    "waktu": "05.15"
+  },
+  {
+    "kodeWaktu": "TM22",
+    "waktu": "05.30"
+  },
+  {
+    "kodeWaktu": "TM23",
+    "waktu": "05.45"
+  },
+  {
+    "kodeWaktu": "TM24",
+    "waktu": "06.00"
+  },
+  {
+    "kodeWaktu": "TM25",
+    "waktu": "06.15"
+  },
+  {
+    "kodeWaktu": "TM26",
+    "waktu": "06.30"
+  },
+  {
+    "kodeWaktu": "TM27",
+    "waktu": "06.45"
+  },
+  {
+    "kodeWaktu": "TM28",
+    "waktu": "07.00"
+  },
+  {
+    "kodeWaktu": "TM29",
+    "waktu": "07.15"
+  },
+  {
+    "kodeWaktu": "TM30",
+    "waktu": "07.30"
+  },
+  {
+    "kodeWaktu": "TM31",
+    "waktu": "07.45"
+  },
+  {
+    "kodeWaktu": "TM32",
+    "waktu": "08.00"
+  },
+  {
+    "kodeWaktu": "TM33",
+    "waktu": "08.15"
+  },
+  {
+    "kodeWaktu": "TM34",
+    "waktu": "08.30"
+  },
+  {
+    "kodeWaktu": "TM35",
+    "waktu": "08.45"
+  },
+  {
+    "kodeWaktu": "TM36",
+    "waktu": "09.00"
+  },
+  {
+    "kodeWaktu": "TM37",
+    "waktu": "09.15"
+  },
+  {
+    "kodeWaktu": "TM38",
+    "waktu": "09.30"
+  },
+  {
+    "kodeWaktu": "TM39",
+    "waktu": "09.45"
+  },
+  {
+    "kodeWaktu": "TM40",
+    "waktu": "10.00"
+  },
+  {
+    "kodeWaktu": "TM41",
+    "waktu": "10.15"
+  },
+  {
+    "kodeWaktu": "TM42",
+    "waktu": "10.30"
+  },
+  {
+    "kodeWaktu": "TM43",
+    "waktu": "10.45"
+  },
+  {
+    "kodeWaktu": "TM44",
+    "waktu": "11.00"
+  },
+  {
+    "kodeWaktu": "TM45",
+    "waktu": "11.15"
+  },
+  {
+    "kodeWaktu": "TM46",
+    "waktu": "11.30"
+  },
+  {
+    "kodeWaktu": "TM47",
+    "waktu": "11.45"
+  },
+  {
+    "kodeWaktu": "TM48",
+    "waktu": "12.00"
+  },
+  {
+    "kodeWaktu": "TM49",
+    "waktu": "12.15"
+  },
+  {
+    "kodeWaktu": "TM50",
+    "waktu": "12.30"
+  },
+  {
+    "kodeWaktu": "TM51",
+    "waktu": "12.45"
+  },
+  {
+    "kodeWaktu": "TM52",
+    "waktu": "13.00"
+  },
+  {
+    "kodeWaktu": "TM53",
+    "waktu": "13.15"
+  },
+  {
+    "kodeWaktu": "TM54",
+    "waktu": "13.30"
+  },
+  {
+    "kodeWaktu": "TM55",
+    "waktu": "13.45"
+  },
+  {
+    "kodeWaktu": "TM56",
+    "waktu": "14.00"
+  },
+  {
+    "kodeWaktu": "TM57",
+    "waktu": "14.15"
+  },
+  {
+    "kodeWaktu": "TM58",
+    "waktu": "14.30"
+  },
+  {
+    "kodeWaktu": "TM59",
+    "waktu": "14.45"
+  },
+  {
+    "kodeWaktu": "TM60",
+    "waktu": "15.00"
+  },
+  {
+    "kodeWaktu": "TM61",
+    "waktu": "15.15"
+  },
+  {
+    "kodeWaktu": "TM62",
+    "waktu": "15.30"
+  },
+  {
+    "kodeWaktu": "TM63",
+    "waktu": "15.45"
+  },
+  {
+    "kodeWaktu": "TM64",
+    "waktu": "16.00"
+  },
+  {
+    "kodeWaktu": "TM65",
+    "waktu": "16.15"
+  },
+  {
+    "kodeWaktu": "TM66",
+    "waktu": "16.30"
+  },
+  {
+    "kodeWaktu": "TM67",
+    "waktu": "16.45"
+  },
+  {
+    "kodeWaktu": "TM68",
+    "waktu": "17.00"
+  },
+  {
+    "kodeWaktu": "TM69",
+    "waktu": "17.15"
+  },
+  {
+    "kodeWaktu": "TM70",
+    "waktu": "17.30"
+  },
+  {
+    "kodeWaktu": "TM71",
+    "waktu": "17.45"
+  },
+  {
+    "kodeWaktu": "TM72",
+    "waktu": "18.00"
+  },
+  {
+    "kodeWaktu": "TM73",
+    "waktu": "18.15"
+  },
+  {
+    "kodeWaktu": "TM74",
+    "waktu": "18.30"
+  },
+  {
+    "kodeWaktu": "TM75",
+    "waktu": "18.45"
+  },
+  {
+    "kodeWaktu": "TM76",
+    "waktu": "19.00"
+  },
+  {
+    "kodeWaktu": "TM77",
+    "waktu": "19.15"
+  },
+  {
+    "kodeWaktu": "TM78",
+    "waktu": "19.30"
+  },
+  {
+    "kodeWaktu": "TM79",
+    "waktu": "19.45"
+  },
+  {
+    "kodeWaktu": "TM80",
+    "waktu": "20.00"
+  },
+  {
+    "kodeWaktu": "TM81",
+    "waktu": "20.15"
+  },
+  {
+    "kodeWaktu": "TM82",
+    "waktu": "20.30"
+  },
+  {
+    "kodeWaktu": "TM83",
+    "waktu": "20.45"
+  },
+  {
+    "kodeWaktu": "TM84",
+    "waktu": "21.00"
+  },
+  {
+    "kodeWaktu": "TM85",
+    "waktu": "21.15"
+  },
+  {
+    "kodeWaktu": "TM86",
+    "waktu": "21.30"
+  },
+  {
+    "kodeWaktu": "TM87",
+    "waktu": "21.45"
+  },
+  {
+    "kodeWaktu": "TM88",
+    "waktu": "22.00"
+  },
+  {
+    "kodeWaktu": "TM89",
+    "waktu": "22.15"
+  },
+  {
+    "kodeWaktu": "TM90",
+    "waktu": "22.30"
+  },
+  {
+    "kodeWaktu": "TM91",
+    "waktu": "22.45"
+  },
+  {
+    "kodeWaktu": "TM92",
+    "waktu": "23.00"
+  },
+  {
+    "kodeWaktu": "TM93",
+    "waktu": "23.15"
+  },
+  {
+    "kodeWaktu": "TM94",
+    "waktu": "23.30"
+  },
+  {
+    "kodeWaktu": "TM95",
+    "waktu": "23.45"
+  }
+]

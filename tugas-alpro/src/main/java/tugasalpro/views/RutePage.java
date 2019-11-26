@@ -8,22 +8,27 @@ import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import tugasalpro.managers.JalurRuteManager;
+import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.managers.KotaManager;
 import tugasalpro.managers.RuteManager;
+import tugasalpro.managers.WaktuRuteManager;
+import tugasalpro.models.JalurRute;
+import tugasalpro.models.KeretaRute;
 import tugasalpro.models.Rute;
 
 
 public class RutePage {
     private RuteManager ruteManager;
     private KotaManager kotaManager;
-    Scanner scanner;
+    Scanner scanner, keyb;
 
     public RutePage() {
 
         ruteManager = new RuteManager();
         kotaManager = new KotaManager();
         scanner = new Scanner(System.in);
-
+        keyb = new Scanner(System.in);
     }
 
     boolean isValid(Rute rute) {
@@ -38,7 +43,7 @@ public class RutePage {
 
         int pilihan = 0;
         do {
-            System.out.println("Menu Rute");
+            System.out.println("#Menu Rute#");
             System.out.println("1. Tambah Rute");
             System.out.println("2. Ubah Rute");
             System.out.println("3. Tampilkan Rute");
@@ -61,6 +66,7 @@ public class RutePage {
 
    public void menuTambah() {
         Rute rute = new Rute();
+        Rute listRute;
         String kotaAsal,kotaTujuan;
         int hrgBisnis,hrgPremium;
         System.out.print("Tambah Rute : ");
@@ -75,13 +81,20 @@ public class RutePage {
             rute.setHargaPremium(hrgPremium);
             rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
             rute.setKeretaRute(null);
-            ruteManager.add(rute);
+            //Pengecekan rute sudah ada atau belum
+            listRute = new RuteManager().GetByKodeRute(rute.getKodeRute());
+            if (listRute != null)
+            {
+                System.out.println("Rute "+rute.getKodeRute()+" sudah ada.");
+            }
+            //Rute sudah ada
+            else
+            {
+                ruteManager.add(rute);
+            }
         } catch(Exception er) {
             System.out.println("Data gagal ditambahkan");
         }
-        
-        
-        
     }
 
   public  void menuTampil() {
@@ -109,6 +122,52 @@ public class RutePage {
 
    public void menuUbah() {
         menuTampil();
+        /*Script baru, asumsi ubah Rute hanya untuk harga tiket saja
+        Karena kalau akan ganti Rute (Kota Asal ke Tujuan) pastinya hapus dulu yang salah
+        Baru input lagi*/
+        String kotaAsal,kotaTujuan;
+        int hrgBisnis,hrgPremium;
+        String kodeRute;
+        Rute rute = new Rute();
+        System.out.print("Kode Rute yang akan diubah : ");
+        kodeRute = keyb.nextLine();
+        if (kodeRute.compareTo("99")==0)
+        {
+            System.out.println("Ubah data dibatalkan.");
+        }
+        else
+        {
+            Rute listRute;
+            listRute = ruteManager.GetByKodeRute(kodeRute);
+            if (listRute != null)
+            {
+                
+                kotaAsal = listRute.getKotaAsal().getNamaKota();
+                kotaTujuan = listRute.getKotaTujuan().getNamaKota();
+                System.out.println("Kota Asal : "+kotaAsal);
+                System.out.println("Kota Tujuan : "+kotaTujuan);
+                System.out.print("Harga Bisnis : ");
+                hrgBisnis = scanner.nextInt();
+                System.out.print("Harga Premium: ");
+                hrgPremium = scanner.nextInt();
+                rute.setKotaAsal(kotaManager.GetByNamaKota(kotaAsal));
+                rute.setKotaTujuan(kotaManager.GetByNamaKota(kotaTujuan));
+                rute.setHargaBisnis(hrgBisnis);
+                rute.setHargaPremium(hrgPremium);
+                rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
+                rute.setKeretaRute(null);
+                ruteManager.delete(listRute);
+                ruteManager.add(rute);
+                System.out.println("Kode Rute "+kodeRute+" berhasil diubah.");
+            }
+            else
+            {
+                System.out.println("Kode Rute "+kodeRute+" tidak ditemukan.");
+            }
+        }
+
+
+        /* Nonaktifkan script
         String kodeRute = null;
         Rute rute = null;
         boolean flagIterate = true;
@@ -146,11 +205,65 @@ public class RutePage {
         rute.setKodeRute(rute.getKotaAsal().getKodeKota()+"-"+rute.getKotaTujuan().getKodeKota());
         rute.setKeretaRute(null);
         ruteManager.add(rute);
+        */
     }
 
    public void menuHapus()  {
         menuTampil();
+        int status = 0;
         String kodeRute = null;
+        System.out.print("Kode Rute yang akan dihapus : ");
+        kodeRute = keyb.nextLine();
+        if (kodeRute.compareTo("99")==0)
+        {
+            System.out.println("Hapus data dibatalkan.");
+        }
+        else
+        {
+            Rute listRute;
+            listRute = ruteManager.GetByKodeRute(kodeRute);
+            if (listRute != null)
+            {
+                //Pengecekan ke Jalur Stasiun
+                JalurRute listJalur = new JalurRuteManager().getByKodeRute(kodeRute);
+                if (listJalur != null)
+                {
+                    status = 1;
+                    System.out.println("Kode Rute "+kodeRute+" sudah digunakan di Jalur Rute, tidak boleh dihapus.");
+                }
+                //Pengecekan ke Kereta Rute
+                if (status ==0)
+                {
+                    KeretaRute listKeretaRute = new KeretaRuteManager().getByKodeRute(kodeRute);
+                    if (listKeretaRute != null)
+                    {
+                        status = 1;
+                        System.out.println("Kode Rute "+kodeRute+" sudah digunakan di Kereta Rute, tidak boleh dihapus.");
+                    }
+                }
+                if (status==0)
+                {
+                    String yaTidak;
+                    System.out.print("Andak akan yakin akan menghapus Kode Rute "+kodeRute+" (Y/N) ? ");
+                    yaTidak = keyb.nextLine();
+                    if (yaTidak.compareTo("Y")==0)
+                    {
+                        ruteManager.delete(listRute);
+                        System.out.println("Kode Rute "+kodeRute+" berhasil dihapus.");
+                    }
+                    else
+                    {
+                        System.out.println("Hapus kode rute "+kodeRute+" dibatalkan.");
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Kode Rute "+kodeRute+" tidak ditemukan.");
+            }
+        }
+
+        /* Nonaktifkan script
         Rute delRute = null;
         boolean flagIterate = true;
         do {
@@ -167,5 +280,6 @@ public class RutePage {
                 }
             }
         } while (flagIterate);
+        */
     }
 }
