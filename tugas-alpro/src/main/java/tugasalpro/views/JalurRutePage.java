@@ -44,8 +44,8 @@ public class JalurRutePage{
                     menuHapus();
                     break;
                 case 99:
-                    UserMenuPage menu = new UserMenuPage();
-                    menu.ShowMenuAdmin();
+                    MenuPage menuPage = new MenuPage();
+                    menuPage.showMenuAdmin();
                     break;
             }
         }while(pilihan!=99);
@@ -125,7 +125,6 @@ public class JalurRutePage{
                             jalurStasiun.setStasiunTujuan(stasiunManager.getByNamaStasiun(namaStasiunTujuan));
                             jalurStasiun.setDurasi(durasiJalurStasiun);
                             jalurRute.addJalurStasiun(jalurStasiun);
-                            System.out.println(jalurRute.printJalurStasiun());
                             i++;
                         }
                     }

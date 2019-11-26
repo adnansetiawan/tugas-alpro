@@ -53,8 +53,8 @@ public class PembayaranPage
                 switch(pilihanMenu)
                 {
                     case 99:
-                        UserMenuPage userMenuPage = new UserMenuPage();
-                        userMenuPage.ShowMenuPengguna();
+                        MenuPage menuPage = new MenuPage();
+                        menuPage.showMenuAdmin();
                         break;
                 }
                 
