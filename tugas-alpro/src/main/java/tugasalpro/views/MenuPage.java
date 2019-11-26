@@ -1,6 +1,7 @@
 package tugasalpro.views;
 
 import java.util.Scanner;
+
 import tugasalpro.ApplicationSession;
 import tugasalpro.models.User;
 import tugasalpro.utilities.ScreenUtility;
@@ -108,9 +109,13 @@ public class MenuPage{
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
                     keretaRutePage.showMenu(); 
                     break;
-                case 11:
+                case 10:
                     JadwalPage jadwalPage = new JadwalPage();
-                    jadwalPage.showMenu();
+                    jadwalPage.showMenu(); 
+                    break;
+                case 11:
+                    JadwalPage jadwalPageSearch = new JadwalPage();
+                    jadwalPageSearch.menuSearch();
                     break;
                 case 12:
                     PemasukanPage pemasukanPage = new PemasukanPage();

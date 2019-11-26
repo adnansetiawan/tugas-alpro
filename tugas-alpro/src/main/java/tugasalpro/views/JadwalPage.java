@@ -1,5 +1,6 @@
 package tugasalpro.views;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,16 +13,19 @@ import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.JadwalManager;
+import tugasalpro.managers.JalurRuteManager;
 import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.managers.KotaManager;
 import tugasalpro.managers.RuteManager;
 import tugasalpro.managers.WaktuManager;
+import tugasalpro.managers.WaktuRuteManager;
 import tugasalpro.models.Jadwal;
+import tugasalpro.models.JalurRute;
 import tugasalpro.models.Kereta;
-import tugasalpro.models.KeretaRute;
 import tugasalpro.models.Rute;
 import tugasalpro.models.Waktu;
 import tugasalpro.utilities.StringUtility;
+import tugasalpro.utilities.TimeUnitUtility;
 
 public class JadwalPage {
     private KotaManager kotaManager;
@@ -29,6 +33,9 @@ public class JadwalPage {
     private WaktuManager waktuManager;
     private RuteManager ruteManager;
     private JadwalManager jadwalManager;
+    private JalurRuteManager jalurRuteManager;
+    private WaktuRuteManager waktuRuteManager;
+    private TimeUnitUtility timeUtility;
     Scanner scanner;
 
     public JadwalPage() {
@@ -37,6 +44,10 @@ public class JadwalPage {
         waktuManager = new WaktuManager();
         kotaManager = new KotaManager();
         ruteManager = new RuteManager();
+        jalurRuteManager = new JalurRuteManager();
+        waktuRuteManager = new WaktuRuteManager();
+        timeUtility = new TimeUnitUtility();
+
 
         scanner = new Scanner(System.in);
     }
@@ -60,45 +71,105 @@ public class JadwalPage {
     }
 
     public void menuGenerate() {
+        final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
         String pilihan;
         List<Rute> listRute = ruteManager.GetAll();
+        List<JalurRute> listJalurRute = jalurRuteManager.getAll();
+        int durasiTerlama = 0;
+        String waktuTiba = null;
+
+        //Collections.reverse(listJalurRute); // sorting berdasarkan durasi descending
+        //Collections.reverse(listRute); // sorting berdasarkan tanggal descending
+
         int lastIndex = -1;
         System.out.print("Anda Yakin untuk generate Jadwal Kereta: Y/N : ");
         pilihan = scanner.next();
         if (pilihan.equals("Y")) {
             // generate Jadwal
-
-            // get today
-            Date dateobj = new Date();
-
-            // get last generated index;
-            lastIndex = jadwalManager.GetAll().size();
             Jadwal jadwal = new Jadwal();
-            List<KeretaRute> listKeretaRute = keretaRuteManager.GetAll();
-            ArrayList<Kereta> listKereta = null;
-            ArrayList<Waktu> listWaktu = null;
+            DateFormat sdf = new SimpleDateFormat("hh:mm");
+            Date dateobj = new Date();
+            Date waktuBerangkat = new Date();
+            System.out.println(waktuBerangkat.getTime());
+            long curTimeInMs = 0;
 
-            // first, get all rute..
+            
+            
+            // jadwal terlama
+            durasiTerlama = listJalurRute.get(0).getDurasi();
 
-            for (int i = 0; i < listKeretaRute.size(); i++) {
-                KeretaRute keretaRute = listKeretaRute.get(i);
-                listKereta = keretaRute.getKeretaTersedia();
-                for (int j = 0; j < listKereta.size(); j++) {
-                    lastIndex++;
-                    jadwal.setKodeJadwal("JW" + lastIndex);
-                    jadwal.setKereta(listKereta.get(j));
-                    jadwal.setKotaKeberangkatan(keretaRute.getRuteKereta().getKotaAsal());
-                    jadwal.setKotaTujuan(keretaRute.getRuteKereta().getKotaTujuan());
-                    jadwal.setTanggalJadwal(dateobj);
-                    jadwal.setWaktuBerangkat(waktuManager.GetByKodeWaktu("TM1"));
-                    jadwal.setWaktuTiba(waktuManager.GetByKodeWaktu("TM1"));
-                    jadwal.generateKursi();
-                    jadwalManager.add(jadwal);
+            // cek maksimum hari berdasarkan durasi terlama
+            
+            // untuk setiap jalur rute diambil kereta dan waktuRute
+            for (int i=0; i<listJalurRute.size(); i++) {
+                // ambil kereta pada rute
+                
+                ArrayList<Kereta> listKereta = null;
+                try {
+                    listKereta = keretaRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getKeretaTersedia();
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("Terjadi Kesalahan");
+                }
+                // ambil waktu pada rute
+                ArrayList<Waktu> listWaktu = null;
+                try {
+                    listWaktu = waktuRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getArrWaktu();
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("Terjadi Kesalahan");
                 }
 
+                // jika salah satu kosong, jangan lakukan generate
+                if (listKereta!=null && listWaktu!=null) {
+                    if (listKereta.size()>0 && listWaktu.size()>0) {  
+                    //Collections.sort(listWaktu); // sorting waktu dari yang tercepat
+                    int maxIterate = 0;
+                    if (listKereta.size()>listWaktu.size()) { // pemilihan perulangan maksimum
+                        maxIterate = listWaktu.size();
+                    } else {
+                        maxIterate = listKereta.size();
+                    }
+
+                    for (int j = 0; j < maxIterate; j++) {
+                        lastIndex++;
+                        try {
+                            waktuBerangkat = sdf.parse(listWaktu.get(j).getWaktu().replace('.', ':'));
+                            System.out.println(waktuBerangkat.getTime());
+                        } catch (ParseException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        curTimeInMs = waktuBerangkat.getTime();
+                        System.out.println(curTimeInMs);
+                        System.out.println(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
+                        waktuTiba = timeUtility.convertToHHMM(curTimeInMs + ((listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS) + 4*60*ONE_MINUTE_IN_MILLIS));
+                        jadwal.setKodeJadwal("JW" + lastIndex);
+                        jadwal.setKereta(listKereta.get(j));
+                        jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
+                        jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
+                        jadwal.setTanggalJadwal(dateobj);
+                        jadwal.setWaktuBerangkat(listWaktu.get(j));
+                        jadwal.setWaktuTiba(waktuTiba);
+                        jadwal.generateKursi();
+                        jadwalManager.add(jadwal);
+                    }
+                }
             }
+                
+
 
         }
+
+
+    }
+
+
+
+
+            
+
+        
 
     }
 
@@ -120,7 +191,7 @@ public class JadwalPage {
                 status = "Full";
             }
             AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
-            jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba().getWaktu(),
+            jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba(),
             jadwal.getKereta().getKodeKereta(), status);
             row.setTextAlignment(TextAlignment.CENTER);
             at.addRule();
@@ -164,7 +235,7 @@ public class JadwalPage {
 
                 System.out.print(i + " \t " + jadwal.getKodeJadwal() + " \t " + jadwal.getTanggalJadwal() + "\t\t"
                     + jadwal.getWaktuBerangkat().getWaktu() + "\t" + jadwal.getKotaKeberangkatan().getNamaKota() + "\t"
-                    + jadwal.getKotaTujuan().getNamaKota() + "\t" + jadwal.getWaktuTiba().getWaktu() + "\t"
+                    + jadwal.getKotaTujuan().getNamaKota() + "\t" + jadwal.getWaktuTiba() + "\t"
                     + jadwal.getKereta().getKodeKereta());
                 if (jadwal.getKursiKosong() > 0) {
                     System.out.println("Tersisa " + jadwal.getKursiKosong() + " Kursi");

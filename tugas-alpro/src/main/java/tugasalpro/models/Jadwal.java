@@ -11,7 +11,7 @@ public class Jadwal implements Comparable<Jadwal> {
     private String kodeJadwal;
     private Date tanggalJadwal;
     private Waktu waktuBerangkat;
-    private Waktu waktuTiba;
+    private String waktuTiba;
     private Kota kotaKeberangkatan;
     private Kota kotaTujuan;
     private Kereta kereta;
@@ -23,7 +23,7 @@ public class Jadwal implements Comparable<Jadwal> {
         
     }
 
-    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, Waktu waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta) {
+    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, String waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta) {
         this.kodeJadwal = kodeJadwal;
         this.tanggalJadwal = tanggalJadwal;
         this.waktuBerangkat = waktuBerangkat;
@@ -89,11 +89,11 @@ public class Jadwal implements Comparable<Jadwal> {
         this.waktuBerangkat = waktuBerangkat;
     }
 
-    public Waktu getWaktuTiba() {
+    public String getWaktuTiba() {
         return this.waktuTiba;
     }
 
-    public void setWaktuTiba(Waktu waktuTiba) {
+    public void setWaktuTiba(String waktuTiba) {
         this.waktuTiba = waktuTiba;
     }
 
