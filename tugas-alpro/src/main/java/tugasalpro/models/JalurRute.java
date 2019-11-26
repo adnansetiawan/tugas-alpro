@@ -6,12 +6,12 @@ public class JalurRute{
     private Rute ruteJalur;
     private int durasi;
     private boolean activeStatus;
-    private final ArrayList<JalurStasiun> arrJalurStasiun;
+    private ArrayList<JalurStasiun> arrJalurStasiun;
 
     public JalurRute(){
         durasi = 0;
         activeStatus = true;
-        arrJalurStasiun = new ArrayList<JalurStasiun>();
+        arrJalurStasiun = new ArrayList<>();
     }
 
     public JalurRute(String kJ, Rute rJ){
@@ -19,7 +19,7 @@ public class JalurRute{
         ruteJalur = rJ;
         durasi = 0;
         activeStatus = true;
-        arrJalurStasiun = new ArrayList<JalurStasiun>();
+        arrJalurStasiun = new ArrayList<>();
     }
 
     public void setKodeJalur(String kJ){
@@ -57,5 +57,16 @@ public class JalurRute{
     public void addJalurStasiun(JalurStasiun JS){
         arrJalurStasiun.add(JS);
         durasi+=JS.getDurasi();
+    }
+
+    public String printJalurStasiun(){
+        String jalurStasiun="";
+        for(int i=0;i<arrJalurStasiun.size();i++){
+            if(i!=0){
+                jalurStasiun+=" ";
+            }
+            jalurStasiun+=arrJalurStasiun.get(i).getStasiunAsal().getKodeStasiun()+"-"+arrJalurStasiun.get(i).getStasiunTujuan().getKodeStasiun();
+        }
+        return jalurStasiun;
     }
 }
