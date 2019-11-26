@@ -1,6 +1,9 @@
 package tugasalpro.views;
 
 import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner6;
+
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
 import tugasalpro.utilities.ScreenUtility;
@@ -9,7 +12,7 @@ import tugasalpro.*;
 public class UserPage{
     private UserManager userManager;
     private Scanner scanner;
-    private String userNameLama;
+    //private String userNameLama;
     
     public UserPage(){
         userManager = new UserManager();
@@ -43,18 +46,27 @@ public class UserPage{
         do{
             System.out.print("Nomor KTP : ");
             nomorKtp = scanner.nextLine();
-            //pengecekan apakah KTP duplikat atau tidak
-            User userByKtp= null; 
-            userByKtp = userManager.getByKtp(nomorKtp);
-            if(userByKtp != null){
-                System.out.println("Nomor KTP tersebut sudah terdaftar.");
-                System.out.println("Mohon masukkan nomor KTP yang berbeda.");
-            }else{//akhir pengecekan
-                isKtpValid= cekKtp(nomorKtp);
-                if(!isKtpValid){
-                    System.out.println("Format KTP salah. Nomor KTP hanya boleh angka dan 16 digit.");
-                    System.out.println("Mohon masukkan nomor KTP dengan format yang benar.");
+            //pengecekan apakah 99 atau bukan
+            if (nomorKtp.compareTo("99")==0)
+            {
+                isKtpValid = true;
+            }
+            else
+            {
+                //pengecekan apakah KTP duplikat atau tidak
+                User userByKtp= null; 
+                userByKtp = userManager.getByKtp(nomorKtp);
+                if(userByKtp != null){
+                    System.out.println("Nomor KTP tersebut sudah terdaftar.");
+                    System.out.println("Mohon masukkan nomor KTP yang berbeda.");
+                }else{//akhir pengecekan
+                    isKtpValid= cekKtp(nomorKtp);
+                    if(!isKtpValid){
+                        System.out.println("Format KTP salah. Nomor KTP hanya boleh angka dan 16 digit.");
+                        System.out.println("Mohon masukkan nomor KTP dengan format yang benar.");
+                    }
                 }
+
             }
         }while(!isKtpValid);
         return nomorKtp;
@@ -100,7 +112,7 @@ public class UserPage{
             System.out.print("Alamat Email : ");
             userName = scanner.nextLine();
             //Pengecekan email sama atau berbeda
-            if (userNameLama.compareTo(userName)!=0){
+            if (userManager.userNameLama.compareTo(userName)!=0){
                 //Pengecekan email di JSON
                 User userByEmail; 
                 userByEmail = userManager.getByEmail(userName);
@@ -146,31 +158,41 @@ public class UserPage{
 
     public void registrasi(){
         ScreenUtility.ClearScreen();
-        userNameLama = "";
+        userManager.userNameLama = "";
         System.out.println("#REGISTER SISTEM#");
         String nomorKtp =  inputKtp();
-        String nama = inputNama();
-        String nomorHp = inputHandphone();
-        String userName = inputEmail();
-        String password = inputPassword(true);
-        UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
-        userManager.add(new User(userName, password, userInfo));
+        if (nomorKtp.compareTo("99")==0)
+        {
+            System.out.println("Proses register user dibatalkan.");
+        }
+        else
+        {
+            String nama = inputNama();
+            String nomorHp = inputHandphone();
+            String userName = inputEmail();
+            String password = inputPassword(true);
+            UserInfo userInfo = new UserInfo(nama, nomorKtp, nomorHp);
+            userManager.add(new User(userName, password, userInfo));
+        }
         LoginPage loginPage =new LoginPage();
         loginPage.showWelcome();
     }
 
     public void showProfil(User user){
+        ScreenUtility.ClearScreen();
         System.out.println("-- Data Pengguna --");
         System.out.println("No KTP : " +user.getUserInfo().getKtp());
         System.out.println("Nama Lengkap : " +user.getUserInfo().getName());
         System.out.println("Nomor Handphone : " +user.getUserInfo().getHandphone());
         System.out.println("Alamat Email : " +user.getUsername());
         System.out.println("Password : " +user.getPassword());
-        userNameLama = user.getUsername();
+        userManager.userNameLama = user.getUsername();
     }
 
     public void showUpdatePenggunaPage(){
+        ScreenUtility.ClearScreen();
         boolean flagIterate=true;
+        int status=0;
         User user = ApplicationSession.getLoggedUser();
         if(user.isAdmin()){
             System.out.println("#KELOLA PROFILE BY ADMIN#");
@@ -183,37 +205,58 @@ public class UserPage{
         if(user.isAdmin()){
             User userByKtp= null; 
             do{
-                noKtp = inputKtp();
-                userByKtp = userManager.getByKtp(noKtp);
-                if(userByKtp == null){
-                    System.out.println("Nomer KTP tersebut tidak ada dalam sistem.");
-                    System.out.println("Masukkan nomor KTP yang berbeda, atau 99 untuk membatalkan pengubahan data pengguna.");
-                }else{
+                //noKtp = inputKtp();
+                System.out.print("Nomor KTP : ");
+                noKtp = scanner.nextLine();
+                if (noKtp.compareTo("99")==0)
+                {
+                    status=1;
                     flagIterate=false;
                 }
+                else
+                {
+                    userByKtp = userManager.getByKtp(noKtp);
+                    if(userByKtp == null){
+                        System.out.println("Nomer KTP tersebut tidak ada dalam sistem.");
+                        System.out.println("Masukkan nomor KTP yang berbeda, atau 99 untuk membatalkan pengubahan data pengguna.");
+                    }else{
+                        flagIterate=false;
+                    }
+    
+                }
             }while(flagIterate);
-            System.out.println(""); 
-            showProfil(userByKtp);
+            if (status==1)
+            {
+                System.out.println("Proses dibatalkan.");
+            }
+            else
+            {
+                System.out.println(""); 
+                showProfil(userByKtp);
+            }
         }else{
             noKtp = user.getUserInfo().getKtp();
             System.out.println(""); 
             showProfil(user);
         }
-        System.out.println("#UBAH DATA PENGGUNA#");
-        System.out.println(""); 
-        String nama = inputNama();
-        String nomorHp = inputHandphone();
-        String userName = inputEmail();
-        String password = inputPassword(false);
-        UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
-        User newUser = new User(userName, password, userInfo);
-        userManager.update(newUser);
-        if(!user.isAdmin()){
-            ApplicationSession.setLoggedUser(user);
+        if (status==0)
+        {
+            System.out.println("#UBAH DATA PENGGUNA#");
+            System.out.println(""); 
+            String nama = inputNama();
+            String nomorHp = inputHandphone();
+            String userName = inputEmail();
+            String password = inputPassword(false);
+            UserInfo userInfo = new UserInfo(nama, noKtp, nomorHp);
+            User newUser = new User(userName, password, userInfo);
+            userManager.update(newUser);
+            if(!user.isAdmin()){
+                ApplicationSession.setLoggedUser(user);
+            }
+            System.out.println(""); 
+            System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
+            System.out.println(""); 
+            showProfil(newUser);
         }
-        System.out.println(""); 
-        System.out.println("-- Data Berhasil Diupdate, Berikut Data Terbaru --");
-        System.out.println(""); 
-        showProfil(newUser);
     }
 }

@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import de.vandermeer.asciitable.AT_Row;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.managers.KotaManager;
@@ -17,6 +21,7 @@ import tugasalpro.models.Kereta;
 import tugasalpro.models.KeretaRute;
 import tugasalpro.models.Rute;
 import tugasalpro.models.Waktu;
+import tugasalpro.utilities.StringUtility;
 
 public class JadwalPage {
     private KotaManager kotaManager;
@@ -75,8 +80,6 @@ public class JadwalPage {
 
             // first, get all rute..
 
-
-
             for (int i = 0; i < listKeretaRute.size(); i++) {
                 KeretaRute keretaRute = listKeretaRute.get(i);
                 listKereta = keretaRute.getKeretaTersedia();
@@ -100,26 +103,36 @@ public class JadwalPage {
     }
 
     public void menuTampil() {
-        System.out.println("-------------------------------------------------------");
-        System.out.println(
-                "No \t Kode Jadwal \t Tanggal \t Waktu Keberangkatan \t Keberangkatan \t Tujuan \t Waktu Tiba \t KAI \t Status");
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "WAKTU TIBA", "KERETA", "STATUS");
+        rowHeader.setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
         List<Jadwal> listJadwal = jadwalManager.GetAll();
 
         int i = 0;
         for (Jadwal jadwal : listJadwal) {
             i++;
-            System.out.print(i + " \t " + jadwal.getKodeJadwal() + " \t " + jadwal.getTanggalJadwal() + "\t\t"
-                    + jadwal.getWaktuBerangkat().getWaktu() + "\t" + jadwal.getKotaKeberangkatan().getNamaKota() + "\t"
-                    + jadwal.getKotaTujuan().getNamaKota() + "\t" + jadwal.getWaktuTiba().getWaktu() + "\t"
-                    + jadwal.getKereta().getKodeKereta());
+            String status =  "";
             if (jadwal.getKursiKosong() > 0) {
-                System.out.println("Tersisa " + jadwal.getKursiKosong() + " Kursi");
+                status = "Tersisa " + jadwal.getKursiKosong() + " Kursi";
             } else {
-                System.out.println("Full");
+                status = "Full";
             }
+            AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
+            jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba().getWaktu(),
+            jadwal.getKereta().getKodeKereta(), status);
+            row.setTextAlignment(TextAlignment.CENTER);
+            at.addRule();
 
         }
-        System.out.println("-------------------------------------------------------");
+        at.setPaddingLeft(1);
+        at.setPaddingRight(1);
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(3, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(20, 0);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
+        
     }
 
     public void menuSearch() {
