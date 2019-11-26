@@ -56,6 +56,18 @@ public class WaktuRuteManager
         }
         return null;
     }
+
+    public WaktuRute getByKodeRute(String kodeRute)
+    {
+        List<WaktuRute> textwaktuRute = repository.getAll();
+        Optional<WaktuRute> selectedWaktuRute = textwaktuRute.stream().filter(x->x.getRute().getKodeRute().equals(kodeRute)).findFirst();
+        if(selectedWaktuRute.isPresent())
+        {
+            return selectedWaktuRute.get();
+        }
+        return null;
+    }
+
     public WaktuRute getByRute(Rute rute)
     {
        
