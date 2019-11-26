@@ -152,7 +152,7 @@ public class JalurRutePage{
             at.addRule();
         }
         CWC_LongestLine cwc=new CWC_LongestLine();
-        cwc.add(4,0).add(20, 0).add(20,0).add(50,0).add(10,0);
+        cwc.add(4,0).add(20, 0).add(20,0).add(35,0).add(10,0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
         System.out.println("-------------------------------------------------------");
