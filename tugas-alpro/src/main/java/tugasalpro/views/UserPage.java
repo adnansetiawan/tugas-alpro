@@ -160,6 +160,7 @@ public class UserPage{
     }
 
     public void showProfil(User user){
+        ScreenUtility.ClearScreen();
         System.out.println("-- Data Pengguna --");
         System.out.println("No KTP : " +user.getUserInfo().getKtp());
         System.out.println("Nama Lengkap : " +user.getUserInfo().getName());
@@ -170,6 +171,7 @@ public class UserPage{
     }
 
     public void showUpdatePenggunaPage(){
+        ScreenUtility.ClearScreen();
         boolean flagIterate=true;
         User user = ApplicationSession.getLoggedUser();
         if(user.isAdmin()){

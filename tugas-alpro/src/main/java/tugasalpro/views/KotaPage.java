@@ -9,6 +9,7 @@ import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
+import tugasalpro.utilities.ScreenUtility;
 
 public class KotaPage {
     private KotaManager kotaManager;
@@ -23,7 +24,7 @@ public class KotaPage {
     }
 
     public void showMenu() {
-
+        ScreenUtility.ClearScreen();
         int pilihan = 0;
         do {
             System.out.println("#Menu Kota#");
@@ -48,6 +49,7 @@ public class KotaPage {
     }
 
     private void menuTambah() {
+        ScreenUtility.ClearScreen();
         Kota kota = new Kota();
         System.out.print("Tambah Kota : ");
         kota.setKodeKota(scanner.next());
@@ -81,6 +83,7 @@ public class KotaPage {
     }
 
    private void menuTampil()  {
+       ScreenUtility.ClearScreen();
         AsciiTable at = new AsciiTable();
         at.addRule();
         AT_Row row =  at.addRow("N0", "KODE KOTA", "NAMA KOTA");
