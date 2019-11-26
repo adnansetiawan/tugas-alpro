@@ -54,7 +54,7 @@ public class JalurRutePage{
     public void menuTambah(){
         System.out.println("#TAMBAH JALUR STASIUN PADA RUTE#");
         JalurRute jalurRute = new JalurRute();
-        String kodeJalur,kodeRute;
+        String kodeJalur,kodeRute=null;
         boolean flagIterate=true;
         do{
             System.out.print("Kode Jalur : ");
@@ -71,68 +71,67 @@ public class JalurRutePage{
                 flagIterate=false;
             }
         }while(flagIterate);
-        flagIterate=true;
-        do{
+        if(!kodeJalur.equals("99")){
             System.out.print("Kode Rute : ");
             kodeRute=scanner.next();
             if(ruteManager.GetIndexByKodeRute(kodeRute)==-1){
-                System.out.println("Rute dengan kode rute "+kodeRute+" tidak ada.");
-                System.out.println("Mohon masukkan kode rute yang berbeda, atau “99” untuk membatalkan penambahan jalur rute.");
-            }else{
                 if(kodeRute.equals("99")){
                     System.out.println("Penambahan jalur rute dibatalkan.");
+                    flagIterate=false;
                 }else{
-                    jalurRute.setRuteJalur(ruteManager.GetByKodeRute(kodeRute));
+                    System.out.println("Rute dengan kode rute "+kodeRute+" tidak ada.");
+                    System.out.println("Mohon masukkan kode rute yang berbeda, atau “99” untuk membatalkan penambahan jalur rute.");
                 }
+            }else{
+                jalurRute.setRuteJalur(ruteManager.GetByKodeRute(kodeRute));
                 flagIterate=false;
             }
-        }while(flagIterate);
-        flagIterate=true;
-        System.out.println("Stasiun Awal Sampai Stasiun Akhir\n----------------------------------------");
-        JalurStasiun jalurStasiun = new JalurStasiun();
-        String namaStasiunAsal=null;
-        String namaStasiunTujuan=null;
-        int i = 1, durasiJalurStasiun=0;
-        do{
+        }
+        if(!kodeRute.equals("99")){
+            flagIterate=true;
+            System.out.println("Stasiun Awal Sampai Stasiun Akhir\n----------------------------------------");
+            JalurStasiun jalurStasiun = new JalurStasiun();
+            String namaStasiunAsal=null;
+            String namaStasiunTujuan=null;
+            int i = 1, durasiJalurStasiun=0;
             do{
                 System.out.print("Jalur "+i+" : ");
                 namaStasiunAsal=scanner.next();
-                if(namaStasiunAsal.equals("99")){
-                    System.out.println("----------------------------------------");
-                    System.out.println("Jalur stasiun yang dilewati berdasarkan rute berhasil ditambahkan.");
-                    System.out.println("----------------------------------------");
-                    flagIterate=false;
-                }else{
-                    if(stasiunManager.getIndexByNamaStasiun(namaStasiunAsal)==-1){
+                if(stasiunManager.getIndexByNamaStasiun(namaStasiunAsal)==-1){
+                    if(namaStasiunAsal.equals("99")){
+                        System.out.println("----------------------------------------");
+                        System.out.println("Jalur stasiun yang dilewati berdasarkan rute berhasil ditambahkan.");
+                        System.out.println("----------------------------------------");
+                        flagIterate=false;
+                    }else{
                         namaStasiunTujuan=scanner.next();
                         durasiJalurStasiun=scanner.nextInt();
                         System.out.println("Stasiun dengan nama stasiun "+namaStasiunAsal+" tidak ada.");
                         System.out.println("Mohon ulangi masukan nama stasiun asal yang berbeda, atau “99” untuk mengakhiri penambahan jalur stasiun yang dilewati berdasarkan rute.");
+                    }
+                }else{
+                    namaStasiunTujuan=scanner.next();
+                    durasiJalurStasiun=scanner.nextInt();
+                    if(stasiunManager.getIndexByNamaStasiun(namaStasiunTujuan)==-1){
+                        System.out.println("Stasiun dengan nama stasiun "+namaStasiunTujuan+" tidak ada.");
+                        System.out.println("Mohon ulangi masukan dengan nama stasiun tujuan yang berbeda, atau “99” untuk mengakhiri penambahan jalur stasiun yang dilewati berdasarkan rute.");
                     }else{
-                        namaStasiunTujuan=scanner.next();
-                        if(stasiunManager.getIndexByNamaStasiun(namaStasiunTujuan)==-1){
-                            durasiJalurStasiun=scanner.nextInt();
-                            System.out.println("Stasiun dengan nama stasiun "+namaStasiunTujuan+" tidak ada.");
-                            System.out.println("Mohon ulangi masukan dengan nama stasiun tujuan yang berbeda, atau “99” untuk mengakhiri penambahan jalur stasiun yang dilewati berdasarkan rute.");
+                        if(durasiJalurStasiun<=0){
+                            System.out.println("Durasi harus lebih dari 0 menit.");
+                            System.out.println("Mohon ulangi masukan dengan durasi perjalanan dengan benar.");
                         }else{
-                            durasiJalurStasiun=scanner.nextInt();
-                            if(durasiJalurStasiun<=0){
-                                System.out.println("Durasi harus lebih dari 0 menit.");
-                                System.out.println("Mohon ulangi masukan dengan durasi perjalanan dengan benar.");
-                            }else{
-                                jalurStasiun.setStasiunAsal(stasiunManager.getByNamaStasiun(namaStasiunAsal));
-                                jalurStasiun.setStasiunTujuan(stasiunManager.getByNamaStasiun(namaStasiunTujuan));
-                                jalurStasiun.setDurasi(durasiJalurStasiun);
-                                jalurRute.addJalurStasiun(jalurStasiun);
-                                flagIterate=false;
-                            }
+                            jalurStasiun.setStasiunAsal(stasiunManager.getByNamaStasiun(namaStasiunAsal));
+                            jalurStasiun.setStasiunTujuan(stasiunManager.getByNamaStasiun(namaStasiunTujuan));
+                            jalurStasiun.setDurasi(durasiJalurStasiun);
+                            jalurRute.addJalurStasiun(jalurStasiun);
+                            System.out.println(jalurRute.printJalurStasiun());
+                            i++;
                         }
                     }
                 }
             }while(flagIterate);
-            i++;
-        }while (!namaStasiunAsal.equals("99"));
-        jalurRuteManager.add(jalurRute);
+            jalurRuteManager.add(jalurRute);
+        }
         showMenu();
     }
 
@@ -148,7 +147,7 @@ public class JalurRutePage{
         int i=0;
         for (JalurRute jalurRute:listJalurRute){
             i++;
-            row=at.addRow(i,jalurRute.getKodeJalur(),jalurRute.getRuteJalur().getKodeRute(),jalurRute.getArrJalurStasiun().get(0),jalurRute.getDurasi());
+            row=at.addRow(i,jalurRute.getKodeJalur(),jalurRute.getRuteJalur().getKodeRute(),jalurRute.printJalurStasiun(),jalurRute.getDurasi());
             row.setTextAlignment(TextAlignment.CENTER);
             at.addRule();
         }
