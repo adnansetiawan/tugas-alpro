@@ -64,7 +64,7 @@ public class JalurRute{
         String jalurStasiun="";
         for(int i=0;i<arrJalurStasiun.size();i++){
             if(i!=0){
-                jalurStasiun+=" | ";
+                jalurStasiun+="<br>";
             }
             jalurStasiun+=arrJalurStasiun.get(i).getStasiunAsal().getKodeStasiun()+"-"+arrJalurStasiun.get(i).getStasiunTujuan().getKodeStasiun();
         }
