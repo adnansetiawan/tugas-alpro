@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import tugasalpro.*;
 import tugasalpro.managers.*;
+import tugasalpro.utilities.ScreenUtility;
 
 public class LoginPage {
     private LoginManager loginManager;
@@ -23,6 +24,7 @@ public class LoginPage {
     }
     private void showLogin()
     {
+        ScreenUtility.ClearScreen();
         System.out.println("#LOGIN#");
         String username;
         String password;

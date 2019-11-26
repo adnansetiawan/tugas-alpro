@@ -7,5 +7,14 @@
       "ktp": "1234567890123456",
       "handphone": "081390553497"
     }
+  },
+  {
+    "username": "ultraman@gmail.com",
+    "password": "pass",
+    "userInfo": {
+      "nama": "Ultraman",
+      "ktp": "1234567891123456",
+      "handphone": "081390553496"
+    }
   }
 ]
