@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import tugasalpro.*;
 import tugasalpro.managers.*;
+import tugasalpro.utilities.ScreenUtility;
 
 public class LoginPage {
     private LoginManager loginManager;
@@ -17,12 +18,14 @@ public class LoginPage {
     }
     public void Logout()
     {
+        ScreenUtility.ClearScreen();
         loginManager.Logout();
         System.out.println("logout success");
         showWelcome();
     }
     private void showLogin()
     {
+        ScreenUtility.ClearScreen();
         System.out.println("#LOGIN#");
         String username;
         String password;
@@ -54,6 +57,7 @@ public class LoginPage {
     
     public void showWelcome()
     {
+        ScreenUtility.ClearScreen();
         System.out.println("#SELAMAT DATANG#");
         int pilihan=-1;
         scanner= new Scanner(System.in);
