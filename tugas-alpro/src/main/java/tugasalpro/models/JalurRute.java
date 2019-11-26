@@ -1,8 +1,7 @@
 package tugasalpro.models;
 
 import java.util.ArrayList;
-import java.util.Formatter;
-public class JalurRute{
+public class JalurRute implements Comparable<JalurRute>{
     private String kodeJalur;
     private Rute ruteJalur;
     private int durasi;
@@ -60,6 +59,18 @@ public class JalurRute{
         durasi+=JS.getDurasi();
     }
 
+    @Override
+    public int compareTo(JalurRute o) {
+        // TODO Auto-generated method stub
+        if (getDurasi()==o.getDurasi()) {
+            return 0;
+        } else if (getDurasi()>o.getDurasi()) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+        
     public String printJalurStasiun(){
         String jalurStasiun="";
         for(int i=0;i<arrJalurStasiun.size();i++){

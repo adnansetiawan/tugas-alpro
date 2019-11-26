@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import tugasalpro.models.Waktu;
 
-public class Jadwal {
+public class Jadwal implements Comparable<Jadwal> {
     private String kodeJadwal;
     private Date tanggalJadwal;
     private Waktu waktuBerangkat;
@@ -170,6 +170,11 @@ public class Jadwal {
             kursi.set(indexFound, selectedKursi);
         }
         return selectedKursi;
+    }
+
+    @Override
+    public int compareTo(Jadwal o) {
+        return getTanggalJadwal().compareTo(o.getTanggalJadwal());
     }
     
 
