@@ -14,7 +14,6 @@ public final class App {
         
         LoginPage loginPage = new LoginPage();
         loginPage.showWelcome();
-        //BookingPage bp = new BookingPage();
-        //bp.showInput();
+        
     }
 }

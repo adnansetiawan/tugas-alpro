@@ -52,8 +52,8 @@ public class WaktuPage
                 ShowMenu();
                 break;
             case 99 :
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuAdmin();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuAdmin();
                 break;
         }
     }

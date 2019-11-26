@@ -12,6 +12,7 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.ApplicationSession;
 import tugasalpro.managers.BookingManager;
 import tugasalpro.models.*;
+import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.utilities.StringUtility;
 
 public class BookingHistoryPage
@@ -23,7 +24,7 @@ public class BookingHistoryPage
         bookingManager = new BookingManager();
         scanner = new Scanner(System.in);
     }
-    public void show()
+    public void ShowHistory()
     {
         AsciiTable at = new AsciiTable();
         at.addRule();
@@ -53,6 +54,12 @@ public class BookingHistoryPage
         cwc.add(3, 0).add(15, 0).add(15, 0).add(10, 0).add(10, 0).add(20, 0).add(15, 0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
+       
+    }
+    public void show()
+    {
+        ScreenUtility.ClearScreen();
+        ShowHistory();
         System.out.println();
         System.out.println("1. Detail");
         System.out.println("99. Keluar");
@@ -64,8 +71,8 @@ public class BookingHistoryPage
                 bookingPage.showDetail();
                 break;
             case 99:
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage userMenuPage = new MenuPage();
+                userMenuPage.showMenuPengguna();
                 break;
         }
         

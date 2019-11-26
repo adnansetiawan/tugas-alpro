@@ -1,6 +1,22 @@
 [
   {
-    "kodeJalur": "JKT-BDG",
+    "kodeJalur": "JL01",
+    "ruteJalur": {
+      "id": "668b23a0-48ef-4d07-adad-af6373f2c22d",
+      "kodeRute": "JKT-BDG",
+      "kotaAsal": {
+        "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "kotaTujuan": {
+        "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "hargaBisnis": 120000.0,
+      "hargaPremium": 200000.0
+    },
     "durasi": 120,
     "activeStatus": true,
     "arrJalurStasiun": [
@@ -11,11 +27,37 @@
           "namaStasiun": "GAMBIR"
         },
         "stasiunTujuan": {
+          "id": "dcbce46d-7006-4f62-a2ad-ae6a6143e526",
+          "kodeStasiun": "PCL",
+          "namaStasiun": "PONCOL"
+        },
+        "durasi": 15
+      },
+      {
+        "stasiunAsal": {
+          "id": "dcbce46d-7006-4f62-a2ad-ae6a6143e526",
+          "kodeStasiun": "PCL",
+          "namaStasiun": "PONCOL"
+        },
+        "stasiunTujuan": {
           "id": "45fb45af-1a7e-42de-8d49-7df5514f4e50",
           "kodeStasiun": "TWG",
           "namaStasiun": "TAWANG"
         },
-        "durasi": 120
+        "durasi": 45
+      },
+      {
+        "stasiunAsal": {
+          "id": "45fb45af-1a7e-42de-8d49-7df5514f4e50",
+          "kodeStasiun": "TWG",
+          "namaStasiun": "TAWANG"
+        },
+        "stasiunTujuan": {
+          "id": "f3af910b-dcf6-44af-815b-1d7d4b6dc832",
+          "kodeStasiun": "JTR",
+          "namaStasiun": "JATINEGARA"
+        },
+        "durasi": 60
       }
     ]
   }

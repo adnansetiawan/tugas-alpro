@@ -1,60 +1,57 @@
 package tugasalpro.views;
 
 import java.util.Scanner;
-
 import tugasalpro.ApplicationSession;
 import tugasalpro.models.User;
+import tugasalpro.utilities.ScreenUtility;
 
-public class UserMenuPage {
+public class MenuPage{
     private Scanner scanner;
 
-    public UserMenuPage() {
+    public MenuPage(){
         scanner = new Scanner(System.in);
-
     }
 
-    public void ShowMenuPengguna() {
+    public void showMenuPengguna(){
+        ScreenUtility.ClearScreen();
         User user = ApplicationSession.getLoggedUser();
         System.out.println("#MENU PEGGUNA#");
-        System.out.println("Welcome," + user.getUsername());
+        System.out.println("Selamat datang, " + user.getUsername()+"!");
         System.out.println("1. Booking Tiket");
         System.out.println("2. Kelola Profile");
         System.out.println("3. History Pembelian");
         System.out.println("0. Logout");
         int pilihan = -1;
-        do {
+        do{
             System.out.print("Pilihan :");
             pilihan = scanner.nextInt();
         } while (pilihan < 0 || pilihan > 3);
         switch (pilihan) {
-        case 0:
-            LoginPage loginPage = new LoginPage();
-            loginPage.Logout();
-            break;
-        case 1:
-            BookingPage bookingPage = new BookingPage();
-            bookingPage.showInput();
-            break;
-        case 2:
-            ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
-            profilePenggunaPage.ShowUpdatePenggunaPage();
-            break;
-        case 3:
-            BookingHistoryPage bookingHistoryPage = new BookingHistoryPage();
-            bookingHistoryPage.show();
-            break;
+            case 0:
+                LoginPage loginPage = new LoginPage();
+                loginPage.Logout();
+                break;
+            case 1:
+                BookingPage bookingPage = new BookingPage();
+                bookingPage.showInput();
+                break;
+            case 2:
+                UserPage userPage = new UserPage();
+                userPage.showUpdatePenggunaPage();
+                break;
+            case 3:
+                BookingHistoryPage bookingHistoryPage = new BookingHistoryPage();
+                bookingHistoryPage.show();
+                break;
         }
-
     }
 
-    public void ShowMenuAdmin()
-    {
-        
+    public void showMenuAdmin(){
+        ScreenUtility.ClearScreen();
         int pilihan = -1;
-        do
-        {
+        do{
             System.out.println("#MENU ADMIN#");
-            System.out.println("Welcome, Admin");
+            System.out.println("Selamat datang, Admin!");
             System.out.println("1. Kelola Akun");
             System.out.println("2. Kelola Data Kota");
             System.out.println("3. Generate Waktu");
@@ -70,15 +67,14 @@ public class UserMenuPage {
             System.out.println("0. Logout");
             System.out.print("Pilihan :");
             pilihan = scanner.nextInt();
-
-            switch (pilihan) {
+            switch (pilihan){
                 case 0:
                     LoginPage loginPage = new LoginPage();
                     loginPage.Logout();
                     break;
                 case 1:
-                    ProfilePenggunaPage profilePenggunaPage = new ProfilePenggunaPage();
-                    profilePenggunaPage.ShowUpdatePenggunaPage();
+                    UserPage userPage = new UserPage();
+                    userPage.showUpdatePenggunaPage();
                     break;
                 case 2:
                     KotaPage kotaPage = new KotaPage();
@@ -93,12 +89,12 @@ public class UserMenuPage {
                     rutePage.showMenu();
                     break;
                 case 5:
-                    StasiunMenuPage stasiunMenuPage = new StasiunMenuPage();
-                    stasiunMenuPage.showMenu();
+                    StasiunPage stasiunPage = new StasiunPage();
+                    stasiunPage.showMenu();
                     break;
                 case 6:
-                    JalurRuteMenuPage jalurRuteMenuPage = new JalurRuteMenuPage();
-                    jalurRuteMenuPage.showMenu();
+                    JalurRutePage jalurRutePage = new JalurRutePage();
+                    jalurRutePage.showMenu();
                     break;
                 case 7:
                     KeretaPage keretaPage = new KeretaPage();
@@ -117,15 +113,12 @@ public class UserMenuPage {
                     jadwalPage.showMenu();
                     break;
                 case 12:
-                    PemasukanMenuPage pemasukanMenuPage = new PemasukanMenuPage();
-                    pemasukanMenuPage.showMenu();
+                    PemasukanPage pemasukanPage = new PemasukanPage();
+                    pemasukanPage.showMenu();
                     break;
                 default:
                     break;
             }
-
-        }while(pilihan != 0);
-      
+        }while(pilihan != 0); 
     }
-
 }

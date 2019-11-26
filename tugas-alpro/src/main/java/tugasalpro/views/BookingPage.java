@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import javax.lang.model.util.ElementScanner6;
-
-import org.abego.treelayout.internal.util.java.lang.string.StringUtil;
 
 import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
@@ -18,6 +15,7 @@ import tugasalpro.managers.JadwalManager;
 import tugasalpro.managers.PembayaranManager;
 import tugasalpro.managers.RuteManager;
 import tugasalpro.models.*;
+import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.utilities.StringUtility;
 
 public class BookingPage
@@ -87,13 +85,22 @@ public class BookingPage
     }
     public void showInput()
     {
+        ScreenUtility.ClearScreen();
+        JadwalPage jadwalPage = new JadwalPage();
+        jadwalPage.menuTampil();
         boolean jadwalIsValid = false;
         Jadwal jadwal = null;
         do
         {
         System.out.print("Kode Jadwal :");
-        JadwalManager jadwalManager = new JadwalManager();
         String kodeJadwal = scanner.nextLine();
+        if(kodeJadwal.trim().equals("99"))
+        {
+            MenuPage menuPage = new MenuPage();
+            menuPage.showMenuPengguna();
+            return;
+        }
+        JadwalManager jadwalManager = new JadwalManager();
         jadwal = jadwalManager.GetByKodeJadwal(kodeJadwal);
         if(jadwal == null)
         {
@@ -209,8 +216,8 @@ public class BookingPage
                 pembayaranPage.showInputWithBooking(booking);
                 break;
             case 99 :
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuPengguna();
                 break;
 
         }
@@ -304,8 +311,8 @@ public class BookingPage
                 }
                 break;
             case 99:
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuPengguna();
                 break;
         }
     }
@@ -386,8 +393,8 @@ public class BookingPage
                 showDetail();
                 break;
             case 99:
-                UserMenuPage userMenuPage = new UserMenuPage();
-                userMenuPage.ShowMenuPengguna();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuPengguna();
                 break;
         }
     
