@@ -3,6 +3,7 @@ package tugasalpro.views;
 import java.util.Scanner;
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
+import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.*;
 
 public class UserPage{
@@ -144,6 +145,7 @@ public class UserPage{
     }
 
     public void registrasi(){
+        ScreenUtility.ClearScreen();
         userNameLama = "";
         System.out.println("#REGISTER SISTEM#");
         String nomorKtp =  inputKtp();

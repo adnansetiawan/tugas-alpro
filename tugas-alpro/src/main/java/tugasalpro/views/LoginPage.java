@@ -69,7 +69,7 @@ public class LoginPage {
         switch(pilihan)
         {
             case 0:
-                //Keluar dari program
+                System.exit(0);
                 break;
             case 1:
                 showLogin();
