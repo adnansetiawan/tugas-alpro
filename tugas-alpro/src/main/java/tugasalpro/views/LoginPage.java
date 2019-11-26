@@ -18,6 +18,7 @@ public class LoginPage {
     }
     public void Logout()
     {
+        ScreenUtility.ClearScreen();
         loginManager.Logout();
         System.out.println("logout success");
         showWelcome();
@@ -56,6 +57,7 @@ public class LoginPage {
     
     public void showWelcome()
     {
+        ScreenUtility.ClearScreen();
         System.out.println("#SELAMAT DATANG#");
         int pilihan=-1;
         scanner= new Scanner(System.in);

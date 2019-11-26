@@ -3,6 +3,7 @@ package tugasalpro.views;
 import java.util.Scanner;
 import tugasalpro.ApplicationSession;
 import tugasalpro.models.User;
+import tugasalpro.utilities.ScreenUtility;
 
 public class MenuPage{
     private Scanner scanner;
@@ -12,6 +13,7 @@ public class MenuPage{
     }
 
     public void showMenuPengguna(){
+        ScreenUtility.ClearScreen();
         User user = ApplicationSession.getLoggedUser();
         System.out.println("#MENU PEGGUNA#");
         System.out.println("Selamat datang, " + user.getUsername()+"!");
@@ -45,6 +47,7 @@ public class MenuPage{
     }
 
     public void showMenuAdmin(){
+        ScreenUtility.ClearScreen();
         int pilihan = -1;
         do{
             System.out.println("#MENU ADMIN#");
