@@ -1,6 +1,5 @@
 package tugasalpro.views;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,11 +75,13 @@ public class JadwalPage {
         String pilihan;
         List<Rute> listRute = ruteManager.GetAll();
         List<JalurRute> listJalurRute = jalurRuteManager.getAll();
+        List<Jadwal> listJadwal = jadwalManager.GetAll();
         int durasiTerlama = 0;
         String waktuTiba = null;
 
         Collections.reverse(listJalurRute); // sorting berdasarkan durasi descending
         Collections.reverse(listRute); // sorting berdasarkan tanggal descending
+        Collections.reverse(listJadwal);
 
         int lastIndex = -1;
         System.out.print("Anda Yakin untuk generate Jadwal Kereta: Y/N : ");
@@ -88,7 +89,7 @@ public class JadwalPage {
         if (pilihan.equals("Y")) {
             // generate Jadwal
             Jadwal jadwal = new Jadwal();
-            Date dateobj = new Date();
+            Date dateobj = listJadwal.get(0).getTanggalJadwal();
             long curTimeInMs = 0;
 
             
@@ -97,7 +98,7 @@ public class JadwalPage {
             durasiTerlama = listJalurRute.get(0).getDurasi();
 
             // cek maksimum hari berdasarkan durasi terlama
-            
+            dateobj = timeUtility.addOneDay(dateobj);
             // untuk setiap jalur rute diambil kereta dan waktuRute
             for (int i=0; i<listJalurRute.size(); i++) {
                 // ambil kereta pada rute
@@ -121,7 +122,7 @@ public class JadwalPage {
                 // jika salah satu kosong, jangan lakukan generate
                 if (listKereta!=null && listWaktu!=null) {
                     if (listKereta.size()>0 && listWaktu.size()>0) {  
-                    Collections.sort(listWaktu); // sorting waktu dari yang tercepat
+                    Collections.sort(listWaktu); // sorting waktu dari yang tercepat/awal
                     int maxIterate = 0;
                     if (listKereta.size()>listWaktu.size()) { // pemilihan perulangan maksimum
                         maxIterate = listWaktu.size();
@@ -130,13 +131,12 @@ public class JadwalPage {
                     }
 
                     for (int j = 0; j < maxIterate; j++) {
+                        lastIndex = jadwalManager.GetAll().size();
                         lastIndex++;
                         
                         curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
-                        System.out.println(curTimeInMs);
-                        System.out.println(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
                         waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
-                        jadwal.setKodeJadwal("JW" + lastIndex);
+                        jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
                         jadwal.setKereta(listKereta.get(j));
                         jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
                         jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());

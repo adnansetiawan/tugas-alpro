@@ -1,5 +1,7 @@
 package tugasalpro.utilities;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class TimeUnitUtility {
@@ -32,6 +34,14 @@ public class TimeUnitUtility {
     String minute = jam.substring(3,5);
     System.out.println(minute);
     return Integer.valueOf(hour)*60*ONE_MINUTE_IN_MILLIS+Integer.valueOf(minute)*ONE_MINUTE_IN_MILLIS;
+ }
+
+ public Date addOneDay(Date date) {
+    Calendar c = Calendar.getInstance(); 
+    c.setTime(date); 
+    c.add(Calendar.DATE, 1);
+    date = c.getTime();
+    return date;
  }
 
 }
