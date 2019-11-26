@@ -9,6 +9,7 @@ import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
+import tugasalpro.utilities.ScreenUtility;
 
 public class StasiunPage{
     private final StasiunManager stasiunManager;
@@ -35,6 +36,7 @@ public class StasiunPage{
                     menuTambah();
                     break;
                 case 2:
+                    ScreenUtility.ClearScreen();
                     menuTampil();
                     break;
                 case 3:

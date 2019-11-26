@@ -9,6 +9,7 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
 import tugasalpro.managers.KeretaManager;
 import tugasalpro.models.Kereta;
+import tugasalpro.utilities.ScreenUtility;
 
 
 public class KeretaPage {
@@ -36,6 +37,7 @@ public class KeretaPage {
                     menuTambah();
                     break;
                 case 2:
+                    ScreenUtility.ClearScreen();
                     showMenuTampil();
                     break;
                 case 3:
@@ -123,7 +125,7 @@ public class KeretaPage {
         // AT_Row rowTitle =  at.addRow(null, null, null, null, null, "Data Lengkap Kereta Api");
         // rowTitle.setTextAlignment(TextAlignment.CENTER);
         // at.addRule();
-        AT_Row row =  at.addRow("No", "Kode Kereta", "Nama Kereta", "Gerbong", "Binis", "Premium");
+        AT_Row row =  at.addRow("NO", "KODE KERETA", "NAMA KERETA", "GERBONG", "BISNIS", "PREMIUM");
         row.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
 

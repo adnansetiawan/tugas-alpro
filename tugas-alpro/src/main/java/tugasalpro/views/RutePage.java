@@ -16,6 +16,8 @@ import tugasalpro.managers.WaktuRuteManager;
 import tugasalpro.models.JalurRute;
 import tugasalpro.models.KeretaRute;
 import tugasalpro.models.Rute;
+import tugasalpro.utilities.ScreenUtility;
+import tugasalpro.utilities.StringUtility;
 
 
 public class RutePage {
@@ -98,9 +100,10 @@ public class RutePage {
     }
 
   public  void menuTampil() {
+        ScreenUtility.ClearScreen();
         AsciiTable at = new AsciiTable();
         at.addRule();
-        AT_Row row =  at.addRow("No","Keberangkatan","Tujuan","Kode_Rute","Bisnis","Premium");
+        AT_Row row =  at.addRow("NO","KEBERANGKATAN","TUJUAN","KODE RUTE","BISNIS","PREMIUM");
         row.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
         List<Rute> listRute = ruteManager.GetAll();
@@ -110,8 +113,8 @@ public class RutePage {
             at.addRow(i,rute.getKotaAsal().getNamaKota(),
                 rute.getKotaTujuan().getNamaKota(),
                 rute.getKodeRute(),
-                rute.getHargaBisnis(),
-                rute.getHargaPremium());
+                StringUtility.getCurrencyFormat(rute.getHargaBisnis()),
+                StringUtility.getCurrencyFormat(rute.getHargaPremium()));
             at.addRule();
         }
         CWC_LongestLine cwc = new CWC_LongestLine();

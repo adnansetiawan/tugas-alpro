@@ -86,18 +86,22 @@ public class MenuPage{
                     waktuPage.generate();
                     break;
                 case 4:
+                    ScreenUtility.ClearScreen();
                     RutePage rutePage = new RutePage();
                     rutePage.showMenu();
                     break;
                 case 5:
+                    ScreenUtility.ClearScreen();
                     StasiunPage stasiunPage = new StasiunPage();
                     stasiunPage.showMenu();
                     break;
                 case 6:
+                    ScreenUtility.ClearScreen();
                     JalurRutePage jalurRutePage = new JalurRutePage();
                     jalurRutePage.showMenu();
                     break;
                 case 7:
+                    ScreenUtility.ClearScreen();
                     KeretaPage keretaPage = new KeretaPage();
                     keretaPage.showMenu();
                     break;

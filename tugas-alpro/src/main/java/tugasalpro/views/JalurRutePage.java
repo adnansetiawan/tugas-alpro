@@ -9,6 +9,7 @@ import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.managers.*;
 import tugasalpro.models.*;
+import tugasalpro.utilities.ScreenUtility;
 
 public class JalurRutePage{
     private JalurRuteManager jalurRuteManager;
@@ -44,6 +45,7 @@ public class JalurRutePage{
                     menuHapus();
                     break;
                 case 99:
+                    ScreenUtility.ClearScreen();
                     MenuPage menuPage = new MenuPage();
                     menuPage.showMenuAdmin();
                     break;
@@ -136,6 +138,7 @@ public class JalurRutePage{
     }
 
     public void menuTampil(){
+        ScreenUtility.ClearScreen();
         System.out.println("#LIHAT JALUR STASIUN BERDASARKAN RUTE#");
         System.out.println("-------------------------------------------------------");
         AsciiTable at=new AsciiTable();
