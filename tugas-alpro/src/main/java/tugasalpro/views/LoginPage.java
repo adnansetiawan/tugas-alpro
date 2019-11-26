@@ -34,7 +34,10 @@ public class LoginPage {
             System.out.print("password :");
             password = scanner.nextLine();
             loginManager.Login(username, password);
-            
+            if(!loginManager.HasLogin()){
+                System.out.println("Username dan/atau password yang Anda masukkan salah.");
+                System.out.println("Masukkan username dan password yang benar.");
+            }
         }while(!loginManager.HasLogin());
         if(loginManager.HasLogin())
         {

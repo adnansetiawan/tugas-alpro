@@ -125,7 +125,6 @@ public class JalurRutePage{
                             jalurStasiun.setStasiunTujuan(stasiunManager.getByNamaStasiun(namaStasiunTujuan));
                             jalurStasiun.setDurasi(durasiJalurStasiun);
                             jalurRute.addJalurStasiun(jalurStasiun);
-                            System.out.println(jalurRute.printJalurStasiun());
                             i++;
                         }
                     }
