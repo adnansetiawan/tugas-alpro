@@ -88,14 +88,13 @@ public class BookingPage
         ScreenUtility.ClearScreen();
         JadwalPage jadwalPage = new JadwalPage();
         jadwalPage.menuTampil();
-        System.out.println();
         boolean jadwalIsValid = false;
         Jadwal jadwal = null;
         do
         {
         System.out.print("Kode Jadwal :");
         String kodeJadwal = scanner.nextLine();
-        if(kodeJadwal.trim()=="99")
+        if(kodeJadwal.trim().equals("99"))
         {
             MenuPage menuPage = new MenuPage();
             menuPage.showMenuPengguna();
