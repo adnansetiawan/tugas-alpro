@@ -1,0 +1,1826 @@
+[
+  {
+    "kodeJadwal": "JW2",
+    "tanggalJadwal": "Nov 19, 2019, 9:30:54 PM",
+    "waktuBerangkat": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "waktuTiba": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "kotaKeberangkatan": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "kereta": {
+      "id": "f9405ad6-2609-410c-9e08-18ec17adcf15",
+      "kodeKereta": "KAI1982",
+      "namaKereta": "HARINA",
+      "jmlGerbong": 10,
+      "jmlGBisnis": 6,
+      "jmlGPremium": 4
+    },
+    "kursi": [
+      {
+        "kodeKursi": "B1-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B5-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 5
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B6-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 6
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-1",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-2",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-3",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-4",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-5",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-6",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-7",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-8",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-9",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-10",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-11",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-12",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-13",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-14",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-15",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-16",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-17",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-18",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-19",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-20",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-1",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-2",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-3",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-4",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-5",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-6",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-7",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-8",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-9",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-10",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-11",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-12",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-13",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-14",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-15",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-16",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-17",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-18",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-19",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-20",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-1",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-2",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-3",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-4",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-5",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-6",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-7",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-8",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-9",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-10",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-11",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-12",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-13",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-14",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-15",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-16",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-17",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-18",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-19",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P3-20",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-1",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-2",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-3",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-4",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-5",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-6",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-7",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-8",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-9",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-10",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-11",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-12",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-13",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-14",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-15",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-16",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-17",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-18",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-19",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P4-20",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 4
+        },
+        "isAvailable": true
+      }
+    ]
+  },
+  {
+    "kodeJadwal": "JW1",
+    "tanggalJadwal": "Nov 19, 2019, 9:30:54 PM",
+    "waktuBerangkat": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "waktuTiba": {
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
+    },
+    "kotaKeberangkatan": {
+      "id": "685fba78-f97e-44f6-bce3-e0113f86884f",
+      "kodeKota": "JKT",
+      "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "id": "46853fd6-0865-448e-aa4a-860d8a01f74a",
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
+    },
+    "kereta": {
+      "id": "6b6518db-d5e8-4dfa-a79e-adf83365507b",
+      "kodeKereta": "KAI19081",
+      "namaKereta": "ARGO MERAPI",
+      "jmlGerbong": 6,
+      "jmlGBisnis": 4,
+      "jmlGPremium": 2
+    },
+    "kursi": [
+      {
+        "kodeKursi": "B1-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": false
+      },
+      {
+        "kodeKursi": "B1-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": false
+      },
+      {
+        "kodeKursi": "B1-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B1-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B2-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B3-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 3
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-1",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-2",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-3",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-4",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-5",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-6",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-7",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-8",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-9",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "B4-10",
+        "gerbong": {
+          "kategori": "Bisnis",
+          "nomor": 4
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-1",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-2",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-3",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-4",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-5",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-6",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-7",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-8",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-9",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-10",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-11",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-12",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-13",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-14",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-15",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-16",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-17",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-18",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-19",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P1-20",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 1
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-1",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": false
+      },
+      {
+        "kodeKursi": "P2-2",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": false
+      },
+      {
+        "kodeKursi": "P2-3",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": false
+      },
+      {
+        "kodeKursi": "P2-4",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": false
+      },
+      {
+        "kodeKursi": "P2-5",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-6",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-7",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-8",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-9",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-10",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-11",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-12",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-13",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-14",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-15",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-16",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-17",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-18",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-19",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      },
+      {
+        "kodeKursi": "P2-20",
+        "gerbong": {
+          "kategori": "Premium",
+          "nomor": 2
+        },
+        "isAvailable": true
+      }
+    ]
+  }
+]

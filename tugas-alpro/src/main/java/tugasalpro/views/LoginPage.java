@@ -7,12 +7,12 @@ import tugasalpro.managers.*;
 
 public class LoginPage {
     private LoginManager loginManager;
-    private UserMenuPage userMenuPage;
+    private MenuPage menuPage;
     Scanner scanner;
 
     public LoginPage() {
         loginManager = new LoginManager();
-        userMenuPage = new UserMenuPage();
+        menuPage = new MenuPage();
 
     }
     public void Logout()
@@ -43,11 +43,11 @@ public class LoginPage {
         {
             if(ApplicationSession.getLoggedUser().isAdmin())
             {
-                userMenuPage.ShowMenuAdmin();
+                menuPage.showMenuAdmin();
         
             }else
             {
-                userMenuPage.ShowMenuPengguna();
+                menuPage.showMenuPengguna();
             }
         }
     }
@@ -63,7 +63,7 @@ public class LoginPage {
             System.out.println("1. Login");
             System.out.println("2. Registrasi");
             System.out.println("0. Keluar");
-            System.out.print("Pilihan :");
+            System.out.print("Pilihan : ");
             pilihan = scanner.nextInt();
         }while(pilihan < 0 || pilihan > 2) ;
         switch(pilihan)
@@ -75,8 +75,8 @@ public class LoginPage {
                 showLogin();
                 break;
             case 2:
-                ProfilePenggunaPage registrasiPenggunaPage = new ProfilePenggunaPage();
-                registrasiPenggunaPage.Registrasi();
+                UserPage userPage = new UserPage();
+                userPage.registrasi();
                 break;
         }
     }

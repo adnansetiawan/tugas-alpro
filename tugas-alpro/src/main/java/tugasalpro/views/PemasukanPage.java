@@ -46,8 +46,8 @@ public class PemasukanPage {
                     laporanTahunan();
                     break;
                 case 99:
-                    UserMenuPage menu=new UserMenuPage();
-                    menu.ShowMenuAdmin();
+                    MenuPage menuPage = new MenuPage();
+                    menuPage.showMenuAdmin();
                     break;
             }
         }while(pilihan != 99);
