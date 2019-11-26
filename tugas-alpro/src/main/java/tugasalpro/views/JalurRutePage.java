@@ -90,7 +90,7 @@ public class JalurRutePage{
         if(!kodeRute.equals("99")){
             flagIterate=true;
             System.out.println("Stasiun Awal Sampai Stasiun Akhir\n----------------------------------------");
-            JalurStasiun jalurStasiun = new JalurStasiun();
+            JalurStasiun jalurStasiun;
             String namaStasiunAsal=null;
             String namaStasiunTujuan=null;
             int i = 1, durasiJalurStasiun=0;
@@ -120,6 +120,7 @@ public class JalurRutePage{
                             System.out.println("Durasi harus lebih dari 0 menit.");
                             System.out.println("Mohon ulangi masukan dengan durasi perjalanan dengan benar.");
                         }else{
+                            jalurStasiun=new JalurStasiun();
                             jalurStasiun.setStasiunAsal(stasiunManager.getByNamaStasiun(namaStasiunAsal));
                             jalurStasiun.setStasiunTujuan(stasiunManager.getByNamaStasiun(namaStasiunTujuan));
                             jalurStasiun.setDurasi(durasiJalurStasiun);
