@@ -1,7 +1,5 @@
 package tugasalpro.managers;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import tugasalpro.*;
@@ -44,7 +42,7 @@ public class KotaManager {
         return null;
 
     }
-    private int findById(String id)
+    private int findByKode(String kode)
     {
         List<Kota> listKota = repository.getAll();
         int indexFound = -1;
@@ -52,7 +50,7 @@ public class KotaManager {
         {
             Kota kta = listKota.get(i);
             
-            if(kta.getId().equals(id))
+            if(kta.getKodeKota().equals(kode))
             {
                 indexFound = i;
                 break;
@@ -60,9 +58,9 @@ public class KotaManager {
         }
         return indexFound;
     }
-    public void edit(Kota kota)
+    public void edit(Kota kota, String oldKodeKota)
     {
-        int indexFound = findById(kota.getId());   
+        int indexFound = findByKode(oldKodeKota);   
         if (indexFound != -1) {
         try {
             

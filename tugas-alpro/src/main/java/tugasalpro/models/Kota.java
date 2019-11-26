@@ -1,9 +1,7 @@
 package tugasalpro.models;
 
-import java.util.UUID;
 
 public class Kota {
-    private String id;
     private String kodeKota;
     private String namaKota;
 
@@ -11,10 +9,10 @@ public class Kota {
     public Kota() {
     }
 
-    public Kota(String id, String kodeKota, String namaKota) {
+    public Kota(String kodeKota, String namaKota) {
         this.kodeKota = kodeKota;
         this.namaKota = namaKota;
-        this.id = id;
+       
         
     }
 
@@ -33,9 +31,7 @@ public class Kota {
     public void setNamaKota(String namaKota) {
         this.namaKota = namaKota;
     }
-    public String getId() {
-        return this.id;
-    }
+    
 
     
     

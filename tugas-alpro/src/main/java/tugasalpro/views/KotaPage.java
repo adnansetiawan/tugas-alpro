@@ -22,11 +22,18 @@ public class KotaPage {
         keyb = new Scanner(System.in);
 
     }
-
+    private void showKeluar()
+    {
+        System.out.println("99. Keluar");
+        int pilihan = scanner.nextInt();
+        if(pilihan == 99)
+        {
+            showMenu();
+        }      
+    }
     public void showMenu() {
         ScreenUtility.ClearScreen();
         int pilihan = 0;
-        do {
             System.out.println("#Menu Kota#");
             System.out.println("1. Tambah Kota");
             System.out.println("2. Ubah Kota");
@@ -35,21 +42,35 @@ public class KotaPage {
             System.out.println("99. Keluar");
             System.out.print("Pilihan : ");
             pilihan = scanner.nextInt();
-            if (pilihan == 1) {
+            switch (pilihan) {
+            case 1:
+                ScreenUtility.ClearScreen();
                 menuTambah();
-            } else if (pilihan == 2) {
+                break;
+            case 2:
+                ScreenUtility.ClearScreen();
                 menuUbah();
-            } else if (pilihan == 3) {
+                break;
+            case 3:
+                ScreenUtility.ClearScreen();
                 menuTampil();
-            } else if (pilihan == 4) {
+                break;
+            case 4:
+                ScreenUtility.ClearScreen();
                 menuHapus();
+                break;
+            case 99:
+                ScreenUtility.ClearScreen();
+                MenuPage menuPage = new MenuPage();
+                menuPage.showMenuAdmin();
+                break;
+
             }
 
-        } while (pilihan != 99);
+        
     }
 
     private void menuTambah() {
-        ScreenUtility.ClearScreen();
         Kota kota = new Kota();
         System.out.print("Tambah Kota : ");
         kota.setKodeKota(scanner.next());
@@ -75,15 +96,20 @@ public class KotaPage {
                 else
                 {
                     kotaManager.add(kota);
+                    menuTampil();
                 }
             }
 
         }
+       
         
     }
-
-   private void menuTampil()  {
-       ScreenUtility.ClearScreen();
+    private void menuTampil()
+    {
+        showListKota();
+        showKeluar();
+    }
+   private void showListKota()  {
         AsciiTable at = new AsciiTable();
         at.addRule();
         AT_Row row =  at.addRow("N0", "KODE KOTA", "NAMA KOTA");
@@ -100,12 +126,12 @@ public class KotaPage {
         cwc.add(4, 0).add(20, 0).add(50, 0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
-      
+       
       
     }
 
    private void menuUbah() {
-        menuTampil();
+        showListKota();
         String kodeKota = null;
         Kota kotaByKode, kotaByNama, kota;
         Rute listRute;
@@ -168,9 +194,9 @@ public class KotaPage {
                             }
                             if (status==0)
                             {
-                                kotaManager.delete(kotaManager.GetByKodeKota(kodeKota));
-                                kotaManager.add(kota);
+                                kotaManager.edit(kota, kodeKotaLama);
                                 System.out.println("Ubah kode kota "+kodeKotaLama+" ("+namaKotaLama+") menjadi kode kota "+kota.getKodeKota()+" ("+kota.getNamaKota()+") berhasil.");
+                                menuTampil();
                             }
                         }
                         else
@@ -185,39 +211,21 @@ public class KotaPage {
                 System.out.println("Kode Kota "+kodeKota+" tidak ditemukan.");
             }
         }
+      
 
-        /* Non aktif script lama
-        Kota kota = null;
-        boolean flagIterate = true;
-        do {
-            System.out.print("Edit Kota : ");
-            kodeKota = scanner.next();
-            if (kodeKota=="99") {
-                flagIterate = false;
-            } else {
-                kodeKota = kodeKota.substring(5);
-                kota = kotaManager.GetByKodeKota(kodeKota);
-                if (kota!=null) {
-                    kotaManager.delete(kota);
-                    flagIterate = false;
-                }
-            }
-        } while (flagIterate);
-        kota = new Kota();
-        System.out.print("Kode Kota : ");
-        kota.setKodeKota(scanner.next());
-        System.out.print("Nama Kota : ");
-        kota.setNamaKota(scanner.next());
-        kotaManager.add(kota);
-        */        
+      
     }
 
    private void menuHapus() {
-        menuTampil();
+        showListKota();
         String kodeKota = null;
         Kota kotaByKode; 
         Rute listRute;
+        boolean loop=true;
+        do
+        {
         System.out.print("Kode Kota yang akan dihapus : ");
+        keyb =new Scanner(System.in);
         kodeKota = keyb.nextLine();
         if (kodeKota.compareTo("99")==0)
         {
@@ -247,36 +255,27 @@ public class KotaPage {
                         String yaTidak;
                         System.out.print("Apakah Anda yakin akan menghapus Kode Kota "+kodeKota+" (Y/N) ? ");
                         yaTidak = keyb.nextLine();
-                        if (yaTidak.compareTo("Y")==0)
+                        if (yaTidak.toLowerCase().compareTo("y")==0)
                         {
                             kotaManager.delete(kotaByKode);
                             System.out.println("Kode Kota "+kodeKota+" berhasil dihapus.");
+                            menuTampil();
+                        }else
+                        {
+                            ScreenUtility.ClearScreen();
+                            showMenu();
                         }
                     }
                 }
             }
             else
             {
+                loop = true;
                 System.out.println("Kode Kota "+kodeKota+" tidak ditemukan.");
             }
         }
-        /* Non aktifkan script lama
-        Kota delKota = null;
-        boolean flagIterate = true;
-        do {
-            System.out.print("Hapus Kota : ");
-            kodeKota = scanner.next();
-            if (kodeKota=="99") {
-                flagIterate = false;
-            } else {
-                kodeKota = kodeKota.substring(7);
-                delKota = kotaManager.GetByKodeKota(kodeKota);
-                if (delKota!=null) {
-                    kotaManager.delete(delKota);
-                    flagIterate = false;
-                }
-            }
-        } while (flagIterate);
-        */
+    }while(loop);
+        
+       
     }
 }
