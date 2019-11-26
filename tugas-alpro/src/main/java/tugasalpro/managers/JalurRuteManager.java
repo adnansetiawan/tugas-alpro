@@ -56,4 +56,16 @@ public class JalurRuteManager{
            
         }
     }
+
+    //Penambahan pencarian kode-rute
+    public JalurRute getByKodeRute(String kodeRute){
+        List<JalurRute> listJalurRute=repository.getAll();
+        Optional<JalurRute> selectedJalurRute = listJalurRute.stream().filter(x->x.getRuteJalur().getKodeRute().equals(kodeRute)).findFirst();
+        if(selectedJalurRute.isPresent()){
+            return selectedJalurRute.get();
+        }else{
+            return null;
+        }
+    }
+
 }

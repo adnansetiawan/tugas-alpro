@@ -102,4 +102,18 @@ public class KeretaRuteManager {
       
     }
 
+    //Penambahan getbyKodeRute
+    public KeretaRute getByKodeRute(String kodeRute)
+    {
+        List<KeretaRute> listKeretaRute = repository.getAll();
+        Optional<KeretaRute> selectedKeretaRute = listKeretaRute .stream().filter(x->x.getRuteKereta().getKodeRute().equals(kodeRute)).findFirst();
+        if (selectedKeretaRute.isPresent())
+        {
+            return selectedKeretaRute.get();
+        } else {
+            return null;
+        }
+        
+    }
+
 }
