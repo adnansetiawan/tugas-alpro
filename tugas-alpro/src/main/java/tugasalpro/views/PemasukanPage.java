@@ -11,6 +11,7 @@ import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.models.Pembayaran;
 import tugasalpro.utilities.StringUtility;
+import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.managers.PemasukanManager;
 import tugasalpro.managers.PembayaranManager;
 
@@ -54,12 +55,13 @@ public class PemasukanPage {
     }
 
     public void laporanHarian() {
+        ScreenUtility.ClearScreen();
         AsciiTable at = new AsciiTable();
         System.out.println("#LAPORAN HARIAN PEMASUKAN");
         System.out.print("Masukkan Tanggal Pencarian : ");
         String tanggal = scanner.next();
 
-        SimpleDateFormat formatTanggal=new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatTanggal = new SimpleDateFormat("dd-MM-yyyy");
         Date tglInput = null;
         try{
             tglInput = formatTanggal.parse(tanggal);
@@ -80,7 +82,7 @@ public class PemasukanPage {
         double totalPemasukanHarian = 0;
 
         for(Pembayaran pembayaran : listPembayaran){
-            if(formatTanggal.format(pembayaran.getTanggalPembayaran()).compareTo(formatTanggal.format(tglInput))==0){
+            if(formatTanggal.format(pembayaran.getTanggalPembayaran()).compareTo(formatTanggal.format(tglInput)) == 0){
                 i++;
                 AT_Row contRow = at.addRow(i, formatTanggal.format(pembayaran.getTanggalPembayaran()), pembayaran.getKodeKereta(), StringUtility.getCurrencyFormat(pembayaran.getTotalPembayaran()));
                 at.addRule();
@@ -88,20 +90,21 @@ public class PemasukanPage {
                 contRow.getCells().get(1).getContext().setTextAlignment(TextAlignment.CENTER);
                 contRow.getCells().get(2).getContext().setTextAlignment(TextAlignment.CENTER);
                 contRow.getCells().get(3).getContext().setTextAlignment(TextAlignment.JUSTIFIED_RIGHT);
-
+                
                 totalPemasukanHarian += pembayaran.getTotalPembayaran();
             }
-            CWC_LongestLine cwc = new CWC_LongestLine();
-            cwc.add(4, 0).add(20, 0).add(20, 0).add(30, 0);
-            at.getRenderer().setCWC(cwc);
-            System.out.println(at.render());
         }
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(4, 0).add(20, 0).add(20, 0).add(30, 0);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
 
         System.out.println("Total Masukan Harian : " + StringUtility.getCurrencyFormat(totalPemasukanHarian));
         System.out.println("----------------------------------------");
     }
 
     public void laporanBulanan() {
+        ScreenUtility.ClearScreen();
         AsciiTable at = new AsciiTable();
         System.out.println("#LAPORAN BULANAN PEMASUKAN");
         System.out.print("Masukkan Bulan Pencarian : ");
@@ -159,6 +162,7 @@ public class PemasukanPage {
     }
 
     public void laporanTahunan(){
+        ScreenUtility.ClearScreen();
         AsciiTable at = new AsciiTable();
         System.out.println("#LAPORAN TAHUNAN PEMASUKAN");
         System.out.print("Masukkan Tahun Pencarian : ");
