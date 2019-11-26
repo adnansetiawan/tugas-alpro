@@ -212,10 +212,12 @@ public class BookingPage
         switch(pilihan)
         {
             case 1:
+                ScreenUtility.ClearScreen();
                 PembayaranPage pembayaranPage = new PembayaranPage();
                 pembayaranPage.showInputWithBooking(booking);
                 break;
             case 99 :
+                ScreenUtility.ClearScreen();
                 MenuPage menuPage = new MenuPage();
                 menuPage.showMenuPengguna();
                 break;

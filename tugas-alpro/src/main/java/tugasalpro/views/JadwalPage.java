@@ -217,7 +217,8 @@ public class JadwalPage {
         kotaTujuan = scanner.next();
         System.out.print("Tanggal : ");
         try {
-            tanggal = new SimpleDateFormat("dd-MM-yyyy").parse(scanner.next());
+            String tglStr = scanner.next();
+            tanggal = new SimpleDateFormat("dd-MM-yyyy").parse(tglStr);
         } catch (ParseException e) {
             e.printStackTrace();
         }
