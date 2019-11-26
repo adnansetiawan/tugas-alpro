@@ -12,6 +12,7 @@ import tugasalpro.*;
 public class UserManager {
 
     private Repository<User> repository;
+    public String userNameLama;
     public UserManager()
     {
         repository = new Repository<User>("Users", User[].class);
