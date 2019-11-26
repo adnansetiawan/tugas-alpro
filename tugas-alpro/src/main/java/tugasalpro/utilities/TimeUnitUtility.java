@@ -25,4 +25,13 @@ public class TimeUnitUtility {
             TimeUnit.MILLISECONDS.toMinutes(miliSeconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(miliSeconds)));
  }
 
+ public long HHMMtoMilis(String jam) {
+    final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+    String hour = jam.substring(0,2);
+    System.out.println(hour);
+    String minute = jam.substring(3,5);
+    System.out.println(minute);
+    return Integer.valueOf(hour)*60*ONE_MINUTE_IN_MILLIS+Integer.valueOf(minute)*ONE_MINUTE_IN_MILLIS;
+ }
+
 }
