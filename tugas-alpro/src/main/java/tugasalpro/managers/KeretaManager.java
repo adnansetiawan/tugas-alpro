@@ -79,13 +79,16 @@ public class KeretaManager {
         return index;
     }
 
-    public void edit(Kereta kereta) {
-        try{
-            int indexFound = getIndexById(kereta.getId());
-            repository.edit(kereta, indexFound);
-        }
-        catch(Exception e) {
-            System.out.println(e.getMessage());
+    public void edit(Kereta kereta, String oldKodeKereta) {
+        int indexFound = getIndexByKodeKereta(oldKodeKereta);
+        if(indexFound != -1){
+            try{
+            
+                repository.edit(kereta, indexFound);
+            }
+            catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

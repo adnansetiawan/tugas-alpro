@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import tugasalpro.Repository;
 import tugasalpro.models.KeretaRute;
+import tugasalpro.models.Kereta;
 
 public class KeretaRuteManager {
     private Repository<KeretaRute> repository;
@@ -114,6 +115,20 @@ public class KeretaRuteManager {
             return null;
         }
         
+    }
+
+    public int getIndexByKodeKereta(String kodeKereta){
+        List<KeretaRute> listKeretaRute = repository.getAll();
+        int index = -1;
+        for(int i=0; i<listKeretaRute.size(); i++) {
+            for(Kereta kereta: listKeretaRute.get(i).getKeretaTersedia())
+            {
+                if(kereta.getKodeKereta().equals(kodeKereta)){
+                    return i;
+                }
+            }            
+        }
+        return index;
     }
 
 }
