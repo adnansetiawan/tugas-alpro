@@ -2,16 +2,19 @@ package tugasalpro.views;
 
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-import tugasalpro.models.Pembayaran;
 import tugasalpro.utilities.StringUtility;
 import tugasalpro.utilities.ScreenUtility;
+import tugasalpro.models.Pembayaran;
 import tugasalpro.managers.PemasukanManager;
 import tugasalpro.managers.PembayaranManager;
 
@@ -74,23 +77,40 @@ public class PemasukanPage {
             at.addRule();
 
             List<Pembayaran> listPembayaran = pembayaranManager.getAll();
+            HashMap<String,Pembayaran> listCetak = new HashMap<>();
 
             int i = 0;
             double totalPemasukanHarian = 0;
-
+            
+            //isi objek pembayaran di tanggal ke hashmap
             for(Pembayaran pembayaran : listPembayaran){
                 if(formatTanggal.format(pembayaran.getTanggalPembayaran()).compareTo(formatTanggal.format(tglInput)) == 0){
+
+                    //cek apakah kode kereta udah ada di hash
+                    //kalau ada, tambah total pembayaran yg baru ke total pembayaran di kode kereta yg sudah ada 
+                    if(listCetak.containsKey(pembayaran.getKodeKereta())){
+                        listCetak.get(pembayaran.getKodeKereta()).setTotalPembayaran(listCetak.get(pembayaran.getKodeKereta()).getTotalPembayaran()+pembayaran.getTotalPembayaran());
+                    }
+                    //kalau belum, tambah object pembayaran utk kode KAI ini ke hash
+                    else{
+                        listCetak.put(pembayaran.getKodeKereta(), pembayaran);
+                    }
+                }
+            }
+
+            //print isi hash listCetak
+            for (Map.Entry<String, Pembayaran> entry : listCetak.entrySet()) {
                     i++;
-                    AT_Row contRow = at.addRow(i, formatTanggal.format(pembayaran.getTanggalPembayaran()), pembayaran.getKodeKereta(), StringUtility.getCurrencyFormat(pembayaran.getTotalPembayaran()));
+                    AT_Row contRow = at.addRow(i, formatTanggal.format(entry.getValue().getTanggalPembayaran()), entry.getValue().getKodeKereta(), StringUtility.getCurrencyFormat(entry.getValue().getTotalPembayaran()));
                     at.addRule();
                     contRow.getCells().get(0).getContext().setTextAlignment(TextAlignment.CENTER);
                     contRow.getCells().get(1).getContext().setTextAlignment(TextAlignment.CENTER);
                     contRow.getCells().get(2).getContext().setTextAlignment(TextAlignment.CENTER);
                     contRow.getCells().get(3).getContext().setTextAlignment(TextAlignment.JUSTIFIED_RIGHT);
                     
-                    totalPemasukanHarian += pembayaran.getTotalPembayaran();
-                }
+                    totalPemasukanHarian += entry.getValue().getTotalPembayaran();
             }
+
             CWC_LongestLine cwc = new CWC_LongestLine();
             cwc.add(4, 0).add(20, 0).add(20, 0).add(30, 0);
             at.getRenderer().setCWC(cwc);
