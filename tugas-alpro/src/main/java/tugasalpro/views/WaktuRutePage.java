@@ -64,7 +64,7 @@ public class WaktuRutePage
         WaktuRute waktuRute = new WaktuRute();
         // get last waktu rute
         int lastNumber =  0;
-        if (!waktuRuteManager.getByLast().equals(null)) {
+        if (waktuRuteManager.getByLast() != null) {
             lastNumber = Integer.parseInt(waktuRuteManager.getByLast().getKodeWaktuRute().substring(2));
         }
 
