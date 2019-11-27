@@ -32,7 +32,7 @@ public class WaktuRuteManager
         for(int i = 0; i<listWaktuRute.size(); i++)
         {
             WaktuRute wktrute = listWaktuRute.get(i);
-            if(wktrute.getKodeWaktuRute().equals(waktuRute.getKodeWaktuRute()))
+            if(wktrute.getKodeWaktuRute()==(waktuRute.getKodeWaktuRute()))
             {
                 try {
                     listWaktuRute.remove(i);

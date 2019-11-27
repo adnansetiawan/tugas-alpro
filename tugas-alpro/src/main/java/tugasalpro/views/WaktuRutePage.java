@@ -1,6 +1,7 @@
 package tugasalpro.views;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 import de.vandermeer.asciitable.AT_Row;
@@ -87,8 +88,12 @@ public class WaktuRutePage
                         System.out.println("Format masukan harus benar");
                     }
                     if (waktu!=null) {
-                        listWaktu.add(waktu);
-                        no++;
+                        if (!(checkWaktuIsExist(listWaktu,waktu))) {
+                            listWaktu.add(waktu);
+                            no++;
+                        } else {
+                            System.out.println("Waktu telah ada");
+                        }
                     } else if (waktu==null && kodeWaktu.equals("99")) {
                         flagIterate = false;
                     }
@@ -102,11 +107,6 @@ public class WaktuRutePage
         } catch (Exception e) {
             System.out.println("format input salah");
         }
-            
-        
-        
-
-        //new WaktuRuteManager().tambahRute();
     }
 
     private void showAll() {
@@ -115,9 +115,6 @@ public class WaktuRutePage
         
         System.out.println("#LIHAT WAKTU SEMUA#");
         System.out.print("Kode Rute : ");
-      
-        
-
         System.out.println();
         System.out.println("Waktu Available Untuk Rute");
         AsciiTable at = new AsciiTable();
@@ -224,5 +221,14 @@ public class WaktuRutePage
         waktuRute = waktuRuteManager.getByKodeWaktuRute(kodeWaktuRute);
         waktuRuteManager.delete(waktuRute);
         //new WaktuRuteManager().hapusRute();
+    }
+
+    private boolean checkWaktuIsExist(ArrayList<Waktu> listWaktu, Waktu waktu) {
+        Optional<Waktu> waktuCheck = listWaktu.stream().filter(x->x.getKodeWaktu().equals(waktu.getKodeWaktu())).findFirst();
+        if(waktuCheck.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
