@@ -9,16 +9,18 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.utilities.ScreenUtility;
 
 import tugasalpro.managers.KeretaManager;
+import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.models.Kereta;
-import tugasalpro.utilities.ScreenUtility;
 
 
 public class KeretaPage {
     private final KeretaManager keretaManager;
+    private final KeretaRuteManager keretaRuteManager;
     Scanner scanner;
 
     public KeretaPage() {
         keretaManager = new KeretaManager();
+        keretaRuteManager = new KeretaRuteManager();
         scanner = new Scanner(System.in);
     }
 
@@ -119,7 +121,8 @@ public class KeretaPage {
                     }
                 }
                 catch(Exception ex) {
-                    System.out.println("Masukan tidak sesuai format: KodeKAI 'NamaKereta' G6 B4 P2 \n Mohon coba lagi dengan format yang sesuai, atau “99” untuk membatalkan penambahan kereta.");
+                    System.out.println("Masukan tidak sesuai format: KodeKAI 'NamaKereta' G6 B4 P2");
+                    System.out.println("Mohon coba lagi dengan format yang sesuai, atau “99” untuk membatalkan penambahan kereta.");
                     flagIterate = true;
                 }
             }
@@ -170,20 +173,26 @@ public class KeretaPage {
         System.out.println("#UBAH DATA KERETA API#");
         menuTampil();
         String kodeKereta = null;
-        Kereta kereta = null;
+        Kereta oldKereta = null;
         Kereta newKereta = null;
         boolean flagIterate = true;
 
         String namaKereta;
         int jmlGerbong, jmlGBisnis, jmlGPremium;
         do {
-            System.out.print("Edit Kereta Api : ");
+            System.out.print("Ubah Data Kereta Api : ");
             kodeKereta = scanner.next();
 
-            if(!kodeKereta.equals("99")) {
+            if(!kodeKereta.equals("99")) 
+            {
+                oldKereta = keretaManager.getByKodeKereta(kodeKereta);
+                if(oldKereta!=null){
                     
-                    kereta = keretaManager.getByKodeKereta(kodeKereta);
-                    if(kereta!=null){
+                    if(keretaRuteManager.getIndexByKodeKereta(oldKereta.getKodeKereta())!=-1){
+                        System.out.println("Kode kereta "+oldKereta.getKodeKereta()+" sudah digunakan di Data Kereta Rute, tidak boleh diubah.");
+                        flagIterate = true;
+                    }
+                    else{
                         scanner.nextLine();
                         newKereta = new Kereta();
                         System.out.print("Kode Kereta : ");
@@ -197,15 +206,54 @@ public class KeretaPage {
                         jmlGBisnis = scanner.nextInt();
                         System.out.print("Jumlah Gerbong Premium: ");
                         jmlGPremium = scanner.nextInt();
-
-                        if(keretaManager.getIndexByKodeKereta(kodeKereta)!=-1){
-                            System.out.println("Kereta dengan kode kereta "+kodeKereta+" sudah ada.");
-                            System.out.println("Mohon masukkan kode kereta yang berbeda, atau “99” untuk membatalkan pengubahan kereta.");
+                    
+                        //cek 99
+                        if(kodeKereta.compareTo("99")==0 || namaKereta.compareTo("99")==0){
+                            System.out.println("Pengubahan dibatalkan");
+                            flagIterate = false;
                         }
-                        else{
+                        
+                        //kalau kodeKereta dan namaKereta diubah
+                        else if(oldKereta.getKodeKereta().compareTo(kodeKereta)!=0 && oldKereta.getNamaKereta().compareTo(namaKereta)!=0){
+
+                            if(keretaManager.getIndexByKodeKereta(kodeKereta)!=-1){
+                                System.out.println("Kereta dengan kode kereta "+kodeKereta+" sudah ada.");
+                                System.out.println("Mohon masukkan kode kereta yang berbeda, atau “99” untuk membatalkan pengubahan kereta.");
+                                flagIterate = true;
+                            }
+                            else{
+                                if(keretaManager.getIndexByNamaKereta(namaKereta)!=-1){
+                                    System.out.println("Kereta dengan nama kereta "+namaKereta+" sudah ada.");
+                                    System.out.println("Mohon masukkan nama kereta yang berbeda, atau “99” untuk membatalkan pengubahan kereta.");
+                                    flagIterate = true;
+                                }
+                                else{
+                                    if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
+                                        newKereta.setKodeKereta(kodeKereta);
+                                        newKereta.setNamaKereta(namaKereta);
+                                        newKereta.jmlGerbong(jmlGerbong);
+                                        newKereta.jmlGBisnis(jmlGBisnis);
+                                        newKereta.jmlGPremium(jmlGPremium);
+                                        
+                                        keretaManager.edit(newKereta,oldKereta.getKodeKereta());
+                                          
+                                        System.out.println("Kereta Api Berhasil Diubah");
+                                        flagIterate = false;
+                                    }
+                                    else{
+                                        System.out.println("Jumlah Gerbong Tidak Sesuai");  
+                                        flagIterate = true;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //kalau namaKereta saja yg diubah
+                        else if(oldKereta.getKodeKereta().compareTo(kodeKereta)==0 && oldKereta.getNamaKereta().compareTo(namaKereta)!=0){
                             if(keretaManager.getIndexByNamaKereta(namaKereta)!=-1){
                                 System.out.println("Kereta dengan nama kereta "+namaKereta+" sudah ada.");
                                 System.out.println("Mohon masukkan nama kereta yang berbeda, atau “99” untuk membatalkan pengubahan kereta.");
+                                flagIterate = true;
                             }
                             else{
                                 if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
@@ -214,31 +262,75 @@ public class KeretaPage {
                                     newKereta.jmlGerbong(jmlGerbong);
                                     newKereta.jmlGBisnis(jmlGBisnis);
                                     newKereta.jmlGPremium(jmlGPremium);
-        
-                                    keretaManager.delete(kereta);
-                                    keretaManager.add(newKereta);
-                                   
+                                    
+                                    keretaManager.edit(newKereta,oldKereta.getKodeKereta());
+                                      
                                     System.out.println("Kereta Api Berhasil Diubah");
                                     flagIterate = false;
                                 }
                                 else{
                                     System.out.println("Jumlah Gerbong Tidak Sesuai");  
-                                    flagIterate = true;                     
+                                    flagIterate = true;
                                 }
                             }
                         }
+                        //kalau kodeKereta diubah nama tidak
+                        else if(oldKereta.getKodeKereta().compareTo(kodeKereta)!=0 && oldKereta.getNamaKereta().compareTo(namaKereta)==0){
+                            if(keretaManager.getIndexByKodeKereta(kodeKereta)!=-1){
+                                System.out.println("Kereta dengan kode kereta "+kodeKereta+" sudah ada.");
+                                System.out.println("Mohon masukkan kode kereta yang berbeda, atau “99” untuk membatalkan pengubahan kereta.");
+                                flagIterate = true;
+                            }
+                            else{
+                                if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
+                                    newKereta.setKodeKereta(kodeKereta);
+                                    newKereta.setNamaKereta(namaKereta);
+                                    newKereta.jmlGerbong(jmlGerbong);
+                                    newKereta.jmlGBisnis(jmlGBisnis);
+                                    newKereta.jmlGPremium(jmlGPremium);
+                                    
+                                    keretaManager.edit(newKereta,oldKereta.getKodeKereta());
+                                      
+                                    System.out.println("Kereta Api Berhasil Diubah");
+                                    flagIterate = false;
+                                }
+                                else{
+                                    System.out.println("Jumlah Gerbong Tidak Sesuai");  
+                                    flagIterate = true;
+                                }
+                            }
+                        }
+                        else{
+                            if(jmlGerbong == (jmlGBisnis + jmlGPremium)){
+                                newKereta.setKodeKereta(kodeKereta);
+                                newKereta.setNamaKereta(namaKereta);
+                                newKereta.jmlGerbong(jmlGerbong);
+                                newKereta.jmlGBisnis(jmlGBisnis);
+                                newKereta.jmlGPremium(jmlGPremium);
+                                
+                                keretaManager.edit(newKereta,oldKereta.getKodeKereta());
+                                  
+                                System.out.println("Kereta Api Berhasil Diubah");
+                                flagIterate = false;
+                            }
+                            else{
+                                System.out.println("Jumlah Gerbong Tidak Sesuai");  
+                                flagIterate = true;
+                            }
+                        }
                     }
-                    else{
-                        System.out.println("Kereta dengan kode kereta "+kodeKereta+" tidak ada. Mohon masukkan kode kereta yang berbeda, atau “99” untuk membatalkan perubahan kereta");
-                        flagIterate = true;
-                    }
+                }
+                else{
+                    System.out.println("Kereta dengan kode kereta "+kodeKereta+" tidak ada.");
+                    System.out.println("Mohon masukkan kode kereta yang berbeda, atau “99” untuk membatalkan perubahan kereta");
+                    flagIterate = true;
+                }
             }
             else{
-                System.out.println("Pengubahan kereta dibatalkan.");
-                flagIterate = false;
+                System.out.println("Pengubahan dibatalkan");
             }
+            
         } while (flagIterate);
-
         showMenu();
     }    
 
@@ -254,6 +346,11 @@ public class KeretaPage {
             kodeKereta = scanner.next();
             if(!kodeKereta.equals("99")) {
                
+                if(keretaRuteManager.getIndexByKodeKereta(kodeKereta)!=-1){
+                    System.out.println("Kode kereta "+kodeKereta+" sudah digunakan di Data Kereta Rute, tidak boleh dihapus.");
+                    flagIterate = true;
+                }
+                else{
                     if(keretaManager.getIndexByKodeKereta(kodeKereta)==-1){
                         System.out.println("Kereta dengan kode kereta "+kodeKereta+" tidak ada.");
                         System.out.println("Mohon masukkan kode kereta yang berbeda, atau “99” untuk membatalkan penghapusan kereta.");
@@ -265,6 +362,8 @@ public class KeretaPage {
                         System.out.println("Kereta "+kodeKereta+" berhasil dihapus");
                         flagIterate = false;
                     }
+                }
+                
             }else{
                 System.out.println("Penghapusan dibatalkan.");
                 flagIterate=false;
