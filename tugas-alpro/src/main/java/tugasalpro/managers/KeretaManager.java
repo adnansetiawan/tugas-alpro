@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import tugasalpro.models.Kereta;
-import tugasalpro.*;
+import tugasalpro.Repository;;
 
 public class KeretaManager {
     private Repository<Kereta> repository;
@@ -33,6 +33,16 @@ public class KeretaManager {
         }
     }
 
+    public Kereta getByNamaKereta(String namaKereta){
+        List<Kereta> listKereta = repository.getAll();
+        Optional<Kereta> selectedKereta = listKereta.stream().filter(x->x.getNamaKereta().equals(namaKereta)).findFirst();
+        if (selectedKereta.isPresent()){
+            return selectedKereta.get();
+        }else{
+            return null;
+        }
+    }
+
     public int getIndexById(String id){
         List<Kereta> listKereta = repository.getAll();
         int index = -1;
@@ -50,6 +60,18 @@ public class KeretaManager {
         int index = -1;
         for(int i=0; i<listKereta.size(); i++) {
             if(listKereta.get(i).getKodeKereta().equals(kodeKereta)){
+                index = i;
+                break;
+            }            
+        }
+        return index;
+    }
+
+    public int getIndexByNamaKereta(String namaKereta){
+        List<Kereta> listKereta = repository.getAll();
+        int index = -1;
+        for(int i=0; i<listKereta.size(); i++){
+            if(listKereta.get(i).getNamaKereta().equals(namaKereta)){
                 index = i;
                 break;
             }            
