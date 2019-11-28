@@ -1,9 +1,13 @@
 package tugasalpro.managers;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import tugasalpro.Repository;
 import tugasalpro.models.Jadwal;
+import tugasalpro.models.Kereta;
 
 public class JadwalManager {
     private Repository<Jadwal> repository;
@@ -42,6 +46,22 @@ public class JadwalManager {
         return null;
 
     }
+
+    public List<Jadwal> getByTanggalAndKereta(Kereta kereta, String tanggal) {
+        List<Jadwal> listJadwal = repository.getAll();
+        List<Jadwal> listJadwalOut = new ArrayList<Jadwal>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+        for (int i=0; i<listJadwal.size(); i++) {
+            Jadwal jdw = listJadwal.get(i);
+            String strTanggal = dateFormat.format(jdw.getTanggalJadwal());  
+            if (strTanggal.equals(tanggal) && jdw.getKereta().getKodeKereta().equals(kereta.getKodeKereta())) {
+                listJadwalOut.add(jdw);
+            }
+        }
+        return listJadwalOut;
+
+    }
+
     public void edit(Jadwal jadwal)
     {
         List<Jadwal> listJadwal = repository.getAll();
