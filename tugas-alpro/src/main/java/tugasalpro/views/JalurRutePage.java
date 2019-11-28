@@ -7,8 +7,11 @@ import de.vandermeer.asciitable.AT_Row;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-import tugasalpro.managers.*;
-import tugasalpro.models.*;
+import tugasalpro.managers.JalurRuteManager;
+import tugasalpro.managers.RuteManager;
+import tugasalpro.managers.StasiunManager;
+import tugasalpro.models.JalurRute;
+import tugasalpro.models.JalurStasiun;
 import tugasalpro.utilities.ScreenUtility;
 
 public class JalurRutePage{
@@ -73,22 +76,27 @@ public class JalurRutePage{
                 flagIterate=false;
             }
         }while(flagIterate);
-        if(!kodeJalur.equals("99")){
-            System.out.print("Kode Rute : ");
-            kodeRute=scanner.next();
-            if(ruteManager.GetIndexByKodeRute(kodeRute)==-1){
+        flagIterate = true;
+        do {
+            //if(!kodeJalur.equals("99")){
+                System.out.print("Kode Rute : ");
+                kodeRute=scanner.next();
                 if(kodeRute.equals("99")){
                     System.out.println("Penambahan jalur rute dibatalkan.");
                     flagIterate=false;
                 }else{
-                    System.out.println("Rute dengan kode rute "+kodeRute+" tidak ada.");
-                    System.out.println("Mohon masukkan kode rute yang berbeda, atau “99” untuk membatalkan penambahan jalur rute.");
+                    if(ruteManager.GetByKodeRute(kodeRute)==null){
+                        System.out.println("Rute dengan kode rute "+kodeRute+" tidak ada.");
+                        System.out.println("Mohon masukkan kode rute yang berbeda, atau “99” untuk membatalkan penambahan jalur rute.");
+                    }else{
+                        jalurRute.setRuteJalur(ruteManager.GetByKodeRute(kodeRute));
+                        flagIterate=false;
+                    }
                 }
-            }else{
-                jalurRute.setRuteJalur(ruteManager.GetByKodeRute(kodeRute));
-                flagIterate=false;
-            }
-        }
+            //}
+        } while (flagIterate);
+
+
         if(!kodeRute.equals("99")){
             flagIterate=true;
             System.out.println("Stasiun Awal Sampai Stasiun Akhir\n----------------------------------------");
@@ -177,6 +185,7 @@ public class JalurRutePage{
                 if(jalurRuteManager.getIndexByKodeJalur(kodeJalur)!=-1){
                     jalurRuteManager.delete(jalurRuteManager.getByKodeJalur(kodeJalur));
                     System.out.println("Jalur rute berhasil dihapus.");
+                    flagIterate = false;
                 }else{
                     System.out.println("Jalur rute dengan kode jalur "+kodeJalur+" tidak ada.");
                     System.out.println("Mohon masukkan kode jalur yang berbeda, atau “99” untuk membatalkan penghapusan jalur rute.");
