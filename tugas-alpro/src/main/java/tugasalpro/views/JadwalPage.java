@@ -1,8 +1,10 @@
 package tugasalpro.views;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -131,20 +133,21 @@ public class JadwalPage {
                     }
 
                     for (int j = 0; j < maxIterate; j++) {
-                        lastIndex = jadwalManager.GetAll().size();
-                        lastIndex++;
-                        
-                        curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
-                        waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
-                        jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
-                        jadwal.setKereta(listKereta.get(j));
-                        jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
-                        jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
-                        jadwal.setTanggalJadwal(dateobj);
-                        jadwal.setWaktuBerangkat(listWaktu.get(j));
-                        jadwal.setWaktuTiba(waktuTiba);
-                        jadwal.generateKursi();
-                        jadwalManager.add(jadwal);
+                        if (isKeretaAvailableToRun(listJalurRute.get(i).getDurasi(), listKereta.get(j), listWaktu.get(j), dateobj)) {
+                            lastIndex = jadwalManager.GetAll().size();
+                            lastIndex++;
+                            curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
+                            waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
+                            jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
+                            jadwal.setKereta(listKereta.get(j));
+                            jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
+                            jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
+                            jadwal.setTanggalJadwal(dateobj);
+                            jadwal.setWaktuBerangkat(listWaktu.get(j));
+                            jadwal.setWaktuTiba(waktuTiba);
+                            jadwal.generateKursi();
+                            jadwalManager.add(jadwal);
+                        }
                     }
                 }
             }
@@ -241,6 +244,49 @@ public class JadwalPage {
         System.out.println("-------------------------------------------------------");
 
 
+    }
+
+    boolean isKeretaAvailableToRun(int durasi, Kereta kereta, Waktu waktuBerangkat, Date tanggalBerangkat) {
+        boolean defaultResult  = true;
+        int maxHari  = timeUtility.getDaysFromMinutes(durasi)+1;
+        Date tanggalHariIni = new Date();
+        Date tanggalCek;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        String strTanggalCek; 
+
+
+        while (maxHari>-1) {
+            // ambil kereta dengan jadwal = tanggal hari ini dikurangi max hari
+            tanggalCek = timeUtility.addDays(tanggalHariIni, -1*maxHari);
+            strTanggalCek = dateFormat.format(tanggalCek);
+            List<Jadwal> listJadwal = jadwalManager.getByTanggalAndKereta(kereta, strTanggalCek);
+            if (listJadwal.size()>0) {
+                for (int i=0; i<listJadwal.size(); i++) {
+                    Jadwal jdw = listJadwal.get(i);
+                    Calendar calJadwal = Calendar.getInstance();
+                    calJadwal.setTime(jdw.getTanggalJadwal());
+                    calJadwal.set(calJadwal.get(Calendar.YEAR), calJadwal.get(Calendar.MONTH), 
+                        calJadwal.get(Calendar.DAY_OF_MONTH), timeUtility.waktuToHH(jdw.getWaktuBerangkat()), 
+                        timeUtility.waktuToMM(jdw.getWaktuBerangkat()));
+                    Calendar calBerangkat = Calendar.getInstance();
+                    calBerangkat.setTime(tanggalBerangkat);
+                    calBerangkat.set(calBerangkat.get(Calendar.YEAR),calBerangkat.get(Calendar.MONTH),
+                        calBerangkat.get(Calendar.DAY_OF_MONTH),timeUtility.waktuToHH(waktuBerangkat),
+                        timeUtility.waktuToMM(waktuBerangkat));
+                    if ((calBerangkat.getTimeInMillis()-calJadwal.getTimeInMillis())<durasi*2*60000) {
+                        defaultResult = false;
+                    }
+                    
+                }
+            }
+
+
+            maxHari--;
+        }
+
+
+
+        return defaultResult;
     }
 
     

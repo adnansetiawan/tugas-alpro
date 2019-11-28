@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import tugasalpro.models.Waktu;
+
 public class TimeUnitUtility {
  
  public String convertToHHMMSS(long miliSeconds)
@@ -23,16 +25,20 @@ public class TimeUnitUtility {
  }
 
  public String convToHHMM(long miliSeconds) {
-    return String.format("%02d.%02d", TimeUnit.MILLISECONDS.toHours(miliSeconds),
+    if (TimeUnit.MILLISECONDS.toDays(miliSeconds)>0) {
+      return String.format("+%02d %02d.%02d",TimeUnit.MILLISECONDS.toDays(miliSeconds),TimeUnit.MILLISECONDS.toHours(miliSeconds),
             TimeUnit.MILLISECONDS.toMinutes(miliSeconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(miliSeconds)));
+    } else  {
+      return String.format("%02d.%02d", TimeUnit.MILLISECONDS.toHours(miliSeconds),
+            TimeUnit.MILLISECONDS.toMinutes(miliSeconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(miliSeconds)));
+    }
+    
  }
 
  public long HHMMtoMilis(String jam) {
     final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
     String hour = jam.substring(0,2);
-    System.out.println(hour);
     String minute = jam.substring(3,5);
-    System.out.println(minute);
     return Integer.valueOf(hour)*60*ONE_MINUTE_IN_MILLIS+Integer.valueOf(minute)*ONE_MINUTE_IN_MILLIS;
  }
 
@@ -42,6 +48,30 @@ public class TimeUnitUtility {
     c.add(Calendar.DATE, 1);
     date = c.getTime();
     return date;
+ }
+
+ public int getDaysFromMinutes(int minute) {
+   return minute/(24*60);
+ }
+
+ public Date addDays(Date date, int days)
+ {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    cal.add(Calendar.DATE, days); 
+    return cal.getTime();
+ }
+
+ public int waktuToHH(Waktu waktu) {
+   String jam = waktu.getWaktu();
+   String hour = jam.substring(0,2);
+   return Integer.valueOf(hour);
+ }
+
+ public int waktuToMM(Waktu waktu) {
+   String jam = waktu.getWaktu();
+   String minute = jam.substring(3,5);
+   return Integer.valueOf(minute);
  }
 
 }
