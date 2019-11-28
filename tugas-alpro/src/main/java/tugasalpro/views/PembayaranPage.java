@@ -13,6 +13,7 @@ import tugasalpro.models.Jadwal;
 import tugasalpro.models.Pembayaran;
 import tugasalpro.models.Penumpang;
 import tugasalpro.models.Tiket;
+import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.utilities.StringUtility;
 
 public class PembayaranPage
@@ -28,7 +29,8 @@ public class PembayaranPage
     }
     private void doPembayaran(Booking booking)
     {
-        System.out.println("Total Pembayaran    :" + booking.getTotalPembayaran());
+        ScreenUtility.ClearScreen();
+        System.out.println("Total Pembayaran    :" + StringUtility.getCurrencyFormat(booking.getTotalPembayaran()));
         System.out.println("No. Rekening        :" + booking.getRekeningTujuan());
         System.out.print("Apakah data pembayaran sudah benar (Y/N) :");
         String pilihan = scanner.nextLine();
@@ -69,7 +71,7 @@ public class PembayaranPage
         System.out.println("#TIKET#");
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("Kode Tiket   :" + tiket.getKode());
+        at.addRow("Kode Tiket      :" + tiket.getKode());
         List<Penumpang> penumpang = tiket.getPenumpang();
         for(int i=1; i<=penumpang.size();i++)
         {
