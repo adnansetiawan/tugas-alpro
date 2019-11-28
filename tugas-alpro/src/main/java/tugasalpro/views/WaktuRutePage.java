@@ -113,10 +113,7 @@ public class WaktuRutePage
        
         ArrayList<Waktu> listWaktu = new ArrayList<Waktu>();
         
-        System.out.println("#LIHAT WAKTU SEMUA#");
-        System.out.print("Kode Rute : ");
-        System.out.println();
-        System.out.println("Waktu Available Untuk Rute");
+        System.out.println("#DAFTAR WAKTU PADA RUTE#");
         AsciiTable at = new AsciiTable();
         at.addRule();
         AT_Row row =  at.addRow("N0", "KODE WAKTU RUTE", "KODE RUTE", "WAKTU TERSEDIA RUTE");
@@ -127,7 +124,7 @@ public class WaktuRutePage
                 String strWaktu = "";
                 listWaktu = waktuRute.getArrWaktu();
                 for (Waktu wkt : listWaktu) {
-                    strWaktu = strWaktu + "- "+ wkt.getWaktu()+"\n"; 
+                    strWaktu = strWaktu + "<br>- "+ wkt.getWaktu()+"</br>"; 
                 }            
                 at.addRow(1,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
                 at.addRule();
@@ -142,85 +139,78 @@ public class WaktuRutePage
 
     private void menuTampil()
     {
-        int i = 1;
-        int statusPrint = 1;
-        String textKodeRute="";
         String kodeRute="";
         WaktuRute waktuRute = null;
+        Rute rute = null;
+        boolean flagIterate = true;
         ArrayList<Waktu> listWaktu = new ArrayList<Waktu>();
         
         System.out.println("#LIHAT WAKTU BERDASARKAN RUTE#");
-        System.out.print("Kode Rute : ");
-        kodeRute = scanner.next();
-        waktuRute = waktuRuteManager.getByRute(ruteManager.GetByKodeRute(kodeRute));
-
-        System.out.println();
-        System.out.println("Waktu Available Untuk Rute");
-        AsciiTable at = new AsciiTable();
-        at.addRule();
-        AT_Row row =  at.addRow("N0", "KODE WAKTU RUTE", "KODE RUTE", "WAKTU TERSEDIA RUTE");
-        row.setTextAlignment(TextAlignment.CENTER);
-        at.addRule();
-        if (waktuRute!=null) {
-            String strWaktu = "";
-            listWaktu = waktuRute.getArrWaktu();
-            for (Waktu wkt : listWaktu) {
-                strWaktu = strWaktu + "- "+ wkt.getWaktu()+"\n"; 
-            }            
-            at.addRow(1,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
+        do {
+            System.out.print("Kode Rute : ");
+            kodeRute = scanner.next();
+            if (kodeRute.equals("99")) {
+                flagIterate = false;
+            } else if (ruteManager.GetByKodeRute(kodeRute)!=null) {
+                rute = ruteManager.GetByKodeRute(kodeRute);
+                flagIterate = false;
+            }
+        } while (flagIterate);
+        if (rute!=null) {
+            waktuRute = waktuRuteManager.getByRute(rute);
+            System.out.println();
+            System.out.println("Waktu Available Untuk Rute");
+            AsciiTable at = new AsciiTable();
             at.addRule();
+            AT_Row row =  at.addRow("N0", "KODE WAKTU RUTE", "KODE RUTE", "WAKTU TERSEDIA RUTE");
+            row.setTextAlignment(TextAlignment.CENTER);
+            at.addRule();
+            if (waktuRute!=null) {
+                String strWaktu = "";
+                listWaktu = waktuRute.getArrWaktu();
+                for (Waktu wkt : listWaktu) {
+                    strWaktu = strWaktu + "- "+ wkt.getWaktu()+"<br>"; 
+                }            
+                at.addRow(1,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
+                at.addRule();
+            }
+            CWC_LongestLine cwc = new CWC_LongestLine();
+            cwc.add(4, 0).add(20, 0).add(50, 0);
+            at.getRenderer().setCWC(cwc);
+            System.out.println(at.render());
         }
-        CWC_LongestLine cwc = new CWC_LongestLine();
-        cwc.add(4, 0).add(20, 0).add(50, 0);
-        at.getRenderer().setCWC(cwc);
-        System.out.println(at.render());
-
         
-        /*
-        List<WaktuRute> listWaktuRute = new WaktuRuteManager().GetAll();
-        for (WaktuRute waktuRute : listWaktuRute)
-        {
-
-            statusPrint = 1;
-            if (cariKodeRute.compareTo("")!=0 && cariKodeRute.compareTo(waktuRute.getKodeRute())!=0)
-            {
-                statusPrint = 0;
-            }
-            if (statusPrint==1)
-            {
-                if (textKodeRute.compareTo(waktuRute.getKodeRute())!=0)
-                {
-                    textKodeRute = waktuRute.getKodeRute();
-                    System.out.print(i);
-                    System.out.print(" \t "+waktuRute.getKodeWaktuRute()+" \t \t \t "+waktuRute.getKodeRute());
-                    i=i+1;
-                }
-                else
-                {
-                    System.out.print("  \t \t \t \t \t");
-                }
-                Waktu textWaktu = new WaktuManager().GetByKodeWaktu(waktuRute.getArrWaktu());
-                if (textWaktu != null)
-                {
-                    System.out.print(" \t - " + textWaktu.getWaktu());
-                    System.out.println();
-                }
-            }
-        }
-        System.out.println("-----------------------------------------------------------------");
-        */
     }
 
     private void menuHapus()
     {
         showAll();
         String kodeWaktuRute = null;
+        String confirmation = null;
         WaktuRute waktuRute = null;
-        System.out.print("Kode Waktu Rute : ");
-        kodeWaktuRute = scanner.next();
-        waktuRute = waktuRuteManager.getByKodeWaktuRute(kodeWaktuRute);
-        waktuRuteManager.delete(waktuRute);
-        //new WaktuRuteManager().hapusRute();
+        boolean flagIterate = true;
+        do {
+            System.out.print("Kode Waktu Rute : ");
+            kodeWaktuRute = scanner.next();
+            if (!kodeWaktuRute.equals("99")) {
+                if (waktuRuteManager.getByKodeWaktuRute(kodeWaktuRute)!=null) {
+                    waktuRute = waktuRuteManager.getByKodeWaktuRute(kodeWaktuRute);
+                    System.out.print("Anda yakin ingin menghapus Waktu dengan rute "+waktuRute.getRute().getKodeRute()+" ? Y/N");
+                    confirmation = scanner.next();
+                    if (confirmation.equals("Y")) {
+                        waktuRuteManager.delete(waktuRute);
+                        flagIterate = false;
+                    }
+                } else {
+                    System.out.println("Waktu pada rute tidak ditemukan");
+                }
+                
+            } else {
+                flagIterate = false;
+            }
+            
+        } while (flagIterate);
+        
     }
 
     private boolean checkWaktuIsExist(ArrayList<Waktu> listWaktu, Waktu waktu) {
