@@ -36,16 +36,6 @@ public class JadwalManager {
         return null;
 
     }
-    public Jadwal GetByTanggal(String tanggal)
-    {
-        List<Jadwal> listJadwal = repository.getAll();
-        Optional<Jadwal> selectedJadwal = 
-            listJadwal.stream().filter(x->x.getTanggalJadwal().equals(tanggal)).findFirst();
-        if(selectedJadwal.isPresent())
-            return selectedJadwal.get();
-        return null;
-
-    }
 
     public List<Jadwal> getByTanggalAndKereta(Kereta kereta, String tanggal) {
         List<Jadwal> listJadwal = repository.getAll();
@@ -57,6 +47,7 @@ public class JadwalManager {
             if (strTanggal.equals(tanggal) && jdw.getKereta().getKodeKereta().equals(kereta.getKodeKereta())) {
                 listJadwalOut.add(jdw);
             }
+
         }
         return listJadwalOut;
 

@@ -248,12 +248,10 @@ public class JadwalPage {
 
     boolean isKeretaAvailableToRun(int durasi, Kereta kereta, Waktu waktuBerangkat, Date tanggalBerangkat) {
         boolean defaultResult  = true;
-        boolean flagIterate = true;
         int maxHari  = timeUtility.getDaysFromMinutes(durasi)+1;
         Date tanggalHariIni = new Date();
         Date tanggalCek;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-        String strTanggalHariIni = dateFormat.format(tanggalHariIni);  
         String strTanggalCek; 
 
 

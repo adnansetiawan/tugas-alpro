@@ -58,7 +58,7 @@ public class TimeUnitUtility {
  {
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);
-    cal.add(Calendar.DATE, days); //minus number would decrement the days
+    cal.add(Calendar.DATE, days); 
     return cal.getTime();
  }
 
