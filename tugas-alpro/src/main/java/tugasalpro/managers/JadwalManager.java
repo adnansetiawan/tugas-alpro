@@ -58,9 +58,7 @@ public class JadwalManager {
         }
             if (indexFound != -1) {
             try {
-                listJadwal.remove(indexFound);
-                listJadwal.add(jadwal);
-                repository.update(listJadwal);
+                repository.edit(jadwal,indexFound);
             }
             catch(Exception e){
                 e.printStackTrace();
