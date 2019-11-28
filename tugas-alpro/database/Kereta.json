@@ -1,18 +1,9 @@
 [
   {
-    "id": "6b6518db-d5e8-4dfa-a79e-adf83365507b",
-    "kodeKereta": "KAI19081",
-    "namaKereta": "ARGO MERAPI",
+    "kodeKereta": "KAI18801",
+    "namaKereta": "Argo Parahyangan",
     "jmlGerbong": 6,
-    "jmlGBisnis": 4,
-    "jmlGPremium": 2
-  },
-  {
-    "id": "f9405ad6-2609-410c-9e08-18ec17adcf15",
-    "kodeKereta": "KAI1982",
-    "namaKereta": "HARINA",
-    "jmlGerbong": 10,
-    "jmlGBisnis": 6,
+    "jmlGBisnis": 2,
     "jmlGPremium": 4
   }
 ]

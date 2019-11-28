@@ -338,11 +338,23 @@ public class BookingPage
         
         showMenu();
     }
+    private double getHargaKursi(Rute rute, Kursi kursi)
+    {
+        if(kursi.getGerbong().getKategori().toLowerCase().equals("premiun"))
+        {
+            return rute.getHargaPremium();
+        }
+        return rute.getHargaBisnis();
+    }
     private void gantiKursi(Booking booking)
     {
         
+        System.out.println("ketik 99 untuk skip ganti kursi");
+        System.out.println("----------------------------------------");
         Jadwal jadwal = jadwalManager.GetByKodeJadwal(booking.getKodeJadwal());
-                
+        Rute rute =  new RuteManager().getByKota(jadwal.getKotaKeberangkatan().getKodeKota(),
+        jadwal.getKotaTujuan().getKodeKota());
+        double totalPembayaran = 0;
         for(Penumpang p : booking.getAllPenumpang())
         {
             boolean loop = true;
@@ -353,24 +365,25 @@ public class BookingPage
                 System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
         
             String kodeKursi = scanner.next();
+            if(kodeKursi == "99")
+            {
+                totalPembayaran += getHargaKursi(rute, oldKursi);
+                continue;
+            }
             Kursi kursiByKode = jadwal.getKursiByKodeKursi(kodeKursi);
             
             if(kursiByKode != null && kursiByKode.getIsAvailable())
             {
 
                 
-                if( !kursiByKode.getGerbong().getKategori().equals(oldKursi.getGerbong().getKategori()))
-                {
-                    System.out.println("kursi harus di gerbong yang sama");
-
-                }else
-                {
+               
                     loop = false;
+                    totalPembayaran += getHargaKursi(rute, kursiByKode);
                     p.setKodeKursi(kursiByKode.getKodeKursi());
                     jadwal.bookingKursi(kursiByKode.getKodeKursi(), false);
                     jadwal.bookingKursi(oldKode, true);
                     jadwalManager.edit(jadwal);
-                }
+                
                 
             }else
             {
@@ -380,7 +393,7 @@ public class BookingPage
             }while(loop);
         
         }
-    
+    booking.setTotalPembayaran(totalPembayaran);
     bookingManager.update(booking);
     showBookingDetail(booking);
 }

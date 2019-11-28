@@ -1,7 +1,7 @@
 [
   {
-    "bookingId": "KETIKJ",
-    "kodeJadwal": "JW1",
+    "bookingId": "ZEO3OK",
+    "kodeJadwal": "JW00001",
     "bookedBy": {
       "username": "adnansetiawan@gmail.com",
       "password": "pass",
@@ -11,24 +11,24 @@
         "handphone": "081390553497"
       }
     },
-    "bookingDate": "Nov 21, 2019, 10:47:39 AM",
+    "bookingDate": "Nov 26, 2019, 10:02:19 PM",
     "penumpangs": [
       {
-        "name": "PPPPPP",
-        "KodeKursi": "P2-1"
+        "name": "plato",
+        "KodeKursi": "B1-1"
       },
       {
-        "name": "QQQQQQ",
-        "KodeKursi": "P2-2"
+        "name": "socrates",
+        "KodeKursi": "B1-2"
       }
     ],
-    "totalPembayaran": 880000.0,
+    "totalPembayaran": 160000.0,
     "rekeningTujuan": "803255671891",
-    "isBayar": false
+    "isBayar": true
   },
   {
-    "bookingId": "Q109FL",
-    "kodeJadwal": "JW1",
+    "bookingId": "X6670N",
+    "kodeJadwal": "JW00001",
     "bookedBy": {
       "username": "adnansetiawan@gmail.com",
       "password": "pass",
@@ -38,19 +38,46 @@
         "handphone": "081390553497"
       }
     },
-    "bookingDate": "Nov 21, 2019, 12:50:03 PM",
+    "bookingDate": "Nov 26, 2019, 10:06:12 PM",
     "penumpangs": [
       {
-        "name": "MMMMMM",
-        "KodeKursi": "P2-3"
+        "name": "Seneca",
+        "KodeKursi": "P1-3"
       },
       {
-        "name": "NNNNNN",
-        "KodeKursi": "P2-4"
+        "name": "Aurilius",
+        "KodeKursi": "P1-4"
       }
     ],
-    "totalPembayaran": 400000.0,
+    "totalPembayaran": 240000.0,
     "rekeningTujuan": "803255671891",
-    "isBayar": false
+    "isBayar": true
+  },
+  {
+    "bookingId": "8KF5EB",
+    "kodeJadwal": "JW00001",
+    "bookedBy": {
+      "username": "adnansetiawan@gmail.com",
+      "password": "pass",
+      "userInfo": {
+        "nama": "adnan setiawan",
+        "ktp": "1234567890123456",
+        "handphone": "081390553497"
+      }
+    },
+    "bookingDate": "Nov 28, 2019, 11:20:49 AM",
+    "penumpangs": [
+      {
+        "name": "PMP1",
+        "KodeKursi": "B2-4"
+      },
+      {
+        "name": "PMP2",
+        "KodeKursi": "B2-5"
+      }
+    ],
+    "totalPembayaran": 160000.0,
+    "rekeningTujuan": "803255671891",
+    "isBayar": true
   }
 ]
