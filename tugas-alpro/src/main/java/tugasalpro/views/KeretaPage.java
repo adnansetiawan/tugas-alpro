@@ -41,7 +41,7 @@ public class KeretaPage {
                     menuTambah();
                     break;
                 case 2:
-                    ScreenUtility.ClearScreen();
+                    //ScreenUtility.ClearScreen();
                     showMenuTampil();
                     break;
                 case 3:
@@ -165,6 +165,12 @@ public class KeretaPage {
         ScreenUtility.ClearScreen();
         System.out.println("#LIHAT DATA KERETA API#");
         menuTampil();
+        //penambahan, kalau pakai scanner yang sama dianggap sudah diketik
+        Scanner keyb;
+        keyb = new Scanner(System.in);
+        System.out.println("Tekan ENTER");
+        keyb.nextLine();
+        //akhir
         showMenu();
     }
 
