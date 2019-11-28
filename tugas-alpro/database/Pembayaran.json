@@ -1,40 +1,60 @@
 [
   {
-    "kodePembayaran": "5Z21JE",
-    "kodeBooking": "KETIKJ",
-    "kodeKereta": "KAI19081",
-    "totalPembayaran": 880000.0,
-    "tanggalPembayaran": "Nov 21, 2019, 10:47:59 AM",
+    "kodePembayaran": "QJ2DTQ",
+    "kodeBooking": "ZEO3OK",
+    "kodeKereta": "KAI18801",
+    "totalPembayaran": 160000.0,
+    "tanggalPembayaran": "Nov 26, 2019, 10:02:32 PM",
     "tiket": {
-      "kode": "6D7IL9",
+      "kode": "2PYL96",
       "penumpang": [
         {
-          "name": "PPPPPP",
-          "KodeKursi": "P2-1"
+          "name": "plato",
+          "KodeKursi": "B1-1"
         },
         {
-          "name": "QQQQQQ",
-          "KodeKursi": "P2-2"
+          "name": "socrates",
+          "KodeKursi": "B1-2"
         }
       ]
     }
   },
   {
-    "kodePembayaran": "N128KT",
-    "kodeBooking": "Q109FL",
-    "kodeKereta": "KAI19081",
-    "totalPembayaran": 400000.0,
-    "tanggalPembayaran": "Nov 21, 2019, 12:50:08 PM",
+    "kodePembayaran": "V9K81Y",
+    "kodeBooking": "X6670N",
+    "kodeKereta": "KAI18801",
+    "totalPembayaran": 240000.0,
+    "tanggalPembayaran": "Nov 26, 2019, 10:11:48 PM",
     "tiket": {
-      "kode": "DUIG79",
+      "kode": "ZWPFGF",
       "penumpang": [
         {
-          "name": "MMMMMM",
-          "KodeKursi": "P2-3"
+          "name": "Seneca",
+          "KodeKursi": "P1-3"
         },
         {
-          "name": "NNNNNN",
-          "KodeKursi": "P2-4"
+          "name": "Aurilius",
+          "KodeKursi": "P1-4"
+        }
+      ]
+    }
+  },
+  {
+    "kodePembayaran": "UKB3XB",
+    "kodeBooking": "8KF5EB",
+    "kodeKereta": "KAI18801",
+    "totalPembayaran": 160000.0,
+    "tanggalPembayaran": "Nov 28, 2019, 11:35:23 AM",
+    "tiket": {
+      "kode": "WXHIPY",
+      "penumpang": [
+        {
+          "name": "PMP1",
+          "KodeKursi": "B2-4"
+        },
+        {
+          "name": "PMP2",
+          "KodeKursi": "B2-5"
         }
       ]
     }
