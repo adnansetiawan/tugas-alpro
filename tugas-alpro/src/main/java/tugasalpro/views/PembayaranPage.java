@@ -71,7 +71,7 @@ public class PembayaranPage
         System.out.println("#TIKET#");
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("Kode Tiket      :" + tiket.getKode());
+        at.addRow("Kode Tiket   :" + tiket.getKodeTiket());
         List<Penumpang> penumpang = tiket.getPenumpang();
         for(int i=1; i<=penumpang.size();i++)
         {

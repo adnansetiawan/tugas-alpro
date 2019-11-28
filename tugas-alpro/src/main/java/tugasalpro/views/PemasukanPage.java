@@ -2,7 +2,6 @@ package tugasalpro.views;
 
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +14,13 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import tugasalpro.utilities.StringUtility;
 import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.models.Pembayaran;
-import tugasalpro.managers.PemasukanManager;
 import tugasalpro.managers.PembayaranManager;
 
 public class PemasukanPage {
-    PemasukanManager pemasukanManager;
     PembayaranManager pembayaranManager;
     Scanner scanner;
 
     public PemasukanPage() {
-        pemasukanManager = new PemasukanManager();
         pembayaranManager = new PembayaranManager();
         scanner=new Scanner(System.in);
     }

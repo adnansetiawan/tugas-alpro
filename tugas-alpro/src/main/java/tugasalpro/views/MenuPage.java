@@ -70,18 +70,22 @@ public class MenuPage{
             pilihan = scanner.nextInt();
             switch (pilihan){
                 case 0:
+                    ScreenUtility.ClearScreen();
                     LoginPage loginPage = new LoginPage();
                     loginPage.Logout();
                     break;
                 case 1:
+                    ScreenUtility.ClearScreen();
                     UserPage userPage = new UserPage();
                     userPage.showUpdatePenggunaPage();
                     break;
                 case 2:
+                    ScreenUtility.ClearScreen();
                     KotaPage kotaPage = new KotaPage();
                     kotaPage.showMenu();
                     break;
                 case 3:
+                    ScreenUtility.ClearScreen();
                     WaktuPage waktuPage = new WaktuPage();
                     waktuPage.generate();
                     break;
@@ -106,22 +110,27 @@ public class MenuPage{
                     keretaPage.showMenu();
                     break;
                 case 8:
+                    ScreenUtility.ClearScreen();
                     WaktuRutePage waktuRutePage = new WaktuRutePage();
                     waktuRutePage.showMenu();
                     break;
                 case 9:
+                    ScreenUtility.ClearScreen();
                     KeretaRutePage keretaRutePage = new KeretaRutePage();
                     keretaRutePage.showMenu(); 
                     break;
                 case 10:
+                    ScreenUtility.ClearScreen();
                     JadwalPage jadwalPage = new JadwalPage();
                     jadwalPage.showMenu(); 
                     break;
                 case 11:
+                    ScreenUtility.ClearScreen();
                     JadwalPage jadwalPageSearch = new JadwalPage();
                     jadwalPageSearch.menuSearch();
                     break;
                 case 12:
+                    ScreenUtility.ClearScreen();
                     PemasukanPage pemasukanPage = new PemasukanPage();
                     pemasukanPage.showMenu();
                     break;
