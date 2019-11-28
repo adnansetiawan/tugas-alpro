@@ -33,6 +33,7 @@ public class StasiunPage{
             pilihan = scanner.nextInt();
             switch(pilihan){
                 case 1:
+                    ScreenUtility.ClearScreen();
                     menuTambah();
                     break;
                 case 2:
@@ -40,12 +41,15 @@ public class StasiunPage{
                     menuTampil();
                     break;
                 case 3:
+                    ScreenUtility.ClearScreen();
                     menuUbah();
                     break;
                 case 4:
+                    ScreenUtility.ClearScreen();
                     menuHapus();
                     break;
                 case 99:
+                    ScreenUtility.ClearScreen();
                     MenuPage menuPage = new MenuPage();
                     menuPage.showMenuAdmin();
                     break;
@@ -190,7 +194,7 @@ public class StasiunPage{
         Stasiun stasiun=null;
         boolean flagIterate=true;
         do{
-            System.out.print("Edit Stasiun : ");
+            System.out.print("Hapus Stasiun : ");
             kodeStasiun=scanner.next();
             if(!kodeStasiun.equals("99")){
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);

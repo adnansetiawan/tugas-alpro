@@ -36,12 +36,15 @@ public class JalurRutePage{
             pilihan = scanner.nextInt();
             switch(pilihan){
                 case 1:
+                    ScreenUtility.ClearScreen();
                     menuTambah();
                     break;
                 case 2:
+                    ScreenUtility.ClearScreen();
                     menuTampil();
                     break;
                 case 3:
+                    ScreenUtility.ClearScreen();
                     menuHapus();
                     break;
                 case 99:
