@@ -340,7 +340,7 @@ public class BookingPage
     }
     private double getHargaKursi(Rute rute, Kursi kursi)
     {
-        if(kursi.getGerbong().getKategori().toLowerCase().equals("premiun"))
+        if(kursi.getGerbong().getKategori().toLowerCase().equals("premium"))
         {
             return rute.getHargaPremium();
         }

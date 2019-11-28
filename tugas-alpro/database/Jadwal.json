@@ -1063,7 +1063,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P1-8",
