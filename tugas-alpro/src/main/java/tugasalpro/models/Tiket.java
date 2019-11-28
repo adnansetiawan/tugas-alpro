@@ -4,16 +4,16 @@ import java.util.List;
 
 public class Tiket
 {
-    private String kode;
+    private String kodeTiket;
     private List<Penumpang> penumpang;
     public Tiket(String kode, List<Penumpang> penumpang)
     {
-         this.kode= kode;
+         this.kodeTiket= kode;
          this.penumpang=penumpang;
     }
-    public String getKode()
+    public String getKodeTiket()
     {
-        return this.kode;
+        return this.kodeTiket;
 
     }
     public List<Penumpang> getPenumpang()
