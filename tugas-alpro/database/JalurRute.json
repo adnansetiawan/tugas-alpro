@@ -1,21 +1,87 @@
 [
   {
-    "kodeJalur": "JKT-BDG",
-    "durasi": 120,
+    "kodeJalur": "JLR001",
+    "ruteJalur": {
+      "kodeRute": "JKT-BDG",
+      "kotaAsal": {
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "kotaTujuan": {
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "hargaBisnis": 80000.0,
+      "hargaPremium": 120000.0
+    },
+    "durasi": 240,
     "activeStatus": true,
     "arrJalurStasiun": [
       {
         "stasiunAsal": {
-          "id": "b668f9e8-f518-4126-a8e4-3eefc3a100ae",
-          "kodeStasiun": "GMB",
-          "namaStasiun": "GAMBIR"
+          "kodeStasiun": "GMR",
+          "namaStasiun": "Gambir"
         },
         "stasiunTujuan": {
-          "id": "45fb45af-1a7e-42de-8d49-7df5514f4e50",
-          "kodeStasiun": "TWG",
-          "namaStasiun": "TAWANG"
+          "kodeStasiun": "JTR",
+          "namaStasiun": "Jatinegara"
         },
-        "durasi": 120
+        "durasi": 20
+      },
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "JTR",
+          "namaStasiun": "Jatinegara"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "BKS",
+          "namaStasiun": "Bekasi"
+        },
+        "durasi": 40
+      },
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "BKS",
+          "namaStasiun": "Bekasi"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "CKR",
+          "namaStasiun": "Cikarang"
+        },
+        "durasi": 40
+      },
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "CKR",
+          "namaStasiun": "Cikarang"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "KRW",
+          "namaStasiun": "Karawang"
+        },
+        "durasi": 50
+      },
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "KRW",
+          "namaStasiun": "Karawang"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "CIM",
+          "namaStasiun": "Cimahi"
+        },
+        "durasi": 60
+      },
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "CIM",
+          "namaStasiun": "Cimahi"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "BDG",
+          "namaStasiun": "Bandung"
+        },
+        "durasi": 30
       }
     ]
   }

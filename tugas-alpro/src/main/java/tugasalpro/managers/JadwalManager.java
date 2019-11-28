@@ -58,9 +58,7 @@ public class JadwalManager {
         }
             if (indexFound != -1) {
             try {
-                listJadwal.remove(indexFound);
-                listJadwal.add(jadwal);
-                repository.update(listJadwal);
+                repository.edit(jadwal,indexFound);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -73,26 +71,24 @@ public class JadwalManager {
     public void delete(Jadwal jadwal)
     {
         List<Jadwal> listJadwal = repository.getAll();
-        int indexFound = -1;
         for(int i = 0; i< listJadwal.size(); i++)
         {
             Jadwal jdw = listJadwal.get(i);
             
             if(jdw.getKodeJadwal().equals(jadwal.getKodeJadwal()))
             {
-                indexFound = i;
+                try {
+                    repository.delete(jdw,i);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
                 break;
             }
-        }
-            if (indexFound != -1) {
-            try {
-                listJadwal.remove(indexFound);
-                repository.update(listJadwal);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+         }
+            
+            
+        
     }
 
     
