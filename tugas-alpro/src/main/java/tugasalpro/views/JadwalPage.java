@@ -80,6 +80,7 @@ public class JadwalPage {
         List<Jadwal> listJadwal = jadwalManager.GetAll();
         int durasiTerlama = 0;
         String waktuTiba = null;
+        int maxHari = 0;
 
         Collections.reverse(listJalurRute); // sorting berdasarkan durasi descending
         Collections.reverse(listRute); // sorting berdasarkan tanggal descending
@@ -91,70 +92,80 @@ public class JadwalPage {
         if (pilihan.equals("Y")) {
             // generate Jadwal
             Jadwal jadwal = new Jadwal();
-            Date dateobj = listJadwal.get(0).getTanggalJadwal();
+            Date dateobj = new Date();
+            if (listJadwal.size()>0) {
+                dateobj = listJadwal.get(0).getTanggalJadwal();
+            }
+            
             long curTimeInMs = 0;
 
             
             
             // jadwal terlama
             durasiTerlama = listJalurRute.get(0).getDurasi();
-
-            // cek maksimum hari berdasarkan durasi terlama
-            dateobj = timeUtility.addOneDay(dateobj);
+            maxHari = timeUtility.getDaysFromMinutes(durasiTerlama*2)+1;
+            System.out.println("deb max hari : "+maxHari);
+            for (int h=0; h<maxHari; h++) {
+                dateobj = timeUtility.addOneDay(dateobj);
+                // cek maksimum hari berdasarkan durasi terlama
+            
             // untuk setiap jalur rute diambil kereta dan waktuRute
-            for (int i=0; i<listJalurRute.size(); i++) {
-                // ambil kereta pada rute
-                
-                ArrayList<Kereta> listKereta = null;
-                try {
-                    listKereta = keretaRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getKeretaTersedia();
-                } catch (Exception e) {
-                    //TODO: handle exception
-                    System.out.println("Terjadi Kesalahan");
-                }
-                // ambil waktu pada rute
-                ArrayList<Waktu> listWaktu = null;
-                try {
-                    listWaktu = waktuRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getArrWaktu();
-                } catch (Exception e) {
-                    //TODO: handle exception
-                    System.out.println("Terjadi Kesalahan");
-                }
-
-                // jika salah satu kosong, jangan lakukan generate
-                if (listKereta!=null && listWaktu!=null) {
-                    if (listKereta.size()>0 && listWaktu.size()>0) {  
-                    Collections.sort(listWaktu); // sorting waktu dari yang tercepat/awal
-                    int maxIterate = 0;
-                    if (listKereta.size()>listWaktu.size()) { // pemilihan perulangan maksimum
-                        maxIterate = listWaktu.size();
-                    } else {
-                        maxIterate = listKereta.size();
+                for (int i=0; i<listJalurRute.size(); i++) {
+                    // ambil kereta pada rute
+                    
+                    ArrayList<Kereta> listKereta = null;
+                    try {
+                        listKereta = keretaRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getKeretaTersedia();
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                        System.out.println("Terjadi Kesalahan");
+                    }
+                    // ambil waktu pada rute
+                    ArrayList<Waktu> listWaktu = null;
+                    try {
+                        listWaktu = waktuRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getArrWaktu();
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                        System.out.println("Terjadi Kesalahan");
                     }
 
-                    for (int j = 0; j < maxIterate; j++) {
-                        if (isKeretaAvailableToRun(listJalurRute.get(i).getDurasi(), listKereta.get(j), listWaktu.get(j), dateobj)) {
-                            lastIndex = jadwalManager.GetAll().size();
-                            lastIndex++;
-                            curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
-                            waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
-                            jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
-                            jadwal.setKereta(listKereta.get(j));
-                            jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
-                            jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
-                            jadwal.setTanggalJadwal(dateobj);
-                            jadwal.setWaktuBerangkat(listWaktu.get(j));
-                            jadwal.setWaktuTiba(waktuTiba);
-                            jadwal.generateKursi();
-                            jadwalManager.add(jadwal);
+                    // jika salah satu kosong, jangan lakukan generate
+                    if (listKereta!=null && listWaktu!=null) {
+                        if (listKereta.size()>0 && listWaktu.size()>0) {  
+                        Collections.sort(listWaktu); // sorting waktu dari yang tercepat/awal
+                        int maxIterate = 0;
+                        if (listKereta.size()>listWaktu.size()) { // pemilihan perulangan maksimum
+                            maxIterate = listWaktu.size();
+                        } else {
+                            maxIterate = listKereta.size();
+                        }
+
+                        for (int j = 0; j < maxIterate; j++) {
+                            if (isKeretaAvailableToRun(listJalurRute.get(i).getDurasi()*2, listKereta.get(j), listWaktu.get(j), dateobj)) {
+                                lastIndex = jadwalManager.GetAll().size();
+                                lastIndex++;
+                                curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
+                                waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
+                                jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
+                                jadwal.setKereta(listKereta.get(j));
+                                jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
+                                jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
+                                jadwal.setTanggalJadwal(dateobj);
+                                jadwal.setWaktuBerangkat(listWaktu.get(j));
+                                jadwal.setWaktuTiba(waktuTiba);
+                                jadwal.generateKursi();
+                                jadwalManager.add(jadwal);
+                            }
                         }
                     }
                 }
+                    
+
+
             }
-                
-
-
         }
+
+            
 
 
     }
@@ -273,7 +284,12 @@ public class JadwalPage {
                     calBerangkat.set(calBerangkat.get(Calendar.YEAR),calBerangkat.get(Calendar.MONTH),
                         calBerangkat.get(Calendar.DAY_OF_MONTH),timeUtility.waktuToHH(waktuBerangkat),
                         timeUtility.waktuToMM(waktuBerangkat));
-                    if ((calBerangkat.getTimeInMillis()-calJadwal.getTimeInMillis())<durasi*2*60000) {
+                    long selisihWaktu = Math.abs(calBerangkat.getTimeInMillis()-calJadwal.getTimeInMillis());
+                    System.out.println("waktu berangkat : "+calBerangkat);
+                    System.out.println("waktu jadwal : "+calJadwal);
+                    System.out.println("cek selisih : "+selisihWaktu);
+                    System.out.println("cek durasi : "+(durasi*2*60000));
+                    if (selisihWaktu<durasi*2*60000) {
                         defaultResult = false;
                     }
                     
