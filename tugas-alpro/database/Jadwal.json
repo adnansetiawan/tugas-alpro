@@ -911,7 +911,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "B1-9",
@@ -919,7 +919,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "B1-10",
@@ -1055,7 +1055,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P1-7",

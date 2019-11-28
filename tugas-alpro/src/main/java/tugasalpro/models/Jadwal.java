@@ -153,7 +153,7 @@ public class Jadwal implements Comparable<Jadwal> {
         Kursi selectedKursi = null;
         for(int i=0; i<kursi.size(); i++)
         {
-            if(kursi.get(i).getKodeKursi().equals(kodeKursi))
+            if(kursi.get(i).getKodeKursi().toLowerCase().equals(kodeKursi.toLowerCase()))
             {
                 indexFound  = i;
                 selectedKursi = kursi.get(i);

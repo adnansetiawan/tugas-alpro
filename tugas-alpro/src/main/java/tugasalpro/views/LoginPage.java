@@ -68,7 +68,13 @@ public class LoginPage {
             System.out.println("2. Registrasi");
             System.out.println("0. Keluar");
             System.out.print("Pilihan : ");
+            try
+            {
             pilihan = scanner.nextInt();
+            }catch(Exception ex)
+            {
+                System.out.println("pilihan tidak valid");
+            }
         }while(pilihan < 0 || pilihan > 2) ;
         switch(pilihan)
         {

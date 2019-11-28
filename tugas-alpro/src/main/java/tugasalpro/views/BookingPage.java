@@ -172,8 +172,8 @@ public class BookingPage
             do
             {
             System.out.print("Kursi " +pIndex + " : ");
-            String kodeKursi = scanner.nextLine();
-            bookedKursi = jadwal.bookingKursi(kodeKursi.toUpperCase(), false);
+            String kodeKursi = scanner.next();
+            bookedKursi = jadwal.bookingKursi(kodeKursi, false);
             
             if(bookedKursi != null)
             {
@@ -365,10 +365,11 @@ public class BookingPage
                 System.out.print("Kursi ["+p.getKodeKursi()+"] ganti ke :");
         
             String kodeKursi = scanner.next();
-            if(kodeKursi == "99")
+            if(kodeKursi.equals("99"))
             {
                 totalPembayaran += getHargaKursi(rute, oldKursi);
-                continue;
+                break;
+                
             }
             Kursi kursiByKode = jadwal.getKursiByKodeKursi(kodeKursi);
             
