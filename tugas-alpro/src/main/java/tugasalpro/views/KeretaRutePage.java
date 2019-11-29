@@ -2,6 +2,7 @@ package tugasalpro.views;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import tugasalpro.managers.KeretaManager;
@@ -60,6 +61,7 @@ public class KeretaRutePage {
         String kodeKereta = null;
         int i = 1;
         boolean flagIterate = true;
+        ArrayList<Kereta> arrKereta = new ArrayList<Kereta>();
         List<KeretaRute> listKeretaRute = keretaRuteManager.GetAll();
         int no;
         System.out.println("#KELOLA KERETA API BERDASARKAN RUTE#");
@@ -71,21 +73,35 @@ public class KeretaRutePage {
             do {
                 System.out.print("Kereta "+i+" : ");
                 kodeKereta = scanner.next();
-                if (kodeKereta=="99") {
+                if (kodeKereta.compareTo("99")==0)
+                {
                     flagIterate = false;
-                } else {
+                }
+                else
+                {
                     kereta = keretaManager.getByKodeKereta(kodeKereta);
-                    if (kereta!=null) {
-                        i++;
-                        keretaRute.getKeretaTersedia().add(kereta);
-                    } else {
+                    if (kereta!=null)
+                    {
+                        if ((checkKeretaIsExist(arrKereta,kereta)))
+                        {
+                            System.out.println("Kode kereta tersebut sudah digunakan");
+                        }
+                        else
+                        {
+                            i++;
+                            arrKereta.add(kereta);
+                            keretaRute.getKeretaTersedia().add(kereta);
+                        }
+                    }
+                    else
+                    {
                         System.out.println("Kode Kereta "+kodeKereta+" tidak ditemukan ");
-                        flagIterate = false;
+                        //flagIterate = false;
                     }
                 }
             } while (flagIterate);
             // ambil no terakhir
-            no = listKeretaRute.size();
+            no = listKeretaRute.size()+1;
             if (no>9) {
                 keretaRute.setKodeKeretaRute("KR"+no);
             } else {
@@ -151,4 +167,14 @@ public class KeretaRutePage {
             }
         } while (flagIterate);
     }
+
+    private boolean checkKeretaIsExist(ArrayList<Kereta> listKereta, Kereta lsKereta) {
+        Optional<Kereta> keretaCheck = listKereta.stream().filter(x->x.getKodeKereta().equals(lsKereta.getKodeKereta())).findFirst();
+        if(keretaCheck.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
