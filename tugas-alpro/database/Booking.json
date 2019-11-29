@@ -81,7 +81,7 @@
     "isBayar": true
   },
   {
-    "bookingId": "KAJ3N7",
+    "bookingId": "3VL0MX",
     "kodeJadwal": "JW00001",
     "bookedBy": {
       "username": "adnansetiawan@gmail.com",
@@ -92,19 +92,19 @@
         "handphone": "081390553497"
       }
     },
-    "bookingDate": "Nov 28, 2019, 12:06:13 PM",
+    "bookingDate": "Nov 29, 2019, 1:18:52 PM",
     "penumpangs": [
       {
-        "name": "XXXXX",
-        "KodeKursi": "B1-8"
+        "name": "Plato",
+        "KodeKursi": "B1-1"
       },
       {
-        "name": "yyyyy",
-        "KodeKursi": "P1-7"
+        "name": "Aristoteles",
+        "KodeKursi": "B1-2"
       }
     ],
     "totalPembayaran": 160000.0,
     "rekeningTujuan": "803255671891",
-    "isBayar": false
+    "isBayar": true
   }
 ]
