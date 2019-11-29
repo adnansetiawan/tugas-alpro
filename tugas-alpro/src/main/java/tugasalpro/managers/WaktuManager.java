@@ -26,10 +26,10 @@ public class WaktuManager {
     {
         // Var waktu
         Waktu textWaktu = new Waktu();
-        for (int i=1; i<=95;i++)
+        for (int i=0; i<=95;i++)
         {
-            kode = "TM"+i;
-            if (i==1)
+            kode = "TM"+(i+1);
+            if (i==0)
             {
                 textJam = "00.00";
             }
