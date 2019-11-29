@@ -146,7 +146,8 @@ public class JadwalPage {
                                 lastIndex++;
                                 curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
                                 waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
-                                jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
+                                String formatted = String.format("%05d", lastIndex);
+                                jadwal.setKodeJadwal("JW" + formatted);
                                 jadwal.setKereta(listKereta.get(j));
                                 jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
                                 jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
