@@ -222,6 +222,8 @@ public class JadwalPage {
         String kotaKebrangkatan;
         String kotaTujuan;
         String pilihan;
+        Kota kotaFrom = null;
+        Kota kotaTo = null;
         Date tanggal = null;
         do {
             ScreenUtility.ClearScreen();
@@ -245,9 +247,10 @@ public class JadwalPage {
                             List<Jadwal> listJadwal = jadwalManager.GetAll();
                             int i = 0;
                             for (Jadwal jadwal : listJadwal) {
-                                Kota kotaFrom = kotaManager.GetByNamaKota(kotaKebrangkatan);
-                                Kota kotaTo= kotaManager.GetByNamaKota(kotaTujuan);
-                                if (jadwal.getKotaKeberangkatan().getKodeKota().equals(kotaFrom.getKodeKota()) 
+                                kotaFrom = kotaManager.GetByNamaKota(kotaKebrangkatan);
+                                kotaTo= kotaManager.GetByNamaKota(kotaTujuan);
+                                if (kotaTo!=null && kotaFrom!=null) {
+                                    if (jadwal.getKotaKeberangkatan().getKodeKota().equals(kotaFrom.getKodeKota()) 
                                     && jadwal.getKotaTujuan().getKodeKota().equals(kotaTo.getKodeKota()) 
                                     && jadwal.getTanggalJadwal().equals(tanggal)) {
 
@@ -265,6 +268,8 @@ public class JadwalPage {
                                         at.addRule();
                                         break;
                                 }
+                                }
+                                
                             }
                             at.setPaddingLeft(1);
                             at.setPaddingRight(1);
