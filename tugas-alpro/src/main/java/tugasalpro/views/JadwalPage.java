@@ -24,6 +24,7 @@ import tugasalpro.managers.WaktuRuteManager;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.JalurRute;
 import tugasalpro.models.Kereta;
+import tugasalpro.models.Kota;
 import tugasalpro.models.Rute;
 import tugasalpro.models.Waktu;
 import tugasalpro.utilities.StringUtility;
@@ -146,7 +147,8 @@ public class JadwalPage {
                                 lastIndex++;
                                 curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
                                 waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
-                                jadwal.setKodeJadwal("JW" +("000000"+lastIndex).substring((""+lastIndex).length()));
+                                String formatted = String.format("%05d", lastIndex);
+                                jadwal.setKodeJadwal("JW" + formatted);
                                 jadwal.setKereta(listKereta.get(j));
                                 jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
                                 jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
@@ -229,31 +231,44 @@ public class JadwalPage {
             e.printStackTrace();
         }
 
-        System.out.println("-------------------------------------------------------");
-        System.out.println(
-                "No \t Kode Jadwal \t Tanggal \t Waktu Keberangkatan \t Keberangkatan \t Tujuan \t Waktu Tiba \t KAI \t Status");
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "WAKTU TIBA", "KERETA", "STATUS");
+        rowHeader.setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
         List<Jadwal> listJadwal = jadwalManager.GetAll();
 
         int i = 0;
         for (Jadwal jadwal : listJadwal) {
-            if (jadwal.getKotaKeberangkatan().equals(kotaManager.GetByNamaKota(kotaKebrangkatan)) 
-                && jadwal.getKotaTujuan().equals(kotaManager.GetByNamaKota(kotaTujuan))
+            Kota kotaFrom = kotaManager.GetByNamaKota(kotaKebrangkatan);
+            Kota kotaTo= kotaManager.GetByNamaKota(kotaTujuan);
+            if (jadwal.getKotaKeberangkatan().getKodeKota().equals(kotaFrom.getKodeKota()) 
+                && jadwal.getKotaTujuan().getKodeKota().equals(kotaTo.getKodeKota()) 
                 && jadwal.getTanggalJadwal().equals(tanggal)) {
 
-                System.out.print(i + " \t " + jadwal.getKodeJadwal() + " \t " + jadwal.getTanggalJadwal() + "\t\t"
-                    + jadwal.getWaktuBerangkat().getWaktu() + "\t" + jadwal.getKotaKeberangkatan().getNamaKota() + "\t"
-                    + jadwal.getKotaTujuan().getNamaKota() + "\t" + jadwal.getWaktuTiba() + "\t"
-                    + jadwal.getKereta().getKodeKereta());
-                if (jadwal.getKursiKosong() > 0) {
-                    System.out.println("Tersisa " + jadwal.getKursiKosong() + " Kursi");
-                } else {
-                    System.out.println("Full");
-                }
+                    i++;
+                    String status =  "";
+                    if (jadwal.getKursiKosong() > 0) {
+                        status = "Tersisa " + jadwal.getKursiKosong() + " Kursi";
+                    } else {
+                        status = "Full";
+                    }
+                    AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
+                    jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba(),
+                    jadwal.getKereta().getKodeKereta(), status);
+                    row.setTextAlignment(TextAlignment.CENTER);
+                    at.addRule();
+                    break;
 
             }
         }
-        System.out.println("-------------------------------------------------------");
-
+        at.setPaddingLeft(1);
+        at.setPaddingRight(1);
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        cwc.add(3, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(20, 0);
+        at.getRenderer().setCWC(cwc);
+        System.out.println(at.render());
+      
 
     }
 

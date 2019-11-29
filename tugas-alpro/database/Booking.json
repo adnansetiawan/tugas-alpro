@@ -79,5 +79,32 @@
     "totalPembayaran": 160000.0,
     "rekeningTujuan": "803255671891",
     "isBayar": true
+  },
+  {
+    "bookingId": "KAJ3N7",
+    "kodeJadwal": "JW00001",
+    "bookedBy": {
+      "username": "adnansetiawan@gmail.com",
+      "password": "pass",
+      "userInfo": {
+        "nama": "adnan setiawan",
+        "ktp": "1234567890123456",
+        "handphone": "081390553497"
+      }
+    },
+    "bookingDate": "Nov 28, 2019, 12:06:13 PM",
+    "penumpangs": [
+      {
+        "name": "XXXXX",
+        "KodeKursi": "B1-8"
+      },
+      {
+        "name": "yyyyy",
+        "KodeKursi": "P1-7"
+      }
+    ],
+    "totalPembayaran": 160000.0,
+    "rekeningTujuan": "803255671891",
+    "isBayar": false
   }
 ]

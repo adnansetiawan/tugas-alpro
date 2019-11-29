@@ -119,6 +119,7 @@ public class WaktuRutePage
         AT_Row row =  at.addRow("N0", "KODE WAKTU RUTE", "KODE RUTE", "WAKTU TERSEDIA RUTE");
         row.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
+        int no=1;
         for (WaktuRute waktuRute : waktuRuteManager.GetAll()) {
             if (waktuRute!=null) {
                 String strWaktu = "";
@@ -126,13 +127,14 @@ public class WaktuRutePage
                 for (Waktu wkt : listWaktu) {
                     strWaktu = strWaktu + "<br>- "+ wkt.getWaktu()+"</br>"; 
                 }            
-                at.addRow(1,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
+                at.addRow(no,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
                 at.addRule();
+                no++;
             }
         }
         
         CWC_LongestLine cwc = new CWC_LongestLine();
-        cwc.add(4, 0).add(20, 0).add(50, 0);
+        cwc.add(4, 0).add(20, 0).add(20, 0).add(20, 0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
     }
@@ -169,13 +171,16 @@ public class WaktuRutePage
                 String strWaktu = "";
                 listWaktu = waktuRute.getArrWaktu();
                 for (Waktu wkt : listWaktu) {
-                    strWaktu = strWaktu + "- "+ wkt.getWaktu()+"<br>"; 
-                }            
-                at.addRow(1,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
+                    strWaktu += wkt.getWaktu()+"<br>"; 
+                   
+                }   
+                AT_Row contentRow = at.addRow(1,waktuRute.getKodeWaktuRute(),waktuRute.getRute().getKodeRute(),strWaktu);
+                contentRow.setPadding(1);
+                contentRow.getCells().get(3).getContext().setTextAlignment(TextAlignment.RIGHT);
                 at.addRule();
             }
             CWC_LongestLine cwc = new CWC_LongestLine();
-            cwc.add(4, 0).add(20, 0).add(50, 0);
+            cwc.add(4, 0).add(20, 0).add(20, 0).add(20, 0);
             at.getRenderer().setCWC(cwc);
             System.out.println(at.render());
         }

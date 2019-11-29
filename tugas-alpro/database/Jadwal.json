@@ -1,19 +1,19 @@
 [
   {
-    "kodeJadwal": "JW00002",
-    "tanggalJadwal": "Nov 19, 2019, 9:30:54 PM",
+    "kodeJadwal": "JW00001",
+    "tanggalJadwal": "Nov 30, 2019, 7:46:53 AM",
     "waktuBerangkat": {
-      "kodeWaktu": "TM3",
-      "waktu": "11.00"
+      "kodeWaktu": "TM1",
+      "waktu": "00.00"
     },
-    "waktuTiba": "15.00",
+    "waktuTiba": "04.00",
     "kotaKeberangkatan": {
-      "kodeKota": "BDG",
-      "namaKota": "Bandung"
-    },
-    "kotaTujuan": {
       "kodeKota": "JKT",
       "namaKota": "Jakarta"
+    },
+    "kotaTujuan": {
+      "kodeKota": "BDG",
+      "namaKota": "Bandung"
     },
     "kereta": {
       "kodeKereta": "KAI18801",
@@ -536,7 +536,7 @@
         "isAvailable": true
       },
       {
-        "kodeKursi": "P2-5",
+        "kodeKursi": "P3-5",
         "gerbong": {
           "kategori": "Premium",
           "nomor": 3
@@ -826,13 +826,13 @@
     ]
   },
   {
-    "kodeJadwal": "JW00001",
-    "tanggalJadwal": "Nov 19, 2019, 9:30:54 PM",
+    "kodeJadwal": "JW00002",
+    "tanggalJadwal": "Dec 1, 2019, 7:46:53 AM",
     "waktuBerangkat": {
       "kodeWaktu": "TM1",
-      "waktu": "06.00"
+      "waktu": "00.00"
     },
-    "waktuTiba": "10.00",
+    "waktuTiba": "04.00",
     "kotaKeberangkatan": {
       "kodeKota": "JKT",
       "namaKota": "Jakarta"
@@ -855,7 +855,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "B1-2",
@@ -863,7 +863,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "B1-3",
@@ -959,7 +959,7 @@
           "kategori": "Bisnis",
           "nomor": 2
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "B2-5",
@@ -967,7 +967,7 @@
           "kategori": "Bisnis",
           "nomor": 2
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "B2-6",
@@ -1015,7 +1015,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-2",
@@ -1023,7 +1023,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-3",
@@ -1031,7 +1031,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-4",
@@ -1039,7 +1039,7 @@
           "kategori": "Premium",
           "nomor": 1
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P1-5",
@@ -1362,7 +1362,7 @@
         "isAvailable": true
       },
       {
-        "kodeKursi": "P2-5",
+        "kodeKursi": "P3-5",
         "gerbong": {
           "kategori": "Premium",
           "nomor": 3
@@ -1495,7 +1495,7 @@
           "kategori": "Premium",
           "nomor": 4
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P4-2",
@@ -1503,7 +1503,7 @@
           "kategori": "Premium",
           "nomor": 4
         },
-        "isAvailable": false
+        "isAvailable": true
       },
       {
         "kodeKursi": "P4-3",

@@ -1,0 +1,60 @@
+[
+  {
+    "kodeWaktuRute": "WR000001",
+    "rute": {
+      "kodeRute": "JKT-BDG",
+      "kotaAsal": {
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "kotaTujuan": {
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "hargaBisnis": 80000.0,
+      "hargaPremium": 120000.0
+    },
+    "arrWaktu": [
+      {
+        "kodeWaktu": "TM1",
+        "waktu": "00.00"
+      },
+      {
+        "kodeWaktu": "TM2",
+        "waktu": "00.15"
+      },
+      {
+        "kodeWaktu": "TM3",
+        "waktu": "00.30"
+      },
+      {
+        "kodeWaktu": "TM4",
+        "waktu": "01.00"
+      },
+      {
+        "kodeWaktu": "TM5",
+        "waktu": "01.15"
+      },
+      {
+        "kodeWaktu": "TM6",
+        "waktu": "01.30"
+      },
+      {
+        "kodeWaktu": "TM7",
+        "waktu": "01.45"
+      },
+      {
+        "kodeWaktu": "TM8",
+        "waktu": "02.00"
+      },
+      {
+        "kodeWaktu": "TM9",
+        "waktu": "02.15"
+      },
+      {
+        "kodeWaktu": "TM10",
+        "waktu": "02.30"
+      }
+    ]
+  }
+]
