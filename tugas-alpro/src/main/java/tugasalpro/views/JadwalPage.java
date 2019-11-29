@@ -24,6 +24,7 @@ import tugasalpro.managers.WaktuRuteManager;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.JalurRute;
 import tugasalpro.models.Kereta;
+import tugasalpro.models.Kota;
 import tugasalpro.models.Rute;
 import tugasalpro.models.Waktu;
 import tugasalpro.utilities.StringUtility;
@@ -237,8 +238,10 @@ public class JadwalPage {
 
         int i = 0;
         for (Jadwal jadwal : listJadwal) {
-            if (jadwal.getKotaKeberangkatan().equals(kotaManager.GetByNamaKota(kotaKebrangkatan)) 
-                && jadwal.getKotaTujuan().equals(kotaManager.GetByNamaKota(kotaTujuan))
+            Kota kotaFrom = kotaManager.GetByNamaKota(kotaKebrangkatan);
+            Kota kotaTo= kotaManager.GetByNamaKota(kotaTujuan);
+            if (jadwal.getKotaKeberangkatan().getKodeKota().equals(kotaFrom.getKodeKota()) 
+                && jadwal.getKotaTujuan().getKodeKota().equals(kotaTo.getKodeKota()) 
                 && jadwal.getTanggalJadwal().equals(tanggal)) {
 
                 System.out.print(i + " \t " + jadwal.getKodeJadwal() + " \t " + jadwal.getTanggalJadwal() + "\t\t"

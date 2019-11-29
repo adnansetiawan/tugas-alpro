@@ -1,5 +1,7 @@
 package tugasalpro.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +76,15 @@ public class Jadwal implements Comparable<Jadwal> {
     }
 
     public Date getTanggalJadwal() {
-        return this.tanggalJadwal;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate = formatter.format(this.tanggalJadwal);
+        try {
+            return formatter.parse(strDate);
+        } catch (ParseException e) {
+          
+        }
+        return null;
+       
     }
 
     public void setTanggalJadwal(Date tanggalJadwal) {
