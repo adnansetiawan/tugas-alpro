@@ -288,6 +288,7 @@ public class JadwalPage {
             System.out.print("Pilihan : ");
             pilihan = scanner.next();
         } while(!pilihan.equals("99"));
+        ScreenUtility.ClearScreen();
     }
 
     boolean isKeretaAvailableToRun(int durasi, Kereta kereta, Waktu waktuBerangkat, Date tanggalBerangkat) {
