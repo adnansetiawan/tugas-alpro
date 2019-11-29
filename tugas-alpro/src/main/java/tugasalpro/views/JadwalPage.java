@@ -19,7 +19,6 @@ import tugasalpro.managers.JalurRuteManager;
 import tugasalpro.managers.KeretaRuteManager;
 import tugasalpro.managers.KotaManager;
 import tugasalpro.managers.RuteManager;
-import tugasalpro.managers.WaktuManager;
 import tugasalpro.managers.WaktuRuteManager;
 import tugasalpro.models.Jadwal;
 import tugasalpro.models.JalurRute;
@@ -33,7 +32,6 @@ import tugasalpro.utilities.TimeUnitUtility;
 public class JadwalPage {
     private KotaManager kotaManager;
     private KeretaRuteManager keretaRuteManager;
-    private WaktuManager waktuManager;
     private RuteManager ruteManager;
     private JadwalManager jadwalManager;
     private JalurRuteManager jalurRuteManager;
@@ -44,7 +42,6 @@ public class JadwalPage {
     public JadwalPage() {
         keretaRuteManager = new KeretaRuteManager();
         jadwalManager = new JadwalManager();
-        waktuManager = new WaktuManager();
         kotaManager = new KotaManager();
         ruteManager = new RuteManager();
         jalurRuteManager = new JalurRuteManager();
@@ -83,7 +80,6 @@ public class JadwalPage {
         String waktuTiba = null;
         int maxHari = 0;
 
-        Collections.reverse(listJalurRute); // sorting berdasarkan durasi descending
         Collections.reverse(listRute); // sorting berdasarkan tanggal descending
         Collections.reverse(listJadwal);
 
@@ -92,83 +88,82 @@ public class JadwalPage {
         pilihan = scanner.next();
         if (pilihan.equals("Y")) {
             // generate Jadwal
-            Jadwal jadwal = new Jadwal();
-            Date dateobj = new Date();
-            if (listJadwal.size()>0) {
-                dateobj = listJadwal.get(0).getTanggalJadwal();
-            }
-            
-            long curTimeInMs = 0;
-
-            
-            
-            // jadwal terlama
-            durasiTerlama = listJalurRute.get(0).getDurasi();
-            maxHari = timeUtility.getDaysFromMinutes(durasiTerlama*2)+1;
-            System.out.println("deb max hari : "+maxHari);
-            for (int h=0; h<maxHari; h++) {
-                dateobj = timeUtility.addOneDay(dateobj);
-                // cek maksimum hari berdasarkan durasi terlama
-            
-            // untuk setiap jalur rute diambil kereta dan waktuRute
-                for (int i=0; i<listJalurRute.size(); i++) {
-                    // ambil kereta pada rute
-                    
-                    ArrayList<Kereta> listKereta = null;
-                    try {
-                        listKereta = keretaRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getKeretaTersedia();
-                    } catch (Exception e) {
-                        //TODO: handle exception
-                        System.out.println("Terjadi Kesalahan");
-                    }
-                    // ambil waktu pada rute
-                    ArrayList<Waktu> listWaktu = null;
-                    try {
-                        listWaktu = waktuRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getArrWaktu();
-                    } catch (Exception e) {
-                        //TODO: handle exception
-                        System.out.println("Terjadi Kesalahan");
-                    }
-
-                    // jika salah satu kosong, jangan lakukan generate
-                    if (listKereta!=null && listWaktu!=null) {
-                        if (listKereta.size()>0 && listWaktu.size()>0) {  
-                        Collections.sort(listWaktu); // sorting waktu dari yang tercepat/awal
-                        int maxIterate = 0;
-                        if (listKereta.size()>listWaktu.size()) { // pemilihan perulangan maksimum
-                            maxIterate = listWaktu.size();
-                        } else {
-                            maxIterate = listKereta.size();
+            if (listJalurRute.size()>0) {
+                Jadwal jadwal = new Jadwal();
+                Date dateobj = new Date();
+                if (listJadwal.size()>0) {
+                    dateobj = listJadwal.get(0).getTanggalJadwal();
+                }
+                
+                long curTimeInMs = 0;
+                // jadwal terlama
+                durasiTerlama = getLongestDurationFromRuteJalur(listJalurRute);
+                System.out.println("durLama : "+durasiTerlama);
+                maxHari = timeUtility.getDaysFromMinutes(durasiTerlama*2)+1;
+                System.out.println("deb max hari : "+maxHari);
+                for (int h=0; h<maxHari; h++) {
+                    dateobj = timeUtility.addOneDay(dateobj);
+                    // cek maksimum hari berdasarkan durasi terlama
+                
+                // untuk setiap jalur rute diambil kereta dan waktuRute
+                    for (int i=0; i<listJalurRute.size(); i++) {
+                        // ambil kereta pada rute
+                        
+                        ArrayList<Kereta> listKereta = null;
+                        try {
+                            listKereta = keretaRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getKeretaTersedia();
+                        } catch (Exception e) {
+                            //TODO: handle exception
+                            System.out.println("Terjadi Kesalahan");
+                        }
+                        // ambil waktu pada rute
+                        ArrayList<Waktu> listWaktu = null;
+                        try {
+                            listWaktu = waktuRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getArrWaktu();
+                        } catch (Exception e) {
+                            //TODO: handle exception
+                            System.out.println("Terjadi Kesalahan");
                         }
 
-                        for (int j = 0; j < maxIterate; j++) {
-                            if (isKeretaAvailableToRun(listJalurRute.get(i).getDurasi()*2, listKereta.get(j), listWaktu.get(j), dateobj)) {
-                                lastIndex = jadwalManager.GetAll().size();
-                                lastIndex++;
-                                curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
-                                waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
-                                String formatted = String.format("%05d", lastIndex);
-                                jadwal.setKodeJadwal("JW" + formatted);
-                                jadwal.setKereta(listKereta.get(j));
-                                jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
-                                jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
-                                jadwal.setTanggalJadwal(dateobj);
-                                jadwal.setWaktuBerangkat(listWaktu.get(j));
-                                jadwal.setWaktuTiba(waktuTiba);
-                                jadwal.generateKursi();
-                                jadwalManager.add(jadwal);
+                        // jika salah satu kosong, jangan lakukan generate
+                        if (listKereta!=null && listWaktu!=null) {
+                            if (listKereta.size()>0 && listWaktu.size()>0) {  
+                            Collections.sort(listWaktu); // sorting waktu dari yang tercepat/awal
+                            int maxIterate = 0;
+                            if (listKereta.size()>listWaktu.size()) { // pemilihan perulangan maksimum
+                                maxIterate = listWaktu.size();
+                            } else {
+                                maxIterate = listKereta.size();
+                            }
+
+                            for (int j = 0; j < maxIterate; j++) {
+                                if (isKeretaAvailableToRun(listJalurRute.get(i).getDurasi(), listKereta.get(j), listWaktu.get(j), dateobj)) {
+                                    lastIndex = jadwalManager.GetAll().size();
+                                    lastIndex++;
+                                    curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
+                                    waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
+                                    String formatted = String.format("%05d", lastIndex);
+                                    jadwal.setKodeJadwal("JW" + formatted);
+                                    jadwal.setKereta(listKereta.get(j));
+                                    jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
+                                    jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
+                                    jadwal.setTanggalJadwal(dateobj);
+                                    jadwal.setWaktuBerangkat(listWaktu.get(j));
+                                    jadwal.setWaktuTiba(waktuTiba);
+                                    jadwal.generateKursi();
+                                    jadwalManager.add(jadwal);
+                                }
                             }
                         }
                     }
+                        
+
+
                 }
-                    
-
-
             }
-        }
 
             
-
+    }
 
     }
 
@@ -279,17 +274,12 @@ public class JadwalPage {
         Date tanggalCek;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
         String strTanggalCek; 
-        
-
         while (maxHari>-1) {
             // ambil kereta dengan jadwal = tanggal hari ini dikurangi max hari
             tanggalCek = timeUtility.addDays(tanggalHariIni, -1*maxHari);
             strTanggalCek = dateFormat.format(tanggalCek);
-            System.out.println("ter : "+strTanggalCek);
             List<Jadwal> listJadwal = jadwalManager.getByTanggalAndKereta(kereta, strTanggalCek);
-            
             if (listJadwal.size()>0) {
-                
                 for (int i=0; i<listJadwal.size(); i++) {
                     Jadwal jdw = listJadwal.get(i);
                     Calendar calJadwal = Calendar.getInstance();
@@ -303,43 +293,25 @@ public class JadwalPage {
                         calBerangkat.get(Calendar.DAY_OF_MONTH),timeUtility.waktuToHH(waktuBerangkat),
                         timeUtility.waktuToMM(waktuBerangkat),0);
                     long selisihWaktu = Math.abs(calBerangkat.getTimeInMillis()-calJadwal.getTimeInMillis());
-                    System.out.println("=================================");
-                    System.out.println("waktu berangkat tahun : "+calJadwal.get(Calendar.YEAR));
-                    System.out.println("waktu berangkat bulan : "+calJadwal.get(Calendar.MONTH));
-                    System.out.println("waktu berangkat hari : "+calJadwal.get(Calendar.DAY_OF_MONTH));
-                    System.out.println("waktu berangkat jam : "+timeUtility.waktuToHH(jdw.getWaktuBerangkat()));
-                    System.out.println("waktu berangkat menit : "+timeUtility.waktuToMM(jdw.getWaktuBerangkat()));
-
-                    System.out.println("waktu berangkat tahun : "+calBerangkat.get(Calendar.YEAR));
-                    System.out.println("waktu berangkat bulan : "+calBerangkat.get(Calendar.MONTH));
-                    System.out.println("waktu berangkat hari : "+calBerangkat.get(Calendar.DAY_OF_MONTH));
-                    System.out.println("waktu berangkat jam : "+timeUtility.waktuToHH(waktuBerangkat));
-                    System.out.println("waktu berangkat menit : "+timeUtility.waktuToMM(waktuBerangkat));
-                    
-
-                    System.out.println("cek selisih : "+selisihWaktu);
-                    System.out.println("cek durasi : "+(durasi*2*60000));
-                    System.out.println("=================================");
                     if (selisihWaktu<durasi*2*60000) {
                         defaultResult = false;
-                        System.out.println("false");
-                    } else {
-                        System.out.println("true");
-                    }
+                    } 
                     
                 }
             }
-
-
             maxHari--;
         }
-
-
-
         return defaultResult;
     }
 
-    
-
-    
+    private int getLongestDurationFromRuteJalur(List<JalurRute> listJalurRute) {
+        int durasi = -999999999;
+        for (int i=0; i<listJalurRute.size(); i++) {
+            JalurRute jalurRute = listJalurRute.get(i);
+            if (jalurRute.getDurasi()>durasi) {
+                durasi = jalurRute.getDurasi();
+            }
+        }
+        return durasi;
+    }
 }
