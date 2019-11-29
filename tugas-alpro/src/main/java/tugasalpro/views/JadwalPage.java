@@ -300,10 +300,10 @@ public class JadwalPage {
                         calBerangkat.get(Calendar.DAY_OF_MONTH),timeUtility.waktuToHH(waktuBerangkat),
                         timeUtility.waktuToMM(waktuBerangkat));
                     long selisihWaktu = Math.abs(calBerangkat.getTimeInMillis()-calJadwal.getTimeInMillis());
-                    System.out.println("waktu berangkat : "+calBerangkat);
-                    System.out.println("waktu jadwal : "+calJadwal);
-                    System.out.println("cek selisih : "+selisihWaktu);
-                    System.out.println("cek durasi : "+(durasi*2*60000));
+                    //System.out.println("waktu berangkat : "+calBerangkat);
+                    //System.out.println("waktu jadwal : "+calJadwal);
+                    //System.out.println("cek selisih : "+selisihWaktu);
+                    //System.out.println("cek durasi : "+(durasi*2*60000));
                     if (selisihWaktu<durasi*2*60000) {
                         defaultResult = false;
                     }
