@@ -170,7 +170,7 @@ public class JadwalPage {
                 }
             }
 
-            
+            System.out.println("Jadwal Kereta Berhasil di-generate");
     }
 
     }
