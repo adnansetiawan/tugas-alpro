@@ -260,37 +260,56 @@ public class JadwalPage {
     boolean isKeretaAvailableToRun(int durasi, Kereta kereta, Waktu waktuBerangkat, Date tanggalBerangkat) {
         boolean defaultResult  = true;
         int maxHari  = timeUtility.getDaysFromMinutes(durasi)+1;
-        Date tanggalHariIni = new Date();
+        Date tanggalHariIni = tanggalBerangkat;
         Date tanggalCek;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
         String strTanggalCek; 
-
+        
 
         while (maxHari>-1) {
             // ambil kereta dengan jadwal = tanggal hari ini dikurangi max hari
             tanggalCek = timeUtility.addDays(tanggalHariIni, -1*maxHari);
             strTanggalCek = dateFormat.format(tanggalCek);
+            System.out.println("ter : "+strTanggalCek);
             List<Jadwal> listJadwal = jadwalManager.getByTanggalAndKereta(kereta, strTanggalCek);
+            
             if (listJadwal.size()>0) {
+                
                 for (int i=0; i<listJadwal.size(); i++) {
                     Jadwal jdw = listJadwal.get(i);
                     Calendar calJadwal = Calendar.getInstance();
                     calJadwal.setTime(jdw.getTanggalJadwal());
                     calJadwal.set(calJadwal.get(Calendar.YEAR), calJadwal.get(Calendar.MONTH), 
                         calJadwal.get(Calendar.DAY_OF_MONTH), timeUtility.waktuToHH(jdw.getWaktuBerangkat()), 
-                        timeUtility.waktuToMM(jdw.getWaktuBerangkat()));
+                        timeUtility.waktuToMM(jdw.getWaktuBerangkat()),0);
                     Calendar calBerangkat = Calendar.getInstance();
                     calBerangkat.setTime(tanggalBerangkat);
                     calBerangkat.set(calBerangkat.get(Calendar.YEAR),calBerangkat.get(Calendar.MONTH),
                         calBerangkat.get(Calendar.DAY_OF_MONTH),timeUtility.waktuToHH(waktuBerangkat),
-                        timeUtility.waktuToMM(waktuBerangkat));
+                        timeUtility.waktuToMM(waktuBerangkat),0);
                     long selisihWaktu = Math.abs(calBerangkat.getTimeInMillis()-calJadwal.getTimeInMillis());
-                    //System.out.println("waktu berangkat : "+calBerangkat);
-                    //System.out.println("waktu jadwal : "+calJadwal);
-                    //System.out.println("cek selisih : "+selisihWaktu);
-                    //System.out.println("cek durasi : "+(durasi*2*60000));
+                    System.out.println("=================================");
+                    System.out.println("waktu berangkat tahun : "+calJadwal.get(Calendar.YEAR));
+                    System.out.println("waktu berangkat bulan : "+calJadwal.get(Calendar.MONTH));
+                    System.out.println("waktu berangkat hari : "+calJadwal.get(Calendar.DAY_OF_MONTH));
+                    System.out.println("waktu berangkat jam : "+timeUtility.waktuToHH(jdw.getWaktuBerangkat()));
+                    System.out.println("waktu berangkat menit : "+timeUtility.waktuToMM(jdw.getWaktuBerangkat()));
+
+                    System.out.println("waktu berangkat tahun : "+calBerangkat.get(Calendar.YEAR));
+                    System.out.println("waktu berangkat bulan : "+calBerangkat.get(Calendar.MONTH));
+                    System.out.println("waktu berangkat hari : "+calBerangkat.get(Calendar.DAY_OF_MONTH));
+                    System.out.println("waktu berangkat jam : "+timeUtility.waktuToHH(waktuBerangkat));
+                    System.out.println("waktu berangkat menit : "+timeUtility.waktuToMM(waktuBerangkat));
+                    
+
+                    System.out.println("cek selisih : "+selisihWaktu);
+                    System.out.println("cek durasi : "+(durasi*2*60000));
+                    System.out.println("=================================");
                     if (selisihWaktu<durasi*2*60000) {
                         defaultResult = false;
+                        System.out.println("false");
+                    } else {
+                        System.out.println("true");
                     }
                     
                 }
