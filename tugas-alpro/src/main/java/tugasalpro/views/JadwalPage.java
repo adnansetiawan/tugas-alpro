@@ -101,22 +101,16 @@ public class JadwalPage {
                 long curTimeInMs = 0;
                 // jadwal terlama
                 durasiTerlama = getLongestDurationFromRuteJalur(listJalurRute);
-                System.out.println("durLama : "+durasiTerlama);
                 maxHari = timeUtility.getDaysFromMinutes(durasiTerlama*2)+1;
-                System.out.println("deb max hari : "+maxHari);
                 for (int h=0; h<maxHari; h++) {
                     dateobj = timeUtility.addOneDay(dateobj);
-                    // cek maksimum hari berdasarkan durasi terlama
-                
-                // untuk setiap jalur rute diambil kereta dan waktuRute
+                    // untuk setiap jalur rute diambil kereta dan waktuRute
                     for (int i=0; i<listJalurRute.size(); i++) {
                         // ambil kereta pada rute
-                        
                         ArrayList<Kereta> listKereta = null;
                         try {
                             listKereta = keretaRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getKeretaTersedia();
                         } catch (Exception e) {
-                            //TODO: handle exception
                             System.out.println("Terjadi Kesalahan");
                         }
                         // ambil waktu pada rute
@@ -124,7 +118,6 @@ public class JadwalPage {
                         try {
                             listWaktu = waktuRuteManager.getByKodeRute(listJalurRute.get(i).getRuteJalur().getKodeRute()).getArrWaktu();
                         } catch (Exception e) {
-                            //TODO: handle exception
                             System.out.println("Terjadi Kesalahan");
                         }
 
@@ -194,7 +187,7 @@ public class JadwalPage {
     public void menuTampil() {
         AsciiTable at = new AsciiTable();
         at.addRule();
-        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL BERANGKAT", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "WAKTU TIBA", "TANGGAL TIBA", "KERETA", "STATUS");
+        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL BERANGKAT", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "TANGGAL TIBA", "WAKTU TIBA",  "KERETA", "STATUS");
         rowHeader.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
         List<Jadwal> listJadwal = jadwalManager.GetAll();
@@ -209,8 +202,8 @@ public class JadwalPage {
                 status = "Full";
             }
             AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
-            jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba(),
-            StringUtility.getFormattedDate(jadwal.getTanggalTiba()),
+            jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),
+            StringUtility.getFormattedDate(jadwal.getTanggalTiba()),jadwal.getWaktuTiba(),
             jadwal.getKereta().getKodeKereta(), status);
             row.setTextAlignment(TextAlignment.CENTER);
             at.addRule();
@@ -228,61 +221,68 @@ public class JadwalPage {
     public void menuSearch() {
         String kotaKebrangkatan;
         String kotaTujuan;
+        String pilihan;
         Date tanggal = null;
-        System.out.println("Cari Jadwal Kereta Api");
-        System.out.print("Keberangkatan : ");
-        kotaKebrangkatan = scanner.next();
-        try {
-            if (!kotaKebrangkatan.equals("99")) {
-                System.out.print("Tujuan : ");
-                kotaTujuan = scanner.next();
-                if (!kotaTujuan.equals("99")) {
-                    System.out.print("Tanggal : ");
-                    String tglStr = scanner.next();
-                    if (!tglStr.equals("99")) {
-                        tanggal = new SimpleDateFormat("dd-MM-yyyy").parse(tglStr);
-                        AsciiTable at = new AsciiTable();
-                        at.addRule();
-                        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "WAKTU TIBA", "KERETA", "STATUS");
-                        rowHeader.setTextAlignment(TextAlignment.CENTER);
-                        at.addRule();
-                        List<Jadwal> listJadwal = jadwalManager.GetAll();
+        do {
+            ScreenUtility.ClearScreen();
+            System.out.println("Cari Jadwal Kereta Api");
+            System.out.print("Keberangkatan : ");
+            kotaKebrangkatan = scanner.next();
+            try {
+                if (!kotaKebrangkatan.equals("99")) {
+                    System.out.print("Tujuan : ");
+                    kotaTujuan = scanner.next();
+                    if (!kotaTujuan.equals("99")) {
+                        System.out.print("Tanggal : ");
+                        String tglStr = scanner.next();
+                        if (!tglStr.equals("99")) {
+                            tanggal = new SimpleDateFormat("dd-MM-yyyy").parse(tglStr);
+                            AsciiTable at = new AsciiTable();
+                            at.addRule();
+                            AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL BERANGKAT", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "TANGGAL TIBA", "WAKTU TIBA",  "KERETA", "STATUS");
+                            rowHeader.setTextAlignment(TextAlignment.CENTER);
+                            at.addRule();
+                            List<Jadwal> listJadwal = jadwalManager.GetAll();
+                            int i = 0;
+                            for (Jadwal jadwal : listJadwal) {
+                                Kota kotaFrom = kotaManager.GetByNamaKota(kotaKebrangkatan);
+                                Kota kotaTo= kotaManager.GetByNamaKota(kotaTujuan);
+                                if (jadwal.getKotaKeberangkatan().getKodeKota().equals(kotaFrom.getKodeKota()) 
+                                    && jadwal.getKotaTujuan().getKodeKota().equals(kotaTo.getKodeKota()) 
+                                    && jadwal.getTanggalJadwal().equals(tanggal)) {
 
-                        int i = 0;
-                        for (Jadwal jadwal : listJadwal) {
-                            Kota kotaFrom = kotaManager.GetByNamaKota(kotaKebrangkatan);
-                            Kota kotaTo= kotaManager.GetByNamaKota(kotaTujuan);
-                            if (jadwal.getKotaKeberangkatan().getKodeKota().equals(kotaFrom.getKodeKota()) 
-                                && jadwal.getKotaTujuan().getKodeKota().equals(kotaTo.getKodeKota()) 
-                                && jadwal.getTanggalJadwal().equals(tanggal)) {
-
-                                    i++;
-                                    String status =  "";
-                                    if (jadwal.getKursiKosong() > 0) {
-                                        status = "Tersisa " + jadwal.getKursiKosong() + " Kursi";
-                                    } else {
-                                        status = "Full";
-                                    }
-                                    AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
-                                    jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba(),
-                                    jadwal.getKereta().getKodeKereta(), status);
-                                    row.setTextAlignment(TextAlignment.CENTER);
-                                    at.addRule();
-                                    break;
+                                        i++;
+                                        String status =  "";
+                                        if (jadwal.getKursiKosong() > 0) {
+                                            status = "Tersisa " + jadwal.getKursiKosong() + " Kursi";
+                                        } else {
+                                            status = "Full";
+                                        }
+                                        AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
+                                        jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),StringUtility.getFormattedDate(jadwal.getTanggalTiba()),jadwal.getWaktuTiba(),
+                                        jadwal.getKereta().getKodeKereta(), status);
+                                        row.setTextAlignment(TextAlignment.CENTER);
+                                        at.addRule();
+                                        break;
+                                }
                             }
+                            at.setPaddingLeft(1);
+                            at.setPaddingRight(1);
+                            CWC_LongestLine cwc = new CWC_LongestLine();
+                            cwc.add(3, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(20, 0);
+                            at.getRenderer().setCWC(cwc);
+                            System.out.println(at.render());
                         }
-                        at.setPaddingLeft(1);
-                        at.setPaddingRight(1);
-                        CWC_LongestLine cwc = new CWC_LongestLine();
-                        cwc.add(3, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(20, 0);
-                        at.getRenderer().setCWC(cwc);
-                        System.out.println(at.render());
                     }
                 }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            System.out.println("1. Pencarian");
+            System.out.println("99. Keluar");
+            System.out.print("Pilihan : ");
+            pilihan = scanner.next();
+        } while(!pilihan.equals("99"));
     }
 
     boolean isKeretaAvailableToRun(int durasi, Kereta kereta, Waktu waktuBerangkat, Date tanggalBerangkat) {
