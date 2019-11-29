@@ -56,7 +56,7 @@ public class Repository<T> {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("failed to update");
+            System.out.println("failed to add data to file");
             return false;
           
         }
@@ -95,8 +95,7 @@ public class Repository<T> {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println("error create file :" +file.getPath());
             }
         }
         return file;
@@ -107,13 +106,13 @@ public class Repository<T> {
     {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         byte[] byteData=null;
+        File f = getFile(this.fileName.toString()+".json");
         try {
-            File f = getFile(this.fileName.toString()+".json");
-          
+           
             byteData = Files.readAllBytes(f.toPath());
             
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("error fetch data from file " + f.getName());
         }
         String jsonStr = new String(byteData);
         T[] result = gson.fromJson(jsonStr, this.className);
