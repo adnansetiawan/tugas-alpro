@@ -26,6 +26,7 @@ import tugasalpro.models.Kereta;
 import tugasalpro.models.Kota;
 import tugasalpro.models.Rute;
 import tugasalpro.models.Waktu;
+import tugasalpro.utilities.ScreenUtility;
 import tugasalpro.utilities.StringUtility;
 import tugasalpro.utilities.TimeUnitUtility;
 
@@ -62,8 +63,10 @@ public class JadwalPage {
             System.out.print("Pilihan : ");
             pilihan = scanner.nextInt();
             if (pilihan == 1) {
+                ScreenUtility.ClearScreen();
                 menuGenerate();
             } else if (pilihan == 2) {
+                ScreenUtility.ClearScreen();
                 menuTampil();
             }
 
