@@ -12,6 +12,7 @@ import tugasalpro.models.Waktu;
 public class Jadwal implements Comparable<Jadwal> {
     private String kodeJadwal;
     private Date tanggalJadwal;
+    private Date tanggalTiba;
     private Waktu waktuBerangkat;
     private String waktuTiba;
     private Kota kotaKeberangkatan;
@@ -25,7 +26,7 @@ public class Jadwal implements Comparable<Jadwal> {
         
     }
 
-    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, String waktuTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta) {
+    public Jadwal(String kodeJadwal, Date tanggalJadwal, Waktu waktuBerangkat, String waktuTiba, Date tanggalTiba, Kota kotaKeberangkatan, Kota kotaTujuan, Kereta kereta) {
         this.kodeJadwal = kodeJadwal;
         this.tanggalJadwal = tanggalJadwal;
         this.waktuBerangkat = waktuBerangkat;
@@ -86,9 +87,23 @@ public class Jadwal implements Comparable<Jadwal> {
         return null;
        
     }
+    public Date getTanggalTiba() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate = formatter.format(this.tanggalTiba);
+        try {
+            return formatter.parse(strDate);
+        } catch (ParseException e) {
+          
+        }
+        return null;
+       
+    }
 
     public void setTanggalJadwal(Date tanggalJadwal) {
         this.tanggalJadwal = tanggalJadwal;
+    }
+    public void setTanggalTiba(Date tanggalTiba) {
+        this.tanggalTiba = tanggalTiba;
     }
 
     public Waktu getWaktuBerangkat() {
