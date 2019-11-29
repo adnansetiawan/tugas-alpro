@@ -29,7 +29,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "B1-2",
@@ -37,7 +37,7 @@
           "kategori": "Bisnis",
           "nomor": 1
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "B1-3",
@@ -1175,7 +1175,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P2-2",
@@ -1183,7 +1183,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P2-3",
@@ -1199,7 +1199,7 @@
           "kategori": "Premium",
           "nomor": 2
         },
-        "isAvailable": true
+        "isAvailable": false
       },
       {
         "kodeKursi": "P2-5",

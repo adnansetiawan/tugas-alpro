@@ -26,12 +26,14 @@ public class LoginManager
        User user = userManager.getByUsername(username);
        if(user == null)
        {
+            ApplicationSession.setLoggedUser(null);
            this.isLogin = false;
        }else
        {
 
            if(!user.getPassword().equals(password))
            {
+                ApplicationSession.setLoggedUser(null);
                 this.isLogin = false ;
            }else
            {

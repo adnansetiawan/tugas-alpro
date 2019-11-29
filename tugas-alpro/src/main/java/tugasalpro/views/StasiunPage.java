@@ -64,32 +64,32 @@ public class StasiunPage{
         String namaStasiun;
         boolean flagIterate=true;
         do{
-            System.out.print("Tambah Data Stasiun : ");
+            System.out.print("Stasiun yang ingin ditambahkan : ");
             kodeStasiun = scanner.next();
             if(stasiunManager.getIndexByKodeStasiun(kodeStasiun)!=-1){
-                namaStasiun=scanner.nextLine();
+                namaStasiun=scanner.next();
                 System.out.println("Stasiun dengan kode stasiun "+kodeStasiun+" sudah ada.");
                 System.out.println("Mohon masukkan kode stasiun yang berbeda, atau “99” untuk membatalkan penambahan stasiun.");
             }else{
                 if(kodeStasiun.equals("99")){
-                    namaStasiun=scanner.nextLine();
                     System.out.println("Penambahan stasiun dibatalkan.");
                     flagIterate=false;
                 }else{
-                    namaStasiun=scanner.nextLine();
-                    if(stasiunManager.getIndexByNamaStasiun(namaStasiun.substring(1))!=-1){
-                        System.out.println("Stasiun dengan nama stasiun "+namaStasiun.substring(1)+" sudah ada.");
+                    namaStasiun=scanner.next();
+                    if(stasiunManager.getIndexByNamaStasiun(namaStasiun)!=-1){
+                        System.out.println("Stasiun dengan nama stasiun "+namaStasiun+" sudah ada.");
                         System.out.println("Mohon masukkan nama stasiun yang berbeda, atau “99” untuk membatalkan penambahan stasiun.");
                     }else{
                         if(namaStasiun.equals("99")){
                             System.out.println("Penambahan stasiun dibatalkan.");
+                            flagIterate=false;
                         }else{
                             stasiun.setKodeStasiun(kodeStasiun);
-                            stasiun.setNamaStasiun(namaStasiun.substring(1));
+                            stasiun.setNamaStasiun(namaStasiun);
                             stasiunManager.add(stasiun);
                             System.out.println("Stasiun berhasil ditambahkan.");
+                            flagIterate=false;
                         }
-                        flagIterate=false;
                     }
                 }
             }
@@ -132,20 +132,20 @@ public class StasiunPage{
         boolean flagIterate=true;
         boolean flagIterateB=true;
         do{
-            System.out.print("Edit Stasiun : ");
+            System.out.print("Kode stasiun yang ingin diubah : ");
             kodeStasiun=scanner.next();
             if(!kodeStasiun.equals("99")){
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
                 if(stasiun!=null){
                     do{
-                        System.out.print("Kode Stasiun : ");
+                        System.out.print("Kode stasiun yang baru : ");
                         kodeStasiunB=scanner.next();
                         if(kodeStasiunB.equals("99")){
                             System.out.println("Pengubahan stasiun dibatalkan.");
                             flagIterateB=false;
                             flagIterate=false;
                         }else{
-                            System.out.print("Nama stasiun : ");
+                            System.out.print("Nama stasiun yang baru : ");
                             namaStasiun=scanner.next();
                             if(stasiunManager.getIndexByNamaStasiun(namaStasiun)!=-1){
                                 if(stasiunManager.getIndexByKodeStasiun(kodeStasiunB)!=-1){
@@ -190,22 +190,24 @@ public class StasiunPage{
 
     public void menuHapus(){
         System.out.println("#HAPUS DATA STASIUN#");
-        String kodeStasiun=null;
-        Stasiun stasiun=null;
+        String kodeStasiun;
+        Stasiun stasiun;
         boolean flagIterate=true;
         do{
-            System.out.print("Hapus Stasiun : ");
+            System.out.print("Kode Stasiun : ");
             kodeStasiun=scanner.next();
             if(!kodeStasiun.equals("99")){
                 stasiun=stasiunManager.getByKodeStasiun(kodeStasiun);
                 if(stasiun!=null){
                     stasiunManager.delete(stasiun);
+                    System.out.println("Stasiun "+stasiun.getKodeStasiun()+" "+stasiun.getNamaStasiun()+" berhasil dihapus.");
+                    flagIterate=false;
                 }else{
                     System.out.println("Stasiun dengan kode stasiun "+kodeStasiun+" tidak ada.");
-                    System.out.println("Mohon masukkan kode stasiun yang berbeda, atau “99” untuk membatalkan pengubahan stasiun.");
+                    System.out.println("Mohon masukkan kode stasiun yang berbeda, atau “99” untuk membatalkan penghapusan stasiun.");
                 }
             }else{
-                System.out.println("Pengubahan stasiun dibatalkan.");
+                System.out.println("Penghapusan stasiun dibatalkan.");
                 flagIterate=false;
             }
         }while(flagIterate);

@@ -6,7 +6,6 @@
     "totalPembayaran": 160000.0,
     "tanggalPembayaran": "Nov 26, 2019, 10:02:32 PM",
     "tiket": {
-      "kode": "2PYL96",
       "penumpang": [
         {
           "name": "plato",
@@ -26,7 +25,6 @@
     "totalPembayaran": 240000.0,
     "tanggalPembayaran": "Nov 26, 2019, 10:11:48 PM",
     "tiket": {
-      "kode": "ZWPFGF",
       "penumpang": [
         {
           "name": "Seneca",
@@ -46,7 +44,6 @@
     "totalPembayaran": 160000.0,
     "tanggalPembayaran": "Nov 28, 2019, 11:35:23 AM",
     "tiket": {
-      "kode": "WXHIPY",
       "penumpang": [
         {
           "name": "PMP1",
@@ -55,6 +52,26 @@
         {
           "name": "PMP2",
           "KodeKursi": "B2-5"
+        }
+      ]
+    }
+  },
+  {
+    "kodePembayaran": "N4IBD6",
+    "kodeBooking": "3VL0MX",
+    "kodeKereta": "KAI18801",
+    "totalPembayaran": 160000.0,
+    "tanggalPembayaran": "Nov 29, 2019, 1:19:20 PM",
+    "tiket": {
+      "kodeTiket": "KCO4ZQ",
+      "penumpang": [
+        {
+          "name": "Plato",
+          "KodeKursi": "B1-1"
+        },
+        {
+          "name": "Aristoteles",
+          "KodeKursi": "B1-2"
         }
       ]
     }

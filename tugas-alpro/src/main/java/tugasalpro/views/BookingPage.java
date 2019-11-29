@@ -333,7 +333,8 @@ public class BookingPage
             {
                 jadwal.bookingKursi(penumpang.get(i).getKodeKursi(), true);
             }
-            System.out.println("delete success!");
+            System.out.println("cancel booking success!");
+            
         }
         
         showMenu();
