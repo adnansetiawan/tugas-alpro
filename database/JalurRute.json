@@ -1,0 +1,64 @@
+[
+  {
+    "kodeJalur": "jk",
+    "ruteJalur": {
+      "kodeRute": "JKT-BDG",
+      "kotaAsal": {
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "kotaTujuan": {
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "hargaBisnis": 120000.0,
+      "hargaPremium": 200000.0
+    },
+    "durasi": 1440,
+    "activeStatus": true,
+    "arrJalurStasiun": [
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "GMR",
+          "namaStasiun": "Gambir"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "BKS",
+          "namaStasiun": "Bekasi"
+        },
+        "durasi": 1800
+      }
+    ]
+  },
+  {
+    "kodeJalur": "JL01",
+    "ruteJalur": {
+      "kodeRute": "BDG-JKT",
+      "kotaAsal": {
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "kotaTujuan": {
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "hargaBisnis": 150000.0,
+      "hargaPremium": 250000.0
+    },
+    "durasi": 240,
+    "activeStatus": true,
+    "arrJalurStasiun": [
+      {
+        "stasiunAsal": {
+          "kodeStasiun": "KRW",
+          "namaStasiun": "Karawang"
+        },
+        "stasiunTujuan": {
+          "kodeStasiun": "GMR",
+          "namaStasiun": "Gambir"
+        },
+        "durasi": 720
+      }
+    ]
+  }
+]

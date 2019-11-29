@@ -1,0 +1,34 @@
+[
+  {
+    "kodeStasiun": "GMR",
+    "namaStasiun": "Gambir"
+  },
+  {
+    "kodeStasiun": "TWG",
+    "namaStasiun": "Tawang"
+  },
+  {
+    "kodeStasiun": "JTR",
+    "namaStasiun": "Jatinegara"
+  },
+  {
+    "kodeStasiun": "BKS",
+    "namaStasiun": "Bekasi"
+  },
+  {
+    "kodeStasiun": "CKR",
+    "namaStasiun": "Cikarang"
+  },
+  {
+    "kodeStasiun": "KRW",
+    "namaStasiun": "Karawang"
+  },
+  {
+    "kodeStasiun": "CIM",
+    "namaStasiun": "Cimahi"
+  },
+  {
+    "kodeStasiun": "BDN",
+    "namaStasiun": "Bandung"
+  }
+]

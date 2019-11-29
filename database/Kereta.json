@@ -1,0 +1,65 @@
+[
+  {
+    "kodeKereta": "KAI001",
+    "namaKereta": "Argo Parahyangan",
+    "jmlGerbong": 6,
+    "jmlGBisnis": 4,
+    "jmlGPremium": 2
+  },
+  {
+    "kodeKereta": "KAI002",
+    "namaKereta": "Argo Terbang",
+    "jmlGerbong": 6,
+    "jmlGBisnis": 2,
+    "jmlGPremium": 4
+  },
+  {
+    "kodeKereta": "KAI003",
+    "namaKereta": "Argo argoan",
+    "jmlGerbong": 6,
+    "jmlGBisnis": 1,
+    "jmlGPremium": 5
+  },
+  {
+    "kodeKereta": "KAI004",
+    "namaKereta": "Argo4",
+    "jmlGerbong": 4,
+    "jmlGBisnis": 2,
+    "jmlGPremium": 2
+  },
+  {
+    "kodeKereta": "KAI005",
+    "namaKereta": "argo5",
+    "jmlGerbong": 2,
+    "jmlGBisnis": 1,
+    "jmlGPremium": 1
+  },
+  {
+    "kodeKereta": "KAI006",
+    "namaKereta": "Argo6",
+    "jmlGerbong": 5,
+    "jmlGBisnis": 2,
+    "jmlGPremium": 3
+  },
+  {
+    "kodeKereta": "KAI007",
+    "namaKereta": "ARGO7",
+    "jmlGerbong": 6,
+    "jmlGBisnis": 1,
+    "jmlGPremium": 5
+  },
+  {
+    "kodeKereta": "KAI008",
+    "namaKereta": "ARGO8",
+    "jmlGerbong": 4,
+    "jmlGBisnis": 2,
+    "jmlGPremium": 2
+  },
+  {
+    "kodeKereta": "KAI009",
+    "namaKereta": "ARGO9",
+    "jmlGerbong": 6,
+    "jmlGBisnis": 1,
+    "jmlGPremium": 5
+  }
+]

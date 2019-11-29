@@ -1,0 +1,59 @@
+[
+  {
+    "kodeKeretaRute": "KR00",
+    "ruteKereta": {
+      "kodeRute": "JKT-BDG",
+      "kotaAsal": {
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "kotaTujuan": {
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "hargaBisnis": 120000.0,
+      "hargaPremium": 200000.0
+    },
+    "keretaTersedia": [
+      {
+        "kodeKereta": "KAI001",
+        "namaKereta": "Argo Parahyangan",
+        "jmlGerbong": 6,
+        "jmlGBisnis": 4,
+        "jmlGPremium": 2
+      }
+    ]
+  },
+  {
+    "kodeKeretaRute": "KR01",
+    "ruteKereta": {
+      "kodeRute": "BDG-JKT",
+      "kotaAsal": {
+        "kodeKota": "BDG",
+        "namaKota": "Bandung"
+      },
+      "kotaTujuan": {
+        "kodeKota": "JKT",
+        "namaKota": "Jakarta"
+      },
+      "hargaBisnis": 150000.0,
+      "hargaPremium": 250000.0
+    },
+    "keretaTersedia": [
+      {
+        "kodeKereta": "KAI002",
+        "namaKereta": "Argo Terbang",
+        "jmlGerbong": 6,
+        "jmlGBisnis": 2,
+        "jmlGPremium": 4
+      },
+      {
+        "kodeKereta": "KAI003",
+        "namaKereta": "Argo argoan",
+        "jmlGerbong": 6,
+        "jmlGBisnis": 1,
+        "jmlGPremium": 5
+      }
+    ]
+  }
+]

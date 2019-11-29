@@ -1,0 +1,29 @@
+[
+  {
+    "bookingId": "55406c26-bd1d-4a7b-bcd5-92674c318bc2",
+    "kodeJadwal": "JW1",
+    "bookedBy": {
+      "username": "adnansetiawan@gmail.com",
+      "password": "pass",
+      "userInfo": {
+        "nama": "adnan setiawan",
+        "ktp": "1234567890123456",
+        "handphone": "081390553499"
+      }
+    },
+    "bookingDate": "Nov 19, 2019, 6:31:31 PM",
+    "penumpangs": [
+      {
+        "name": "plato",
+        "KodeKursi": "B1-1"
+      },
+      {
+        "name": "aristoteles",
+        "KodeKursi": "B1-2"
+      }
+    ],
+    "totalPembayaran": 880000.0,
+    "rekeningTujuan": "803255671891",
+    "isBayar": false
+  }
+]
