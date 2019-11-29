@@ -59,6 +59,7 @@ public class KeretaRutePage {
         String kodeRute = null;
         Rute rutePilihan = null;
         String kodeKereta = null;
+        int adaKereta = -1;
         int i = 1;
         boolean flagIterate = true;
         ArrayList<Kereta> arrKereta = new ArrayList<Kereta>();
@@ -88,9 +89,17 @@ public class KeretaRutePage {
                         }
                         else
                         {
-                            i++;
-                            arrKereta.add(kereta);
-                            keretaRute.getKeretaTersedia().add(kereta);
+                            adaKereta = keretaRuteManager.getIndexByKodeKereta(kodeKereta);
+                            if (adaKereta != -1)
+                            {
+                                System.out.println("Kode kereta tersebut sudah digunakan");
+                            }
+                            else
+                            {
+                                i++;
+                                arrKereta.add(kereta);
+                                keretaRute.getKeretaTersedia().add(kereta);
+                            }
                         }
                     }
                     else
@@ -101,17 +110,20 @@ public class KeretaRutePage {
                 }
             } while (flagIterate);
             // ambil no terakhir
-            no = listKeretaRute.size()+1;
-            if (no>9) {
-                keretaRute.setKodeKeretaRute("KR"+no);
-            } else {
-                keretaRute.setKodeKeretaRute("KR0"+no);
+            if (i > 1)
+            {
+                no = listKeretaRute.size()+1;
+                if (no>9) {
+                    keretaRute.setKodeKeretaRute("KR"+no);
+                } else {
+                    keretaRute.setKodeKeretaRute("KR0"+no);
+                }
+                keretaRuteManager.add(keretaRute);
             }
         } else {
             System.out.println("Rute tidak ditemukan - Keluar");
         }
 
-        keretaRuteManager.add(keretaRute);
 
        
         /*rute.setKotaAsal(kotaManager.GetByNamaKota(kotaAsal));
