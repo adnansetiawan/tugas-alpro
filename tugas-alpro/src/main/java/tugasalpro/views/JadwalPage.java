@@ -144,12 +144,24 @@ public class JadwalPage {
                                     lastIndex = jadwalManager.GetAll().size();
                                     lastIndex++;
                                     curTimeInMs = timeUtility.HHMMtoMilis(listWaktu.get(j).getWaktu());
+                                    int extraDay = timeUtility.CheckExtraDay(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
                                     waktuTiba = timeUtility.convertToHHMM(curTimeInMs + (listJalurRute.get(i).getDurasi() * ONE_MINUTE_IN_MILLIS));
                                     String formatted = String.format("%05d", lastIndex);
                                     jadwal.setKodeJadwal("JW" + formatted);
                                     jadwal.setKereta(listKereta.get(j));
                                     jadwal.setKotaKeberangkatan(listJalurRute.get(i).getRuteJalur().getKotaAsal());
                                     jadwal.setKotaTujuan(listJalurRute.get(i).getRuteJalur().getKotaTujuan());
+                                    if(extraDay > 0)
+                                    {
+                                        Calendar cal = Calendar.getInstance();
+                                        cal.setTime(dateobj);
+                                        cal.add(Calendar.DATE, extraDay);
+                                        jadwal.setTanggalTiba(cal.getTime());
+                                    }else
+                                    {
+                                       
+                                        jadwal.setTanggalTiba(dateobj);
+                                    }
                                     jadwal.setTanggalJadwal(dateobj);
                                     jadwal.setWaktuBerangkat(listWaktu.get(j));
                                     jadwal.setWaktuTiba(waktuTiba);
@@ -182,7 +194,7 @@ public class JadwalPage {
     public void menuTampil() {
         AsciiTable at = new AsciiTable();
         at.addRule();
-        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "WAKTU TIBA", "KERETA", "STATUS");
+        AT_Row rowHeader = at.addRow("NO", "KODE JADWAL", "TANGGAL BERANGKAT", "WAKTU BERANGKAT", "KOTA ASAL", "KOTA TUJUAN", "WAKTU TIBA", "TANGGAL TIBA", "KERETA", "STATUS");
         rowHeader.setTextAlignment(TextAlignment.CENTER);
         at.addRule();
         List<Jadwal> listJadwal = jadwalManager.GetAll();
@@ -198,6 +210,7 @@ public class JadwalPage {
             }
             AT_Row row = at.addRow(i, jadwal.getKodeJadwal(),StringUtility.getFormattedDate(jadwal.getTanggalJadwal()), jadwal.getWaktuBerangkat().getWaktu(),
             jadwal.getKotaKeberangkatan().getNamaKota(), jadwal.getKotaTujuan().getNamaKota(),jadwal.getWaktuTiba(),
+            StringUtility.getFormattedDate(jadwal.getTanggalTiba()),
             jadwal.getKereta().getKodeKereta(), status);
             row.setTextAlignment(TextAlignment.CENTER);
             at.addRule();
@@ -206,7 +219,7 @@ public class JadwalPage {
         at.setPaddingLeft(1);
         at.setPaddingRight(1);
         CWC_LongestLine cwc = new CWC_LongestLine();
-        cwc.add(3, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(20, 0);
+        cwc.add(3, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(5, 0).add(15, 0).add(15, 0).add(20, 0);
         at.getRenderer().setCWC(cwc);
         System.out.println(at.render());
         

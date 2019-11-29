@@ -15,18 +15,17 @@ public class TimeUnitUtility {
   int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
   return String.format("%02d.%02d.%02d", hrs, min, sec);
  }
-
- public String convertToHHMM(long miliSeconds)
+ public int CheckExtraDay(long miliSeconds)
  {
   int days = (int) TimeUnit.MILLISECONDS.toDays(miliSeconds);
+  return days;
+ }
+ public String convertToHHMM(long miliSeconds)
+ {
   int hrs = (int) TimeUnit.MILLISECONDS.toHours(miliSeconds) % 24;
   int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
   int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
-  if (days>0) {
-    return String.format("+%02d %02d.%02d", days, hrs, min);
-  } else {
-    return String.format("%02d.%02d", hrs, min, sec);
-  }
+  return String.format("%02d.%02d", hrs, min, sec);
  }
 
  public String convToHHMM(long miliSeconds) {
